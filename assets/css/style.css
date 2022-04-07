@@ -1,0 +1,323 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: #fafafa;
+    color: #3e5569;
+}
+:root {
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #fff;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+}
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    background-color: #E7F3ED;
+}
+/*sidebar start*/
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    color: #ffffff;
+    transition: all 0.3s;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+}
+.proclinic-bg {
+    
+   
+    background: linear-gradient(to left,#3CB371, #008761 );
+}
+h1, h2, h3, h4, h5, h6, span, #sidebar {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 1px;
+}
+#sidebar .sidebar-header {
+    padding: 20px;
+}
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+a {
+  
+    background-color: transparent;
+
+}
+#sidebar ul.components>li {
+    position: relative;
+    margin: 2px 0;
+}
+#sidebar ul li.active>a, #sidebar a[aria-expanded="true"] {
+    color: #fff;
+    background: #555555;
+}
+#sidebar a[data-toggle="collapse"] {
+    position: relative;
+}
+#sidebar ul li a {
+    padding: 10px 10px 10px 25px;
+    font-size: 14px;
+    display: block;
+    letter-spacing: 1px;
+}
+#sidebar ul li a {
+    text-align: left;
+}
+#sidebar a[aria-expanded="false"]::before, #sidebar a[aria-expanded="true"]::before {
+    content: '\e64b';
+    display: block;
+    position: absolute;
+    right: 20px;
+    font-family: 'themify';
+    font-size: 0.6em;
+    top: 40%;
+}
+.ti-home:before {
+    content: "\e69b";
+}
+#sidebar ul li ul.list-unstyled a {
+    color: rgba(255,255,255,0.7);
+}
+#sidebar ul li a {
+    padding: 10px 10px 10px 25px;
+    font-size: 14px;
+    display: block;
+    letter-spacing: 1px;
+}
+
+#sidebar ul li a {
+    text-align: left;
+}
+ul ul a {
+    font-size: 0.9em;
+    padding-left: 30px !important;
+    background: #666666;
+}
+.nav-help {
+    padding: 25px;
+    background: rgba(0,0,0,.1);
+}
+.fadeIn {
+    animation-name: fadeIn;
+}
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+/*sidebar end*/
+#content {
+    margin-bottom: 20px;
+    transition: all 0.3s;
+    width: 100%;
+}
+/*top_navbar start*/
+
+.no-margin-padding {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding: 5px 20px;
+    background: #666666;
+}
+.no-margin-padding [class*="col-"], .no-mp [class*="col-"] {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+h3.block-title {
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+}
+
+.block-title {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1.75rem;
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.75;
+}
+#faq2 .block-header, .breadcrumb {
+    background: #3CB371;
+    background: -webkit-linear-gradient(to right, #008761, #3CB371);
+    background: linear-gradient(to right, #008761, #3CB371);
+}
+
+.breadcrumb {
+    border-radius: 0;
+    margin-bottom: 0;
+    padding: 0px;
+    float: right;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+.breadcrumb-item {
+    color: #fff;
+    font-size: 13px;
+}
+.breadcrumb-item.active {
+    color: #fff;
+    font-size: 13px;
+}
+/*top_navbar end*/
+/*home start*/
+div[class*="col-"] {
+    padding-right: 9px;
+    padding-left: 9px;
+}
+.widget-area {
+    background: #fff;
+    border-radius: 2px;
+}
+.widget-left {
+    width: 35%;
+    display: inline-block;
+    vertical-align: 22px;
+    font-size: 30px;
+    text-align: center;
+}
+.widget-left [class^="ti-"], .widget-left [class*=" ti-"] {
+    padding: 17px;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid;
+}
+.widget-right {
+    width: 62%;
+    display: inline-block;
+    padding: 20px 0;
+}
+h4.wiget-title {
+    font-size: 13px;
+    letter-spacing: .5px;
+}
+.widget-area .numeric {
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+.color-red {
+    color: #E57498;
+}
+.inc-dec {
+    font-size: 12px;
+}
+.inc-dec .ti-angle-up {
+    color: green;
+}
+.widget-area-2 {
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    padding-bottom: 2px;
+    border-radius: 2px;
+}
+.proclinic-box-shadow {
+    border-radius: 0;
+    border: 0;
+    -webkit-box-shadow: 0 0 0 1px #dce3ec, 0 8px 16px 0 #dce3ec;
+    box-shadow: 0 0 0 1px #dce3ec, 0 8px 16px 0 #dce3ec;
+    background: #fff;
+    margin-top: 20px;
+}
+.home .widget-title {
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.widget-title {
+    color: #3CB371;
+}
+.chart-home {
+    height: 255px;
+    margin-bottom: 10px;
+}
+/*home end*/
+
+/*add_patient start*/
+.widget-title {
+    font-size: 22px;
+    padding-bottom: .5rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+form .form-group label {
+    font-weight: bold;
+    font-size: 14px;
+}
+input.form-control {
+    padding: .5rem .75rem;
+}
+.form-control {
+    border-color: #E7F3ED;
+}
+/*add_patient end*/
+/*patients_list start*/
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+}
+div.dataTables_wrapper div.dataTables_filter label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+div.dataTables_wrapper div.dataTables_filter input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_length label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+select.form-control:not([size]):not([multiple]) {
+    height: 2.6rem;
+}
+div.dataTables_wrapper div.dataTables_length select {
+    width: auto;
+    display: inline-block;
+}
+div.dataTables_wrapper div.dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right;
+}
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+    justify-content: flex-end;
+}
+.sidebar-header img{
+    height: 100px;
+}
+/*patients_list end*/

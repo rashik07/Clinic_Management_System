@@ -1,0 +1,9 @@
+@media (min-width: 992px){
+.responsive-logo a {
+    display: none;
+}
+.row {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+}
