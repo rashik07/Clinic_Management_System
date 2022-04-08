@@ -64,7 +64,20 @@ require_once('check_if_outdoor_manager.php');
                     $getJson->execute();
                     $result_content_indoor_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                   
+                    $get_content = "select *, DATE(patient_creation_time) as patient_creation_time from patient 
+                    left join pathology_investigation pi on patient.patient_id = pi.pathology_investigation_patient_id
+                    where patient_id='$patient_id'";
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_pathology = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                    $get_content = "select SUM(pathology_investigation_total_bill_after_discount) as total_bill,SUM(pathology_investigation_total_due) as total_due  from patient 
+                    left join pathology_investigation pi on patient.patient_id = pi.pathology_investigation_patient_id
+                    where patient_id='$patient_id'";
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_pathology_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
 
                     $get_content = "select *, DATE(pharmacy_sell_creation_time) as pharmacy_sell_creation_time from patient 
                     left join pharmacy_sell ps on patient.patient_id = ps.pharmacy_sell_patient_id
@@ -79,6 +92,22 @@ require_once('check_if_outdoor_manager.php');
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_pharmacy_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                    $get_content = "select *, DATE(ot_treatment_creation_time) as ot_treatment_creation_time from patient 
+                    left join ot_treatment ot on patient.patient_id = ot.ot_treatment_patient_id
+                    where patient_id='$patient_id'";
+
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_ot = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                    $get_content = "select SUM(ot.ot_treatment_total_bill_after_discount) as total_bill, SUM(ot.ot_treatment_total_due) as total_due from patient 
+                    left join ot_treatment ot on patient.patient_id = ot.ot_treatment_patient_id
+                    where patient_id='$patient_id'";
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_ot_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
                     ?>
                     <div class="col-md-6">
                         <div class="widget-area-2 proclinic-box-shadow">
@@ -147,6 +176,26 @@ require_once('check_if_outdoor_manager.php');
                                             <td><?php echo $result_content_indoor_billing[0]['total_due']; ?></td>
 
                                         </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Pathology</td>
+                                            <td><?php echo $result_content_pathology_billing[0]['total_bill']; ?></td>
+                                            <td><?php echo $result_content_pathology_billing[0]['total_due']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>O.T</td>
+                                            <td><?php echo $result_content_ot_billing[0]['total_bill']; ?></td>
+                                            <td><?php echo $result_content_ot_billing[0]['total_due']; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Pharmacy</td>
+                                            <td><?php echo $result_content_pharmacy_billing[0]['total_bill']; ?></td>
+                                            <td><?php echo $result_content_pharmacy_billing[0]['total_due']; ?></td>
+
+                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -265,7 +314,7 @@ require_once('check_if_outdoor_manager.php');
                                             echo '<td>' . $data['indoor_treatment_total_bill_after_discount'] . '</td>';
                                             echo '<td>' . $data['indoor_treatment_total_paid'] . '</td>';
                                             echo '<td>' . $data['indoor_treatment_total_due'] . '</td>';
-                                            echo '<td><a href="edit_indoor_treatmentQ.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-settings" style="font-size:24px"></i></a><a href="indoor_invoice.php?treatment_id=' . $treatment_id . '" target="_blank"><i class="ti ti-files" style="font-size:24px; margin-left:10px"></i></a></td>';
+                                            echo '<td><a href="edit_indoor_treatment.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                             $count = $count + 1;
                                             echo '</tr>';
                                         }
@@ -279,6 +328,272 @@ require_once('check_if_outdoor_manager.php');
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <h3 class="widget-title">Patient Pathology History</h3>
+                            <div class="table-responsive">
+                                <table id="datatable4" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Test Names</th>
+                                            <th>Date</th>
+                                            <th>Total Bill</th>
+                                            <th>Paid</th>
+                                            <th>Due</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        $body = '';
+                                        $count = 1;
+                                        foreach ($result_content_pathology as $data) {
+                                            echo '<tr>';
+                                            echo '<td>' . $count . '</td>';
+                                            $investigation_id = $data['pathology_investigation_id'];
+
+                                            $get_content = "select * from pathology_investigation 
+                                    left join pathology_investigation_test pit on pathology_investigation.pathology_investigation_id = pit.pathology_investigation_test_investigation_id
+                                    left join pathology_test pt on pt.pathology_test_id = pit.pathology_investigation_test_pathology_test_id
+                                    where pathology_investigation_id = '$investigation_id'";
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $result_content_tests = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                            $test_list = array();
+
+                                            foreach ($result_content_tests as $services) {
+                                                array_push($test_list, $services['pathology_test_name']);
+                                            }
+                                            $test_names = implode(', ', $test_list);
+
+                                            echo '<td>' . $test_names . '</td>';
+                                            echo '<td>' . $data['pathology_investigation_date'] . '</td>';
+                                            echo '<td>' . $data['pathology_investigation_total_bill_after_discount'] . '</td>';
+                                            echo '<td>' . $data['pathology_investigation_total_paid'] . '</td>';
+                                            echo '<td>' . $data['pathology_investigation_total_due'] . '</td>';
+                                            echo '<td><a href="edit_pathology_investigation.php?pathology_investigation_id=' . $data['pathology_investigation_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                            $count = $count + 1;
+                                        }
+                                        ?>
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <h3 class="widget-title">Patient Pharmacy History</h3>
+                            <div class="table-responsive">
+                                <table id="datatable5" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Medicine</th>
+                                            <th>Total Bill</th>
+                                            <th>Discount%</th>
+                                            <th>After Discount</th>
+                                            <th>Paid</th>
+                                            <th>Due</th>
+                                            <th>Purchase Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        $body = '';
+                                        $count = 1;
+                                        foreach ($result_content_pharmacy as $data) {
+                                            echo '<tr>';
+                                            echo '<td>' . $count . '</td>';
+                                            $pharmacy_sell_id = $data['pharmacy_sell_id'];
+
+                                            $get_content = "select * from pharmacy_sell 
+                                    left join pharmacy_sell_medicine psm on pharmacy_sell.pharmacy_sell_id = psm.pharmacy_sell_medicine_sell_id 
+                                    left join pharmacy_medicine pm on pm.pharmacy_medicine_id = psm.pharmacy_sell_medicine_medicine_id 
+                                    left join medicine m on pm.pharmacy_medicine_id=m.medicine_id 
+                                    where pharmacy_sell_id = '$pharmacy_sell_id'";
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $result_content_pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                            $medicine_list = array();
+
+                                            foreach ($result_content_pharmacy_sells as $services) {
+                                                array_push($medicine_list, $services['medicine_name']);
+                                            }
+                                            $medicine_names = implode(', ', $medicine_list);
+
+                                            echo '<td>' . $medicine_names . '</td>';
+                                            echo '<td>' . $data['pharmacy_sell_sub_total'] . '</td>';
+                                            echo '<td>' . $data['pharmacy_sell_discount'] . '</td>';
+                                            echo '<td>' . $data['pharmacy_sell_grand_total'] . '</td>';
+                                            echo '<td>' . $data['pharmacy_sell_paid_amount'] . '</td>';
+                                            echo '<td>' . $data['pharmacy_sell_due_amount'] . '</td>';
+                                            echo '<td>' . $data['pharmacy_sell_creation_time'] . '</td>';
+                                            echo '<td><a href="edit_medicine_sell.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+
+                                            $count = $count + 1;
+                                            echo '</tr>';
+                                        }
+                                        ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <h3 class="widget-title">Patient OT History</h3>
+                            <div class="table-responsive">
+                                <table id="datatable6" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>OT Note</th>
+                                            <th>Total Bill</th>
+                                            <th>Discount%</th>
+                                            <th>After Discount</th>
+                                            <th>Paid</th>
+                                            <th>Due</th>
+                                            <th>OT Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        $body = '';
+                                        $count = 1;
+                                        foreach ($result_content_ot as $data) {
+                                            echo '<tr>';
+                                            echo '<td>' . $count . '</td>';
+
+                                            echo '<td>' . $data['ot_treatment_note'] . '</td>';
+                                            echo '<td>' . $data['ot_treatment_total_bill'] . '</td>';
+                                            echo '<td>' . $data['ot_treatment_discount_pc'] . '</td>';
+                                            echo '<td>' . $data['ot_treatment_total_bill_after_discount'] . '</td>';
+                                            echo '<td>' . $data['ot_treatment_total_paid'] . '</td>';
+                                            echo '<td>' . $data['ot_treatment_total_due'] . '</td>';
+                                            echo '<td>' . $data['ot_treatment_creation_time'] . '</td>';
+                                            echo '<td><a href="edit_ot_treatment.php?ot_treatment_id=' . $data['ot_treatment_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+
+                                            $count = $count + 1;
+                                            echo '</tr>';
+                                        }
+                                        ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- /Widget Item -->
+                    <!-- Widget Item -->
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <h3 class="widget-title">Patient Payment Transactions</h3>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Cost</th>
+                                            <th>Discount</th>
+                                            <th>Payment Type</th>
+                                            <th>Invoive</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>12-03-2018</td>
+                                            <td>$300</td>
+                                            <td>15%</td>
+                                            <td>Check</td>
+                                            <td><button type="button" class="btn btn-outline-info mb-0"><span class="ti-arrow-down"></span> Invoice</button></td>
+                                            <td><span class="badge badge-warning">Pending</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>12-03-2018</td>
+                                            <td>$130</td>
+                                            <td>5%</td>
+                                            <td>Credit Card</td>
+                                            <td><button type="button" class="btn btn-outline-info mb-0"><span class="ti-arrow-down"></span> Invoice</button></td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>12-03-2018</td>
+                                            <td>$30</td>
+                                            <td>5%</td>
+                                            <td>Credit Card</td>
+                                            <td><button type="button" class="btn btn-outline-info mb-0"><span class="ti-arrow-down"></span> Invoice</button></td>
+                                            <td><span class="badge badge-danger">Cancelled</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>12-03-2018</td>
+                                            <td>$30</td>
+                                            <td>5%</td>
+                                            <td>Cash</td>
+                                            <td><button type="button" class="btn btn-outline-info mb-0"><span class="ti-arrow-down"></span> Invoice</button></td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>12-03-2018</td>
+                                            <td>$30</td>
+                                            <td>5%</td>
+                                            <td>Credit Card</td>
+                                            <td><button type="button" class="btn btn-outline-info mb-0"><span class="ti-arrow-down"></span> Invoice</button></td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>12-03-2018</td>
+                                            <td>$30</td>
+                                            <td>5%</td>
+                                            <td>Insurance</td>
+                                            <td><button type="button" class="btn btn-outline-info mb-0"><span class="ti-arrow-down"></span> Invoice</button></td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>12-03-2018</td>
+                                            <td>$30</td>
+                                            <td>5%</td>
+                                            <td>Credit Card</td>
+                                            <td><button type="button" class="btn btn-outline-info mb-0"><span class="ti-arrow-down"></span> Invoice</button></td>
+                                            <td><span class="badge badge-success">Completed</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!--Export links-->
+                                <nav aria-label="Page navigation example">
+                                    <ul class="pagination justify-content-center export-pagination">
+                                        <li class="page-item">
+                                            <a class="page-link" href="#"><span class="ti-download"></span> csv</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#"><span class="ti-printer"></span> print</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#"><span class="ti-file"></span> PDF</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                <!-- /Export links-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Widget Item -->
                 </div>
             </div>
             <div>

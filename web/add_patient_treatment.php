@@ -39,12 +39,6 @@ require_once('check_if_outdoor_manager.php');
     $getJson->execute();
     $result_content_outdoor_service = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-    $get_content = "select * from doctor";
-    //echo $get_content;
-    $getJson = $conn->prepare($get_content);
-    $getJson->execute();
-    $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
-
     ?>
     <div class="col-md-12">
         <div class="widget-area-2 proclinic-box-shadow">
@@ -66,19 +60,6 @@ require_once('check_if_outdoor_manager.php');
                     <div class="form-group col-md-6">
                         <label for="outdoor_patient_name">Patient Name</label>
                         <input type="text" placeholder="Patient Name" class="form-control" id="outdoor_patient_name" name="outdoor_patient_name" required readonly>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="outdoor_treatment_doctor_id">Doctor</label>
-                        <select id="outdoor_treatment_doctor_id" class="form-control outdoor_treatment_doctor_id" name="outdoor_treatment_doctor_id" required>
-                            <option value="">Select a Doctor...</option>
-                            <?php
-                                foreach($result_content_doctor as $data)
-                                {
-                                    echo '<option value="'.$data['doctor_id'].'">'.$data['doctor_name'].'</option>';
-                                }
-                            ?>
-
-                        </select>
                     </div>
 
                     <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

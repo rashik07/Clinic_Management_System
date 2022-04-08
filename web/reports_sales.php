@@ -30,7 +30,7 @@
     $getJson->execute();
     $result_content_outdoor_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
     foreach ($result_content_outdoor_treatment as $key => $value) {
-        $total_bill += $value['outdoor_treatment_total_bill_after_discount'];
+        $total_bill += $value['outdoor_treatment_total_bill'];
         $total_paid += $value['outdoor_treatment_total_paid'];
         $total_due += $value['outdoor_treatment_total_due'];
     }
@@ -44,50 +44,50 @@
     $getJson->execute();
     $result_content_indoor_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
     foreach ($result_content_indoor_treatment as $key => $value) {
-        $total_bill += $value['indoor_treatment_total_bill_after_discount'];
+        $total_bill += $value['indoor_treatment_total_bill'];
         $total_paid += $value['indoor_treatment_total_paid'];
         $total_due += $value['indoor_treatment_total_due'];
     }
 
-    // $get_content = "select *,DATE(pathology_investigation_creation_time) as pathology_investigation_creation_time from pathology_investigation
-    // left join patient on pathology_investigation_patient_id = patient.patient_id
-    // where pathology_investigation_creation_time >= DATE_ADD(CURDATE(), INTERVAL $time DAY)
-    // order by pathology_investigation_creation_time desc";
-    // $getJson = $conn->prepare($get_content);
-    // $getJson->execute();
-    // $result_content_pathology_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
-    // foreach ($result_content_pathology_treatment as $key => $value) {
-    //     $total_bill += $value['pathology_investigation_total_bill'];
-    //     $total_paid += $value['pathology_investigation_total_paid'];
-    //     $total_due += $value['pathology_investigation_total_due'];
-    // }
+    $get_content = "select *,DATE(pathology_investigation_creation_time) as pathology_investigation_creation_time from pathology_investigation
+    left join patient on pathology_investigation_patient_id = patient.patient_id
+    where pathology_investigation_creation_time >= DATE_ADD(CURDATE(), INTERVAL $time DAY)
+    order by pathology_investigation_creation_time desc";
+    $getJson = $conn->prepare($get_content);
+    $getJson->execute();
+    $result_content_pathology_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($result_content_pathology_treatment as $key => $value) {
+        $total_bill += $value['pathology_investigation_total_bill'];
+        $total_paid += $value['pathology_investigation_total_paid'];
+        $total_due += $value['pathology_investigation_total_due'];
+    }
 
-    // $get_content = "select *,DATE(pharmacy_sell_creation_time) as pharmacy_sell_creation_time from pharmacy_sell
-    // left join patient on pharmacy_sell_patient_id = patient.patient_id
-    // where pharmacy_sell_creation_time >= DATE_ADD(CURDATE(), INTERVAL $time DAY)
-    // order by pharmacy_sell_creation_time desc";
-    // $getJson = $conn->prepare($get_content);
-    // $getJson->execute();
-    // $result_content_pharmacy_bill = $getJson->fetchAll(PDO::FETCH_ASSOC);
-    // foreach ($result_content_pharmacy_bill as $key => $value) {
-    //     $total_bill += $value['pharmacy_sell_total_bill'];
-    //     $total_paid += $value['pharmacy_sell_total_paid'];
-    //     $total_due += $value['pharmacy_sell_total_due'];
-    // }
+    $get_content = "select *,DATE(pharmacy_sell_creation_time) as pharmacy_sell_creation_time from pharmacy_sell
+    left join patient on pharmacy_sell_patient_id = patient.patient_id
+    where pharmacy_sell_creation_time >= DATE_ADD(CURDATE(), INTERVAL $time DAY)
+    order by pharmacy_sell_creation_time desc";
+    $getJson = $conn->prepare($get_content);
+    $getJson->execute();
+    $result_content_pharmacy_bill = $getJson->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($result_content_pharmacy_bill as $key => $value) {
+        $total_bill += $value['pharmacy_sell_total_bill'];
+        $total_paid += $value['pharmacy_sell_total_paid'];
+        $total_due += $value['pharmacy_sell_total_due'];
+    }
 
-    // $get_content = "select *,DATE(ot_treatment_creation_time) as ot_treatment_creation_time from ot_treatment
-    // left join patient on ot_treatment_patient_id = patient.patient_id
-    // where ot_treatment_creation_time >= DATE_ADD(CURDATE(), INTERVAL $time DAY)
-    // order by ot_treatment_creation_time desc";
+    $get_content = "select *,DATE(ot_treatment_creation_time) as ot_treatment_creation_time from ot_treatment
+    left join patient on ot_treatment_patient_id = patient.patient_id
+    where ot_treatment_creation_time >= DATE_ADD(CURDATE(), INTERVAL $time DAY)
+    order by ot_treatment_creation_time desc";
     
-    // $getJson = $conn->prepare($get_content);
-    // $getJson->execute();
-    // $result_content_ot_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
-    // foreach ($result_content_ot_treatment as $key => $value) {
-    //     $total_bill += $value['ot_treatment_total_bill'];
-    //     $total_paid += $value['ot_treatment_total_paid'];
-    //     $total_due += $value['ot_treatment_total_due'];
-    // }            
+    $getJson = $conn->prepare($get_content);
+    $getJson->execute();
+    $result_content_ot_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($result_content_ot_treatment as $key => $value) {
+        $total_bill += $value['ot_treatment_total_bill'];
+        $total_paid += $value['ot_treatment_total_paid'];
+        $total_due += $value['ot_treatment_total_due'];
+    }            
 ?>
 <div class="row">
     <!-- Widget Item -->
@@ -221,7 +221,7 @@
     </div>
     <!-- Row End -->
     <!-- Row Start -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="widget-area-2 proclinic-box-shadow">
                 <h3 class="widget-title">Pathology Sales Report</h3>
@@ -262,10 +262,10 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Row End -->
     <!-- Row Start -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="widget-area-2 proclinic-box-shadow">
                 <h3 class="widget-title">Pharmacy Sales Report</h3>
@@ -306,10 +306,10 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Row End -->
     <!-- Row Start -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-md-12">
             <div class="widget-area-2 proclinic-box-shadow">
                 <h3 class="widget-title">OT Sales Report</h3>
@@ -352,7 +352,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Row End -->
 <script>
     $('#datatable_outdoor').dataTable({

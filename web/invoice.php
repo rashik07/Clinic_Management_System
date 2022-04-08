@@ -75,14 +75,6 @@
                                         $invoice_no = "OPT-001";
                                         $patient_id  = $_POST['outdoor_patient_id'];
                                         $treatment_id  = $_POST['outdoor_treatment_id'];
-                                        
-                                        $get_content_treatment = "select * from outdoor_treatment as opt
-                                        LEFT JOIN doctor as dt ON opt.outdoor_treatment_doctor_id=dt.doctor_id
-                                        where outdoor_treatment_id = '$treatment_id'";
-                                        $getJson = $conn->prepare($get_content_treatment);
-                                        $getJson->execute();
-                                        $result_content_outdoor_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
-
                                         $invoice_no = $invoice_no . $patient_id . $treatment_id;
                                         $outdoor_treatment_total_bill  = if_empty($_POST['outdoor_treatment_total_bill']);
                                         $outdoor_treatment_discount_pc   = if_empty($_POST['outdoor_treatment_discount_pc']);
@@ -215,12 +207,9 @@
                                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                                             <hr class="d-sm-none" />
                                             <div class="text-grey-m2">
+                                                
                                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j,Y");?></div>
-                                                <?php 
-                                                    if($_POST['content'] == 'patient_treatment'){
-                                                        echo '<div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Doctor:</span> '.$result_content_outdoor_treatment[0]['doctor_name'].'</div>';
-                                                    }
-                                                ?>
+
                                             </div>
                                         </div>
                                         <!-- /.col -->

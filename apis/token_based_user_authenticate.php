@@ -24,7 +24,7 @@ class Authentication
         $status = "status";
         $message = "message";
         $Email   = if_empty($_POST['email']);
-        // $phone   = if_empty($_POST['user_PhoneNo']);
+        // $phone   = if_empty($_POST['phone']);
         $Password   = $_POST['password'];
         $token = "token";
 

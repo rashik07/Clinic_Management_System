@@ -1,0 +1,1 @@
+SELECT * FROM indoor_bed_category WHERE indoor_bed_category_name LIKE '%Ward%';

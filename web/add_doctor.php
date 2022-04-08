@@ -36,7 +36,7 @@ require_once('check_if_indoor_manager.php');
                                         <input type="file" class="dropify" name="photo_url" data-default-file="../assets/images/doctor.png" required>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="file" class="dropify" name="document_url">
+                                        <input type="file" class="dropify" name="document_url" required>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="patient-name">Doctor Name<i class="text-danger"> * </i></label>
