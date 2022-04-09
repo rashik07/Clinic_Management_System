@@ -29,27 +29,6 @@ if (!isset($_SESSION)) {
             </li>
 
             <li>
-                <a href="#nav-patient-treatment" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-wheelchair"></span> Patient Treatment (Outdoor)
-                </a>
-                <ul class="list-unstyled collapse" id="nav-patient-treatment">
-                    <li>
-                        <a href="add_service.php">Add Service</a>
-                    </li>
-                    <li>
-                        <a href="service_list.php">All Service</a>
-                    </li>
-                    <li>
-                        <a href="add_patient_treatment.php">Patient Treatment</a>
-                    </li>
-                    <li>
-                        <a href="patient_treatment_list.php">All Patient Treatments</a>
-                    </li>
-                </ul>
-            </li>
-        <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
-            <li>
                 <a href="#nav-doctors" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-user"></span> Doctors
                 </a>
@@ -62,9 +41,47 @@ if (!isset($_SESSION)) {
                     </li>
                 </ul>
             </li>
+
+            <li>
+                <a href="#nav-services" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-wheelchair"></span> Services
+                </a>
+                <ul class="list-unstyled collapse" id="nav-services">
+                    <li>
+                        <a href="add_service.php">Add Service</a>
+                    </li>
+                    <li>
+                        <a href="service_list.php">All Service</a>
+                    </li>
+                    <li>
+                        <a href="add_patient_treatment.php">Patient Treatment</a>
+                    </li>
+                    <li>
+                        <a href="patient_treatment_list.php">All Patient Treatments</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a href="#nav-patient-treatment" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-wheelchair"></span> Admission
+                </a>
+                <ul class="list-unstyled collapse" id="nav-patient-treatment">
+
+                    <li>
+                        <a href="add_indoor_treatment.php">Indoor Allotment</a>
+                    </li>
+                    <li>
+                        <a href="indoor_treatment_list.php">All Allotments</a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
+
             <li>
                 <a href="#nav-bed" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-home"></span> Bed Management (Indoor)
+                    <span class="ti-home"></span> Bed Management
                 </a>
                 <ul class="list-unstyled collapse" id="nav-bed">
                     <li>
@@ -79,12 +96,7 @@ if (!isset($_SESSION)) {
                     <li>
                         <a href="indoor_bed_list.php">All Bed</a>
                     </li>
-                    <li>
-                        <a href="add_indoor_treatment.php">Indoor Allotment</a>
-                    </li>
-                    <li>
-                        <a href="indoor_treatment_list.php">All Allotments</a>
-                    </li>
+
                 </ul>
             </li>
         <?php } ?>
