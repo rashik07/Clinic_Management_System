@@ -201,7 +201,9 @@
                                             </div>
                                             <div>
                                                 <span class="text-sm text-grey-m2 align-middle">Consultant:</span>
-                                                <span class="text-600 text-110 text-blue align-middle"><?php echo $result_content_outdoor_treatment[0]['doctor_name']; ?></span>
+                                                <span class="text-600 text-110 text-blue align-middle"><?php echo $result_content_outdoor_treatment[0]['doctor_name'];
+                                                // echo $result_content_outdoor_treatment;
+                                                 ?></span>
                                             </div>
                                         
                                         </div>
