@@ -23,9 +23,9 @@ class CreateMedicine{
         $medicine_description   = if_empty($_POST['medicine_description']);
         $medicine_purchase_price  = if_empty($_POST['medicine_purchase_price']);
         $medicine_selling_price   = if_empty($_POST['medicine_selling_price']);
-        // $medicine_category = $_POST['medicine_category'];
+        $medicine_category = $_POST['medicine_category'];
         $medicine_unit   = $_POST['medicine_unit'];
-        // $medicine_type   = $_POST['medicine_type'];
+        $medicine_type   = $_POST['medicine_type'];
         $medicine_leaf   = $_POST['medicine_leaf'];
         $medicine_manufacturer   = $_POST['medicine_manufacturer'];
 
@@ -40,12 +40,12 @@ class CreateMedicine{
             try {
                 $post_content = "INSERT INTO medicine (medicine_user_added_id, medicine_name, medicine_generic_name,
                                    medicine_description,medicine_purchase_price,medicine_selling_price,
-                                   medicine_unit,medicine_leaf,
+                                   medicine_category,medicine_unit,medicine_type,medicine_leaf,
                                    medicine_manufacturer, medicine_status) 
                     VALUES ('$request_user_id','$medicine_name','$medicine_generic_name', '$medicine_description',
-                            '$medicine_purchase_price','$medicine_selling_price',
-                            '$medicine_unit', '$medicine_leaf',
-                            '$medicine_manufacturer' , '$medicine_status')";
+                            '$medicine_purchase_price','$medicine_selling_price','$medicine_category',
+                            '$medicine_unit','$medicine_type',
+                            '$medicine_leaf','$medicine_manufacturer' , '$medicine_status')";
                 //echo $post_content;
                 $result = $conn->exec($post_content);
                 $last_id = $conn->lastInsertId();

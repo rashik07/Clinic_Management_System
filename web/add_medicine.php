@@ -140,6 +140,41 @@ require_once('check_if_pharmacy_manager.php');
                                                    id="medicine_description" placeholder="Medicine Details" value="">
                                         </div>
                                     </div>
+                                    <label for="medicine_category" class="col-md-2 text-right col-form-label">Category<i
+                                                class="text-danger"> * </i>:</label>
+                                    <div class="col-md-4">
+                                        <div class="">
+                                            <select name="medicine_category" id="medicine_category"
+                                                    class="form-control select2 select2-hidden-accessible" required>
+                                                <option value="">Select Category</option>
+                                                <?php
+                                                foreach($result_content_medicine_category as $data)
+                                                {
+                                                    echo '<option value="'.$data['medicine_category_id'].'">'.$data['medicine_category_name'].'</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="medicine_type" class="col-md-2 text-right col-form-label">Medicine
+                                        Type<i class="text-danger"> * </i>:</label>
+                                    <div class="col-md-4">
+                                        <div class="">
+                                            <select name="medicine_type"
+                                                    class="form-control select2 select2-hidden-accessible" required>
+                                                <option value="">Select Type</option>
+                                                <?php
+                                                foreach($result_content_medicine_type as $data)
+                                                {
+                                                    echo '<option value="'.$data['medicine_type_id'].'">'.$data['medicine_type_name'].'</option>';
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <label for="medicine_manufacturer" class="col-md-2 text-right col-form-label">Manufacturer
                                         <i class="text-danger"> * </i>:</label>
                                     <div class="col-md-4">
@@ -156,43 +191,6 @@ require_once('check_if_pharmacy_manager.php');
                                             </select>
                                         </div>
                                     </div>
-                                    
-                                </div>
-
-                                <div class="form-group row">
-                                    <!-- <label for="medicine_category" class="col-md-2 text-right col-form-label">Category<i
-                                                class="text-danger"> * </i>:</label>
-                                    <div class="col-md-4">
-                                        <div class="">
-                                            <select name="medicine_category" id="medicine_category"
-                                                    class="form-control select2 select2-hidden-accessible" required>
-                                                <option value="">Select Category</option>
-                                                <?php
-                                                foreach($result_content_medicine_category as $data)
-                                                {
-                                                    echo '<option value="'.$data['medicine_category_id'].'">'.$data['medicine_category_name'].'</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                                    <!-- <label for="medicine_type" class="col-md-2 text-right col-form-label">Medicine
-                                        Type<i class="text-danger"> * </i>:</label>
-                                    <div class="col-md-4">
-                                        <div class="">
-                                            <select name="medicine_type"
-                                                    class="form-control select2 select2-hidden-accessible" required>
-                                                <option value="">Select Type</option>
-                                                <?php
-                                                foreach($result_content_medicine_type as $data)
-                                                {
-                                                    echo '<option value="'.$data['medicine_type_id'].'">'.$data['medicine_type_name'].'</option>';
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div> -->
-                                   
 
 
                                 </div>

@@ -88,7 +88,7 @@ require_once('check_if_indoor_manager.php');
                                     echo '<td>'.$data['indoor_treatment_total_bill_after_discount'].'</td>';
                                     echo '<td>'.$data['indoor_treatment_total_paid'].'</td>';
                                     echo '<td>'.$data['indoor_treatment_total_due'].'</td>';
-                                    echo '<td><a href="edit_indoor_treatmentQ.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-settings" style="font-size:24px"></i></a><a href="indoor_invoice.php?treatment_id=' . $treatment_id . '" target="_blank"><i class="ti ti-files" style="font-size:24px; margin-left:10px"></i></a></td>';
+                                    echo '<td><a href="edit_indoor_treatment.php?indoor_treatment_id='.$treatment_id.'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                     $count = $count+1;
                                 }
                                 ?>

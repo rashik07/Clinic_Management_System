@@ -50,18 +50,18 @@ INSERT INTO user (user_id, user_Full_Name, user_PhoneNo, username, user_Email, u
 VALUES (1, 'Abdullah Al Rifat', '01671080275', 'rifat', 'abdullahalrifat95@gmail.com', MD5('accessdenied'), 'active',
         now(),
         now(), 1),
-       (2, 'super_admin', '01000000000', 'super_admin', 'super_admin@gmail.com', MD5('0912'), 'active', now(), now(),
+       (2, 'super_admin', '01000000000', 'super_admin', 'super_admin@gmail.com', MD5('supAd@211'), 'active', now(), now(),
         1),
-       (3, 'admin', '01000000000', 'admin', 'admin@gmail.com', MD5('0912'), 'active', now(), now(), 2),
-       (4, 'outdoor_manager', '01000000000', 'outdoor_manager', 'outdoor_manager@gmail.com', MD5('0912'), 'active',
+       (3, 'admin', '01000000000', 'admin', 'admin@gmail.com', MD5('ad@322'), 'active', now(), now(), 2),
+       (4, 'outdoor_manager', '01000000000', 'outdoor_manager', 'outdoor_manager@gmail.com', MD5('outManager@433'), 'active',
         now(), now(), 3),
-       (5, 'indoor_manager', '01000000000', 'indoor_manager', 'indoor_manager@gmail.com', MD5('0912'), 'active', now(),
+       (5, 'indoor_manager', '01000000000', 'indoor_manager', 'indoor_manager@gmail.com', MD5('indManager@544'), 'active', now(),
         now(), 4),
-       (6, 'pathology_manager', '01000000000', 'pathology_manager', 'pathology_manager@gmail.com', MD5('0912'),
+       (6, 'pathology_manager', '01000000000', 'pathology_manager', 'pathology_manager@gmail.com', MD5('patManager@655'),
         'active', now(), now(), 5),
-       (7, 'pharmacy_manager', '01000000000', 'pharmacy_manager', 'pharmacy_manager@gmail.com', MD5('0912'), 'active',
+       (7, 'pharmacy_manager', '01000000000', 'pharmacy_manager', 'pharmacy_manager@gmail.com', MD5('parManager@766'), 'active',
         now(), now(), 6),
-       (8, 'ot_manager', '01000000000', 'ot_manager', 'ot_manager@gmail.com', MD5('0912'), 'active', now(), now(), 7)
+       (8, 'ot_manager', '01000000000', 'ot_manager', 'ot_manager@gmail.com', MD5('otManager@877'), 'active', now(), now(), 7)
 ;
 -- select user_Name,user_PhoneNo,user_Email,user_Password,user_type_Name,user_type_access_level from user NATURAL JOIN user_type
 
@@ -216,18 +216,6 @@ CREATE TABLE `indoor_bed_category`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO indoor_bed_category (indoor_bed_category_id,
-                                 indoor_bed_category_user_added_id,
-                                 indoor_bed_category_name,
-                                 indoor_bed_category_description,
-                                 indoor_bed_category_status,
-                                 indoor_bed_category_creation_time,
-                                 indoor_bed_category_modification_time)
-VALUES (1, 1, 'Ward-Male', 'General Male Ward', 'active', now(), now()),
-       (2, 1, 'Ward-Female', 'General Female Ward', 'active', now(), now()),
-       (3, 1, 'Cabin-AC', 'AC Cabin', 'active', now(), now()),
-       (4, 1, 'Cabin-Non AC', 'Non AC Cabin', 'active', now(), now())
-;
 CREATE TABLE `indoor_bed`
 (
     `indoor_bed_id`                int(11)      NOT NULL AUTO_INCREMENT,
@@ -245,21 +233,6 @@ CREATE TABLE `indoor_bed`
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
-
-INSERT INTO indoor_bed (indoor_bed_id,
-                        indoor_bed_user_added_id,
-                        indoor_bed_category_id,
-                        indoor_bed_name,
-                        indoor_bed_room_no,
-                        indoor_bed_price,
-                        indoor_bed_status,
-                        indoor_bed_creation_time,
-                        indoor_bed_modification_time)
-VALUES (1, 1, 1, '101', '1100', '1000', 'available', now(), now()),
-       (2, 1, 2, '201', '2100', '1500', 'available', now(), now()),
-       (3, 1, 3, '301', '3100', '2500', 'available', now(), now()),
-       (4, 1, 4, '401', '4100', '2000', 'available', now(), now())
-;
 
 CREATE TABLE `indoor_treatment`
 (

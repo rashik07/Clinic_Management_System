@@ -29,9 +29,9 @@ class UpdateMedicine{
 
         $medicine_exp_date   = if_empty($_POST['medicine_exp_date']);
 
-        // $medicine_category   = $_POST['medicine_category'];
+        $medicine_category   = $_POST['medicine_category'];
         $medicine_unit   = $_POST['medicine_unit'];
-        // $medicine_type   = $_POST['medicine_type'];
+        $medicine_type   = $_POST['medicine_type'];
         $medicine_leaf   = $_POST['medicine_leaf'];
         $medicine_manufacturer   = $_POST['medicine_manufacturer'];
 
@@ -48,7 +48,8 @@ class UpdateMedicine{
                 $post_content = "UPDATE medicine SET medicine_name = '$medicine_name',
                     medicine_generic_name = '$medicine_generic_name', medicine_description='$medicine_description',
                     medicine_purchase_price = '$medicine_purchase_price', medicine_selling_price = '$medicine_selling_price',
-                    medicine_unit = '$medicine_unit', medicine_leaf = '$medicine_leaf',
+                    medicine_category = '$medicine_category', medicine_unit = '$medicine_unit',
+                    medicine_type = '$medicine_type', medicine_leaf = '$medicine_leaf',
                     medicine_manufacturer = '$medicine_manufacturer', medicine_status = '$medicine_status'
                     where medicine_id='$medicine_id'";
 

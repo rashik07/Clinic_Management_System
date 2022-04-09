@@ -16,17 +16,10 @@ class Connection
         // pass = hms@icthub
         // db   = mtcclini_hms
 
-        // $host       = "localhost";
-        // $username   = "mtcclini_hms";
-        // $password   = "hms@icthub";
-
         $host       = "localhost";
         $username   = "root";
         $password   = "";
-
-
-        $dbname     = "mtcclini_hms";
-
+        $dbname     = "hms";
         try {
             $conn    = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

@@ -18,7 +18,6 @@ class CreatePatientOutdoorTreatment{
         $request_user_id   = $_POST['request_user_id'];
         $token  = $_POST['token'];
         $outdoor_patient_id  = $_POST['outdoor_patient_id'];
-        $outdoor_treatment_doctor_id  = $_POST['outdoor_treatment_doctor_id'];
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
@@ -29,9 +28,9 @@ class CreatePatientOutdoorTreatment{
             try {
 
                 $outdoor_treatment_total_bill  = if_empty($_POST['outdoor_treatment_total_bill']);
-                $outdoor_treatment_discount_pc   = if_empty0($_POST['outdoor_treatment_discount_pc']);
+                $outdoor_treatment_discount_pc   = if_empty($_POST['outdoor_treatment_discount_pc']);
                 $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
-                $outdoor_treatment_total_paid  = if_empty0($_POST['outdoor_treatment_total_paid']);
+                $outdoor_treatment_total_paid  = if_empty($_POST['outdoor_treatment_total_paid']);
                 $outdoor_treatment_total_due  = if_empty($_POST['outdoor_treatment_total_due']);
                 $outdoor_treatment_payment_type   = if_empty($_POST['outdoor_treatment_payment_type']);
                 $outdoor_treatment_payment_type_no  = if_empty($_POST['outdoor_treatment_payment_type_no']);
@@ -46,11 +45,11 @@ class CreatePatientOutdoorTreatment{
                 $post_content = "INSERT INTO outdoor_treatment (outdoor_treatment_user_added_id, outdoor_treatment_patient_id,
                              outdoor_treatment_total_bill, outdoor_treatment_total_bill_after_discount, outdoor_treatment_discount_pc, 
                              outdoor_treatment_total_paid, outdoor_treatment_total_due,outdoor_treatment_payment_type,
-                               outdoor_treatment_payment_type_no, outdoor_treatment_note, outdoor_treatment_doctor_id) 
+                               outdoor_treatment_payment_type_no, outdoor_treatment_note) 
                     VALUES ('$request_user_id','$outdoor_patient_id', '$outdoor_treatment_total_bill',
                             '$outdoor_treatment_total_bill_after_discount', '$outdoor_treatment_discount_pc',
                             '$outdoor_treatment_total_paid', '$outdoor_treatment_total_due', '$outdoor_treatment_payment_type',
-                            '$outdoor_treatment_payment_type_no','$outdoor_treatment_note', '$outdoor_treatment_doctor_id')";
+                            '$outdoor_treatment_payment_type_no','$outdoor_treatment_note')";
                 //echo $post_content;
                 $result = $conn->exec($post_content);
                 $outdoor_treatment_id = $conn->lastInsertId();

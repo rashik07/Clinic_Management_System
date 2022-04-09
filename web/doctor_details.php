@@ -54,7 +54,7 @@ require_once('check_if_indoor_manager.php');
                         </div>
                     </div>
                 </div>
-                 <div class="col-md-8">
+                <div class="col-md-8">
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped">
                             <tbody>
@@ -101,7 +101,7 @@ require_once('check_if_indoor_manager.php');
     </div>
     <!-- /Widget Item -->
     <!-- Widget Item -->
-    <!-- <div class="col-md-12">
+    <div class="col-md-12">
         <div class="widget-area-2 proclinic-box-shadow">
             <h3 class="widget-title">Doctor Activity</h3>
             <div class="table-responsive">
@@ -166,6 +166,7 @@ require_once('check_if_indoor_manager.php');
                     </tbody>
                 </table>
 
+                <!--Export links-->
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center export-pagination">
                         <li class="page-item">
@@ -182,9 +183,10 @@ require_once('check_if_indoor_manager.php');
                         </li>
                     </ul>
                 </nav>
+                <!-- /Export links-->
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- /Widget Item -->
 </div>
 </div>

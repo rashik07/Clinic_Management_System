@@ -7,8 +7,8 @@ if (!isset($_SESSION)) {
     <div class="sidebar-header">
         <a href="index.php"><img src="../assets/images/logo.png" class="logo" alt="logo"></a>
     </div>
-    <ul class="list-unstyled components" id="sidebar-nav" onclick="myFunction(event)">
-        <li class="">
+    <ul class="list-unstyled components" onclick="myFunction(event)">
+        <li class="active">
             <a href="index.php">
                 <span class="ti-home"></span> Dashboard
             </a>
@@ -40,34 +40,10 @@ if (!isset($_SESSION)) {
                     <a href="service_list.php">All Service</a>
                 </li>
                 <li>
-                    <a href="add_indoor_bed_category.php">Add Bed Category</a>
+                    <a href="add_patient_treatment.php">Patient Treatment</a>
                 </li>
                 <li>
-                    <a href="indoor_bed_category_list.php">All Bed Category</a>
-                </li>
-                <li>
-                    <a href="add_indoor_bed.php">Add Bed</a>
-                </li>
-                <li>
-                    <a href="indoor_bed_list.php">All Bed</a>
-                </li>
-                <li>
-                    <a href="add_pathology_test.php">Add Test</a>
-                </li>
-                <li>
-                    <a href="pathology_test_list.php">All Test</a>
-                </li>
-                <li>
-                    <a href="add_patient_treatment.php">OutDoor Patient Treatment</a>
-                </li>
-                <li>
-                    <a href="patient_treatment_list.php">All Outdoor Patient Treatments</a>
-                </li>
-                <li>
-                    <a href="add_indoor_treatment.php">Indoor Treatment</a>
-                </li>
-                <li>
-                    <a href="indoor_treatment_list.php">All Indoor Treatment</a>
+                    <a href="patient_treatment_list.php">All Patient Treatments</a>
                 </li>
             </ul>
         </li>
@@ -86,12 +62,23 @@ if (!isset($_SESSION)) {
                 </li>
             </ul>
         </li>
-        <!-- <li>
+        <li>
             <a href="#nav-bed" data-toggle="collapse" aria-expanded="false" class="collapsed">
                 <span class="ti-home"></span> Bed Management
             </a>
             <ul class="list-unstyled collapse" id="nav-bed">
-                
+                <li>
+                    <a href="add_indoor_bed_category.php">Add Bed Category</a>
+                </li>
+                <li>
+                    <a href="indoor_bed_category_list.php">All Bed Category</a>
+                </li>
+                <li>
+                    <a href="add_indoor_bed.php">Add Bed</a>
+                </li>
+                <li>
+                    <a href="indoor_bed_list.php">All Bed</a>
+                </li>
                 <li>
                     <a href="add_indoor_treatment.php">Indoor Allotment</a>
                 </li>
@@ -100,15 +87,20 @@ if (!isset($_SESSION)) {
                 </li>
             </ul>
         </li>
-        <?php } ?> -->
-        <!-- <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 5) { ?>
+        <?php } ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 5) { ?>
 
         <li>
             <a href="#nav-appointment" data-toggle="collapse" aria-expanded="false" class="collapsed">
                 <span class="ti-pencil-alt"></span> Investigation/Test
             </a>
             <ul class="list-unstyled collapse" id="nav-appointment">
-                
+                <li>
+                    <a href="add_pathology_test.php">Add Test</a>
+                </li>
+                <li>
+                    <a href="pathology_test_list.php">All Test</a>
+                </li>
                 <li>
                     <a href="add_pathology_investigation.php">Investigation</a>
                 </li>
@@ -117,8 +109,9 @@ if (!isset($_SESSION)) {
                 </li>
             </ul>
         </li>
-        <?php } ?> -->
-        <!-- <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
+        <?php } ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
+
         <li class="nav-level-one">
             <a href="#nav-uiKit" data-toggle="collapse" aria-expanded="false">
                 <span class="ti-layout-tab"></span> OT Management
@@ -135,7 +128,7 @@ if (!isset($_SESSION)) {
 
             </ul>
         </li>
-        <?php } ?> -->
+        <?php } ?>
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
 
         <li>
@@ -143,24 +136,24 @@ if (!isset($_SESSION)) {
                 <span class="ti-location-pin"></span>Pharmacy
             </a>
             <ul class="collapse list-unstyled" id="nav-maps">
-                <!-- <li>
+                <li>
                     <a href="add_medicine_category.php">Category Entry</a>
                 </li>
                 <li>
                     <a href="medicine_category_list.php">Category List</a>
-                </li> -->
+                </li>
                 <li>
                     <a href="add_medicine_unit.php">Unit Entry</a>
                 </li>
                 <li>
                     <a href="medicine_unit_list.php">Unit List</a>
                 </li>
-                <!-- <li>
+                <li>
                     <a href="add_medicine_type.php">Type Entry</a>
                 </li>
                 <li>
                     <a href="medicine_type_list.php">Type List</a>
-                </li> -->
+                </li>
                 <li>
                     <a href="add_medicine_leaf.php">Leaf Entry</a>
                 </li>
