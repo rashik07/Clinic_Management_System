@@ -29,7 +29,7 @@
 </div>
     <div id="print_bill">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row bg-invoice-img">
                     <!-- Widget Item -->
                     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
                     <link href="../assets/css/invoice.css" rel="stylesheet">
@@ -45,7 +45,7 @@
                                             <img class="center" src="../assets/images/logo.png" style="height: 100px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
                                             <div class="text-center text-150">
                                                 <p style="font-size: 20px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
-                                                <p style="font-size: 15px; margin:0px; padding:0px;">House 56(2nd Floor), Road 4 Dhaka Real State, Katasur, Dhaka-1207</p>
+                                                <p style="font-size: 15px; margin:0px; padding:0px;">H#56,R#03,Dhaka Real State,Kaderabad Housing Mohammadpur, Dhaka-1207</p>
                                                 <p style="font-size: 15px; margin:0px; padding:0px;">For Serial: +88 01844080671, +88 01844 080 674, +88 01844 080 676</p>
                                             </div>
                                         </div>
@@ -176,6 +176,7 @@
                                     $patient_age = $result_content_patient[0]['patient_age'];
 
                                     ?>
+                                    <h3 class="text-center">Bill</h3>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div>
@@ -198,9 +199,11 @@
                                                 <span class="text-sm text-grey-m2 align-middle">Age:</span>
                                                 <span class="text-600 text-110 text-blue align-middle"><?php echo $patient_age; ?></span>
                                             </div>
-                                            <div class="text-grey-m2">
-                                                <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600"><?php echo $patient_phone; ?></b></div>
+                                            <div>
+                                                <span class="text-sm text-grey-m2 align-middle">Consultant:</span>
+                                                <span class="text-600 text-110 text-blue align-middle"><?php echo $result_content_outdoor_treatment[0]['doctor_name']; ?></span>
                                             </div>
+                                        
                                         </div>
                                         <!-- /.col -->
 
@@ -209,7 +212,6 @@
                                             <div class="text-grey-m2">
                                                 
                                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j,Y");?></div>
-
                                             </div>
                                         </div>
                                         <!-- /.col -->
