@@ -37,7 +37,9 @@ body {
 .wrapper {
     display: flex;
     align-items: stretch;
+   
     background-color: #E7F3ED;
+
 }
 /*sidebar start*/
 #sidebar {
@@ -321,3 +323,4 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     height: 100px;
 }
 /*patients_list end*/
+

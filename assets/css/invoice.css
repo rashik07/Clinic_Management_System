@@ -115,3 +115,9 @@ hr {
 .align-bottom {
     vertical-align: bottom!important;
 }
+.bg-invoice-img{
+    background:url(../images/logo.png) rgba(255, 255, 255, 0.3);
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-blend-mode: multiply; 
+}
