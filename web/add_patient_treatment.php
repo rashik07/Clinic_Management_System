@@ -50,7 +50,7 @@ require_once('check_if_outdoor_manager.php');
                                     <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <input type="hidden" name="content" value="patient_treatment">
                                     <div class="form-group col-md-6">
-                                        <label for="indoor_treatment_admission_id">Admission ID.<i class="text-danger"> * </i></label>
+                                        <label for="indoor_treatment_admission_id">Admission ID.</label>
                                         <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
                                     </div>
                                     <div class="form-group col-md-6">
