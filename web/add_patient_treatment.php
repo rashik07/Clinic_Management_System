@@ -66,8 +66,8 @@ require_once('check_if_outdoor_manager.php');
                                         <input type="text" placeholder="Patient Name" class="form-control" id="outdoor_patient_name" name="outdoor_patient_name" required readonly>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="outdoor_treatment_indoor_treatment_admission_id">Indoor treatement id</label>
-                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_admission_id" name="outdoor_treatment_indoor_treatment_admission_id" required readonly>
+                                        <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
+                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="outdoor_treatment_indoor_treatment_id" required readonly>
                                     </div>
 
 
@@ -297,7 +297,7 @@ require_once('check_if_outdoor_manager.php');
                             document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
                             document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
                             document.getElementById("outdoor_patient_phone").value = datas[key].patient_phone;
-                            document.getElementById("outdoor_treatment_indoor_treatment_admission_id").value = datas[key].indoor_treatment_id;
+                            document.getElementById("outdoor_treatment_indoor_treatment_id").value = datas[key].indoor_treatment_id;
                         }
                     }
                 }
