@@ -5,25 +5,26 @@ require_once __DIR__ . '/Connection.php';
 require_once __DIR__ . '/token.php';
 require_once __DIR__ . '/related_func.php';
 
-class CreatePathologyInvestigation{
+class CreatePathologyInvestigation
+{
 
-    function post(){
+    function post()
+    {
         $connection = new Connection();
         $token_generator = new Token();
         $conn = $connection->getConnection();
         //array for json response
         $response = array();
-        $status="status";
+        $status = "status";
         $message = "message";
         $request_user_id   = $_POST['request_user_id'];
         $token  = $_POST['token'];
 
         // echo "testing";
-        $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,5);
+        $check_token = $token_generator->check_token($request_user_id, $conn, $token);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, 5);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
-        if($check_token && $check_permission)
-        {
+        if ($check_token && $check_permission) {
             try {
                 $pathology_investigation_patient_id  = if_empty($_POST['pathology_investigation_patient_id']);
                 $pathology_investigation_patient_name = if_empty($_POST['pathology_investigation_patient_name']);
@@ -32,27 +33,28 @@ class CreatePathologyInvestigation{
                 $pathology_investigation_total_bill  = if_empty($_POST['pathology_investigation_total_bill']);
                 $pathology_investigation_discount_pc   = if_empty($_POST['pathology_investigation_discount_pc']);
                 $pathology_investigation_total_bill_after_discount  = if_empty($_POST['pathology_investigation_total_bill_after_discount']);
-                $pathology_investigation_total_paid= if_empty($_POST['pathology_investigation_total_paid']);
+                $pathology_investigation_total_paid = if_empty($_POST['pathology_investigation_total_paid']);
                 $pathology_investigation_total_due  = if_empty($_POST['pathology_investigation_total_due']);
                 $pathology_investigation_payment_type   = if_empty($_POST['pathology_investigation_payment_type']);
                 $pathology_investigation_payment_type_no  = if_empty($_POST['pathology_investigation_payment_type_no']);
                 $pathology_investigation_note   = if_empty($_POST['pathology_investigation_note']);
 
                 $pathology_test_id = if_empty($_POST['pathology_test_id']);
+                $pathology_investigation_indoor_treatment_id = if_empty($_POST['pathology_investigation_indoor_treatment_id']);
                 $pathology_test_room_no   = if_empty($_POST['pathology_test_room_no']);
                 $pathology_investigation_test_price = if_empty($_POST['pathology_investigation_test_price']);
                 $pathology_investigation_test_quantity = if_empty($_POST['pathology_investigation_test_quantity']);
                 $pathology_investigation_test_total_bill  = if_empty($_POST['pathology_investigation_test_total_bill']);
 
                 $post_content = "INSERT INTO pathology_investigation (pathology_investigation_user_added_id,
-                                     pathology_investigation_patient_id, pathology_investigation_total_bill,
+                                     pathology_investigation_patient_id, pathology_investigation_indoor_treatment_id, pathology_investigation_total_bill,
                                      pathology_investigation_total_bill_after_discount,
                                      pathology_investigation_discount_pc, pathology_investigation_total_paid,
                                      pathology_investigation_total_due, pathology_investigation_payment_type,
                                      pathology_investigation_payment_type_no, pathology_investigation_note,
                                      pathology_investigation_date) 
                     VALUES ('$request_user_id',
-                            '$pathology_investigation_patient_id', '$pathology_investigation_total_bill',
+                            '$pathology_investigation_patient_id','$pathology_investigation_indoor_treatment_id', '$pathology_investigation_total_bill',
                             '$pathology_investigation_total_bill_after_discount', '$pathology_investigation_discount_pc',
                             '$pathology_investigation_total_paid', '$pathology_investigation_total_due',
                             '$pathology_investigation_payment_type', '$pathology_investigation_payment_type_no',
@@ -62,8 +64,8 @@ class CreatePathologyInvestigation{
                 $pathology_investigation_id = $conn->lastInsertId();
 
 
-                $count_service =0;
-                foreach( $pathology_test_id as $rowservice) {
+                $count_service = 0;
+                foreach ($pathology_test_id as $rowservice) {
 
                     $test_id  = $pathology_test_id[$count_service];
                     $room_no  = $pathology_test_room_no[$count_service];
@@ -88,31 +90,25 @@ class CreatePathologyInvestigation{
 
 
                 if ($result) {
-                    echo json_encode(array("pathology_investigation" => "Successful","indoor_treatment_id"=>$pathology_investigation_id, $status => 1, $message => "Create Pathology Investigation Successful"));
+                    echo json_encode(array("pathology_investigation" => "Successful", "indoor_treatment_id" => $pathology_investigation_id, $status => 1, $message => "Create Pathology Investigation Successful"));
                 } else {
                     echo json_encode(array("pathology_investigation" => "Error", $status => 0, $message => "Create Pathology Investigation Failed"));
                 }
                 die();
-            }
-            catch(Exception $e)
-            {
-                echo json_encode(array("pathology_investigation"=>null,$status=>0, $message=>$e));
+            } catch (Exception $e) {
+                echo json_encode(array("pathology_investigation" => null, $status => 0, $message => $e));
                 die();
             }
-        }
-        else{
-            echo json_encode(array("pathology_investigation"=>null,$status=>0, $message=>"Authentication Error"));
+        } else {
+            echo json_encode(array("pathology_investigation" => null, $status => 0, $message => "Authentication Error"));
             die();
         }
     }
 }
-if(isset($_POST['content']) && ($_POST['content'] == "pathology_investigation"))
-{
+if (isset($_POST['content']) && ($_POST['content'] == "pathology_investigation")) {
     $authenticate = new CreatePathologyInvestigation();
     $authenticate->post();
-}
-else
-{
-    echo json_encode(array("message"=>"Bad Request"));
+} else {
+    echo json_encode(array("message" => "Bad Request"));
     die();
 }
