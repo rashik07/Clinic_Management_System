@@ -156,6 +156,7 @@ CREATE TABLE `outdoor_service`
     `outdoor_service_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (outdoor_service_id),
     FOREIGN KEY (outdoor_service_user_added_id) REFERENCES user (user_id)
+    
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -164,6 +165,7 @@ CREATE TABLE `outdoor_treatment`
     `outdoor_treatment_id`                        int(11) NOT NULL AUTO_INCREMENT,
     `outdoor_treatment_user_added_id`             int(11) NOT NULL,
     `outdoor_treatment_patient_id`                int(11) NOT NULL,
+    `outdoor_treatment_indoor_treatment_admission_id`                int(11) DEFAULT NULL,
     `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, --
     `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, --
     `outdoor_treatment_discount_pc`               varchar(255) DEFAULT 0,    --
