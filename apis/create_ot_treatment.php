@@ -53,13 +53,13 @@ class CreteOTTreatment
                 $ot_treatment_item_price = if_empty($_POST['ot_treatment_item_price']);
                 $ot_treatment_item_note = if_empty($_POST['ot_treatment_item_note']);
 
-                $ot_treatment_pharmacy_item_medicine_id = if_empty($_POST['ot_treatment_pharmacy_item_medicine_id']);
-                $ot_treatment_pharmacy_item_batch_id = if_empty($_POST['ot_treatment_pharmacy_item_batch_id']);
-                $ot_treatment_pharmacy_item_stock_qty = if_empty($_POST['ot_treatment_pharmacy_item_stock_qty']);
-                $ot_treatment_pharmacy_item_per_piece_price = if_empty($_POST['ot_treatment_pharmacy_item_per_piece_price']);
-                $ot_treatment_pharmacy_item_quantity = if_empty($_POST['ot_treatment_pharmacy_item_quantity']);
-                $ot_treatment_pharmacy_item_bill = if_empty($_POST['ot_treatment_pharmacy_item_bill']);
-                $ot_treatment_pharmacy_item_note = if_empty($_POST['ot_treatment_pharmacy_item_note']);
+                // $ot_treatment_pharmacy_item_medicine_id = if_empty($_POST['ot_treatment_pharmacy_item_medicine_id']);
+                // $ot_treatment_pharmacy_item_batch_id = if_empty($_POST['ot_treatment_pharmacy_item_batch_id']);
+                // $ot_treatment_pharmacy_item_stock_qty = if_empty($_POST['ot_treatment_pharmacy_item_stock_qty']);
+                // $ot_treatment_pharmacy_item_per_piece_price = if_empty($_POST['ot_treatment_pharmacy_item_per_piece_price']);
+                // $ot_treatment_pharmacy_item_quantity = if_empty($_POST['ot_treatment_pharmacy_item_quantity']);
+                // $ot_treatment_pharmacy_item_bill = if_empty($_POST['ot_treatment_pharmacy_item_bill']);
+                // $ot_treatment_pharmacy_item_note = if_empty($_POST['ot_treatment_pharmacy_item_note']);
 
                 // create indoor treatment
                 $post_content = "INSERT INTO ot_treatment (ot_treatment_user_added_id,
@@ -133,27 +133,27 @@ class CreteOTTreatment
                 }
 
                 $count_service = 0;
-                foreach ($ot_treatment_pharmacy_item_medicine_id as $rowservice) {
+                // foreach ($ot_treatment_pharmacy_item_medicine_id as $rowservice) {
 
-                    $medicine_id  = $ot_treatment_pharmacy_item_medicine_id[$count_service];
-                    $batch_id  = $ot_treatment_pharmacy_item_batch_id[$count_service];
-                    $stock_qty  = $ot_treatment_pharmacy_item_stock_qty[$count_service];
-                    $per_piece_price  = $ot_treatment_pharmacy_item_per_piece_price[$count_service];
-                    $item_qty  = $ot_treatment_pharmacy_item_quantity[$count_service];
-                    $item_bill  = $ot_treatment_pharmacy_item_bill[$count_service];
-                    $item_note  = $ot_treatment_pharmacy_item_note[$count_service];
+                //     $medicine_id  = $ot_treatment_pharmacy_item_medicine_id[$count_service];
+                //     $batch_id  = $ot_treatment_pharmacy_item_batch_id[$count_service];
+                //     $stock_qty  = $ot_treatment_pharmacy_item_stock_qty[$count_service];
+                //     $per_piece_price  = $ot_treatment_pharmacy_item_per_piece_price[$count_service];
+                //     $item_qty  = $ot_treatment_pharmacy_item_quantity[$count_service];
+                //     $item_bill  = $ot_treatment_pharmacy_item_bill[$count_service];
+                //     $item_note  = $ot_treatment_pharmacy_item_note[$count_service];
 
-                    $post_content = "INSERT INTO ot_treatment_pharmacy_item (ot_treatment_pharmacy_item_user_added_id,
-                                     ot_treatment_pharmacy_item_treatment_id, ot_treatment_pharmacy_item_medicine_id,
-                                     ot_treatment_pharmacy_item_batch_id, ot_treatment_pharmacy_item_stock_qty,
-                                     ot_treatment_pharmacy_item_per_piece_price, ot_treatment_pharmacy_item_quantity,
-                                     ot_treatment_pharmacy_item_bill, ot_treatment_pharmacy_item_note) 
-                    VALUES ('$request_user_id','$ot_treatment_id', '$medicine_id', '$batch_id', '$stock_qty', '$per_piece_price', '$item_qty', '$item_bill', '$item_note')";
-                    //echo $post_content;
-                    $result = $conn->exec($post_content);
-                    $last_id = $conn->lastInsertId();
-                    $count_service = $count_service + 1;
-                }
+                //     $post_content = "INSERT INTO ot_treatment_pharmacy_item (ot_treatment_pharmacy_item_user_added_id,
+                //                      ot_treatment_pharmacy_item_treatment_id, ot_treatment_pharmacy_item_medicine_id,
+                //                      ot_treatment_pharmacy_item_batch_id, ot_treatment_pharmacy_item_stock_qty,
+                //                      ot_treatment_pharmacy_item_per_piece_price, ot_treatment_pharmacy_item_quantity,
+                //                      ot_treatment_pharmacy_item_bill, ot_treatment_pharmacy_item_note) 
+                //     VALUES ('$request_user_id','$ot_treatment_id', '$medicine_id', '$batch_id', '$stock_qty', '$per_piece_price', '$item_qty', '$item_bill', '$item_note')";
+                //     //echo $post_content;
+                //     $result = $conn->exec($post_content);
+                //     $last_id = $conn->lastInsertId();
+                //     $count_service = $count_service + 1;
+                // }
 
 
                 if ($result) {
