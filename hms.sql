@@ -145,60 +145,6 @@ CREATE TABLE `doctor`
   DEFAULT CHARSET = utf8;
 
 
-CREATE TABLE `outdoor_service`
-(
-    `outdoor_service_id`                int(11)      NOT NULL AUTO_INCREMENT,
-    `outdoor_service_user_added_id`     int(11)      NOT NULL,
-    `outdoor_service_name`              varchar(255) NOT NULL,
-    `outdoor_service_description`       varchar(255) DEFAULT NULL,
-    `outdoor_service_rate`              varchar(255) DEFAULT NULL,
-    `outdoor_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
-    `outdoor_service_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (outdoor_service_id),
-    FOREIGN KEY (outdoor_service_user_added_id) REFERENCES user (user_id)
-    
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-CREATE TABLE `outdoor_treatment`
-(
-    `outdoor_treatment_id`                        int(11) NOT NULL AUTO_INCREMENT,
-    `outdoor_treatment_user_added_id`             int(11) NOT NULL,
-    `outdoor_treatment_patient_id`                int(11) NOT NULL,
-    `outdoor_treatment_indoor_treatment_admission_id`                int(11) DEFAULT NULL,
-    `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_discount_pc`               varchar(255) DEFAULT 0,    --
-    `outdoor_treatment_total_paid`                varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_total_due`                 varchar(255) DEFAULT 0,    --
-    `outdoor_treatment_payment_type`              varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_payment_type_no`           varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_note`                      varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
-    `outdoor_treatment_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (outdoor_treatment_id),
-    FOREIGN KEY (outdoor_treatment_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (outdoor_treatment_patient_id) REFERENCES patient (patient_id)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-CREATE TABLE `outdoor_treatment_service`
-(
-    `outdoor_treatment_service_id`                int(11) NOT NULL AUTO_INCREMENT,
-    `outdoor_treatment_service_user_added_id`     int(11) NOT NULL,
-    `outdoor_treatment_service_treatment_id`      int(11) NOT NULL,
-    `outdoor_treatment_service_service_id`        int(11) NOT NULL,
-    `outdoor_treatment_service_service_quantity`  varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_service_service_rate`      varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_service_service_total`     varchar(255) DEFAULT NULL, --
-    `outdoor_treatment_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
-    `outdoor_treatment_service_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (outdoor_treatment_service_id),
-    FOREIGN KEY (outdoor_treatment_service_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (outdoor_treatment_service_treatment_id) REFERENCES outdoor_treatment (outdoor_treatment_id),
-    FOREIGN KEY (outdoor_treatment_service_service_id) REFERENCES outdoor_service (outdoor_service_id)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
 
 
 -- indoor module
@@ -266,16 +212,18 @@ VALUES (1, 1, 1, '101', '1100', '1000', 'available', now(), now()),
 CREATE TABLE `indoor_treatment`
 (
     `indoor_treatment_id`                        int(11) NOT NULL AUTO_INCREMENT,
+    `indoor_treatment_admission_id`              varchar(255) ,
     `indoor_treatment_user_added_id`             int(11) NOT NULL,
     `indoor_treatment_patient_id`                int(11) NOT NULL,
-    `indoor_treatment_total_bill`                varchar(255) DEFAULT NULL, --
-    `indoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, --
-    `indoor_treatment_discount_pc`               varchar(255) DEFAULT 0,    --
-    `indoor_treatment_total_paid`                varchar(255) DEFAULT NULL, --
-    `indoor_treatment_total_due`                 varchar(255) DEFAULT 0,    --
-    `indoor_treatment_payment_type`              varchar(255) DEFAULT NULL, --
-    `indoor_treatment_payment_type_no`           varchar(255) DEFAULT NULL, --
-    `indoor_treatment_note`                      varchar(255) DEFAULT NULL, --
+    `indoor_treatment_reference`                 varchar(255) DEFAULT NULL,
+    `indoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
+    `indoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 
+    `indoor_treatment_discount_pc`               varchar(255) DEFAULT 0,    
+    `indoor_treatment_total_paid`                varchar(255) DEFAULT NULL, 
+    `indoor_treatment_total_due`                 varchar(255) DEFAULT 0,    
+    `indoor_treatment_payment_type`              varchar(255) DEFAULT NULL, 
+    `indoor_treatment_payment_type_no`           varchar(255) DEFAULT NULL, 
+    `indoor_treatment_note`                      varchar(255) DEFAULT NULL, 
     `indoor_treatment_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `indoor_treatment_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (indoor_treatment_id),
@@ -312,9 +260,9 @@ CREATE TABLE `indoor_treatment_doctor`
     `indoor_treatment_doctor_user_added_id`     int(11) NOT NULL,
     `indoor_treatment_doctor_treatment_id`      int(11) NOT NULL,
     `indoor_treatment_doctor_doctor_id`         int(11) NOT NULL,
-    `indoor_treatment_doctor_specialization`    varchar(255) DEFAULT NULL, --
-    `indoor_treatment_doctor_visit_fee`         varchar(255) DEFAULT NULL, --
-    `indoor_treatment_doctor_total_bill`        varchar(255) DEFAULT NULL, --
+    `indoor_treatment_doctor_specialization`    varchar(255) DEFAULT NULL, 
+    `indoor_treatment_doctor_visit_fee`         varchar(255) DEFAULT NULL, 
+    `indoor_treatment_doctor_total_bill`        varchar(255) DEFAULT NULL, 
 
     `indoor_treatment_doctor_entry_time`        DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `indoor_treatment_doctor_discharge_time`    DATETIME     DEFAULT NULL,
@@ -328,13 +276,74 @@ CREATE TABLE `indoor_treatment_doctor`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+
+-- outdoor 
+CREATE TABLE `outdoor_service`
+(
+    `outdoor_service_id`                int(11)      NOT NULL AUTO_INCREMENT,
+    `outdoor_service_user_added_id`     int(11)      NOT NULL,
+    `outdoor_service_name`              varchar(255) NOT NULL,
+    `outdoor_service_description`       varchar(255) DEFAULT NULL,
+    `outdoor_service_rate`              varchar(255) DEFAULT NULL,
+    `outdoor_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    `outdoor_service_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (outdoor_service_id),
+    FOREIGN KEY (outdoor_service_user_added_id) REFERENCES user (user_id)
+    
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+CREATE TABLE `outdoor_treatment`
+(
+    `outdoor_treatment_id`                        int(11) NOT NULL AUTO_INCREMENT,
+    `outdoor_treatment_user_added_id`             int(11) NOT NULL,
+    `outdoor_treatment_patient_id`                int(11) NOT NULL,
+    `outdoor_treatment_indoor_treatment_id`       int(11) DEFAULT NULL,
+    `outdoor_treatment_reference`                 varchar(255) DEFAULT NULL,
+    `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_discount_pc`               varchar(255) DEFAULT 0,    
+    `outdoor_treatment_total_paid`                varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_total_due`                 varchar(255) DEFAULT 0,    
+    `outdoor_treatment_payment_type`              varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_payment_type_no`           varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_note`                      varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    `outdoor_treatment_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (outdoor_treatment_id),
+    FOREIGN KEY (outdoor_treatment_user_added_id) REFERENCES user (user_id),
+    FOREIGN KEY (outdoor_treatment_patient_id) REFERENCES patient (patient_id),
+    FOREIGN KEY (outdoor_treatment_indoor_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id)
+                                          
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+CREATE TABLE `outdoor_treatment_service`
+(
+    `outdoor_treatment_service_id`                int(11) NOT NULL AUTO_INCREMENT,
+    `outdoor_treatment_service_user_added_id`     int(11) NOT NULL,
+    `outdoor_treatment_service_treatment_id`      int(11) NOT NULL,
+    `outdoor_treatment_service_service_id`        int(11) NOT NULL,
+    `outdoor_treatment_service_service_quantity`  varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_service_service_rate`      varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_service_service_total`     varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    `outdoor_treatment_service_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (outdoor_treatment_service_id),
+    FOREIGN KEY (outdoor_treatment_service_user_added_id) REFERENCES user (user_id),
+    FOREIGN KEY (outdoor_treatment_service_treatment_id) REFERENCES outdoor_treatment (outdoor_treatment_id),
+    FOREIGN KEY (outdoor_treatment_service_service_id) REFERENCES outdoor_service (outdoor_service_id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+
 -- pathology management
 
 CREATE TABLE `pathology_test`
 (
     `pathology_test_id`                int(11) NOT NULL AUTO_INCREMENT,
     `pathology_test_user_added_id`     int(11) NOT NULL,
-    `pathology_test_name`              varchar(255) DEFAULT NULL, --
+    `pathology_test_name`              varchar(255) DEFAULT NULL, 
     `pathology_test_description`       varchar(255) DEFAULT NULL,
     `pathology_test_room_no`           varchar(255) DEFAULT NULL,
     `pathology_test_price`             varchar(255) DEFAULT NULL,
@@ -351,21 +360,23 @@ CREATE TABLE `pathology_investigation`
     `pathology_investigation_id`                        int(11) NOT NULL AUTO_INCREMENT,
     `pathology_investigation_user_added_id`             int(11) NOT NULL,
     `pathology_investigation_patient_id`                int(11) NOT NULL,
-    `pathology_investigation_total_bill`                varchar(255) DEFAULT NULL,   --
-    `pathology_investigation_total_bill_after_discount` varchar(255) DEFAULT NULL,   --
-    `pathology_investigation_discount_pc`               varchar(255) DEFAULT 0,      --
-    `pathology_investigation_total_paid`                varchar(255) DEFAULT NULL,   --
-    `pathology_investigation_total_due`                 varchar(255) DEFAULT 0,      --
-    `pathology_investigation_payment_type`              varchar(255) DEFAULT NULL,   --
-    `pathology_investigation_payment_type_no`           varchar(255) DEFAULT NULL,   --
-    `pathology_investigation_note`                      varchar(255) DEFAULT NULL,   --
+    `pathology_investigation_indoor_treatment_id`       int(11) DEFAULT NULL,
+    `pathology_investigation_treatment_reference`       varchar(255) DEFAULT NULL,
+    `pathology_investigation_total_bill`                varchar(255) DEFAULT NULL,   
+    `pathology_investigation_total_bill_after_discount` varchar(255) DEFAULT NULL,   
+    `pathology_investigation_discount_pc`               varchar(255) DEFAULT 0,      
+    `pathology_investigation_total_paid`                varchar(255) DEFAULT NULL,   
+    `pathology_investigation_total_due`                 varchar(255) DEFAULT 0,      
+    `pathology_investigation_payment_type`              varchar(255) DEFAULT NULL,   
+    `pathology_investigation_payment_type_no`           varchar(255) DEFAULT NULL,   
+    `pathology_investigation_note`                      varchar(255) DEFAULT NULL,   
     `pathology_investigation_date`                      DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `pathology_investigation_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `pathology_investigation_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (pathology_investigation_id),
     FOREIGN KEY (pathology_investigation_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (pathology_investigation_patient_id) REFERENCES patient (patient_id) -- main patient instance
-
+    FOREIGN KEY (pathology_investigation_patient_id) REFERENCES patient (patient_id) ,
+    FOREIGN KEY (pathology_investigation_indoor_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -377,15 +388,15 @@ CREATE TABLE `pathology_investigation_test`
     `pathology_investigation_test_pathology_test_id` int(11) NOT NULL,
 
     `pathology_investigation_test_room_no`           varchar(255) DEFAULT NULL,
-    `pathology_investigation_test_price`             varchar(255) DEFAULT NULL,                                                  --
-    `pathology_investigation_test_quantity`          varchar(255) DEFAULT 0,                                                     --
-    `pathology_investigation_test_total_bill`        varchar(255) DEFAULT NULL,                                                  --
+    `pathology_investigation_test_price`             varchar(255) DEFAULT NULL,                                                
+    `pathology_investigation_test_quantity`          varchar(255) DEFAULT 0,                                                     
+    `pathology_investigation_test_total_bill`        varchar(255) DEFAULT NULL,                                                  
 
     `pathology_investigation_creation_time`          DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `pathology_investigation_modification_time`      DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (pathology_investigation_test_id),
     FOREIGN KEY (pathology_investigation_test_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (pathology_investigation_test_investigation_id) REFERENCES pathology_investigation (pathology_investigation_id), -- main patient instance
+    FOREIGN KEY (pathology_investigation_test_investigation_id) REFERENCES pathology_investigation (pathology_investigation_id), 
     FOREIGN KEY (pathology_investigation_test_pathology_test_id) REFERENCES pathology_test (pathology_test_id)                   -- main patient instance
 
 ) ENGINE = InnoDB
@@ -571,6 +582,7 @@ CREATE TABLE `pharmacy_sell`
     `pharmacy_sell_id`                int(11) NOT NULL AUTO_INCREMENT,
     `pharmacy_sell_user_added_id`     int(11) NOT NULL,
     `pharmacy_sell_patient_id`        int(11) NOT NULL,
+    `pharmacy_sell_indoor_treatment_id`       int(11) DEFAULT NULL,
     `pharmacy_sell_date`              DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `pharmacy_sell_sub_total`         varchar(255) DEFAULT NULL,
     `pharmacy_sell_vat`               varchar(255) DEFAULT NULL,
@@ -582,7 +594,8 @@ CREATE TABLE `pharmacy_sell`
     `pharmacy_sell_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (pharmacy_sell_id),
     FOREIGN KEY (pharmacy_sell_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (pharmacy_sell_patient_id) REFERENCES patient (patient_id)
+    FOREIGN KEY (pharmacy_sell_patient_id) REFERENCES patient (patient_id),
+    FOREIGN KEY (pharmacy_sell_indoor_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id)
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -615,21 +628,23 @@ CREATE TABLE `ot_treatment`
     `ot_treatment_id`                        int(11) NOT NULL AUTO_INCREMENT,
     `ot_treatment_user_added_id`             int(11) NOT NULL,
     `ot_treatment_patient_id`                int(11) NOT NULL,
-    `ot_treatment_total_bill`                varchar(255) DEFAULT NULL,   --
-    `ot_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL,   --
-    `ot_treatment_discount_pc`               varchar(255) DEFAULT 0,      --
-    `ot_treatment_total_paid`                varchar(255) DEFAULT NULL,   --
-    `ot_treatment_total_due`                 varchar(255) DEFAULT 0,      --
-    `ot_treatment_payment_type`              varchar(255) DEFAULT NULL,   --
-    `ot_treatment_payment_type_no`           varchar(255) DEFAULT NULL,   --
-    `ot_treatment_note`                      varchar(255) DEFAULT NULL,   --
+    `ot_treatment_indoor_treatment_id`       int(11) DEFAULT NULL,
+    `ot_treatment_reference`                 varchar(255) DEFAULT NULL,
+    `ot_treatment_total_bill`                varchar(255) DEFAULT NULL,   
+    `ot_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL,   
+    `ot_treatment_discount_pc`               varchar(255) DEFAULT 0,      
+    `ot_treatment_total_paid`                varchar(255) DEFAULT NULL,   
+    `ot_treatment_total_due`                 varchar(255) DEFAULT 0,      
+    `ot_treatment_payment_type`              varchar(255) DEFAULT NULL,   
+    `ot_treatment_payment_type_no`           varchar(255) DEFAULT NULL,   
+    `ot_treatment_note`                      varchar(255) DEFAULT NULL,   
     `ot_treatment_date`                      DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `ot_treatment_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `ot_treatment_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (ot_treatment_id),
     FOREIGN KEY (ot_treatment_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (ot_treatment_patient_id) REFERENCES patient (patient_id) -- main patient instance
-
+    FOREIGN KEY (ot_treatment_patient_id) REFERENCES patient (patient_id), -- main patient instance
+    FOREIGN KEY (ot_treatment_indoor_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -672,9 +687,9 @@ CREATE TABLE `ot_treatment_item`
     `ot_treatment_item_id`                        int(11) NOT NULL AUTO_INCREMENT,
     `ot_treatment_item_user_added_id`             int(11) NOT NULL,
     `ot_treatment_item_treatment_id`              int(11) NOT NULL,
-    `ot_treatment_item_name`                      varchar(255) DEFAULT NULL,   --
+    `ot_treatment_item_name`                      varchar(255) DEFAULT NULL,   
     `ot_treatment_item_price`                     varchar(255) DEFAULT NULL,
-    `ot_treatment_item_note`                      varchar(255) DEFAULT NULL,   --
+    `ot_treatment_item_note`                      varchar(255) DEFAULT NULL,   
     `ot_treatment_item_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `ot_treatment_item_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (ot_treatment_item_id),
