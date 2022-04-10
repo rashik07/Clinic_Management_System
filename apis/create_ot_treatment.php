@@ -5,29 +5,31 @@ require_once __DIR__ . '/Connection.php';
 require_once __DIR__ . '/token.php';
 require_once __DIR__ . '/related_func.php';
 
-class CreteOTTreatment{
+class CreteOTTreatment
+{
 
-    function post(){
+    function post()
+    {
         $connection = new Connection();
         $token_generator = new Token();
         $conn = $connection->getConnection();
         //array for json response
         $response = array();
-        $status="status";
+        $status = "status";
         $message = "message";
         $request_user_id   = $_POST['request_user_id'];
         $token  = $_POST['token'];
 
         // echo "testing";
-        $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,8);
+        $check_token = $token_generator->check_token($request_user_id, $conn, $token);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, 8);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
-        if($check_token && $check_permission)
-        {
+        if ($check_token && $check_permission) {
             try {
                 $ot_treatment_patient_id  = if_empty($_POST['ot_treatment_patient_id']);
                 $ot_treatment_patient_name = if_empty($_POST['ot_treatment_patient_name']);
-                
+                $ot_treatment_indoor_treatment_id  = if_empty($_POST['ot_treatment_indoor_treatment_id']);
+
                 $ot_treatment_total_bill  = if_empty($_POST['ot_treatment_total_bill']);
                 $ot_treatment_discount_pc   = if_empty($_POST['ot_treatment_discount_pc']);
                 $ot_treatment_total_bill_after_discount  = if_empty($_POST['ot_treatment_total_bill_after_discount']);
@@ -41,12 +43,12 @@ class CreteOTTreatment{
 
                 $ot_treatment_doctor_doctor_id = if_empty($_POST['ot_treatment_doctor_doctor_id']);
                 $ot_treatment_doctor_bill   = if_empty($_POST['ot_treatment_doctor_bill']);
-                $ot_treatment_doctor_note  = if_empty($_POST['ot_treatment_doctor_note']);               
+                $ot_treatment_doctor_note  = if_empty($_POST['ot_treatment_doctor_note']);
 
                 $ot_treatment_guest_doctor_doctor_name = if_empty($_POST['ot_treatment_guest_doctor_doctor_name']);
                 $ot_treatment_guest_doctor_bill  = if_empty($_POST['ot_treatment_guest_doctor_bill']);
                 $ot_treatment_guest_doctor_note = if_empty($_POST['ot_treatment_guest_doctor_note']);
-                
+
                 $ot_treatment_item_name = if_empty($_POST['ot_treatment_item_name']);
                 $ot_treatment_item_price = if_empty($_POST['ot_treatment_item_price']);
                 $ot_treatment_item_note = if_empty($_POST['ot_treatment_item_note']);
@@ -61,13 +63,13 @@ class CreteOTTreatment{
 
                 // create indoor treatment
                 $post_content = "INSERT INTO ot_treatment (ot_treatment_user_added_id,
-                              ot_treatment_patient_id, ot_treatment_total_bill,
+                              ot_treatment_patient_id, ot_treatment_indoor_treatment_id, ot_treatment_total_bill,
                               ot_treatment_total_bill_after_discount, ot_treatment_discount_pc,
                               ot_treatment_total_paid, ot_treatment_total_due,
                               ot_treatment_payment_type, ot_treatment_payment_type_no,
                               ot_treatment_note) 
                     VALUES ('$request_user_id',
-                            '$ot_treatment_patient_id', '$ot_treatment_total_bill',
+                            '$ot_treatment_patient_id','$ot_treatment_indoor_treatment_id', '$ot_treatment_total_bill',
                             '$ot_treatment_total_bill_after_discount', '$ot_treatment_discount_pc',
                             '$ot_treatment_total_paid', '$ot_treatment_total_due',
                             '$ot_treatment_payment_type', '$ot_treatment_payment_type_no',
@@ -78,8 +80,8 @@ class CreteOTTreatment{
 
 
                 // inserting treatment-doctor
-                $count_service =0;
-                foreach($ot_treatment_doctor_doctor_id as $rowservice) {
+                $count_service = 0;
+                foreach ($ot_treatment_doctor_doctor_id as $rowservice) {
 
                     $doctor_id  = $ot_treatment_doctor_doctor_id[$count_service];
                     $doctor_bill  = $ot_treatment_doctor_bill[$count_service];
@@ -96,13 +98,13 @@ class CreteOTTreatment{
                     $count_service = $count_service + 1;
                 }
 
-                $count_service =0;
-                foreach( $ot_treatment_guest_doctor_doctor_name as $rowservice) {
+                $count_service = 0;
+                foreach ($ot_treatment_guest_doctor_doctor_name as $rowservice) {
 
                     $doctor_name  = $ot_treatment_guest_doctor_doctor_name[$count_service];
                     $doctor_bill  = $ot_treatment_guest_doctor_bill[$count_service];
                     $doctor_note  = $ot_treatment_guest_doctor_note[$count_service];
-                   
+
                     $post_content = "INSERT INTO ot_treatment_guest_doctor (ot_treatment_guest_doctor_user_added_id,
                                      ot_treatment_guest_doctor_treatment_id, ot_treatment_guest_doctor_doctor_name,
                                      ot_treatment_guest_doctor_bill,ot_treatment_guest_doctor_note) 
@@ -113,13 +115,13 @@ class CreteOTTreatment{
                     $count_service = $count_service + 1;
                 }
 
-                $count_service =0;
-                foreach( $ot_treatment_item_name as $rowservice) {
+                $count_service = 0;
+                foreach ($ot_treatment_item_name as $rowservice) {
 
                     $item_name  = $ot_treatment_item_name[$count_service];
                     $item_bill  = $ot_treatment_item_price[$count_service];
                     $item_note  = $ot_treatment_item_note[$count_service];
-                   
+
                     $post_content = "INSERT INTO ot_treatment_item (ot_treatment_item_user_added_id,
                                      ot_treatment_item_treatment_id, ot_treatment_item_name,
                                      ot_treatment_item_price,ot_treatment_item_note) 
@@ -130,8 +132,8 @@ class CreteOTTreatment{
                     $count_service = $count_service + 1;
                 }
 
-                $count_service =0;
-                foreach( $ot_treatment_pharmacy_item_medicine_id as $rowservice) {
+                $count_service = 0;
+                foreach ($ot_treatment_pharmacy_item_medicine_id as $rowservice) {
 
                     $medicine_id  = $ot_treatment_pharmacy_item_medicine_id[$count_service];
                     $batch_id  = $ot_treatment_pharmacy_item_batch_id[$count_service];
@@ -155,31 +157,25 @@ class CreteOTTreatment{
 
 
                 if ($result) {
-                    echo json_encode(array("ot_treatment" => "Successful","ot_treatment_id"=>$ot_treatment_id, $status => 1, $message => "Create OT Treatment Successful"));
+                    echo json_encode(array("ot_treatment" => "Successful", "ot_treatment_id" => $ot_treatment_id, $status => 1, $message => "Create OT Treatment Successful"));
                 } else {
                     echo json_encode(array("ot_treatment" => "Error", $status => 0, $message => "Create OT Treatment Failed"));
                 }
                 die();
-            }
-            catch(Exception $e)
-            {
-                echo json_encode(array("ot_treatment"=>null,$status=>0, $message=>$e));
+            } catch (Exception $e) {
+                echo json_encode(array("ot_treatment" => null, $status => 0, $message => $e));
                 die();
             }
-        }
-        else{
-            echo json_encode(array("ot_treatment"=>null,$status=>0, $message=>"Authentication Error"));
+        } else {
+            echo json_encode(array("ot_treatment" => null, $status => 0, $message => "Authentication Error"));
             die();
         }
     }
 }
-if(isset($_POST['content']) && ($_POST['content'] == "ot_allotment"))
-{
+if (isset($_POST['content']) && ($_POST['content'] == "ot_allotment")) {
     $authenticate = new CreteOTTreatment();
     $authenticate->post();
-}
-else
-{
-    echo json_encode(array("message"=>"Bad Request"));
+} else {
+    echo json_encode(array("message" => "Bad Request"));
     die();
 }
