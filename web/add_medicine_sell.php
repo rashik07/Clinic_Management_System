@@ -449,7 +449,7 @@ from medicine
                             document.getElementById("pharmacy_sell_patient_id").value = datas[key].patient_id;
                             document.getElementById("pharmacy_sell_patient_name").value = datas[key].patient_name;
                             document.getElementById("pharmacy_sell_patient_phone").value = datas[key].patient_phone;
-                            document.getElementById("pharmacy_sell_treatment_indoor_treatment_id").value = datas[key].indoor_treatment_id;
+                            document.getElementById("pharmacy_sell_indoor_treatment_id").value = datas[key].indoor_treatment_id;
                         }
                     }
                 }

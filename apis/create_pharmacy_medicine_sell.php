@@ -28,7 +28,7 @@ class CreatePharmacyMedicineSell
             try {
                 $pharmacy_sell_patient_id  = if_empty($_POST['pharmacy_sell_patient_id']);
                 $pharmacy_sell_date = if_empty($_POST['pharmacy_sell_date']);
-                $pharmacy_sell_treatment_indoor_treatment_id = if_empty($_POST['pharmacy_sell_treatment_indoor_treatment_id']);
+                $pharmacy_sell_indoor_treatment_id = if_empty($_POST['pharmacy_sell_treatment_indoor_treatment_id']);
 
                 $pharmacy_selling_sub_total  = if_empty($_POST['pharmacy_selling_sub_total']);
                 $pharmacy_selling_vat   = if_empty($_POST['pharmacy_selling_vat']);
@@ -46,10 +46,10 @@ class CreatePharmacyMedicineSell
                 $pharmacy_purchase_medicine_total_selling_price = $_POST['pharmacy_purchase_medicine_total_selling_price'];
 
                 $post_content = "INSERT INTO pharmacy_sell (pharmacy_sell_user_added_id,
-                           pharmacy_sell_patient_id, pharmacy_sell_treatment_indoor_treatment_id, pharmacy_sell_date, pharmacy_sell_sub_total,
+                           pharmacy_sell_patient_id, pharmacy_sell_indoor_treatment_id, pharmacy_sell_date, pharmacy_sell_sub_total,
                            pharmacy_sell_vat, pharmacy_sell_discount, pharmacy_sell_grand_total,
                            pharmacy_sell_paid_amount, pharmacy_sell_due_amount) 
-                    VALUES ('$request_user_id','$pharmacy_sell_patient_id','$pharmacy_sell_treatment_indoor_treatment_id',
+                    VALUES ('$request_user_id','$pharmacy_sell_patient_id','$pharmacy_sell_indoor_treatment_id',
                             '$pharmacy_sell_date', '$pharmacy_selling_sub_total',
                             '$pharmacy_selling_vat','$pharmacy_selling_discount',
                             '$pharmacy_selling_grand_total', '$pharmacy_selling_paid_amount',
