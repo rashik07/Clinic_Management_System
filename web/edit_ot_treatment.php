@@ -147,27 +147,7 @@ from medicine
                                     </tbody>
 
                                 </table>
-                                <datalist id="medicine_list"></datalist>
-
-                                <table id="datatable3" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
-                                    <tr>
-                                        <th>Pharmacy Item<i class="text-danger"> * </i></th>
-                                        <th>Batch ID</th>
-                                        <th>Stock Qty</th>
-                                        <th>Per Peice Price</th>
-                                        <th>Total Item<i class="text-danger"> * </i></th>
-                                        <th>Total Bill</th>
-                                        <th>Note</th>
-                                        <th>Assign New</th>
-                                        <th>Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="datatable3_body">
-                                    
-                                    </tbody>
-
-                                </table>
+                               
                                 <table id="datatable4" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>

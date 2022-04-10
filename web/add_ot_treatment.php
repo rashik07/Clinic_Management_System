@@ -167,7 +167,7 @@ from medicine
                                         </tbody>
 
                                     </table>
-                                    <datalist id="medicine_list"></datalist>
+                                    <!-- <datalist id="medicine_list"></datalist>
 
                                     <table id="datatable3" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -221,7 +221,7 @@ from medicine
 
                                         </tbody>
 
-                                    </table>
+                                    </table> -->
                                     <table id="datatable4" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
