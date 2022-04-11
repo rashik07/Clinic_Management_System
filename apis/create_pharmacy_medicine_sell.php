@@ -28,7 +28,7 @@ class CreatePharmacyMedicineSell
             try {
                 $pharmacy_sell_patient_id  = if_empty($_POST['pharmacy_sell_patient_id']);
                 $pharmacy_sell_date = if_empty($_POST['pharmacy_sell_date']);
-                $pharmacy_sell_indoor_treatment_id = if_empty($_POST['pharmacy_sell_treatment_indoor_treatment_id']);
+                $pharmacy_sell_indoor_treatment_id = if_empty($_POST['pharmacy_sell_indoor_treatment_id']);
 
                 $pharmacy_selling_sub_total  = if_empty($_POST['pharmacy_selling_sub_total']);
                 $pharmacy_selling_vat   = if_empty($_POST['pharmacy_selling_vat']);
