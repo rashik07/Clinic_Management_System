@@ -28,7 +28,7 @@ class CreteOTTreatment
             try {
                 $ot_treatment_patient_id  = if_empty($_POST['ot_treatment_patient_id']);
                 $ot_treatment_patient_name = if_empty($_POST['ot_treatment_patient_name']);
-                $ot_treatment_indoor_treatment_id  = if_empty($_POST['ot_treatment_indoor_treatment_id']);
+                $ot_treatment_indoor_treatment_id  = if_empty_return_null($_POST['ot_treatment_indoor_treatment_id']);
 
                 $ot_treatment_total_bill  = if_empty($_POST['ot_treatment_total_bill']);
                 $ot_treatment_discount_pc   = if_empty($_POST['ot_treatment_discount_pc']);
@@ -69,7 +69,7 @@ class CreteOTTreatment
                               ot_treatment_payment_type, ot_treatment_payment_type_no,
                               ot_treatment_note) 
                     VALUES ('$request_user_id',
-                            '$ot_treatment_patient_id','$ot_treatment_indoor_treatment_id', '$ot_treatment_total_bill',
+                            '$ot_treatment_patient_id',$ot_treatment_indoor_treatment_id, '$ot_treatment_total_bill',
                             '$ot_treatment_total_bill_after_discount', '$ot_treatment_discount_pc',
                             '$ot_treatment_total_paid', '$ot_treatment_total_due',
                             '$ot_treatment_payment_type', '$ot_treatment_payment_type_no',

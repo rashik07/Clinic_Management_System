@@ -40,12 +40,12 @@ class CreatePathologyInvestigation
                 $pathology_investigation_note   = if_empty($_POST['pathology_investigation_note']);
 
                 $pathology_test_id = if_empty($_POST['pathology_test_id']);
-                $pathology_investigation_indoor_treatment_id = if_empty($_POST['pathology_investigation_indoor_treatment_id']);
+                $pathology_investigation_indoor_treatment_id = if_empty_return_null($_POST['pathology_investigation_indoor_treatment_id']);
                 $pathology_test_room_no   = if_empty($_POST['pathology_test_room_no']);
                 $pathology_investigation_test_price = if_empty($_POST['pathology_investigation_test_price']);
                 $pathology_investigation_test_quantity = if_empty($_POST['pathology_investigation_test_quantity']);
                 $pathology_investigation_test_total_bill  = if_empty($_POST['pathology_investigation_test_total_bill']);
-
+              
                 $post_content = "INSERT INTO pathology_investigation (pathology_investigation_user_added_id,
                                      pathology_investigation_patient_id, pathology_investigation_indoor_treatment_id, pathology_investigation_total_bill,
                                      pathology_investigation_total_bill_after_discount,
@@ -54,12 +54,13 @@ class CreatePathologyInvestigation
                                      pathology_investigation_payment_type_no, pathology_investigation_note,
                                      pathology_investigation_date) 
                     VALUES ('$request_user_id',
-                            '$pathology_investigation_patient_id','$pathology_investigation_indoor_treatment_id', '$pathology_investigation_total_bill',
+                            '$pathology_investigation_patient_id',
+                            $pathology_investigation_indoor_treatment_id, '$pathology_investigation_total_bill',
                             '$pathology_investigation_total_bill_after_discount', '$pathology_investigation_discount_pc',
                             '$pathology_investigation_total_paid', '$pathology_investigation_total_due',
                             '$pathology_investigation_payment_type', '$pathology_investigation_payment_type_no',
                             '$pathology_investigation_note','$pathology_investigation_date')";
-                //echo $post_content;
+                // echo $post_content;
                 $result = $conn->exec($post_content);
                 $pathology_investigation_id = $conn->lastInsertId();
 

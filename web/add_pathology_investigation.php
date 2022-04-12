@@ -70,7 +70,7 @@ require_once('check_if_pathalogy_manager.php');
 
                                     <div class="form-group col-md-6">
                                         <label for="pathology_investigation_indoor_treatment_id">Indoor treatement id</label>
-                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="pathology_investigation_indoor_treatment_id" name="pathology_investigation_indoor_treatment_id" required readonly>
+                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="pathology_investigation_indoor_treatment_id" name="pathology_investigation_indoor_treatment_id"  readonly>
                                     </div>
 
                                     <div class="form-group col-md-6">
