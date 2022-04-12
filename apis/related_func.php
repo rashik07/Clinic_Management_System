@@ -13,6 +13,19 @@ function if_empty($var)
         return "";
     }
 }
+function if_empty_return_null($var)
+{
+    if (isset($var)) {
+        if (empty($var)) {
+            return "NULL";
+        } else {
+            return $var;
+        }
+    }
+    else{
+        return "NULL";
+    }
+}
 function if_empty_datetime($var)
 {
     $format = 'Y-m-d H:i:s';
