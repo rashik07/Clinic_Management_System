@@ -324,3 +324,20 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 /*patients_list end*/
 
+.Report_table{
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #bcbcbc;
+}
+.Report_table thead{
+    background-color: #20c997;
+    color: white;
+    
+}
+.Report_table td{
+    padding: 20px 10px!important;
+}
+.Report_table .main_row{
+    font-weight: 700;
+}
+
