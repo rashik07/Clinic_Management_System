@@ -122,7 +122,7 @@ if (!isset($_SESSION)) {
                 </ul>
             </li>
         <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
+        <!-- <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
 
             <li class="nav-level-one">
                 <a href="#nav-uiKit" data-toggle="collapse" aria-expanded="false">
@@ -140,7 +140,7 @@ if (!isset($_SESSION)) {
 
                 </ul>
             </li>
-        <?php } ?>
+        <?php } ?> -->
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
 
             <li>

@@ -327,7 +327,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .Report_table{
     width: 100%;
     border-collapse: collapse;
-    border: 1px solid #bcbcbc;
+    border: 1px solid #ffffff;
 }
 .Report_table thead{
     background-color: #20c997;
