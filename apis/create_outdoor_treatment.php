@@ -31,12 +31,16 @@ class CreatePatientOutdoorTreatment
                 $outdoor_treatment_total_bill  = if_empty($_POST['outdoor_treatment_total_bill']);
                 $outdoor_treatment_discount_pc   = if_empty($_POST['outdoor_treatment_discount_pc']);
                 $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
+                $outdoor_treatment_consultant=if_empty($_POST['outdoor_treatment_consultant']);
+                $outdoor_treatment_reference=if_empty($_POST['outdoor_treatment_reference']);
+                
+               
                 $outdoor_treatment_total_paid  = if_empty($_POST['outdoor_treatment_total_paid']);
                 $outdoor_treatment_total_due  = if_empty($_POST['outdoor_treatment_total_due']);
                 $outdoor_treatment_payment_type   = if_empty($_POST['outdoor_treatment_payment_type']);
                 $outdoor_treatment_payment_type_no  = if_empty($_POST['outdoor_treatment_payment_type_no']);
                 $outdoor_treatment_note   = if_empty($_POST['outdoor_treatment_note']);
-                $outdoor_treatment_indoor_treatment_id  = if_empty($_POST['outdoor_treatment_indoor_treatment_id']);
+                $outdoor_treatment_indoor_treatment_id  = if_empty_return_null($_POST['outdoor_treatment_indoor_treatment_id']);
 
                 $outdoor_service_id = $_POST['outdoor_service_id'];
                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
@@ -44,18 +48,17 @@ class CreatePatientOutdoorTreatment
                 $outdoor_service_total  = $_POST['outdoor_service_total'];
 
 
-                $post_content = "INSERT INTO outdoor_treatment (outdoor_treatment_user_added_id, outdoor_treatment_patient_id, outdoor_treatment_indoor_treatment_id,
+                $post_content = "INSERT INTO outdoor_treatment (outdoor_treatment_user_added_id, outdoor_treatment_patient_id, outdoor_treatment_indoor_treatment_id,outdoor_treatment_consultant,outdoor_treatment_reference,
                              outdoor_treatment_total_bill, outdoor_treatment_total_bill_after_discount, outdoor_treatment_discount_pc, 
                              outdoor_treatment_total_paid, outdoor_treatment_total_due,outdoor_treatment_payment_type,
                                outdoor_treatment_payment_type_no, outdoor_treatment_note) 
-                    VALUES ('$request_user_id','$outdoor_patient_id','$outdoor_treatment_indoor_treatment_id', '$outdoor_treatment_total_bill',
+                    VALUES ('$request_user_id','$outdoor_patient_id',$outdoor_treatment_indoor_treatment_id, '$outdoor_treatment_consultant','$outdoor_treatment_reference','$outdoor_treatment_total_bill',
                             '$outdoor_treatment_total_bill_after_discount', '$outdoor_treatment_discount_pc',
                             '$outdoor_treatment_total_paid', '$outdoor_treatment_total_due', '$outdoor_treatment_payment_type',
                             '$outdoor_treatment_payment_type_no','$outdoor_treatment_note')";
-                //echo $post_content;
+                // echo $post_content;
                 $result = $conn->exec($post_content);
                 $outdoor_treatment_id = $conn->lastInsertId();
-
                 $count_service = 0;
                 foreach ($outdoor_service_id as $rowservice) {
 
@@ -75,7 +78,6 @@ class CreatePatientOutdoorTreatment
                     $last_id = $conn->lastInsertId();
                     $count_service = $count_service + 1;
                 }
-
 
                 if ($result) {
                     echo json_encode(array("patient_treatment" => "Successful", "outdoor_treatment_id" => $outdoor_treatment_id, $status => 1, $message => "Create Treatment Successful"));
