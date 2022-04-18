@@ -209,6 +209,12 @@ if (!isset($_SESSION)) {
                     <li>
                         <a href="reports.php?t=1">Reports</a>
                     </li>
+                    <li>
+                        <a href="report_pharmacy_sell.php">Pharmacy Sell Report</a>
+                    </li>
+                    <li>
+                        <a href="report_pharmacy_purchase.php">Pharmacy Purchase Report</a>
+                    </li>
                 </ul>
             </li>
         <?php } ?>

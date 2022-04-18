@@ -74,7 +74,7 @@ require_once('check_if_outdoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="outdoor_treatment_consultant">Consultant Name</label>
-                                        <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." >
+                                        <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service...">
                                             <option value="">Select Doctor...</option>
                                             <?php
                                             foreach ($result_content_doctor as $data) {

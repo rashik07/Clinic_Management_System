@@ -330,15 +330,19 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     border: 1px solid #ffffff;
 }
 .Report_table thead{
-    background-color: #20c997;
-    color: white;
+    /* background-color: #20c997; */
+    border-bottom: 1px solid lightgray;
+    color: black;
     
 }
 .Report_table td{
-    padding: 20px 10px!important;
+    padding: 5px 5px!important;
 }
 .Report_table .main_row{
-    font-weight: 700;
+    /* font-weight: 700; */
+}
+.Report_table .footer_row{
+    background-color: lightgray;
 }
 
 a.navbar-brand.arrow_style span {
