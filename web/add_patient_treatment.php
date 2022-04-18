@@ -2,7 +2,7 @@
 // need to enable on production
 require_once('check_if_outdoor_manager.php');
 ?>
-<?php include 'header.php'
+<?php include 'header.php';
 ?>
 
 <body>
@@ -12,15 +12,12 @@ require_once('check_if_outdoor_manager.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
             include 'top_navbar.php';
-
             ?>
             <div class="container-fluid">
-
                 <div class="row">
                     <!-- Widget Item -->
                     <?php
@@ -39,6 +36,12 @@ require_once('check_if_outdoor_manager.php');
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_outdoor_service = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                    $get_content = "select * from doctor";
+                    //echo $get_content;
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     ?>
                     <div class="col-md-12">
@@ -69,7 +72,23 @@ require_once('check_if_outdoor_manager.php');
                                         <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
                                         <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="outdoor_treatment_indoor_treatment_id" required readonly>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="outdoor_treatment_consultant">Consultant Name</label>
+                                        <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." >
+                                            <option value="">Select Doctor...</option>
+                                            <?php
+                                            foreach ($result_content_doctor as $data) {
+                                                echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
+                                            }
+                                            ?>
 
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="outdoor_treatment_reference">Reference Name</label>
+                                        <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference">
+                                    </div>
 
                                     <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -182,6 +201,15 @@ require_once('check_if_outdoor_manager.php');
             event.preventDefault();
             spinner.show();
             var formData = new FormData(this);
+            var currentdate = new Date();
+            var datetime = currentdate.getDate().toString() +
+                (currentdate.getMonth() + 1).toString() +
+                currentdate.getFullYear().toString() +
+                currentdate.getHours().toString() +
+                currentdate.getMinutes().toString() +
+                currentdate.getSeconds().toString();
+            console.log(datetime);
+            formData.append('outdoor_treatment_invoice_id', datetime);
 
             $.ajax({
                 url: '../apis/create_outdoor_treatment.php',

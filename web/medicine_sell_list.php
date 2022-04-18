@@ -30,6 +30,7 @@ require_once('check_if_pharmacy_manager.php');
                     <thead>
                     <tr>
                         <th>#</th>
+                        <th>Invoice Number</th>
                         <th>Patient ID</th>
                         <th>Patient</th>
                         <th>Sell Date</th>
@@ -57,6 +58,7 @@ require_once('check_if_pharmacy_manager.php');
                     foreach ($result_content as $data) {
                         echo '<tr>';
                         echo '<td>'.$count.'</td>';
+                        echo '<td>'.$data['pharmacy_sell_invoice_id'].'</td>';
                         echo '<td>'.$data['patient_id'].'</td>';
                         echo '<td>'.$data['patient_name'].'</td>';
                         echo '<td>'.$data['pharmacy_sell_date'].'</td>';

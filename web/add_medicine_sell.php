@@ -73,8 +73,10 @@ from medicine
                                     </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_phone">Patient Phone<i class="text-danger"> * </i></label>
-                                        <input type="text" placeholder="Patient Phone." class="form-control" id="pharmacy_sell_patient_phone" name="pharmacy_sell_patient_phone" required onchange="loadPatient();">
+                                        <label for="pharmacy_sell_patient_phone">Patient Phone
+                                            <!-- <i class="text-danger"> * </i> -->
+                                        </label>
+                                        <input type="text" placeholder="Patient Phone." class="form-control" id="pharmacy_sell_patient_phone" name="pharmacy_sell_patient_phone"  onchange="loadPatient();">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_sell_patient_id">Patient ID</label>
@@ -225,6 +227,15 @@ from medicine
             event.preventDefault();
             spinner.show();
             var formData = new FormData(this);
+            var currentdate = new Date();
+            var datetime = currentdate.getDate().toString() +
+                (currentdate.getMonth() + 1).toString() +
+                currentdate.getFullYear().toString() +
+                currentdate.getHours().toString() +
+                currentdate.getMinutes().toString() +
+                currentdate.getSeconds().toString();
+            console.log(datetime);
+            formData.append('pharmacy_sell_invoice_id', datetime);
 
             $.ajax({
                 url: '../apis/create_pharmacy_medicine_sell.php',

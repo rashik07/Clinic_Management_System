@@ -15,7 +15,7 @@ class UpdatePatientOutdoorTreatment{
         $status="status";
         $message = "message";
         $request_user_id   = $_POST['request_user_id'];
-        $doctor_id   = $_POST['doctor_id'];
+        // $doctor_id   = $_POST['doctor_id'];
         $token  = $_POST['token'];
 
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
@@ -36,6 +36,7 @@ class UpdatePatientOutdoorTreatment{
                 $outdoor_treatment_payment_type   = if_empty($_POST['outdoor_treatment_payment_type']);
                 $outdoor_treatment_payment_type_no  = if_empty($_POST['outdoor_treatment_payment_type_no']);
                 $outdoor_treatment_note   = if_empty($_POST['outdoor_treatment_note']);
+                $outdoor_treatment_reference=if_empty($_POST['outdoor_treatment_reference']);
 
                 $outdoor_service_id = $_POST['outdoor_service_id'];
                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
@@ -44,6 +45,7 @@ class UpdatePatientOutdoorTreatment{
 
 
                 $post_content = "UPDATE outdoor_treatment SET outdoor_treatment_patient_id = '$outdoor_treatment_patient_id',
+                outdoor_treatment_reference='$outdoor_treatment_reference',
                 outdoor_treatment_total_bill = '$outdoor_treatment_total_bill',
                 outdoor_treatment_total_bill_after_discount='$outdoor_treatment_total_bill_after_discount',
                 outdoor_treatment_discount_pc = '$outdoor_treatment_discount_pc',

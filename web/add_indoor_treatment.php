@@ -12,7 +12,6 @@ require_once('check_if_indoor_manager.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
