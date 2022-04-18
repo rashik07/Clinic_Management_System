@@ -341,3 +341,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     font-weight: 700;
 }
 
+a.navbar-brand.arrow_style span {
+    background: #32ab6e!important;
+}
+

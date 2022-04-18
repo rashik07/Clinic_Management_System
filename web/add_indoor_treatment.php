@@ -383,6 +383,7 @@ require_once('check_if_indoor_manager.php');
     function DateDiff(date1, date2) {
         date1 = new Date(date1);
         date2 = new Date(date2);
+        // date2.setDate(date2.getDate() + 1)
         date1.setHours(0);
         date1.setMinutes(0, 0, 0);
         date2.setHours(0);
@@ -687,24 +688,24 @@ require_once('check_if_indoor_manager.php');
     }
 </script>
 <script>
-    $('#datatable1').dataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    }); //replace id with your first table's id
-    $('#datatable2').dataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    }); //replace id with your first table's id
+    // $('#datatable1').dataTable({
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         'copyHtml5',
+    //         'excelHtml5',
+    //         'csvHtml5',
+    //         'pdfHtml5'
+    //     ]
+    // }); //replace id with your first table's id
+    // $('#datatable2').dataTable({
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         'copyHtml5',
+    //         'excelHtml5',
+    //         'csvHtml5',
+    //         'pdfHtml5'
+    //     ]
+    // }); //replace id with your first table's id
 </script>
 
 <script>

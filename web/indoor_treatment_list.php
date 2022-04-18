@@ -31,6 +31,7 @@ require_once('check_if_indoor_manager.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Admission ID</th>
                                             <th>Patient Name</th>
                                             <th>Doctor Name</th>
                                             <th>Last Bed</th>
@@ -58,7 +59,7 @@ require_once('check_if_indoor_manager.php');
                                         foreach ($result_content as $data) {
                                             echo '<tr>';
                                             echo '<td>' . $count . '</td>';
-                                            echo '<td>' . $data['patient_name'] . '</td>';
+
 
                                             $treatment_id = $data['indoor_treatment_id'];
 
@@ -83,7 +84,8 @@ require_once('check_if_indoor_manager.php');
                                             foreach ($result_content_bed as $bed) {
                                                 $last_bed_name = $bed['indoor_bed_name'];
                                             }
-
+                                            echo '<td>' . $data['indoor_treatment_admission_id'] . '</td>';
+                                            echo '<td>' . $data['patient_name'] . '</td>';
                                             echo '<td>' . $last_doctor_name . '</td>';
                                             echo '<td>' . $last_bed_name . '</td>';
                                             echo '<td>' . $data['indoor_treatment_total_bill_after_discount'] . '</td>';
