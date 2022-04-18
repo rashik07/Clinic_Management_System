@@ -33,7 +33,7 @@ class CreatePatientOutdoorTreatment
                 $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
                 $outdoor_treatment_consultant=if_empty($_POST['outdoor_treatment_consultant']);
                 $outdoor_treatment_reference=if_empty($_POST['outdoor_treatment_reference']);
-                
+                $outdoor_treatment_invoice_id = if_empty($_POST['outdoor_treatment_invoice_id']);
                
                 $outdoor_treatment_total_paid  = if_empty($_POST['outdoor_treatment_total_paid']);
                 $outdoor_treatment_total_due  = if_empty($_POST['outdoor_treatment_total_due']);
@@ -48,11 +48,11 @@ class CreatePatientOutdoorTreatment
                 $outdoor_service_total  = $_POST['outdoor_service_total'];
 
 
-                $post_content = "INSERT INTO outdoor_treatment (outdoor_treatment_user_added_id, outdoor_treatment_patient_id, outdoor_treatment_indoor_treatment_id,outdoor_treatment_consultant,outdoor_treatment_reference,
+                $post_content = "INSERT INTO outdoor_treatment (outdoor_treatment_invoice_id,outdoor_treatment_user_added_id, outdoor_treatment_patient_id, outdoor_treatment_indoor_treatment_id,outdoor_treatment_consultant,outdoor_treatment_reference,
                              outdoor_treatment_total_bill, outdoor_treatment_total_bill_after_discount, outdoor_treatment_discount_pc, 
                              outdoor_treatment_total_paid, outdoor_treatment_total_due,outdoor_treatment_payment_type,
                                outdoor_treatment_payment_type_no, outdoor_treatment_note) 
-                    VALUES ('$request_user_id','$outdoor_patient_id',$outdoor_treatment_indoor_treatment_id, '$outdoor_treatment_consultant','$outdoor_treatment_reference','$outdoor_treatment_total_bill',
+                    VALUES ('$outdoor_treatment_invoice_id','$request_user_id','$outdoor_patient_id',$outdoor_treatment_indoor_treatment_id, '$outdoor_treatment_consultant','$outdoor_treatment_reference','$outdoor_treatment_total_bill',
                             '$outdoor_treatment_total_bill_after_discount', '$outdoor_treatment_discount_pc',
                             '$outdoor_treatment_total_paid', '$outdoor_treatment_total_due', '$outdoor_treatment_payment_type',
                             '$outdoor_treatment_payment_type_no','$outdoor_treatment_note')";

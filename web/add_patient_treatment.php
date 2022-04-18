@@ -201,6 +201,15 @@ require_once('check_if_outdoor_manager.php');
             event.preventDefault();
             spinner.show();
             var formData = new FormData(this);
+            var currentdate = new Date();
+            var datetime = currentdate.getDate().toString() +
+                (currentdate.getMonth() + 1).toString() +
+                currentdate.getFullYear().toString() +
+                currentdate.getHours().toString() +
+                currentdate.getMinutes().toString() +
+                currentdate.getSeconds().toString();
+            console.log(datetime);
+            formData.append('outdoor_treatment_invoice_id', datetime);
 
             $.ajax({
                 url: '../apis/create_outdoor_treatment.php',

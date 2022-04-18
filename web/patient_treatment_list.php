@@ -30,6 +30,7 @@ require_once('check_if_outdoor_manager.php');
                                 <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Invoice No</th>
                                     <th>Patient Name</th>
                                     <th>Services</th>
                                     <th>Total Bill</th>
@@ -46,7 +47,7 @@ require_once('check_if_outdoor_manager.php');
                                 $conn = $connection->getConnection();
 
                                 $get_content = "select * from patient 
-    join outdoor_treatment ot on patient.patient_id = ot.outdoor_treatment_patient_id";
+    join outdoor_treatment ot on patient.patient_id = ot.outdoor_treatment_patient_id ORDER BY outdoor_treatment_id DESC";
                                 $getJson = $conn->prepare($get_content);
                                 $getJson->execute();
 
@@ -56,6 +57,7 @@ require_once('check_if_outdoor_manager.php');
                                 foreach ($result_content as $data) {
                                     echo '<tr>';
                                     echo '<td>'.$count.'</td>';
+                                    echo '<td>'.$data['outdoor_treatment_invoice_id'].'</td>';
                                     echo '<td>'.$data['patient_name'].'</td>';
 
                                     $treatment_id = $data['outdoor_treatment_id'];
