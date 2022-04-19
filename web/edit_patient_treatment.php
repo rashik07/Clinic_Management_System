@@ -59,6 +59,12 @@ require_once('check_if_outdoor_manager.php');
                     $getJson->execute();
                     $result_content_outdoor_service_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+                    $get_content = "select * from doctor";
+                    //echo $get_content;
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
@@ -84,9 +90,29 @@ require_once('check_if_outdoor_manager.php');
                                         <input type="text" placeholder="Patient Name" class="form-control" id="outdoor_patient_name" name="outdoor_patient_name" required readonly>
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label for="outdoor_treatment_consultant">Consultant Name</label>
+                                        <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." value="<?php echo $result_content_treatment[0]['outdoor_treatment_consultant']; ?>">
+                                        
+                                            <option value="" selected="selected">Select Doctor...</option>
+                                            <?php
+                                            foreach ($result_content_doctor as $data) {
+                                                if( $result_content_treatment[0]['outdoor_treatment_consultant'] == $data['doctor_id']){
+                                                echo '<option value="' . $data['doctor_id'] . '" selected="selected">' . $data['doctor_name'] . '</option>';
+                                                }else{
+                                                    echo '<option value="' . $data['doctor_id'] . '" >' . $data['doctor_name'] . '</option>';
+                                                }
+                                            }
+                                            ?>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
                                         <label for="outdoor_treatment_reference">Reference Name</label>
                                         <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference" value="<?php echo $result_content_treatment[0]['outdoor_treatment_reference']; ?>">
                                     </div>
+                                
+
+                                  
                                     <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
