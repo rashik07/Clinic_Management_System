@@ -295,6 +295,7 @@
                                         <?php
                                             if ($_POST['content'] == 'patient_treatment')
                                             {
+                                                
                                                 $outdoor_service_id = $_POST['outdoor_service_id'];
                                                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
                                                 $outdoor_service_rate  = $_POST['outdoor_service_rate'];
