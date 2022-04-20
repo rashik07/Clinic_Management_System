@@ -247,9 +247,9 @@ from pharmacy_sell_medicine
     function invoice() {
         form = document.getElementById('medicine_purchase_update_form');
         form.target = '_blank';
-        form.action = 'invoice.php';
+        form.action = 'medicine_sell_invoice.php';
         form.submit();
-        form.action = 'invoice.php';
+        form.action = 'medicine_sell_invoice.php';
         form.target = '';
     }
 
