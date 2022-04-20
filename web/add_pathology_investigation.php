@@ -70,7 +70,7 @@ require_once('check_if_pathalogy_manager.php');
 
                                     <div class="form-group col-md-6">
                                         <label for="pathology_investigation_indoor_treatment_id">Indoor treatement id</label>
-                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="pathology_investigation_indoor_treatment_id" name="pathology_investigation_indoor_treatment_id"  readonly>
+                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="pathology_investigation_indoor_treatment_id" name="pathology_investigation_indoor_treatment_id" readonly>
                                     </div>
 
                                     <div class="form-group col-md-6">
@@ -85,6 +85,7 @@ require_once('check_if_pathalogy_manager.php');
                                                 <th>Room No.</th>
                                                 <th>Rate</th>
                                                 <th>Quantity<i class="text-danger"> * </i></th>
+                                                <th>Discount</th>
                                                 <th>Total</th>
                                                 <th>Add</th>
                                                 <th>Delete</th>
@@ -113,6 +114,10 @@ require_once('check_if_pathalogy_manager.php');
                                                 </td>
                                                 <td>
                                                     <input type="number" class="form-control pathology_investigation_test_quantity" onchange="changeData(this);" placeholder="Quantity" id="pathology_investigation_test_quantity" name="pathology_investigation_test_quantity[]" required>
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control pathology_investigation_test_dc" onchange="changeData(this);" placeholder="Discount" id="pathology_investigation_test_dc" name="pathology_investigation_test_dc[]">
 
                                                 </td>
 
@@ -340,8 +345,17 @@ require_once('check_if_pathalogy_manager.php');
         }
         var pathology_test_rate = parseFloat(row.find(".pathology_investigation_test_price").val());
         var pathology_test_quantity = parseFloat(row.find(".pathology_investigation_test_quantity").val());
-        //alert(outdoor_service_id);
+        var pathology_investigation_test_dc = row.find(".pathology_investigation_test_dc").val();
         var total = parseInt(pathology_test_rate) * parseInt(pathology_test_quantity);
+        if (pathology_investigation_test_dc != "") {
+            if (pathology_investigation_test_dc.search("%") > 0) {
+                var total_dc = (parseInt(pathology_investigation_test_dc) / 100) * parseInt(total);
+                total = parseInt(pathology_test_rate) * parseInt(pathology_test_quantity) - total_dc;
+            } else {
+                total = parseInt(pathology_test_rate) * parseInt(pathology_test_quantity) - parseInt(pathology_investigation_test_dc);
+            }
+        }
+
         row.find(".pathology_investigation_test_total_bill").val(isNaN(total) ? 0 : total);
 
         update_total_bill();
@@ -379,6 +393,7 @@ require_once('check_if_pathalogy_manager.php');
         var td5 = document.createElement('td');
         var td6 = document.createElement('td');
         var td7 = document.createElement('td');
+        var td8 = document.createElement('td');
 
         var selectList = document.createElement("select");
         selectList.setAttribute("id", "pathology_test_id");
@@ -427,13 +442,24 @@ require_once('check_if_pathalogy_manager.php');
         text4.onchange = function() {
             changeData(this);
         }
+
         var text5 = document.createElement("INPUT");
-        text5.setAttribute("type", "number");
-        text5.setAttribute("required", "required");
-        text5.setAttribute("class", "form-control pathology_investigation_test_total_bill");
-        text5.setAttribute("placeholder", "Total");
-        text5.setAttribute("name", "pathology_investigation_test_total_bill[]");
-        text5.setAttribute("readonly", "readonly");
+        text5.setAttribute("type", "text");
+        // text4.setAttribute("required", "required");
+        text5.setAttribute("class", "form-control pathology_investigation_test_dc");
+        text5.setAttribute("placeholder", "Discount");
+        text5.setAttribute("name", "pathology_investigation_test_dc[]");
+        text5.onchange = function() {
+            changeData(this);
+        }
+
+        var text6 = document.createElement("INPUT");
+        text6.setAttribute("type", "number");
+        text6.setAttribute("required", "required");
+        text6.setAttribute("class", "form-control pathology_investigation_test_total_bill");
+        text6.setAttribute("placeholder", "Total");
+        text6.setAttribute("name", "pathology_investigation_test_total_bill[]");
+        text6.setAttribute("readonly", "readonly");
 
 
         var buttonAdd = document.createElement('button');
@@ -460,8 +486,9 @@ require_once('check_if_pathalogy_manager.php');
         td3.appendChild(text3);
         td4.appendChild(text4);
         td5.appendChild(text5);
-        td6.appendChild(buttonAdd);
-        td7.appendChild(buttonRemove);
+        td6.appendChild(text6);
+        td7.appendChild(buttonAdd);
+        td8.appendChild(buttonRemove);
 
 
         tr.appendChild(td1);
@@ -471,6 +498,7 @@ require_once('check_if_pathalogy_manager.php');
         tr.appendChild(td5);
         tr.appendChild(td6);
         tr.appendChild(td7);
+        tr.appendChild(td8);
 
         table.appendChild(tr);
 

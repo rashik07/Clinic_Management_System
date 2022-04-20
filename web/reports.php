@@ -71,149 +71,8 @@ if (isset($_POST["max"])) {
                                         <tr>
 
                                             <td style="width: 40%;">Details</td>
-                                            <td>QTY</td>
-                                            <td>Per Unit</td>
-                                            <td>Issue Date</td>
-                                            <td>Bill</td>
-                                            <td>Discount</td>
-                                            <td>Payment</td>
-                                            <td>Due</td>
-                                            <td>Total</td>
-                                            <!-- <td>Action</td> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        require_once("../apis/Connection.php");
-                                        $connection = new Connection();
-                                        $conn = $connection->getConnection();
-                                        $get_content = "SELECT * FROM `outdoor_service`";
-                                        $getJson = $conn->prepare($get_content);
-                                        $getJson->execute();
-                                        $services = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                        if (count($services) > 0) {
-                                            foreach ($services as $service) {
-                                                if ($start_date != "" && $end_date != "") {
-                                                    require_once("../apis/Connection.php");
-                                                    $connection = new Connection();
-                                                    $conn = $connection->getConnection();
-                                                    // $indoor_treatment_id = $_GET['indoor_treatment_id'];
-                                                    $get_content = "SELECT * FROM outdoor_treatment_service left join outdoor_treatment on outdoor_treatment_service.outdoor_treatment_service_treatment_id = outdoor_treatment.outdoor_treatment_id WHERE (`outdoor_treatment_service_creation_time` BETWEEN '$start_date' AND '$end_date') AND (`outdoor_treatment_service_service_id` = '$service[outdoor_service_id]') AND (outdoor_treatment_indoor_treatment_id IS NULL)";
-                                                    $getJson = $conn->prepare($get_content);
-                                                    $getJson->execute();
-                                                    $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                                    $total_bill = 0;
-                                                    // $total_discount = 0;
-                                                    $total_payment = 0;
-                                                    $total_due = 0;
-
-                                                    if (count($pharmacy_sells) > 0) {
-                                                        foreach ($pharmacy_sells as $pharmacy_sell) {
-                                                            $total_bill += (int)$pharmacy_sell['outdoor_treatment_service_service_total'];
-                                                        }
-                                                        echo '<tr class="main_row">
-                                                            <td>' . $service['outdoor_service_name'] . '
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>' . $total_bill . '</td>
-
-                                                        </tr>';
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        ?>
-
-
-                                    </tbody>
-                                </table>
-
-
-
-                                <h4>Investigatioons</h4>
-                                <table class="Report_table" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-
-                                            <td style="width: 40%;">Details</td>
-                                            <td>QTY</td>
-                                            <td>Per Unit</td>
-                                            <td>Issue Date</td>
-                                            <td>Bill</td>
-                                            <td>Discount</td>
-                                            <td>Payment</td>
-                                            <td>Due</td>
-                                            <td>Total</td>
-                                            <!-- <td>Action</td> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        require_once("../apis/Connection.php");
-                                        $connection = new Connection();
-                                        $conn = $connection->getConnection();
-                                        $get_content = "SELECT * FROM `pathology_test`";
-                                        $getJson = $conn->prepare($get_content);
-                                        $getJson->execute();
-                                        $pathology_tests = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                        if (count($pathology_tests) > 0) {
-                                            foreach ($pathology_tests as $pathology_test) {
-                                                if ($start_date != "" && $end_date != "") {
-                                                    require_once("../apis/Connection.php");
-                                                    $connection = new Connection();
-                                                    $conn = $connection->getConnection();
-                                                    // $indoor_treatment_id = $_GET['indoor_treatment_id'];
-                                                    $get_content = "SELECT * FROM pathology_investigation_test left join pathology_investigation on pathology_investigation_test.pathology_investigation_test_id = pathology_investigation.pathology_investigation_id WHERE (pathology_investigation_test.pathology_investigation_creation_time BETWEEN '$start_date' AND '$end_date') AND (pathology_investigation_test.pathology_investigation_test_pathology_test_id = '$pathology_test[pathology_test_id]') AND (pathology_investigation.pathology_investigation_indoor_treatment_id IS NULL)";
-                                                    // echo $get_content;
-                                                    $getJson = $conn->prepare($get_content);
-                                                    $getJson->execute();
-                                                    $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                                    $total_bill = 0;
-                                                    // $total_discount = 0;
-                                                    $total_payment = 0;
-                                                    $total_due = 0;
-
-                                                    if (count($pharmacy_sells) > 0) {
-                                                        foreach ($pharmacy_sells as $pharmacy_sell) {
-                                                            $total_bill += (int)$pharmacy_sell['pathology_investigation_test_total_bill'];
-                                                        }
-                                                        echo '<tr class="main_row">
-                                                            <td>' . $pathology_test['pathology_test_name'] . '
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td>' . $total_bill . '</td>
-
-                                                        </tr>';
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        ?>
-
-
-                                    </tbody>
-                                </table>
-
-                                <h3 style="text-align: center; margin-bottom: 20px;background: lightyellow;">INDOOR REPORT</h3>
-                                <table class="Report_table" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-
-                                            <td style="width: 40%;">Details</td>
-                                            <td>QTY</td>
-                                            <td>Per Unit</td>
+                                            <td>Name</td>
+                                            <td>Age</td>
                                             <td>Issue Date</td>
                                             <td>Bill</td>
                                             <td>Discount</td>
@@ -231,7 +90,7 @@ if (isset($_POST["max"])) {
                                             $connection = new Connection();
                                             $conn = $connection->getConnection();
                                             // $indoor_treatment_id = $_GET['indoor_treatment_id'];
-                                            $get_content = "SELECT * FROM indoor_treatment WHERE (indoor_treatment_creation_time BETWEEN '$start_date' AND '$end_date')";
+                                            $get_content = "SELECT * FROM outdoor_treatment LEFT JOIN patient on outdoor_treatment.outdoor_treatment_patient_id=patient.patient_id WHERE (outdoor_treatment_creation_time BETWEEN '$start_date' AND '$end_date') AND (`outdoor_treatment_indoor_treatment_id` IS NULL)";
                                             // echo $get_content;
                                             $getJson = $conn->prepare($get_content);
                                             $getJson->execute();
@@ -243,21 +102,220 @@ if (isset($_POST["max"])) {
 
                                             if (count($pharmacy_sells) > 0) {
                                                 foreach ($pharmacy_sells as $pharmacy_sell) {
-                                                    $total_bill += (int)$pharmacy_sell['indoor_treatment_total_bill_after_discount'];
+                                                    if ($pharmacy_sell['outdoor_treatment_discount_pc'] == "") {
+                                                        $pharmacy_sell['outdoor_treatment_discount_pc'] = 0;
+                                                    }
+                                                    if (!isset($pharmacy_sell['patient_name'])) {
+                                                        $pharmacy_sell['patient_name'] = "-";
+                                                        $pharmacy_sell['patient_age'] = "-";
+                                                    }
+
+                                                    $total_bill += (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'];
+
+                                                    $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
+                                                    $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
+                                                    $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_creation_time']));
                                                     echo '<tr class="main_row">
-                                                            <td>' . $pharmacy_sell['indoor_treatment_admission_id'] . '
+                                                            <td>Invoice no.' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '
                                                             </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
+                                                            <td>' . $pharmacy_sell['patient_age'] . '</td>
+                                                            <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_total_bill'] . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_discount_pc'] . '%</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_total_paid'] . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_total_due'] . '</td>
+                                                            <td>' . (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'] . '</td>
+
+                                                        </tr>';
+                                                }
+                                                echo '
+                                                <tr class="footer_row">
+                                                    <td> Total
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>' . $total_payment . '</td>
+                                                    <td>' . $total_due . '</td>
+                                                    <td>' . $total_bill . '</td>
+                                                    
+                                                </tr>';
+                                            }
+                                        }
+
+                                        ?>
+
+
+                                    </tbody>
+                                </table>
+                                <div style="min-height: 40px"></div>
+
+
+
+                                <h4>Investigations</h4>
+                                <table class="Report_table" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+
+                                            <td style="width: 40%;">Details</td>
+                                            <td>Name</td>
+                                            <td>Age</td>
+                                            <td>Issue Date</td>
+                                            <td>Bill</td>
+                                            <td>Discount</td>
+                                            <td>Payment</td>
+                                            <td>Due</td>
+                                            <td>Total</td>
+                                            <!-- <td>Action</td> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        if ($start_date != "" && $end_date != "") {
+                                            require_once("../apis/Connection.php");
+                                            $connection = new Connection();
+                                            $conn = $connection->getConnection();
+                                            // $indoor_treatment_id = $_GET['indoor_treatment_id'];
+                                            $get_content = "SELECT * FROM pathology_investigation LEFT JOIN patient on pathology_investigation.pathology_investigation_patient_id=patient.patient_id WHERE (pathology_investigation_creation_time BETWEEN '$start_date' AND '$end_date') AND (`pathology_investigation_indoor_treatment_id` IS NULL)";
+                                            // echo $get_content;
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                            $total_bill = 0;
+                                            // $total_discount = 0;
+                                            $total_payment = 0;
+                                            $total_due = 0;
+
+                                            if (count($pharmacy_sells) > 0) {
+                                                foreach ($pharmacy_sells as $pharmacy_sell) {
+                                                    if ($pharmacy_sell['pathology_investigation_discount_pc'] == "") {
+                                                        $pharmacy_sell['pathology_investigation_discount_pc'] = 0;
+                                                    }
+                                                    if (!isset($pharmacy_sell['patient_name'])) {
+                                                        $pharmacy_sell['patient_name'] = "-";
+                                                        $pharmacy_sell['patient_age'] = "-";
+                                                    }
+                                                    $total_bill += (int)$pharmacy_sell['pathology_investigation_total_bill_after_discount'];
+                                                    $total_payment += (int)$pharmacy_sell['pathology_investigation_total_paid'];
+                                                    $total_due += (int)$pharmacy_sell['pathology_investigation_total_due'];
+                                                    $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pathology_investigation_creation_time']));
+                                                    echo '<tr class="main_row">
+                                                            <td>Invoice no.</td>
+                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
+                                                            <td>' . $pharmacy_sell['patient_age'] . '</td>
+                                                            <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['pathology_investigation_total_bill'] . '</td>
+                                                            <td>' . $pharmacy_sell['pathology_investigation_discount_pc'] . '%</td>
+                                                            <td>' . $pharmacy_sell['pathology_investigation_total_paid'] . '</td>
+                                                            <td>' . $pharmacy_sell['pathology_investigation_total_due'] . '</td>
+                                                            <td>' . (int)$pharmacy_sell['pathology_investigation_total_bill_after_discount'] . '</td>
+
+                                                        </tr>';
+                                                }
+                                                echo '
+                                                <tr class="footer_row">
+                                                    <td> Total
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>' . $total_payment . '</td>
+                                                    <td>' . $total_due . '</td>
+                                                    <td>' . $total_bill . '</td>
+                                                    
+                                                </tr>';
+                                            }
+                                        }
+
+                                        ?>
+
+
+                                    </tbody>
+                                </table>
+                                <div style="min-height: 40px"></div>
+
+                                <h3 style="text-align: center; margin-bottom: 20px;background: lightyellow;">INDOOR REPORT</h3>
+                                <table class="Report_table" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+
+                                            <td style="width: 40%;">Details</td>
+                                            <td>Name</td>
+                                            <td>Age</td>
+                                            <td>Issue Date</td>
+                                            <td>Bill</td>
+                                            <td>Discount</td>
+                                            <td>Payment</td>
+                                            <td>Due</td>
+                                            <td>Total</td>
+                                            <!-- <td>Action</td> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        if ($start_date != "" && $end_date != "") {
+                                            require_once("../apis/Connection.php");
+                                            $connection = new Connection();
+                                            $conn = $connection->getConnection();
+                                            // $indoor_treatment_id = $_GET['indoor_treatment_id'];
+                                            $get_content = "SELECT * FROM indoor_treatment LEFT JOIN patient on indoor_treatment.indoor_treatment_patient_id=patient.patient_id WHERE (indoor_treatment_creation_time BETWEEN '$start_date' AND '$end_date')";
+                                            // echo $get_content;
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                            $total_bill = 0;
+                                            // $total_discount = 0;
+                                            $total_payment = 0;
+                                            $total_due = 0;
+
+                                            if (count($pharmacy_sells) > 0) {
+                                                foreach ($pharmacy_sells as $pharmacy_sell) {
+                                                    if ($pharmacy_sell['indoor_treatment_discount_pc'] == "") {
+                                                        $pharmacy_sell['indoor_treatment_discount_pc'] = 0;
+                                                    }
+                                                    if (!isset($pharmacy_sell['patient_name'])) {
+                                                        $pharmacy_sell['patient_name'] = "-";
+                                                        $pharmacy_sell['patient_age'] = "-";
+                                                    }
+                                                    $total_bill += (int)$pharmacy_sell['indoor_treatment_total_bill_after_discount'];
+                                                    $total_payment += (int)$pharmacy_sell['indoor_treatment_total_paid'];
+                                                    $total_due += (int)$pharmacy_sell['indoor_treatment_total_due'];
+                                                    $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['indoor_treatment_creation_time']));
+                                                    echo '<tr class="main_row">
+                                                            <td>Invoice no.' . $pharmacy_sell['indoor_treatment_admission_id'] . '
+                                                            </td>
+                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
+                                                            <td>' . $pharmacy_sell['patient_age'] . '</td>
+                                                            <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['indoor_treatment_total_bill'] . '</td>
+                                                            <td>' . $pharmacy_sell['indoor_treatment_discount_pc'] . '%</td>
+                                                            <td>' . $pharmacy_sell['indoor_treatment_total_paid'] . '</td>
+                                                            <td>' . $pharmacy_sell['indoor_treatment_total_due'] . '</td>
                                                             <td>' . (int)$pharmacy_sell['indoor_treatment_total_bill_after_discount'] . '</td>
 
                                                         </tr>';
                                                 }
+                                                echo '
+                                                <tr class="footer_row">
+                                                    <td> Total
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>' . $total_payment . '</td>
+                                                    <td>' . $total_due . '</td>
+                                                    <td>' . $total_bill . '</td>
+                                                    
+                                                </tr>';
                                             }
                                         }
 

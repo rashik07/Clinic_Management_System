@@ -42,10 +42,11 @@ class CreatePathologyInvestigation
                 $pathology_test_id = if_empty($_POST['pathology_test_id']);
                 $pathology_investigation_indoor_treatment_id = if_empty_return_null($_POST['pathology_investigation_indoor_treatment_id']);
                 $pathology_test_room_no   = if_empty($_POST['pathology_test_room_no']);
+                $pathology_investigation_test_dc = if_empty($_POST['pathology_investigation_test_dc']);
                 $pathology_investigation_test_price = if_empty($_POST['pathology_investigation_test_price']);
                 $pathology_investigation_test_quantity = if_empty($_POST['pathology_investigation_test_quantity']);
                 $pathology_investigation_test_total_bill  = if_empty($_POST['pathology_investigation_test_total_bill']);
-              
+
                 $post_content = "INSERT INTO pathology_investigation (pathology_investigation_user_added_id,
                                      pathology_investigation_patient_id, pathology_investigation_indoor_treatment_id, pathology_investigation_total_bill,
                                      pathology_investigation_total_bill_after_discount,
@@ -73,6 +74,7 @@ class CreatePathologyInvestigation
                     $test_price  = $pathology_investigation_test_price[$count_service];
                     $test_quantity = $pathology_investigation_test_quantity[$count_service];
                     $total_bill  = $pathology_investigation_test_total_bill[$count_service];
+                    $test_dc = $pathology_investigation_test_dc[$count_service];
 
                     $post_content = "INSERT INTO pathology_investigation_test (pathology_investigation_test_user_added_id,
                                           pathology_investigation_test_investigation_id,
@@ -80,9 +82,10 @@ class CreatePathologyInvestigation
                                           pathology_investigation_test_room_no,
                                           pathology_investigation_test_price,
                                           pathology_investigation_test_quantity,
+                                          pathology_investigation_test_dc,
                                           pathology_investigation_test_total_bill) 
                     VALUES ('$request_user_id','$pathology_investigation_id','$test_id','$room_no',
-                            '$test_price','$test_quantity','$total_bill')";
+                            '$test_price','$test_quantity','$test_dc','$total_bill')";
                     //echo $post_content;
                     $result = $conn->exec($post_content);
                     $last_id = $conn->lastInsertId();

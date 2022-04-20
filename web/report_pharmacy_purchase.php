@@ -70,9 +70,8 @@ if (isset($_POST["max"])) {
                                     <thead>
                                         <tr>
 
-                                            <td style="width: 40%;">Details</td>
-                                            <td>QTY</td>
-                                            <td>Per Unit</td>
+                                            <!-- <td style="width: 40%;">Details</td> -->
+
                                             <td>Issue Date</td>
                                             <td>Bill</td>
                                             <td>Discount</td>
@@ -111,15 +110,8 @@ if (isset($_POST["max"])) {
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_purchase_creation_time']));
                                                     echo '
                                     <tr class="main_row">
-                                        <td> 
-                                        <a class="" data-toggle="collapse" href="#pharmacy_sell" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Medicine</a>
-                                        <div class="collapse multi-collapse" id="pharmacy_sell">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        
+                                       
                                         <td>' . $sell_Date . '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_sub_total'] . '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_discount'] . '%</td>
@@ -133,9 +125,8 @@ if (isset($_POST["max"])) {
                                     <tr class="footer_row">
                                         <td> Total
                                         </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        
+                                        
                                         <td></td>
                                         <td></td>
                                         <td>' . $total_payment . '</td>

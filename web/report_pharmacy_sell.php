@@ -71,8 +71,7 @@ if (isset($_POST["max"])) {
                                         <tr>
 
                                             <td style="width: 40%;">Details</td>
-                                            <td>QTY</td>
-                                            <td>Per Unit</td>
+                                            <td>Name</td>
                                             <td>Issue Date</td>
                                             <td>Bill</td>
                                             <td>Discount</td>
@@ -89,7 +88,7 @@ if (isset($_POST["max"])) {
                                             $connection = new Connection();
                                             $conn = $connection->getConnection();
                                             // $indoor_treatment_id = $_GET['indoor_treatment_id'];
-                                            $get_content = "SELECT * FROM `pharmacy_sell` WHERE (`pharmacy_sell_date` BETWEEN '$start_date' AND '$end_date') AND (`pharmacy_sell_indoor_treatment_id` > 0) ";
+                                            $get_content = "SELECT * FROM `pharmacy_sell` LEFT JOIN patient on pharmacy_sell.pharmacy_sell_patient_id=patient.patient_id WHERE (`pharmacy_sell_date` BETWEEN '$start_date' AND '$end_date') AND (`pharmacy_sell_indoor_treatment_id` > 0) ";
                                             $getJson = $conn->prepare($get_content);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
@@ -104,6 +103,9 @@ if (isset($_POST["max"])) {
                                                     if ($pharmacy_sell['pharmacy_sell_discount'] == "") {
                                                         $pharmacy_sell['pharmacy_sell_discount'] = 0;
                                                     }
+                                                    if (!isset($pharmacy_sell['patient_name'])) {
+                                                        $pharmacy_sell['patient_name'] = "-";
+                                                    }
                                                     $total_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
                                                     // $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
@@ -111,15 +113,8 @@ if (isset($_POST["max"])) {
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
                                                     echo '
                                     <tr class="main_row">
-                                        <td> 
-                                        <a class="" data-toggle="collapse" href="#pharmacy_sell" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Medicine</a>
-                                        <div class="collapse multi-collapse" id="pharmacy_sell">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td> Invoice no. ' . $pharmacy_sell['pharmacy_sell_invoice_id'] . '</td>
+                                        <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '%</td>
@@ -133,7 +128,6 @@ if (isset($_POST["max"])) {
                                     <tr class="footer_row">
                                         <td> Total
                                         </td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -155,8 +149,7 @@ if (isset($_POST["max"])) {
                                         <tr>
 
                                             <td style="width: 40%;">Details</td>
-                                            <td>QTY</td>
-                                            <td>Per Unit</td>
+                                            <td>Name</td>
                                             <td>Issue Date</td>
                                             <td>Bill</td>
                                             <td>Discount</td>
@@ -173,7 +166,7 @@ if (isset($_POST["max"])) {
                                             $connection = new Connection();
                                             $conn = $connection->getConnection();
                                             // $indoor_treatment_id = $_GET['indoor_treatment_id'];
-                                            $get_content = "SELECT * FROM `pharmacy_sell` WHERE (`pharmacy_sell_date` BETWEEN '$start_date' AND '$end_date') AND (`pharmacy_sell_indoor_treatment_id` IS NULL) ";
+                                            $get_content = "SELECT * FROM `pharmacy_sell` LEFT JOIN patient on pharmacy_sell.pharmacy_sell_patient_id=patient.patient_id WHERE (`pharmacy_sell_date` BETWEEN '$start_date' AND '$end_date') AND (`pharmacy_sell_indoor_treatment_id` IS NULL) ";
                                             $getJson = $conn->prepare($get_content);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
@@ -188,6 +181,9 @@ if (isset($_POST["max"])) {
                                                     if ($pharmacy_sell['pharmacy_sell_discount'] == "") {
                                                         $pharmacy_sell['pharmacy_sell_discount'] = 0;
                                                     }
+                                                    if (!isset($pharmacy_sell['patient_name'])) {
+                                                        $pharmacy_sell['patient_name'] = "-";
+                                                    }
                                                     $total_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
                                                     // $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
@@ -196,15 +192,8 @@ if (isset($_POST["max"])) {
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
                                                     echo '
                                     <tr class="main_row">
-                                        <td> 
-                                        <a class="" data-toggle="collapse" href="#pharmacy_sell" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Medicine</a>
-                                        <div class="collapse multi-collapse" id="pharmacy_sell">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
-                                        <td>-</td>
-                                        <td>-</td>
+                                    <td> Invoice no. ' . $pharmacy_sell['pharmacy_sell_invoice_id'] . '</td>
+                                    <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '%</td>
@@ -218,7 +207,6 @@ if (isset($_POST["max"])) {
                                     <tr class="footer_row">
                                         <td> Total
                                         </td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

@@ -389,7 +389,8 @@ CREATE TABLE `pathology_investigation_test`
 
     `pathology_investigation_test_room_no`           varchar(255) DEFAULT NULL,
     `pathology_investigation_test_price`             varchar(255) DEFAULT NULL,                                                
-    `pathology_investigation_test_quantity`          varchar(255) DEFAULT 0,                                                     
+    `pathology_investigation_test_quantity`          varchar(255) DEFAULT 0, 
+    `pathology_investigation_test_dc`            varchar(255) DEFAULT NULL,                                                    
     `pathology_investigation_test_total_bill`        varchar(255) DEFAULT NULL,                                                  
 
     `pathology_investigation_creation_time`          DATETIME     DEFAULT CURRENT_TIMESTAMP,
