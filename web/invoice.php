@@ -72,10 +72,11 @@
                                     $result_content_user = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                     
                                     if ($_POST['content'] == 'patient_treatment') {
-                                        $invoice_no = "OPT-001";
+                                        // $invoice_no = "OPT-001";
                                         $patient_id  = $_POST['outdoor_patient_id'];
                                         $treatment_id  = $_POST['outdoor_treatment_id'];
-                                        $invoice_no = $invoice_no . $patient_id . $treatment_id;
+                                        // $outdoor_treatment_consultant  = if_empty($_POST['outdoor_treatment_consultant']);
+                                        // $invoice_no =if_empty($_POST['outdoor_treatment_invoice_id']);
                                         $outdoor_treatment_total_bill  = if_empty($_POST['outdoor_treatment_total_bill']);
                                         $outdoor_treatment_discount_pc   = if_empty($_POST['outdoor_treatment_discount_pc']);
                                         $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
@@ -87,11 +88,35 @@
                         
                                         $total_bill = $outdoor_treatment_total_bill;
                                         $discount = $outdoor_treatment_discount_pc != 0 || $outdoor_treatment_discount_pc != '' || $outdoor_treatment_discount_pc != null ? $outdoor_treatment_discount_pc : 0;
-
-                                        $discounted_amount = $total_bill * $discount / 100;
+                                        if($discount >0){
+                                            $discounted_amount = $total_bill * $discount / 100;
+                                        }
+                                        else{
+                                            $discounted_amount = 0;
+                                        }
+                                       
                                         $bill_after_discount = $outdoor_treatment_total_bill_after_discount;
                                         $paid = $outdoor_treatment_total_paid;
                                         $due = $outdoor_treatment_total_due != 0 || $outdoor_treatment_total_due != '' || $outdoor_treatment_total_due != null ? $outdoor_treatment_total_due : 0;
+
+                                     
+
+                                        $get_content_user = "select * from outdoor_treatment where outdoor_treatment_id = '$treatment_id'";
+                                        //echo $get_content;
+                                        $getJson = $conn->prepare($get_content_user);
+                                        $getJson->execute();
+                                        $result_content_outdoor_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                        $outdoor_treatment_consultant = $result_content_outdoor_treatment[0]['outdoor_treatment_consultant'];
+                                        $invoice_no = $result_content_outdoor_treatment[0]['outdoor_treatment_invoice_id'];
+                                        
+
+                                        $get_content = "select * from doctor where doctor_id = '$outdoor_treatment_consultant'";
+                                        $getJson = $conn->prepare($get_content);
+                                        $getJson->execute();
+                                        $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                        $doctor_name = $result_content[0]['doctor_name'];
+
+                                     
 
                                     }
                                     else if ($_POST['content'] == 'indoor_allotment') {
@@ -198,9 +223,13 @@
                                                 <span class="text-sm text-grey-m2 align-middle">Age:</span>
                                                 <span class="text-600 text-110 text-blue align-middle"><?php echo $patient_age; ?></span>
                                             </div>
-                                            <div class="text-grey-m2">
-                                                <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600"><?php echo $patient_phone; ?></b></div>
-                                            </div>
+                                            <!-- <div class="text-grey-m2">
+                                                <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">
+                                                    <?php 
+                                                    // echo $patient_phone; 
+                                                    ?>
+                                                </b></div>
+                                            </div> -->
                                             <?php
                                          if ($_POST['content'] == 'indoor_allotment'){
                                          
@@ -248,7 +277,7 @@
                                             <div class="text-grey-m2">
                                                 
                                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j,Y");?></div>
-
+                                                <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600"><?php echo $patient_phone; ?></b></div>
                                             </div>
                                         </div>
                                         <!-- /.col -->
@@ -266,6 +295,7 @@
                                         <?php
                                             if ($_POST['content'] == 'patient_treatment')
                                             {
+                                                
                                                 $outdoor_service_id = $_POST['outdoor_service_id'];
                                                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
                                                 $outdoor_service_rate  = $_POST['outdoor_service_rate'];
@@ -569,16 +599,25 @@
                                                         <span class="text-120 text-secondary-d1"><?php echo $total_bill; ?> Tk</span>
                                                     </div>
                                                 </div>
-
-                                                <div class="row my-2">
-                                                    <div class="col-7 text-right">
-                                                        Discount (<?php echo $discount; ?>%)
-                                                    </div>
-                                                    <div class="col-5">
-                                                        <span class="text-110 text-secondary-d1"><?php echo $discounted_amount; ?> Tk</span>
-                                                    </div>
-                                                </div>
-
+                                            <?php 
+                                                if($discount>0){
+                                                echo  '<div class="row my-2">
+                                                            <div class="col-7 text-right">
+                                                                Discount (  '.$discount.' %)
+                                                            </div>
+                                                        <div class="col-5">
+                                                            <span class="text-110 text-secondary-d1">'
+                                                            .$discounted_amount.'  Tk.</span>
+                                                        </div>
+                                                        </div>';
+                                                }
+                                                else{
+                                                echo    "";
+                                                }
+                                                
+                                              
+                                               
+                                            ?>
                                                 <div class="row my-2 align-items-center bgc-primary-l3 p-2">
                                                     <div class="col-7 text-right">
                                                         Total Adjusted Amount

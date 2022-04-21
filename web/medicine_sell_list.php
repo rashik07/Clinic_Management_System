@@ -48,7 +48,7 @@ require_once('check_if_pharmacy_manager.php');
 
                     $get_content = "select *, DATE(pharmacy_sell_date) as pharmacy_sell_date  from pharmacy_sell
                     left join patient p on p.patient_id = pharmacy_sell.pharmacy_sell_patient_id
-                    order by pharmacy_sell_creation_time";
+                     ORDER BY pharmacy_sell_id DESC";
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
 

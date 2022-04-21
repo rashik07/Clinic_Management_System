@@ -81,6 +81,8 @@ from pharmacy_sell_medicine
                     $getJson->execute();
                     $result_content_medicine_leaf = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+                
+
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
@@ -96,12 +98,12 @@ from pharmacy_sell_medicine
                                         <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" value="<?php  echo $result_content_medicine_sell[0]['indoor_treatment_admission_id'] ?>" readonly>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_phone">Patient Phone<i class="text-danger"> * </i></label>
-                                        <input type="text" placeholder="Patient Phone." class="form-control" id="pharmacy_sell_patient_phone" name="pharmacy_sell_patient_phone" value="<?php echo $result_content_medicine_sell[0]['patient_phone']; ?>" required onchange="loadPatient();">
+                                        <label for="pharmacy_sell_patient_phone">Patient Phone</label>
+                                        <input type="text" placeholder="Patient Phone." class="form-control" id="pharmacy_sell_patient_phone" name="pharmacy_sell_patient_phone" value="<?php echo $result_content_medicine_sell[0]['patient_phone']; ?>"  onchange="loadPatient();">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_sell_patient_id">Patient ID</label>
-                                        <input type="text" placeholder="Patient ID." class="form-control" id="pharmacy_sell_patient_id" name="pharmacy_sell_patient_id" value="<?php echo $result_content_medicine_sell[0]['patient_id']; ?>" readonly required>
+                                        <input type="text" placeholder="Patient ID." class="form-control" id="pharmacy_sell_patient_id" name="pharmacy_sell_patient_id" value="<?php echo $result_content_medicine_sell[0]['patient_id']; ?>" readonly >
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_sell_patient_name">Patient Name</label>
@@ -188,6 +190,8 @@ from pharmacy_sell_medicine
 
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                        <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button>
+                                   <?php    echo '<a href="medicine_sell_invoice.php?medicine_sell_id='.$medicine_sell_id.'">invoice</a>'?>
                                     </div>
                             </form>
                             <div id="loader"></div>
@@ -243,6 +247,14 @@ from pharmacy_sell_medicine
         load_medicine();
         loadPatient();
     });
+    function invoice() {
+        form = document.getElementById('medicine_purchase_update_form');
+        form.target = '_blank';
+        form.action = 'medicine_sell_invoice.php';
+        form.submit();
+        form.action = 'medicine_sell_invoice.php';
+        form.target = '';
+    }
 
 
     var all_medicine = <?php echo json_encode($result_content_medicine); ?>;
