@@ -45,7 +45,7 @@
                                             <img class="center" src="../assets/images/logo.png" style="height: 100px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
                                             <div class="text-center text-150">
                                                 <p style="font-size: 20px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
-                                                <p style="font-size: 15px; margin:0px; padding:0px;">House 56(2nd Floor), Road 4 Dhaka Real State, Katasur, Dhaka-1207</p>
+                                                <p style="font-size: 15px; margin:0px; padding:0px;">House #56, Road #03, Dhaka Real State, Kaderabad housing,Mohammadpur, Dhaka-1207</p>
                                                 <p style="font-size: 15px; margin:0px; padding:0px;">For Serial: +88 01844080671, +88 01844 080 674, +88 01844 080 676</p>
                                             </div>
                                         </div>

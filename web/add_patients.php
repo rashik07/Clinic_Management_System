@@ -41,8 +41,8 @@ require_once('check_if_outdoor_manager.php');
                         <input type="date" placeholder="Date of Birth" class="form-control" id="patient_dob" name="patient_dob">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="age">Age</label>
-                        <input type="text" placeholder="Age" class="form-control" id="patient_age" name="patient_age">
+                        <label for="age">Age<i class="text-danger"> * </i></label>
+                        <input type="text" placeholder="Age" class="form-control" id="patient_age" name="patient_age" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="phone">Phone<i class="text-danger"> * </i></label>
