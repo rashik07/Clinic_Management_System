@@ -495,9 +495,9 @@ CREATE TABLE `medicine`
     `medicine_description`       varchar(255) DEFAULT NULL,
     `medicine_purchase_price`    varchar(255) DEFAULT NULL,
     `medicine_selling_price`     varchar(255) DEFAULT NULL,
-    `medicine_category`          int(11) NOT NULL,
+    -- `medicine_category`          int(11) NOT NULL,
     `medicine_unit`              int(11) NOT NULL,
-    `medicine_type`              int(11) NOT NULL,
+    -- `medicine_type`              int(11) NOT NULL,
     `medicine_leaf`              int(11) NOT NULL,
     `medicine_manufacturer`      int(11) NOT NULL,
     `medicine_status`            varchar(255) DEFAULT NULL,
@@ -505,9 +505,9 @@ CREATE TABLE `medicine`
     `medicine_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (medicine_id),
     FOREIGN KEY (medicine_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (medicine_category) REFERENCES medicine_category (medicine_category_id),
+    -- FOREIGN KEY (medicine_category) REFERENCES medicine_category (medicine_category_id),
     FOREIGN KEY (medicine_unit) REFERENCES medicine_unit (medicine_unit_id),
-    FOREIGN KEY (medicine_type) REFERENCES medicine_type (medicine_type_id),
+    -- FOREIGN KEY (medicine_type) REFERENCES medicine_type (medicine_type_id),
     FOREIGN KEY (medicine_leaf) REFERENCES medicine_leaf (medicine_leaf_id),
     FOREIGN KEY (medicine_manufacturer) REFERENCES medicine_manufacturer (medicine_manufacturer_id)
 
