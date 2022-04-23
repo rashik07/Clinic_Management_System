@@ -78,9 +78,15 @@ a {
     margin: 2px 0;
 }
 #sidebar ul li.active>a, #sidebar a[aria-expanded="true"] {
-    color: #fff;
-    background: #555555;
+    color: black!important;
+    background: #e7f3ed;
 }
+
+#sidebar ul li.active>a, #sidebar a[aria-expanded="true"] {
+    color: black!important;
+    background: #e7f3ed;
+}
+
 #sidebar a[data-toggle="collapse"] {
     position: relative;
 }
@@ -106,7 +112,7 @@ a {
     content: "\e69b";
 }
 #sidebar ul li ul.list-unstyled a {
-    color: rgba(255,255,255,0.7);
+    color: rgb(255 255 255);
 }
 #sidebar ul li a {
     padding: 10px 10px 10px 25px;
@@ -121,7 +127,7 @@ a {
 ul ul a {
     font-size: 0.9em;
     padding-left: 30px !important;
-    background: #666666;
+    background: #3ab170;
 }
 .nav-help {
     padding: 25px;

@@ -2,13 +2,15 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+$activePage = basename($_SERVER['PHP_SELF'], ".php");
+
 ?>
 <nav id="sidebar" class="proclinic-bg">
     <div class="sidebar-header">
         <a href="index.php"><img src="../assets/images/logo.png" class="logo" alt="logo"></a>
     </div>
-    <ul class="list-unstyled components" onclick="myFunction(event)">
-        <li class="active">
+    <ul class="list-unstyled components" id="sidebar-nav" onclick="myFunction(event)">
+        <li class="">
             <a href="index.php">
                 <span class="ti-home"></span> Dashboard
             </a>
@@ -23,7 +25,7 @@ if (!isset($_SESSION)) {
                         <a href="add_patients.php">Add Patient</a>
                     </li>
                     <li>
-                        <a href="patients_list.php">All Patients</a>
+                        <a class="<?php echo ($activePage == 'patients_list') ? 'active' : ''; ?>" href="patients_list.php">All Patients</a>
                     </li>
                 </ul>
             </li>
@@ -236,8 +238,19 @@ if (!isset($_SESSION)) {
         [].forEach.call(elems, function(el) {
             el.classList.remove("active");
         });
-        //alert(e.target.className);
-        e.target.className = "active";
+        // alert(e.target);
+        e.target.class = "active";
 
     }
 </script>
+
+<!-- <script>
+    jQuery(function($) {
+        $('.menu ul li a').filter(function() {
+            var locationUrl = window.location.href;
+            var currentItemUrl = $(this).prop('href');
+
+            return currentItemUrl === locationUrl;
+        }).parent('li').addClass('active');
+    });
+</script> -->
