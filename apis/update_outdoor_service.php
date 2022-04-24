@@ -19,6 +19,7 @@ class UpdateOutdoorService{
         $token  = $_POST['token'];
 
         $outdoor_service_name   = if_empty($_POST['outdoor_service_name']);
+        $outdoor_service_Category   = if_empty($_POST['outdoor_service_Category']);
         $outdoor_service_description   = if_empty($_POST['outdoor_service_description']);
         $outdoor_service_rate   = if_empty($_POST['outdoor_service_rate']);
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
@@ -27,8 +28,9 @@ class UpdateOutdoorService{
         if($check_token && $check_permission)
         {
             try {
-
+                
                 $post_content = "UPDATE outdoor_service SET outdoor_service_name = '$outdoor_service_name',
+                outdoor_service_Category = '$outdoor_service_Category',
                     outdoor_service_description = '$outdoor_service_description', 
                    outdoor_service_rate = '$outdoor_service_rate'
                     where outdoor_service_id='$outdoor_service_id'";

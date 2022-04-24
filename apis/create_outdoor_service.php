@@ -19,6 +19,7 @@ class CreateOutdoorService{
         $token  = $_POST['token'];
 
         $outdoor_service_name   = if_empty($_POST['outdoor_service_name']);
+        $outdoor_service_Category   = if_empty($_POST['outdoor_service_Category']);
         $outdoor_service_description   = if_empty($_POST['outdoor_service_description']);
         $outdoor_service_rate   = if_empty($_POST['outdoor_service_rate']);
 
@@ -28,9 +29,9 @@ class CreateOutdoorService{
         if($check_token && $check_permission)
         {
             try {
-                $post_content = "INSERT INTO outdoor_service (outdoor_service_user_added_id, outdoor_service_name,
+                $post_content = "INSERT INTO outdoor_service (outdoor_service_user_added_id, outdoor_service_name,outdoor_service_Category,
                              outdoor_service_description, outdoor_service_rate) 
-                    VALUES ('$request_user_id', '$outdoor_service_name',
+                    VALUES ('$request_user_id', '$outdoor_service_name','$outdoor_service_Category',
                             '$outdoor_service_description',
                             '$outdoor_service_rate')";
                 //echo $post_content;
