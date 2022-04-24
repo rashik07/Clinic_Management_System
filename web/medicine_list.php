@@ -4,89 +4,89 @@ require_once('check_if_pharmacy_manager.php');
 ?>
 <?php include 'header.php'
 ?>
+
 <body>
     <div class="wrapper">
-        
-                <?php
-                    include 'sidebar.php';
-                ?>
- 
-          
-            <div id="content">
-        
-                <?php
-                    include 'top_navbar.php';
-                    
-                ?>
-        <div class="container-fluid">
 
-<div class="row">
-    <!-- Widget Item -->
-    <div class="col-md-12">
-        <div class="widget-area-2 proclinic-box-shadow">
-            <h3 class="widget-title">Medicine List</h3>
-            <div class="table-responsive mb-3">
-                <table id="datatable_medicine" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Medicine Name</th>
-                        <th>Generic Name</th>
-                        <th>Category</th>
-                        <th>Manufacturer</th>
-                        <th>Selling Price</th>
-                        <th>Manufacturer Price</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    require_once("../apis/Connection.php");
-                    $connection = new Connection();
+        <?php
+        include 'sidebar.php';
+        ?>
 
-                    $conn = $connection->getConnection();
 
-                    $get_content = "select *, DATE(medicine_creation_time) as medicine_creation_time from medicine
-                    left join medicine_category mc on medicine.medicine_category = mc.medicine_category_id
+        <div id="content">
+
+            <?php
+            include 'top_navbar.php';
+
+            ?>
+            <div class="container-fluid">
+
+                <div class="row">
+                    <!-- Widget Item -->
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <h3 class="widget-title">Medicine List</h3>
+                            <div class="table-responsive mb-3">
+                                <table id="datatable_medicine" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Medicine Name</th>
+                                            <th>Generic Name</th>
+                                            <!-- <th>Category</th> -->
+                                            <th>Manufacturer</th>
+                                            <th>Selling Price</th>
+                                            <th>Manufacturer Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        require_once("../apis/Connection.php");
+                                        $connection = new Connection();
+
+                                        $conn = $connection->getConnection();
+
+                                        $get_content = "select *, DATE(medicine_creation_time) as medicine_creation_time from medicine
                     left join medicine_manufacturer mm on medicine.medicine_manufacturer = mm.medicine_manufacturer_id
                     order by medicine_creation_time desc";
-                    $getJson = $conn->prepare($get_content);
-                    $getJson->execute();
+                                        $getJson = $conn->prepare($get_content);
+                                        $getJson->execute();
 
-                    $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                    $body = '';
-                    $count = 1;
-                    foreach ($result_content as $data) {
-                        echo '<tr>';
-                        echo '<td>'.$count.'</td>';
-                        echo '<td>'.$data['medicine_name'].'</td>';
-                        echo '<td>'.$data['medicine_generic_name'].'</td>';
-                        echo '<td>'.$data['medicine_category_name'].'</td>';
-                        echo '<td>'.$data['medicine_manufacturer_name'].'</td>';
-                        echo '<td>'.$data['medicine_selling_price'].'</td>';
-                        echo '<td>'.$data['medicine_purchase_price'].'</td>';
+                                        $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                        $body = '';
+                                        $count = 1;
+                                        foreach ($result_content as $data) {
+                                            echo '<tr>';
+                                            echo '<td>' . $count . '</td>';
+                                            echo '<td>' . $data['medicine_name'] . '</td>';
+                                            echo '<td>' . $data['medicine_generic_name'] . '</td>';
+                                            // echo '<td>' . $data['medicine_category_name'] . '</td>';
+                                            echo '<td>' . $data['medicine_manufacturer_name'] . '</td>';
+                                            echo '<td>' . $data['medicine_selling_price'] . '</td>';
+                                            echo '<td>' . $data['medicine_purchase_price'] . '</td>';
 
-                        echo '<td><a href="edit_medicine.php?medicine_id='.$data['medicine_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-                        echo '</tr>';
-                        $count = $count+1;
-                    }
-                    ?>
-
-
+                                            echo '<td><a href="edit_medicine.php?medicine_id=' . $data['medicine_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                            echo '</tr>';
+                                            $count = $count + 1;
+                                        }
+                                        ?>
 
 
-                    </tbody>
-                </table>
 
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Widget Item -->
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /Widget Item -->
-</div>
-</div>
-    </div>
-    <?php include 'footer.php'
-    ?>
+        <?php include 'footer.php'
+        ?>
 </body>
 <script>
     $('#datatable_medicine').dataTable({
@@ -99,4 +99,5 @@ require_once('check_if_pharmacy_manager.php');
         ]
     }); //replace id with your first table's id
 </script>
+
 </html>

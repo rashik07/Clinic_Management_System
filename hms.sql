@@ -111,9 +111,9 @@ CREATE TABLE `patient`
     `patient_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `patient_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (patient_id),
-    FOREIGN KEY (patient_user_added_id) REFERENCES user (user_id),
-    UNIQUE (patient_phone)
-) ENGINE = InnoDB
+    FOREIGN KEY (patient_user_added_id) REFERENCES user (user_id)
+    -- UNIQUE (patient_phone)
+) ENGINE = InnoDB AUTO_INCREMENT=1000
   DEFAULT CHARSET = utf8;
 
 CREATE TABLE `doctor`
@@ -283,6 +283,7 @@ CREATE TABLE `outdoor_service`
     `outdoor_service_id`                int(11)      NOT NULL AUTO_INCREMENT,
     `outdoor_service_user_added_id`     int(11)      NOT NULL,
     `outdoor_service_name`              varchar(255) NOT NULL,
+    `outdoor_service_Category`          varchar(255) NOT NULL,
     `outdoor_service_description`       varchar(255) DEFAULT NULL,
     `outdoor_service_rate`              varchar(255) DEFAULT NULL,
     `outdoor_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
@@ -299,6 +300,9 @@ CREATE TABLE `outdoor_treatment`
     `outdoor_treatment_user_added_id`             int(11) NOT NULL,
     `outdoor_treatment_patient_id`                int(11) NOT NULL,
     `outdoor_treatment_indoor_treatment_id`       int(11) DEFAULT NULL,
+    `patient_name`              varchar(255) DEFAULT NULL,
+    `patient_age`               varchar(255) DEFAULT NULL,
+    `patient_gender`            varchar(255) DEFAULT NULL,
     `outdoor_treatment_reference`                 varchar(255) DEFAULT NULL,
     `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
     `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 
@@ -495,9 +499,9 @@ CREATE TABLE `medicine`
     `medicine_description`       varchar(255) DEFAULT NULL,
     `medicine_purchase_price`    varchar(255) DEFAULT NULL,
     `medicine_selling_price`     varchar(255) DEFAULT NULL,
-    `medicine_category`          int(11) NOT NULL,
+    -- `medicine_category`          int(11) NOT NULL,
     `medicine_unit`              int(11) NOT NULL,
-    `medicine_type`              int(11) NOT NULL,
+    -- `medicine_type`              int(11) NOT NULL,
     `medicine_leaf`              int(11) NOT NULL,
     `medicine_manufacturer`      int(11) NOT NULL,
     `medicine_status`            varchar(255) DEFAULT NULL,
@@ -505,9 +509,9 @@ CREATE TABLE `medicine`
     `medicine_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (medicine_id),
     FOREIGN KEY (medicine_user_added_id) REFERENCES user (user_id),
-    FOREIGN KEY (medicine_category) REFERENCES medicine_category (medicine_category_id),
+    -- FOREIGN KEY (medicine_category) REFERENCES medicine_category (medicine_category_id),
     FOREIGN KEY (medicine_unit) REFERENCES medicine_unit (medicine_unit_id),
-    FOREIGN KEY (medicine_type) REFERENCES medicine_type (medicine_type_id),
+    -- FOREIGN KEY (medicine_type) REFERENCES medicine_type (medicine_type_id),
     FOREIGN KEY (medicine_leaf) REFERENCES medicine_leaf (medicine_leaf_id),
     FOREIGN KEY (medicine_manufacturer) REFERENCES medicine_manufacturer (medicine_manufacturer_id)
 

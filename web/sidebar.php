@@ -64,6 +64,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
                 </ul>
             </li>
+
+        <?php } ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patient-treatment" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Admission
@@ -78,8 +81,6 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     </li>
                 </ul>
             </li>
-        <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
 
             <li>
                 <a href="#nav-bed" data-toggle="collapse" aria-expanded="false" class="collapsed">
@@ -150,24 +151,24 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <span class="ti-location-pin"></span>Pharmacy
                 </a>
                 <ul class="collapse list-unstyled" id="nav-maps">
-                    <li>
+                    <!-- <li>
                         <a href="add_medicine_category.php">Category Entry</a>
                     </li>
                     <li>
                         <a href="medicine_category_list.php">Category List</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="add_medicine_unit.php">Unit Entry</a>
                     </li>
                     <li>
                         <a href="medicine_unit_list.php">Unit List</a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="add_medicine_type.php">Type Entry</a>
                     </li>
                     <li>
                         <a href="medicine_type_list.php">Type List</a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="add_medicine_leaf.php">Leaf Entry</a>
                     </li>
@@ -202,24 +203,28 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </ul>
             </li>
         <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
-            <li>
-                <a href="#nav-icons" data-toggle="collapse" aria-expanded="false">
-                    <span class="ti-themify-favicon"></span> Reports
-                </a>
-                <ul class="collapse list-unstyled" id="nav-icons">
+
+        <li>
+            <a href="#nav-icons" data-toggle="collapse" aria-expanded="false">
+                <span class="ti-themify-favicon"></span> Reports
+            </a>
+            <ul class="collapse list-unstyled" id="nav-icons">
+                <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
                     <li>
                         <a href="reports.php?t=1">Reports</a>
                     </li>
+                <?php } ?>
+                <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
                     <li>
                         <a href="report_pharmacy_sell.php">Pharmacy Sell Report</a>
                     </li>
                     <li>
                         <a href="report_pharmacy_purchase.php">Pharmacy Purchase Report</a>
                     </li>
-                </ul>
-            </li>
-        <?php } ?>
+                <?php } ?>
+            </ul>
+        </li>
+
     </ul>
     <div class="nav-help animated fadeIn">
         <h5><span class="ti-comments"></span> Need Help</h5>
