@@ -303,6 +303,7 @@ CREATE TABLE `outdoor_treatment`
     `patient_name`              varchar(255) DEFAULT NULL,
     `patient_age`               varchar(255) DEFAULT NULL,
     `patient_gender`            varchar(255) DEFAULT NULL,
+    `patient_phone`            varchar(255) DEFAULT NULL,
     `outdoor_treatment_reference`                 varchar(255) DEFAULT NULL,
     `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
     `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 

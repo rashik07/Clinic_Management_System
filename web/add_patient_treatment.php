@@ -49,45 +49,74 @@ require_once('check_if_outdoor_manager.php');
                             <h3 class="widget-title">Patient Treatment</h3>
                             <form class="form-horizontal form-material mb-0" id="patient_service_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
-                                    <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-                                    <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                    <input type="hidden" name="content" value="patient_treatment">
-                                    <div class="form-group col-md-6">
-                                        <label for="indoor_treatment_admission_id">Admission ID.</label>
-                                        <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_phone">Patient Phone<i class="text-danger"> * </i></label>
-                                        <input type="text" placeholder="Patient Phone." class="form-control" id="outdoor_patient_phone" name="outdoor_patient_phone" required onchange="loadPatient();">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_id">Patient ID</label>
-                                        <input type="text" placeholder="Patient ID." class="form-control" id="outdoor_patient_id" name="outdoor_patient_id" readonly required>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_name">Patient Name</label>
-                                        <input type="text" placeholder="Patient Name" class="form-control" id="outdoor_patient_name" name="outdoor_patient_name" required readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
-                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="outdoor_treatment_indoor_treatment_id" required readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_treatment_consultant">Consultant Name</label>
-                                        <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service...">
-                                            <option value="">Select Doctor...</option>
-                                            <?php
-                                            foreach ($result_content_doctor as $data) {
-                                                echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
-                                            }
-                                            ?>
-
-                                        </select>
-                                    </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="outdoor_treatment_reference">Reference Name</label>
-                                        <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference">
+                                        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                        <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                        <input type="hidden" name="content" value="patient_treatment">
+                                        <div class="form-group col-md-12">
+                                            <label for="indoor_treatment_admission_id">Admission ID.</label>
+                                            <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
+                                        </div>
+
+
+
+                                        <div class="form-group col-md-12">
+                                            <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
+                                            <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="outdoor_treatment_indoor_treatment_id" required readonly>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label for="outdoor_treatment_consultant">Consultant Name</label>
+                                            <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service...">
+                                                <option value="">Select Doctor...</option>
+                                                <?php
+                                                foreach ($result_content_doctor as $data) {
+                                                    echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
+                                                }
+                                                ?>
+
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <label for="outdoor_treatment_reference">Reference Name</label>
+                                            <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <div class="form-group col-md-12">
+                                            <label for="Search">Search</label>
+                                            <input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();">
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <!-- <label for="patient_name">Patient Name</label> -->
+                                            <input type="text" placeholder="Patient Name" class="form-control" id="patient_name" name="patient_name">
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <!-- <label for="patient_age">Patient Age</label> -->
+                                            <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" required>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <!-- <label for="patient_gender">Patient Gender</label> -->
+                                            <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender...">
+                                                <option value="">Select Gender...</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <!-- <label for="patient_phone">Patient Phone</label> -->
+                                            <input type="text" placeholder="Patient Phone" class="form-control" id="patient_phone" name="patient_phone" readonly>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <!-- <label for="patient_phone">Patient Phone</label> -->
+                                            <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_patient_id" name="outdoor_patient_id" readonly>
+                                        </div>
+
                                     </div>
 
                                     <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -192,6 +221,10 @@ require_once('check_if_outdoor_manager.php');
             <?php include 'footer.php'
             ?>
 </body>
+
+
+</html>
+
 <script>
     var spinner = $('#loader');
     $(document).ready(function() {
@@ -242,7 +275,7 @@ require_once('check_if_outdoor_manager.php');
     });
 
     function loadPatient() {
-        let patient_phone = document.getElementById("outdoor_patient_phone").value;
+        let Search = document.getElementById("Search").value;
         spinner.show();
         jQuery.ajax({
             type: 'POST',
@@ -252,29 +285,42 @@ require_once('check_if_outdoor_manager.php');
             data: {
                 token: "<?php echo $_SESSION['token']; ?>",
                 request_user_id: "<?php echo $_SESSION['user_id']; ?>",
-                patient_phone: patient_phone,
-                content: "patient_single_phone",
+                Search: Search,
+                content: "patient_Search",
             },
             success: function(response) {
-                //alert(response);
                 spinner.hide();
                 var obj = JSON.parse(response);
                 var datas = obj.patient;
+
                 if (datas === null) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    document.getElementById("patient_name").value = "";
+                    document.getElementById("patient_age").value = "";
+                    document.getElementById("patient_gender").value = "";
+                    document.getElementById("patient_phone").value = "";
+                    document.getElementById("outdoor_patient_id").value = "";
 
                 }
 
                 var count = Object.keys(datas).length;
                 if (count === 0) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    document.getElementById("patient_name").value = "";
+                    document.getElementById("patient_age").value = "";
+                    document.getElementById("patient_gender").value = "";
+                    document.getElementById("patient_phone").value = "";
+                    document.getElementById("outdoor_patient_id").value = "";
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
+                            // alert(datas[key])
+                            // console.log(datas[key])
                             document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
-                            document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
+                            document.getElementById("patient_name").value = datas[key].patient_name;
+                            document.getElementById("patient_age").value = datas[key].patient_age;
+                            document.getElementById("patient_gender").value = datas[key].patient_gender;
+                            document.getElementById("patient_phone").value = datas[key].patient_phone;
                         }
                     }
                 }
@@ -311,19 +357,19 @@ require_once('check_if_outdoor_manager.php');
                 var datas = obj.patient;
                 if (datas === null) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    document.getElementById("patient_name").value = "";
 
                 }
 
                 var count = Object.keys(datas).length;
                 if (count === 0) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    document.getElementById("patient_name").value = "";
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
                             document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
-                            document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
+                            document.getElementById("patient_name").value = datas[key].patient_name;
                             document.getElementById("outdoor_patient_phone").value = datas[key].patient_phone;
                             document.getElementById("outdoor_treatment_indoor_treatment_id").value = datas[key].indoor_treatment_id;
                         }
@@ -552,5 +598,3 @@ require_once('check_if_outdoor_manager.php');
         });
     });
 </script>
-
-</html>
