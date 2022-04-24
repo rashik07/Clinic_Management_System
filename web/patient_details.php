@@ -145,6 +145,7 @@ require_once('check_if_outdoor_manager.php');
 
 
                             <a type="button" class="btn btn-success mb-3" href="edit_patient.php?patient_id=<?php echo $result_content_patient[0]['patient_id']; ?>"><span class="ti-pencil-alt"></span> Edit Patient</a>
+                            <button type="button" class="btn btn-danger btn-lg" onclick="delete_data();">Delete</button>
                             <!--<a type="button" class="btn btn-danger mb-3"><span class="ti-trash"></span> Delete Patient</a>-->
                         </div>
                     </div>
@@ -255,6 +256,7 @@ require_once('check_if_outdoor_manager.php');
                                         }
                                         ?>
 
+                                       
                                     </tbody>
                                 </table>
                             </div>
@@ -603,6 +605,46 @@ require_once('check_if_outdoor_manager.php');
             ?>
 </body>
 <script>
+    var spinner = $('#loader');
+    function delete_data()
+    {
+        var data_id = <?php echo $patient_id; ?>;
+        if (confirm('Are you sure you want to Delete This Content?')) {
+            // yes
+            spinner.show();
+            $.ajax({
+                type: 'POST',
+                url: '../apis/delete_patient.php',
+                cache: false,
+                //dataType: "json", // and this
+                data: {
+                    request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                    token: "<?php echo $_SESSION['token']; ?>",
+                    patient_id: data_id,
+                    content: "patient"
+                },
+                success: function (response) {
+                    //alert(response);
+                    spinner.hide();
+                    var obj = JSON.parse(response);
+                    alert(obj.message);
+                    //alert(obj.status);
+                    if (obj.status) {
+                        //location.reload();
+                        window.open("patients_list.php","_self");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    spinner.hide();
+                    alert("alert : " + errorThrown);
+                }
+            });
+        } else {
+            // Do nothing!
+            console.log('Said No');
+        }
+    }
+
     $('#datatable0').dataTable({
         dom: 'Bfrtip',
         buttons: [

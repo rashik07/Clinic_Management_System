@@ -31,6 +31,7 @@ require_once('check_if_outdoor_manager.php');
                     <tr>
                         <th>#</th>
                         <th>Service Name</th>
+                        <th>Service Category</th>
                         <th>Rate</th>
                         <th>Action</th>
                     </tr>
@@ -53,6 +54,7 @@ require_once('check_if_outdoor_manager.php');
                         echo '<tr>';
                         echo '<td>'.$count.'</td>';
                         echo '<td>'.$data['outdoor_service_name'].'</td>';
+                        echo '<td>'.$data['outdoor_service_Category'].'</td>';
                         echo '<td>'.$data['outdoor_service_rate'].'</td>';
                         echo '<td><a href="edit_service.php?outdoor_service_id='.$data['outdoor_service_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                         echo '</tr>';
