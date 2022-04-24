@@ -111,9 +111,9 @@ CREATE TABLE `patient`
     `patient_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `patient_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (patient_id),
-    FOREIGN KEY (patient_user_added_id) REFERENCES user (user_id),
-    UNIQUE (patient_phone)
-) ENGINE = InnoDB
+    FOREIGN KEY (patient_user_added_id) REFERENCES user (user_id)
+    -- UNIQUE (patient_phone)
+) ENGINE = InnoDB AUTO_INCREMENT=1000
   DEFAULT CHARSET = utf8;
 
 CREATE TABLE `doctor`
@@ -283,6 +283,7 @@ CREATE TABLE `outdoor_service`
     `outdoor_service_id`                int(11)      NOT NULL AUTO_INCREMENT,
     `outdoor_service_user_added_id`     int(11)      NOT NULL,
     `outdoor_service_name`              varchar(255) NOT NULL,
+    `outdoor_service_Category`          varchar(255) NOT NULL,
     `outdoor_service_description`       varchar(255) DEFAULT NULL,
     `outdoor_service_rate`              varchar(255) DEFAULT NULL,
     `outdoor_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
@@ -299,6 +300,9 @@ CREATE TABLE `outdoor_treatment`
     `outdoor_treatment_user_added_id`             int(11) NOT NULL,
     `outdoor_treatment_patient_id`                int(11) NOT NULL,
     `outdoor_treatment_indoor_treatment_id`       int(11) DEFAULT NULL,
+    `patient_name`              varchar(255) DEFAULT NULL,
+    `patient_age`               varchar(255) DEFAULT NULL,
+    `patient_gender`            varchar(255) DEFAULT NULL,
     `outdoor_treatment_reference`                 varchar(255) DEFAULT NULL,
     `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
     `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 

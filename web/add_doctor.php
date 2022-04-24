@@ -4,27 +4,28 @@ require_once('check_if_indoor_manager.php');
 ?>
 <?php include 'header.php'
 ?>
+
 <body>
     <div class="wrapper">
-        
-                <?php
-                    include 'sidebar.php';
-                ?>
- 
-          
-            <div id="content">
-        
-                <?php
-                    include 'top_navbar.php';
-                    
-                ?>
-                <div class="container-fluid">
 
-				<div class="row">
-					<!-- Widget Item -->
-					<div class="col-md-12">
-						<div class="widget-area-2 proclinic-box-shadow">
-							<h3 class="widget-title">Add Doctor</h3>
+        <?php
+        include 'sidebar.php';
+        ?>
+
+
+        <div id="content">
+
+            <?php
+            include 'top_navbar.php';
+
+            ?>
+            <div class="container-fluid">
+
+                <div class="row">
+                    <!-- Widget Item -->
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+                            <h3 class="widget-title">Add Doctor</h3>
                             <form class="form-horizontal form-material mb-0" id="doctor_form" method="post" enctype="multipart/form-data">
 
                                 <div class="form-row">
@@ -33,10 +34,10 @@ require_once('check_if_indoor_manager.php');
                                     <input type="hidden" name="content" value="doctor">
                                     <input type="hidden" name="doctor_status" value="active">
                                     <div class="form-group col-md-6">
-                                        <input type="file" class="dropify" name="photo_url" data-default-file="../assets/images/doctor.png" required>
+                                        <input type="file" class="dropify" name="photo_url" data-default-file="../assets/images/doctor.png">
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <input type="file" class="dropify" name="document_url" required>
+                                        <input type="file" class="dropify" name="document_url">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="patient-name">Doctor Name<i class="text-danger"> * </i></label>
@@ -113,20 +114,20 @@ require_once('check_if_indoor_manager.php');
                                 </div>
                             </form>
                             <div id="loader"></div>
-							<!-- /Alerts-->
-						</div>
-					</div>
-					<!-- /Widget Item -->
-				</div>
-			</div>
+                            <!-- /Alerts-->
+                        </div>
+                    </div>
+                    <!-- /Widget Item -->
+                </div>
+            </div>
 
 
 
             <div>
-            
-    </div>
-    <?php include 'footer.php'
-    ?>
+
+            </div>
+            <?php include 'footer.php'
+            ?>
 </body>
 <script>
     var spinner = $('#loader');
@@ -150,7 +151,7 @@ require_once('check_if_indoor_manager.php');
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("doctors_list.php","_self");
+                        window.open("doctors_list.php", "_self");
 
                     }
                 },
@@ -166,9 +167,9 @@ require_once('check_if_indoor_manager.php');
 
         });
     });
-
 </script>
 <script>
     $('.dropify').dropify();
 </script>
+
 </html>
