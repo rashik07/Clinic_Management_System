@@ -48,6 +48,7 @@ require_once('check_if_indoor_manager.php');
 
                             <a type="button" class="btn btn-success mb-3" href="edit_doctor.php?doctor_id=<?php echo $result_content_doctor[0]['doctor_id']; ?>"><span class="ti-pencil-alt"></span> Edit Doctor</a>
                             <a type="button" class="btn btn-success mb-3" href="../<?php echo $result_content_doctor[0]['document_url']; ?>"><span class="ti-pencil-alt"></span> View Document</a>
+                            <button type="button" class="btn btn-danger btn-lg" onclick="delete_data();">Delete</button>
 
                             <!--<a type="button" class="btn btn-danger mb-3"><span class="ti-trash"></span> Delete Patient</a>-->
 
@@ -101,11 +102,11 @@ require_once('check_if_indoor_manager.php');
     </div>
     <!-- /Widget Item -->
     <!-- Widget Item -->
-    <div class="col-md-12">
+    <!-- <div class="col-md-12">
         <div class="widget-area-2 proclinic-box-shadow">
             <h3 class="widget-title">Doctor Activity</h3>
-            <div class="table-responsive">
-                <table class="table table-bordered table-striped">
+            <div class="table-responsive"> -->
+                <!-- <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Patient Name</th>
@@ -164,10 +165,10 @@ require_once('check_if_indoor_manager.php');
                             <td>Condition is good</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
 
                 <!--Export links-->
-                <nav aria-label="Page navigation example">
+                <!-- <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center export-pagination">
                         <li class="page-item">
                             <a class="page-link" href="#"><span class="ti-download"></span> csv</a>
@@ -182,11 +183,11 @@ require_once('check_if_indoor_manager.php');
                             <a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
                         </li>
                     </ul>
-                </nav>
+                </nav> -->
                 <!-- /Export links-->
-            </div>
+            <!-- </div>
         </div>
-    </div>
+    </div> -->
     <!-- /Widget Item -->
 </div>
 </div>
@@ -198,5 +199,46 @@ require_once('check_if_indoor_manager.php');
     <?php include 'footer.php'
     ?>
 </body>
+<script>
+ var spinner = $('#loader');
+    function delete_data()
+    {
+        var data_id = <?php echo $doctor_id; ?>;
+        if (confirm('Are you sure you want to Delete This Content?')) {
+            // yes
+            spinner.show();
+            $.ajax({
+                type: 'POST',
+                url: '../apis/delete_doctor.php',
+                cache: false,
+                //dataType: "json", // and this
+                data: {
+                    request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                    token: "<?php echo $_SESSION['token']; ?>",
+                    doctor_id: data_id,
+                    content: "doctor"
+                },
+                success: function (response) {
+                    //alert(response);
+                    spinner.hide();
+                    var obj = JSON.parse(response);
+                    alert(obj.message);
+                    //alert(obj.status);
+                    if (obj.status) {
+                        //location.reload();
+                        window.open("doctors_list.php","_self");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    spinner.hide();
+                    alert("alert : " + errorThrown);
+                }
+            });
+        } else {
+            // Do nothing!
+            console.log('Said No');
+        }
+    }
 
+</script>
 </html>

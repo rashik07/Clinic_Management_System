@@ -11,7 +11,6 @@ require_once('check_if_outdoor_manager.php');
                     include 'sidebar.php';
                 ?>
  
-          
             <div id="content">
         
                 <?php

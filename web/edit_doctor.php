@@ -59,32 +59,32 @@ require_once('check_if_indoor_manager.php');
                         <input type="date" placeholder="Date of Birth" class="form-control" id="doctor_dob" name="doctor_dob" value="<?php echo $result_content_doctor[0]['doctor_dob']; ?>">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="doctor_specialization">Doctor Specialization<i class="text-danger"> * </i></label>
-                        <input type="text" class="form-control" placeholder="Doctor Specialization" id="doctor_specialization" name="doctor_specialization" value="<?php echo $result_content_doctor[0]['doctor_specialization']; ?>"  required>
+                        <label for="doctor_specialization">Doctor Specialization</label>
+                        <input type="text" class="form-control" placeholder="Doctor Specialization" id="doctor_specialization" name="doctor_specialization" value="<?php echo $result_content_doctor[0]['doctor_specialization']; ?>"  >
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="doctor_experience">Doctor Experience<i class="text-danger"> * </i></label>
-                        <input type="text" class="form-control" placeholder="Doctor Experience" id="doctor_experience" name="doctor_experience" value="<?php echo $result_content_doctor[0]['doctor_experience']; ?>"  required>
+                        <label for="doctor_experience">Doctor Experience</label>
+                        <input type="text" class="form-control" placeholder="Doctor Experience" id="doctor_experience" name="doctor_experience" value="<?php echo $result_content_doctor[0]['doctor_experience']; ?>"  >
                     </div>
                     <div class="form-group col-md-6">
                         <label for="doctor_age">Age</label>
                         <input type="text" placeholder="Age" class="form-control" id="doctor_age" name="doctor_age" value="<?php echo $result_content_doctor[0]['doctor_age']; ?>">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="doctor_phone">Phone<i class="text-danger"> * </i></label>
-                        <input type="text" placeholder="Phone" class="form-control" id="doctor_phone" name="doctor_phone" value="<?php echo $result_content_doctor[0]['doctor_phone']; ?>" required>
+                        <label for="doctor_phone">Phone</label>
+                        <input type="text" placeholder="Phone" class="form-control" id="doctor_phone" name="doctor_phone" value="<?php echo $result_content_doctor[0]['doctor_phone']; ?>" >
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="doctor_emergency_phone">Emergency Phone<i class="text-danger"> * </i></label>
-                        <input type="text" placeholder="Emergency Phone" class="form-control" id="doctor_emergency_phone" name="doctor_emergency_phone" value="<?php echo $result_content_doctor[0]['doctor_emergency_phone']; ?>" required>
+                        <label for="doctor_emergency_phone">Emergency Phone</label>
+                        <input type="text" placeholder="Emergency Phone" class="form-control" id="doctor_emergency_phone" name="doctor_emergency_phone" value="<?php echo $result_content_doctor[0]['doctor_emergency_phone']; ?>" >
                     </div>
                     <div class="form-group col-md-6">
                         <label for="doctor_email">Email</label>
                         <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="email" class="form-control" id="doctor_email" name="doctor_email" value="<?php echo $result_content_doctor[0]['doctor_email']; ?>">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="doctor_gender">Gender<i class="text-danger"> * </i></label>
-                        <select class="form-control" id="doctor_gender" name="doctor_gender" required>
+                        <label for="doctor_gender">Gender</label>
+                        <select class="form-control" id="doctor_gender" name="doctor_gender" >
                             <option value="">Select Gender</option>
                             <option <?php if ($result_content_doctor[0]['doctor_gender'] == "male") {
                                 echo 'selected';
@@ -99,8 +99,8 @@ require_once('check_if_indoor_manager.php');
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="doctor_blood_group">Blood Group<i class="text-danger"> * </i></label>
-                        <select class="form-control" id="doctor_blood_group" name="doctor_blood_group" required>
+                        <label for="doctor_blood_group">Blood Group</label>
+                        <select class="form-control" id="doctor_blood_group" name="doctor_blood_group" >
                             <option value="">Select Blood Group</option>
                             <option <?php if ($result_content_doctor[0]['doctor_blood_group'] == "A+") {
                                 echo 'selected';
@@ -142,12 +142,12 @@ require_once('check_if_indoor_manager.php');
                         <textarea placeholder="Description" class="form-control" id="doctor_description" name="doctor_description" rows="3" ><?php echo $result_content_doctor[0]['doctor_description']; ?></textarea>
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="exampleFormControlTextarea1">Address<i class="text-danger"> * </i></label>
-                        <textarea placeholder="Address" class="form-control" id="doctor_address" name="doctor_address" rows="3" required><?php echo $result_content_doctor[0]['doctor_address']; ?></textarea>
+                        <label for="exampleFormControlTextarea1">Address</label>
+                        <textarea placeholder="Address" class="form-control" id="doctor_address" name="doctor_address" rows="3" ><?php echo $result_content_doctor[0]['doctor_address']; ?></textarea>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="gender">Doctor Status<i class="text-danger"> * </i></label>
-                        <select class="form-control" id="doctor_status" name="doctor_status" required>
+                        <label for="gender">Doctor Status</label>
+                        <select class="form-control" id="doctor_status" name="doctor_status" >
                             <option value="">Select Status</option>
                             <option <?php if ($result_content_doctor[0]['doctor_status'] == "active") {
                                 echo 'selected';
