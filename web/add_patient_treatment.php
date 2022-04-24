@@ -3,6 +3,12 @@
 require_once('check_if_outdoor_manager.php');
 ?>
 <?php include 'header.php';
+if (isset($_GET['patient_id'])) {
+    $patient_id = $_GET['patient_id'];
+} else {
+    $patient_id = "";
+}
+
 ?>
 
 <body>
@@ -54,6 +60,7 @@ require_once('check_if_outdoor_manager.php');
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                         <input type="hidden" name="content" value="patient_treatment">
+                                        <input type="hidden" name="get_patient_id" id="get_patient_id" value="<?php echo $patient_id ?>">
                                         <div class="form-group col-md-12">
                                             <label for="indoor_treatment_admission_id">Admission ID.</label>
                                             <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
@@ -228,8 +235,7 @@ require_once('check_if_outdoor_manager.php');
 <script>
     var spinner = $('#loader');
     $(document).ready(function() {
-
-
+        loadPatientonbegining();
         $('form#patient_service_form').on('submit', function(event) {
             event.preventDefault();
             spinner.show();
@@ -274,7 +280,72 @@ require_once('check_if_outdoor_manager.php');
         });
     });
 
+    function loadPatientonbegining() {
+
+        let Search = document.getElementById("get_patient_id").value;
+        if (Search > 0) {
+            spinner.show();
+            jQuery.ajax({
+                type: 'POST',
+                url: '../apis/get_patient.php',
+                cache: false,
+                //dataType: "json", // and this
+                data: {
+                    token: "<?php echo $_SESSION['token']; ?>",
+                    request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                    Search: Search,
+                    content: "patient_Search",
+                },
+                success: function(response) {
+                    spinner.hide();
+                    var obj = JSON.parse(response);
+                    var datas = obj.patient;
+
+                    if (datas === null) {
+                        alert("No Patient Found");
+                        document.getElementById("patient_name").value = "";
+                        document.getElementById("patient_age").value = "";
+                        document.getElementById("patient_gender").value = "";
+                        document.getElementById("patient_phone").value = "";
+                        document.getElementById("outdoor_patient_id").value = "";
+
+                    }
+
+                    var count = Object.keys(datas).length;
+                    if (count === 0) {
+                        alert("No Patient Found");
+                        document.getElementById("patient_name").value = "";
+                        document.getElementById("patient_age").value = "";
+                        document.getElementById("patient_gender").value = "";
+                        document.getElementById("patient_phone").value = "";
+                        document.getElementById("outdoor_patient_id").value = "";
+                    } else {
+                        for (var key in datas) {
+                            if (datas.hasOwnProperty(key)) {
+                                // alert(datas[key])
+                                // console.log(datas[key])
+                                document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
+                                document.getElementById("patient_name").value = datas[key].patient_name;
+                                document.getElementById("patient_age").value = datas[key].patient_age;
+                                document.getElementById("patient_gender").value = datas[key].patient_gender;
+                                document.getElementById("patient_phone").value = datas[key].patient_phone;
+                            }
+                        }
+                    }
+
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    //console.log(textStatus, errorThrown);
+                    spinner.hide();
+                    alert("alert : " + errorThrown);
+                }
+            });
+        }
+    }
+
     function loadPatient() {
+
         let Search = document.getElementById("Search").value;
         spinner.show();
         jQuery.ajax({
