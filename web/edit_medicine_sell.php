@@ -191,7 +191,9 @@ from pharmacy_sell_medicine
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                                         <!-- <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button> -->
-                                   <?php    echo '<a class="btn btn-primary btn-lg" href="medicine_sell_invoice.php?medicine_sell_id='.$medicine_sell_id.'">invoice</a>'?>
+                                   <?php  
+                                     echo '<a class="btn btn-primary btn-lg" href="medicine_sell_invoice.php?medicine_sell_id='.$medicine_sell_id.'">invoice</a>'
+                                     ?>
                                     </div>
                             </form>
                             <div id="loader"></div>

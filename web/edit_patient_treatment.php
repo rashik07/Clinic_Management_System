@@ -242,10 +242,11 @@ require_once('check_if_outdoor_manager.php');
     function invoice() {
         form = document.getElementById('patient_service_update_form');
         form.target = '_blank';
-        form.action = 'invoice.php';
-        form.submit();
-        form.action = 'invoice.php';
+        form.action = 'invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
+        // form.submit();
+        form.action = 'invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
         form.target = '';
+       
     }
 
     function loadPatient() {

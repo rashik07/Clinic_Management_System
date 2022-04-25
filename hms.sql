@@ -297,7 +297,7 @@ CREATE TABLE `outdoor_service`
 CREATE TABLE `outdoor_treatment`
 (
     `outdoor_treatment_id`                        int(11) NOT NULL AUTO_INCREMENT,
-    `outdoor_treatment_invoice_id`                                varchar(255) DEFAULT NULL,
+    `outdoor_treatment_invoice_id`                varchar(255) DEFAULT NULL,
     `outdoor_treatment_user_added_id`             int(11) NOT NULL,
     `outdoor_treatment_patient_id`                int(11) NOT NULL,
     `outdoor_treatment_indoor_treatment_id`       int(11) DEFAULT NULL,
@@ -305,8 +305,8 @@ CREATE TABLE `outdoor_treatment`
     `patient_age`                                 varchar(255) DEFAULT NULL,
     `patient_gender`                              varchar(255) DEFAULT NULL,
     `patient_phone`                               varchar(255) DEFAULT NULL,
-     `outdoor_treatment_consultant` varchar(255) DEFAULT NULL,
-  `outdoor_treatment_reference` varchar(255) DEFAULT NULL,
+    `outdoor_treatment_consultant`                varchar(255) DEFAULT NULL,
+    `outdoor_treatment_reference`                 varchar(255) DEFAULT NULL,
     `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
     `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 
     `outdoor_treatment_discount_pc`               varchar(255) DEFAULT 0,    
