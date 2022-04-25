@@ -93,7 +93,12 @@ if (isset($_GET['patient_id'])) {
                                     <div class="form-group col-md-6">
                                         <div class="form-group col-md-12">
                                             <label for="Search">Search</label>
-                                            <input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();">
+                                            <div class="row">
+                                                <div class="col-md-10"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
+                                                <div class="col-md-2"><a href="add_patients.php" class="btn btn-success pull-right">Add Patient</a></div>
+                                            </div>
+
+
                                         </div>
 
                                         <div class="form-group col-md-12">
@@ -133,8 +138,8 @@ if (isset($_GET['patient_id'])) {
                                                 <th>Quantity<i class="text-danger"> * </i></th>
                                                 <th>Rate</th>
                                                 <th>Total</th>
-                                                <th>Add</th>
-                                                <th>Delete</th>
+                                                <!-- <th>Add</th>
+                                                <th>Delete</th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="datatable1_body">
@@ -161,12 +166,12 @@ if (isset($_GET['patient_id'])) {
                                                 <td>
                                                     <input type="number" class="form-control outdoor_service_total" placeholder="Service Total" id="outdoor_service_total" name="outdoor_service_total[]" readonly required>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="AddRowQ19();">Add Row</button>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="DeleteRow(this);">Delete Row</button>
-                                                </td>
+                                                </td> -->
                                             </tr>
 
 
