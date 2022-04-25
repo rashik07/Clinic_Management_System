@@ -56,46 +56,55 @@ if (isset($_GET['patient_id'])) {
                             <form class="form-horizontal form-material mb-0" id="patient_service_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-5">
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="get_patient_id" id="get_patient_id" value="<?php echo $patient_id ?>">
-                                        <div class="form-group col-md-12">
-                                            <label for="indoor_treatment_admission_id">Admission ID.</label>
-                                            <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="indoor_treatment_admission_id">Admission ID.</label>
+                                                <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
+                                                <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="outdoor_treatment_indoor_treatment_id" required readonly>
+                                            </div>
                                         </div>
 
 
 
-                                        <div class="form-group col-md-12">
-                                            <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
-                                            <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="outdoor_treatment_indoor_treatment_id" required readonly>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label for="outdoor_treatment_consultant">Consultant Name</label>
-                                            <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service...">
-                                                <option value="">Select Doctor...</option>
-                                                <?php
-                                                foreach ($result_content_doctor as $data) {
-                                                    echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
-                                                }
-                                                ?>
 
-                                            </select>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_consultant">Consultant Name</label>
+                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service...">
+                                                    <option value="">Select Doctor...</option>
+                                                    <?php
+                                                    foreach ($result_content_doctor as $data) {
+                                                        echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
+                                                    }
+                                                    ?>
+
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_reference">Reference Name</label>
+                                                <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference">
+                                            </div>
                                         </div>
 
-                                        <div class="form-group col-md-12">
-                                            <label for="outdoor_treatment_reference">Reference Name</label>
-                                            <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference">
-                                        </div>
+
                                     </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-2">
+                                    </div>
+                                    <div class="form-group col-md-5">
                                         <div class="form-group col-md-12">
-                                            <label for="Search">Search</label>
+                                            <label for="Search">Patient Search</label>
                                             <div class="row">
-                                                <div class="col-md-10"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
-                                                <div class="col-md-2"><a href="add_patients.php" class="btn btn-success pull-right">Add Patient</a></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
+                                                <div class="col-md-3"><a href="add_patients.php" class="btn btn-success ">Add Patient</a></div>
                                             </div>
 
 
@@ -105,133 +114,167 @@ if (isset($_GET['patient_id'])) {
                                             <!-- <label for="patient_name">Patient Name</label> -->
                                             <input type="text" placeholder="Patient Name" class="form-control" id="patient_name" name="patient_name">
                                         </div>
-                                        <div class="form-group col-md-12">
-                                            <!-- <label for="patient_age">Patient Age</label> -->
-                                            <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" required>
-                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_age">Patient Age</label> -->
+                                                <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" required>
+                                            </div>
 
-                                        <div class="form-group col-md-12">
-                                            <!-- <label for="patient_gender">Patient Gender</label> -->
-                                            <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender...">
-                                                <option value="">Select Gender...</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_gender">Patient Gender</label> -->
+                                                <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender...">
+                                                    <option value="">Select Gender...</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="other">Other</option>
 
-                                            </select>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-12">
-                                            <!-- <label for="patient_phone">Patient Phone</label> -->
-                                            <input type="text" placeholder="Patient Phone" class="form-control" id="patient_phone" name="patient_phone" readonly>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <!-- <label for="patient_phone">Patient Phone</label> -->
-                                            <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_patient_id" name="outdoor_patient_id" readonly>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient Phone" class="form-control" id="patient_phone" name="patient_phone" readonly>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_patient_id" name="outdoor_patient_id" readonly>
+                                            </div>
                                         </div>
 
                                     </div>
+                                </div>
 
-                                    <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>Name<i class="text-danger"> * </i></th>
-                                                <th>Quantity<i class="text-danger"> * </i></th>
-                                                <th>Rate</th>
-                                                <th>Total</th>
-                                                <!-- <th>Add</th>
+                                <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Name<i class="text-danger"> * </i></th>
+                                            <th>Quantity<i class="text-danger"> * </i></th>
+                                            <th>Rate</th>
+                                            <th>Total</th>
+                                            <!-- <th>Add</th>
                                                 <th>Delete</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody id="datatable1_body">
-                                            <tr>
-                                                <td>
-                                                    <select id="outdoor_service_id" class="form-control outdoor_service_id" name="outdoor_service_id[]" placeholder="Pick a Service..." onchange="changeData(this);" required>
-                                                        <option value="">Select a Service...</option>
-                                                        <?php
-                                                        foreach ($result_content_outdoor_service as $data) {
-                                                            echo '<option value="' . $data['outdoor_service_id'] . '">' . $data['outdoor_service_name'] . '</option>';
-                                                        }
-                                                        ?>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="datatable1_body">
+                                        <tr>
+                                            <td>
+                                                <select id="outdoor_service_id" class="form-control outdoor_service_id" name="outdoor_service_id[]" placeholder="Pick a Service..." onchange="changeData(this);" required>
+                                                    <option value="">Select a Service...</option>
+                                                    <?php
+                                                    foreach ($result_content_outdoor_service as $data) {
+                                                        echo '<option value="' . $data['outdoor_service_id'] . '">' . $data['outdoor_service_name'] . '</option>';
+                                                    }
+                                                    ?>
 
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control outdoor_service_quantity" onchange="calculate(this);" placeholder="Service Quantity" id="outdoor_service_quantity" name="outdoor_service_quantity[]" required>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control outdoor_service_quantity" onchange="calculate(this);" placeholder="Service Quantity" id="outdoor_service_quantity" name="outdoor_service_quantity[]" required>
 
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control outdoor_service_rate" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate[]" readonly required>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control outdoor_service_rate" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate[]" readonly required>
 
-                                                </td>
-                                                <td>
-                                                    <input type="number" class="form-control outdoor_service_total" placeholder="Service Total" id="outdoor_service_total" name="outdoor_service_total[]" readonly required>
-                                                </td>
-                                                <!-- <td>
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control outdoor_service_total" placeholder="Service Total" id="outdoor_service_total" name="outdoor_service_total[]" readonly required>
+                                            </td>
+                                            <!-- <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="AddRowQ19();">Add Row</button>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="DeleteRow(this);">Delete Row</button>
                                                 </td> -->
-                                            </tr>
+                                        </tr>
 
 
-                                        </tbody>
+                                    </tbody>
 
-                                    </table>
+                                </table>
+                                <div class="row">
+                                    <div class="col-md-7"></div>
+                                    <div class="col-md-5">
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Total Bill</label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Total Bill" class="form-control" id="outdoor_treatment_total_bill" name="outdoor_treatment_total_bill" readonly>
+                                                </div>
+                                            </div>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="discharge-date">Total Bill</label>
-                                        <input type="number" placeholder="Total Bill" class="form-control" id="outdoor_treatment_total_bill" name="outdoor_treatment_total_bill" readonly>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="discharge-date">Discount</label>
-                                        <input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="0" required>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="discharge-date">In Total Bill</label>
-                                        <input type="number" placeholder="In Total Bill" class="form-control" id="outdoor_treatment_total_bill_after_discount" name="outdoor_treatment_total_bill_after_discount" readonly>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="discharge-date">Paid<i class="text-danger"> * </i></label>
-                                        <input type="number" placeholder="Total Paid" class="form-control" onchange="update_payment();" id="outdoor_treatment_total_paid" name="outdoor_treatment_total_paid" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="discharge-date">Due</label>
-                                        <input type="number" placeholder="Total Due" class="form-control" id="outdoor_treatment_total_due" name="outdoor_treatment_total_due" value="0" readonly>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="discharge-date">Payment Type<i class="text-danger"> * </i></label>
-                                        <select class="form-control" id="outdoor_treatment_payment_type" name="outdoor_treatment_payment_type" required>
-                                            <option value="">Select Payment Type</option>
-                                            <option value="check">Check</option>
-                                            <option value="card">Card</option>
-                                            <option value="cash">Cash</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="card-check">Card/Check No</label>
-                                        <input type="text" placeholder="Card/Check No" class="form-control" id="outdoor_treatment_payment_type_no" name="outdoor_treatment_payment_type_no">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="card-check">Note</label>
-                                        <input type="text" placeholder="Note" class="form-control" id="outdoor_treatment_note" name="outdoor_treatment_note">
-                                    </div>
-                                    <div class="form-group col-md-6 mb-3">
-                                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Discount</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="0" required></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">In Total Bill</label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="In Total Bill" class="form-control" id="outdoor_treatment_total_bill_after_discount" name="outdoor_treatment_total_bill_after_discount" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Paid<i class="text-danger"> * </i></label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Total Paid" class="form-control" onchange="update_payment();" id="outdoor_treatment_total_paid" name="outdoor_treatment_total_paid" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Due</label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Total Due" class="form-control" id="outdoor_treatment_total_due" name="outdoor_treatment_total_due" value="0" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Payment Type<i class="text-danger"> * </i></label></div>
+                                                <div class="col-md-9"><select class="form-control" id="outdoor_treatment_payment_type" name="outdoor_treatment_payment_type" required>
+                                                        <option value="">Select Payment Type</option>
+                                                        <option value="check">Check</option>
+                                                        <option value="card">Card</option>
+                                                        <option value="cash">Cash</option>
+                                                    </select></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="card-check">Card/Check No</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Card/Check No" class="form-control" id="outdoor_treatment_payment_type_no" name="outdoor_treatment_payment_type_no">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="card-check">Note</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Note" class="form-control" id="outdoor_treatment_note" name="outdoor_treatment_note"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                            <div id="loader"></div>
-                        </div>
-                    </div>
-                    <!-- /Widget Item -->
-                </div>
-            </div>
-            <div>
 
+
+                        </div>
+                        </form>
+                        <div id="loader"></div>
+                    </div>
+                </div>
+                <!-- /Widget Item -->
             </div>
-            <?php include 'footer.php'
-            ?>
+        </div>
+        <div>
+
+        </div>
+        <?php include 'footer.php'
+        ?>
 </body>
 
 
