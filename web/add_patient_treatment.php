@@ -52,7 +52,7 @@ if (isset($_GET['patient_id'])) {
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Patient Treatment</h3>
+                            <h3 class="widget-title">Doctor Visit</h3>
                             <form class="form-horizontal form-material mb-0" id="patient_service_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
 
@@ -184,8 +184,8 @@ if (isset($_GET['patient_id'])) {
                                         <input type="number" placeholder="Total Bill" class="form-control" id="outdoor_treatment_total_bill" name="outdoor_treatment_total_bill" readonly>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="discharge-date">Discount %</label>
-                                        <input type="number" min="0" max="100" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="0" required>
+                                        <label for="discharge-date">Discount</label>
+                                        <input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="0" required>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="discharge-date">In Total Bill</label>
@@ -515,8 +515,16 @@ if (isset($_GET['patient_id'])) {
         //alert(in_total);
         document.getElementById("outdoor_treatment_total_bill").value = parseInt(in_total);
         var discount = document.getElementById("outdoor_treatment_discount_pc").value;
-        discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
-        in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));
+        if (discount != "") {
+            if (discount.search("%") > 0) {
+                var total_dc = (parseInt(discount) / 100) * parseInt(in_total);
+                in_total = in_total - total_dc;
+            } else {
+                in_total = in_total - parseInt(discount);
+            }
+        }
+        // discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
+        // in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));
         document.getElementById("outdoor_treatment_total_bill_after_discount").value = in_total;
         update_payment();
 
@@ -656,15 +664,15 @@ if (isset($_GET['patient_id'])) {
     }
 </script>
 <script>
-    $('#datatable1').dataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    }); //replace id with your first table's id
+    // $('#datatable1').dataTable({
+    //     dom: 'Bfrtip',
+    //     buttons: [
+    //         'copyHtml5',
+    //         'excelHtml5',
+    //         'csvHtml5',
+    //         'pdfHtml5'
+    //     ]
+    // }); //replace id with your first table's id
 </script>
 
 <script>

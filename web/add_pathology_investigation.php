@@ -373,6 +373,7 @@ require_once('check_if_pathalogy_manager.php');
         var discount = document.getElementById("pathology_investigation_discount_pc").value;
         discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
         in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));
+
         document.getElementById("pathology_investigation_total_bill_after_discount").value = in_total;
 
         var paid = document.getElementById("pathology_investigation_total_paid").value;

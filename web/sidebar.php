@@ -55,8 +55,18 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="service_list.php">All Service</a>
                     </li>
+
+
+                </ul>
+            </li>
+            <li>
+                <a href="#nav-bills" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-wheelchair"></span> Billing
+                </a>
+                <ul class="list-unstyled collapse" id="nav-bills">
+
                     <li>
-                        <a href="add_patient_treatment.php">Patient Treatment</a>
+                        <a href="add_patient_treatment.php">Doctor Visit</a>
                     </li>
                     <li>
                         <a href="patient_treatment_list.php">All Patient Treatments</a>
@@ -125,7 +135,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </ul>
             </li>
         <?php } ?>
-         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
 
             <li class="nav-level-one">
                 <a href="#nav-uiKit" data-toggle="collapse" aria-expanded="false">
@@ -143,7 +153,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
                 </ul>
             </li>
-        <?php } ?> 
+        <?php } ?>
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
 
             <li>

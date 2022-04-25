@@ -160,7 +160,7 @@ require_once('check_if_outdoor_manager.php');
 
         $('form#patient_form').on('submit', function(event) {
             event.preventDefault();
-            spinner.show();
+            // spinner.show();
             var formData = new FormData(this);
 
             $.ajax({
@@ -168,15 +168,12 @@ require_once('check_if_outdoor_manager.php');
                 type: 'POST',
                 data: formData,
                 success: function(data) {
-                    //alert(data);
-                    document.getElementById("modal_content").innerHTML("");
-                    spinner.hide();
+
+                    // spinner.hide();
                     var obj = JSON.parse(data);
-                    // console.log(obj);
-                    // alert(obj);
-                    //alert(obj.status);
                     if (obj.status) {
                         let htmlcontent = '<div class="row"><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Doctor Visit</p></div></div></a><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Physiotherapy</p></div></div></a><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Admission</p></div></div></a><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">OT</p></div></div></a><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Procedures</p></div></div></a></div>';
+                        // document.getElementById("modal_content").innerHTML("");
                         document.getElementById("modal_content").insertAdjacentHTML("afterend", htmlcontent);
                         $('#options').modal('show')
                         //location.reload();
