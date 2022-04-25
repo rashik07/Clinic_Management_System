@@ -211,10 +211,7 @@
                                                     <span class="text-sm text-grey-m2 align-middle">Gender:</span>
                                                     <span class="text-600 text-110 text-blue align-middle"><?php echo $patient_gender; ?></span>
                                                 </div>
-                                                <div>
-                                                    <span class="text-sm text-grey-m2 align-middle">Age:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo $patient_age; ?></span>
-                                                </div>
+                                              
                                                 <!-- <div class="text-grey-m2">
                                                 <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">
                                                     <?php
@@ -269,7 +266,10 @@
                                                 <div class="text-grey-m2">
 
                                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j,Y"); ?></div>
+                                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90"> age:</span> <?php echo $patient_age;?></div>
+                                                  
                                                     <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600"><?php echo $patient_phone; ?></b></div>
+                                                   
                                                 </div>
                                             </div>
                                             <!-- /.col -->
@@ -281,7 +281,7 @@
                                                 <div class="col-9 col-sm-5">Particulars</div>
                                                 <div class="d-none d-sm-block col-4 col-sm-2">Rate</div>
                                                 <div class="d-none d-sm-block col-sm-2">Quantity</div>
-                                                <div class="col-2">Amount</div>
+                                                <div class="col-2">Amount(TK)</div>
                                             </div>
                                             <div class="text-95 text-secondary-d3">
                                                 <?php
@@ -308,9 +308,9 @@
                                                         echo '<div class="row mb-2 mb-sm-0 py-25">
                                                     <div class="d-none d-sm-block col-1">' . ($count_service + 1) . '</div>
                                                     <div class="col-9 col-sm-5">' . $service_name . '</div>
-                                                    <div class="d-none d-sm-block col-2">' . $service_rate . ' Tk</div>
+                                                    <div class="d-none d-sm-block col-2">' . $service_rate . ' </div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . $service_quantity . '</div>
-                                                    <div class="col-2 text-secondary-d2">' . $service_total . ' TK</div>
+                                                    <div class="col-2 text-secondary-d2">' . $service_total . ' </div>
                                                     </div>';
 
                                                         $count_service = $count_service + 1;
@@ -351,9 +351,9 @@
                                                         echo '<div class="row mb-2 mb-sm-0 py-25">
                                                     <div class="d-none d-sm-block col-1">' . $serial . '</div>
                                                     <div class="col-9 col-sm-5">' . $bed_name . '/' . $room_no . '</div>
-                                                    <div class="d-none d-sm-block col-2">' . $bed_price . ' Tk</div>
+                                                    <div class="d-none d-sm-block col-2">' . $bed_price . ' </div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . ($bed_total_bill / $bed_price) . ' Days</div>
-                                                    <div class="col-2 text-secondary-d2">' . $bed_total_bill . ' TK</div>
+                                                    <div class="col-2 text-secondary-d2">' . $bed_total_bill . ' </div>
                                                     </div>';
 
                                                         $count_service = $count_service + 1;
@@ -378,9 +378,9 @@
                                                         echo '<div class="row mb-2 mb-sm-0 py-25">
                                                     <div class="d-none d-sm-block col-1">' . $serial . '</div>
                                                     <div class="col-9 col-sm-5">' . $doctor_name . '</div>
-                                                    <div class="d-none d-sm-block col-2">' . $doctor_visit_fee . ' Tk</div>
+                                                    <div class="d-none d-sm-block col-2">' . $doctor_visit_fee . ' </div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . ($doctor_total_bill / $doctor_visit_fee) . ' Days</div>
-                                                    <div class="col-2 text-secondary-d2">' . $doctor_total_bill . ' TK</div>
+                                                    <div class="col-2 text-secondary-d2">' . $doctor_total_bill . ' </div>
                                                     </div>';
 
                                                         $count_service = $count_service + 1;
@@ -412,9 +412,9 @@
                                                         echo '<div class="row mb-2 mb-sm-0 py-25">
                                                     <div class="d-none d-sm-block col-1">' . ($count_service + 1) . '</div>
                                                     <div class="col-9 col-sm-5">' . $test_name . '</div>
-                                                    <div class="d-none d-sm-block col-2">' . $test_price . ' Tk</div>
+                                                    <div class="d-none d-sm-block col-2">' . $test_price . '</div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . $test_quantity . '</div>
-                                                    <div class="col-2 text-secondary-d2">' . $total_bill . ' TK</div>
+                                                    <div class="col-2 text-secondary-d2">' . $total_bill . ' </div>
                                                     </div>';
 
                                                         $count_service = $count_service + 1;
@@ -581,7 +581,7 @@
                                                             SubTotal
                                                         </div>
                                                         <div class="col-5">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $total_bill; ?> Tk</span>
+                                                            <span class="text-120 text-secondary-d1"><?php echo $total_bill; ?> </span>
                                                         </div>
                                                     </div>
                                                     <?php
@@ -592,7 +592,7 @@
                                                             </div>
                                                         <div class="col-5">
                                                             <span class="text-110 text-secondary-d1">'
-                                                            . $discounted_amount . '  Tk.</span>
+                                                            . $discounted_amount . '  </span>
                                                         </div>
                                                         </div>';
                                                     } else {
@@ -607,7 +607,7 @@
                                                             Total Adjusted Amount
                                                         </div>
                                                         <div class="col-5">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $bill_after_discount ?> Tk</span>
+                                                            <span class="text-120 text-secondary-d1"><?php echo $bill_after_discount ?> </span>
                                                         </div>
                                                     </div>
                                                     <div class="row my-2 align-items-center bgc-primary-l3">
@@ -615,7 +615,7 @@
                                                             Paid
                                                         </div>
                                                         <div class="col-5">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $paid ?> Tk</span>
+                                                            <span class="text-120 text-secondary-d1"><?php echo $paid ?> </span>
                                                         </div>
                                                     </div>
                                                     <div class="row my-2 align-items-center bgc-primary-l3 ">
@@ -623,7 +623,7 @@
                                                             Due
                                                         </div>
                                                         <div class="col-5">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $due ?> Tk</span>
+                                                            <span class="text-120 text-secondary-d1"><?php echo $due ?> </span>
                                                         </div>
                                                     </div>
                                                 </div>
