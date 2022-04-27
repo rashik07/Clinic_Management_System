@@ -80,6 +80,7 @@ require_once('check_if_outdoor_manager.php');
                                     echo '<td>'.$data['outdoor_treatment_total_paid'].'</td>';
                                     echo '<td>'.$data['outdoor_treatment_total_due'].'</td>';
                                     echo '<td><a href="edit_patient_treatment.php?outdoor_treatment_id='.$data['outdoor_treatment_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                    // echo '<td><a href="invoice.php?outdoor_treatment_id='.$data['outdoor_treatment_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                     $count = $count+1;
                                 }
                                 ?>
