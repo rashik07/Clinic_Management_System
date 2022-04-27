@@ -71,128 +71,167 @@ require_once('check_if_outdoor_manager.php');
                             <h3 class="widget-title">Edit Patient Treatment</h3>
                             <form class="form-horizontal form-material mb-0" id="patient_service_update_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
-                                    <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-                                    <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                    <input type="hidden" name="content" value="patient_treatment">
-                                    <input type="hidden" name="outdoor_treatment_id" value="<?php echo $outdoor_treatment_id; ?>">
-                                    <input type="hidden" name="outdoor_treatment_patient_id" value="<?php echo $result_content_treatment[0]['patient_id']; ?>">
+                                    <div class="form-group col-md-5">
+                                        Invoice No: <?php echo $result_content_treatment[0]['outdoor_treatment_invoice_id']; ?><br>
+                                        Patient Name: <?php echo $result_content_treatment[0]['patient_name']; ?><br>
+                                        Gender: <?php echo $result_content_treatment[0]['patient_gender']; ?><br>
+                                        Age: <?php echo $result_content_treatment[0]['patient_age']; ?><br>
+                                        Phone: <?php echo $result_content_treatment[0]['patient_phone']; ?><br>
 
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_phone">Patient Phone<i class="text-danger"> * </i></label>
-                                        <input type="text" placeholder="Patient Phone." class="form-control" id="outdoor_patient_phone" name="outdoor_patient_phone" required value="<?php echo $result_content_treatment[0]['patient_phone']; ?>" onchange="loadPatient();">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_id">Patient ID</label>
-                                        <input type="text" placeholder="Patient ID." class="form-control" id="outdoor_patient_id" name="outdoor_patient_id" readonly required>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_name">Patient Name</label>
-                                        <input type="text" placeholder="Patient Name" class="form-control" id="outdoor_patient_name" name="outdoor_patient_name" required readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_treatment_consultant">Consultant Name</label>
-                                        <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." value="<?php echo $result_content_treatment[0]['outdoor_treatment_consultant']; ?>">
-                                        
-                                            <option value="" selected="selected">Select Doctor...</option>
-                                            <?php
-                                            foreach ($result_content_doctor as $data) {
-                                                if( $result_content_treatment[0]['outdoor_treatment_consultant'] == $data['doctor_id']){
-                                                echo '<option value="' . $data['doctor_id'] . '" selected="selected">' . $data['doctor_name'] . '</option>';
-                                                }else{
-                                                    echo '<option value="' . $data['doctor_id'] . '" >' . $data['doctor_name'] . '</option>';
-                                                }
-                                            }
-                                            ?>
 
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_treatment_reference">Reference Name</label>
-                                        <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference" value="<?php echo $result_content_treatment[0]['outdoor_treatment_reference']; ?>">
-                                    </div>
-                                
 
-                                  
-                                    <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                        <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                        <input type="hidden" name="content" value="patient_treatment">
+                                        <input type="hidden" name="outdoor_treatment_id" value="<?php echo $outdoor_treatment_id; ?>">
+                                        <input type="hidden" name="outdoor_treatment_patient_id" value="<?php echo $result_content_treatment[0]['patient_id']; ?>">
 
-                                                <th>Name<i class="text-danger"> * </i></th>
-                                                <th>Quantity<i class="text-danger"> * </i></th>
-                                                <th>Rate</th>
-                                                <th>Total</th>
-                                                <th>Add</th>
-                                                <th>Delete</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="datatable1_body">
+                                        <div class="row">
 
-                                        </tbody>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_consultant">Consultant Name</label>
+                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." value="<?php echo $result_content_treatment[0]['outdoor_treatment_consultant']; ?>">
 
-                                    </table>
+                                                    <option value="" selected="selected">Select Doctor...</option>
+                                                    <?php
+                                                    foreach ($result_content_doctor as $data) {
+                                                        if ($result_content_treatment[0]['outdoor_treatment_consultant'] == $data['doctor_id']) {
+                                                            echo '<option value="' . $data['doctor_id'] . '" selected="selected">' . $data['doctor_name'] . '</option>';
+                                                        } else {
+                                                            echo '<option value="' . $data['doctor_id'] . '" >' . $data['doctor_name'] . '</option>';
+                                                        }
+                                                    }
+                                                    ?>
 
-                                    <div class="form-group col-md-4">
-                                        <label for="discharge-date">Total Bill</label>
-                                        <input type="number" placeholder="Total Bill" class="form-control" id="outdoor_treatment_total_bill" name="outdoor_treatment_total_bill" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_bill']; ?>" readonly>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="discharge-date">Discount %</label>
-                                        <input type="number" min="0" max="100" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_discount_pc']; ?>" required>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="discharge-date">In Total Bill</label>
-                                        <input type="number" placeholder="In Total Bill" class="form-control" id="outdoor_treatment_total_bill_after_discount" name="outdoor_treatment_total_bill_after_discount" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_bill_after_discount']; ?>" readonly>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="discharge-date">Paid<i class="text-danger"> * </i></label>
-                                        <input type="number" placeholder="Total Paid" class="form-control" onchange="update_payment();" id="outdoor_treatment_total_paid" name="outdoor_treatment_total_paid" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_paid']; ?>" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="discharge-date">Due</label>
-                                        <input type="number" placeholder="Total Due" class="form-control" id="outdoor_treatment_total_due" name="outdoor_treatment_total_due" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_due']; ?>" readonly>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="discharge-date">Payment Type<i class="text-danger"> * </i></label>
-                                        <select class="form-control" id="outdoor_treatment_payment_type" name="outdoor_treatment_payment_type" required>
-                                            <option value="">Select Payment Type</option>
-                                            <option <?php if ($result_content_treatment[0]['outdoor_treatment_payment_type'] == "check") {
-                                                        echo 'selected';
-                                                    } ?> value="check">Check</option>
-                                            <option <?php if ($result_content_treatment[0]['outdoor_treatment_payment_type'] == "card") {
-                                                        echo 'selected';
-                                                    } ?> value="card">Card</option>
-                                            <option <?php if ($result_content_treatment[0]['outdoor_treatment_payment_type'] == "cash") {
-                                                        echo 'selected';
-                                                    } ?> value="cash">Cash</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="card-check">Card/Check No</label>
-                                        <input type="text" placeholder="Card/Check No" class="form-control" id="outdoor_treatment_payment_type_no" name="outdoor_treatment_payment_type_no" value="<?php echo $result_content_treatment[0]['outdoor_treatment_payment_type_no']; ?>">
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="card-check">Note</label>
-                                        <input type="text" placeholder="Note" class="form-control" id="outdoor_treatment_note" name="outdoor_treatment_note" value="<?php echo $result_content_treatment[0]['outdoor_treatment_note']; ?>">
-                                    </div>
-                                    <div class="form-group col-md-6 mb-3">
-                                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                                        <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button>
-
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_reference">Reference Name</label>
+                                                <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference" value="<?php echo $result_content_treatment[0]['outdoor_treatment_reference']; ?>">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                            <div id="loader"></div>
+
+
+
+                                <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Name<i class="text-danger"> * </i></th>
+                                            <th>Quantity<i class="text-danger"> * </i></th>
+                                            <th>Rate</th>
+                                            <th>Total</th>
+                                            <!-- <th>Add</th>
+                                                <th>Delete</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody id="datatable1_body">
+
+                                    </tbody>
+
+                                </table>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-7"></div>
+                                    <div class="col-md-5">
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Total Bill</label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Total Bill" class="form-control" id="outdoor_treatment_total_bill" name="outdoor_treatment_total_bill" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_bill']; ?>" readonly>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Discount</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_discount_pc']; ?>" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">In Total Bill</label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="In Total Bill" class="form-control" id="outdoor_treatment_total_bill_after_discount" name="outdoor_treatment_total_bill_after_discount" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_bill_after_discount']; ?>" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Paid<i class="text-danger"> * </i></label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Total Paid" class="form-control" onchange="update_payment();" id="outdoor_treatment_total_paid" name="outdoor_treatment_total_paid" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_paid']; ?>" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Due</label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Total Due" class="form-control" id="outdoor_treatment_total_due" name="outdoor_treatment_total_due" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_due']; ?>" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="discharge-date">Payment Type<i class="text-danger"> * </i></label></div>
+                                                <div class="col-md-9"><select class="form-control" id="outdoor_treatment_payment_type" name="outdoor_treatment_payment_type" required>
+                                                        <option value="">Select Payment Type</option>
+                                                        <option <?php if ($result_content_treatment[0]['outdoor_treatment_payment_type'] == "check") {
+                                                                    echo 'selected';
+                                                                } ?> value="check">Check</option>
+                                                        <option <?php if ($result_content_treatment[0]['outdoor_treatment_payment_type'] == "card") {
+                                                                    echo 'selected';
+                                                                } ?> value="card">Card</option>
+                                                        <option <?php if ($result_content_treatment[0]['outdoor_treatment_payment_type'] == "cash") {
+                                                                    echo 'selected';
+                                                                } ?> value="cash">Cash</option>
+                                                    </select></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="card-check">Card/Check No</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Card/Check No" class="form-control" id="outdoor_treatment_payment_type_no" name="outdoor_treatment_payment_type_no" value="<?php echo $result_content_treatment[0]['outdoor_treatment_payment_type_no']; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="card-check">Note</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Note" class="form-control" id="outdoor_treatment_note" name="outdoor_treatment_note" value="<?php echo $result_content_treatment[0]['outdoor_treatment_note']; ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                            <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
+                        </form>
+                        <div id="loader"></div>
                     </div>
-
-                    <!-- /Widget Item -->
                 </div>
-            </div>
-            <div>
 
+                <!-- /Widget Item -->
             </div>
-            <?php include 'footer.php'
-            ?>
+        </div>
+        <div>
+
+        </div>
+        <?php include 'footer.php'
+        ?>
 </body>
 <script>
     var spinner = $('#loader');
@@ -282,7 +321,7 @@ require_once('check_if_outdoor_manager.php');
                         if (datas.hasOwnProperty(key)) {
                             document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
                             document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
-                            
+
                         }
                     }
                 }
@@ -347,8 +386,16 @@ require_once('check_if_outdoor_manager.php');
         //alert(in_total);
         document.getElementById("outdoor_treatment_total_bill").value = parseInt(in_total);
         var discount = document.getElementById("outdoor_treatment_discount_pc").value;
-        discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
-        in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));
+        if (discount != "") {
+            if (discount.search("%") > 0) {
+                var total_dc = (parseInt(discount) / 100) * parseInt(in_total);
+                in_total = in_total - total_dc;
+            } else {
+                in_total = in_total - parseInt(discount);
+            }
+        }
+        // discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
+        // in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));
         document.getElementById("outdoor_treatment_total_bill_after_discount").value = in_total;
         update_payment();
 
@@ -433,23 +480,23 @@ require_once('check_if_outdoor_manager.php');
             text4.setAttribute("name", "outdoor_service_total[]");
             text4.setAttribute("readonly", "readonly");
 
-            var buttonAdd = document.createElement('button');
-            buttonAdd.setAttribute("type", "button");
-            buttonAdd.innerHTML = "Add Row";
-            buttonAdd.setAttribute("class", "btn btn-success pull-right");
-            buttonAdd.onclick = function() {
-                // ...
-                AddRowQ19(this);
-            };
+            // var buttonAdd = document.createElement('button');
+            // buttonAdd.setAttribute("type", "button");
+            // buttonAdd.innerHTML = "Add Row";
+            // buttonAdd.setAttribute("class", "btn btn-success pull-right");
+            // buttonAdd.onclick = function() {
+            //     // ...
+            //     AddRowQ19(this);
+            // };
 
-            var buttonRemove = document.createElement('button');
-            buttonRemove.setAttribute("type", "button");
-            buttonRemove.innerHTML = "Delete Row";
-            buttonRemove.setAttribute("class", "btn btn-success pull-right");
-            buttonRemove.onclick = function() {
-                // ...
-                DeleteRow(this);
-            };
+            // var buttonRemove = document.createElement('button');
+            // buttonRemove.setAttribute("type", "button");
+            // buttonRemove.innerHTML = "Delete Row";
+            // buttonRemove.setAttribute("class", "btn btn-success pull-right");
+            // buttonRemove.onclick = function() {
+            //     // ...
+            //     DeleteRow(this);
+            // };
 
 
 
@@ -458,8 +505,8 @@ require_once('check_if_outdoor_manager.php');
             td3.appendChild(text3);
             td4.appendChild(text4);
 
-            td5.appendChild(buttonAdd);
-            td6.appendChild(buttonRemove);
+            // td5.appendChild(buttonAdd);
+            // td6.appendChild(buttonRemove);
 
 
 
@@ -467,8 +514,8 @@ require_once('check_if_outdoor_manager.php');
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
-            tr.appendChild(td5);
-            tr.appendChild(td6);
+            // tr.appendChild(td5);
+            // tr.appendChild(td6);
 
 
             table.appendChild(tr);
@@ -613,7 +660,7 @@ require_once('check_if_outdoor_manager.php');
         update_payment();
     }
 </script>
-<script>
+<!-- <script>
     $('#datatable1').dataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -623,7 +670,7 @@ require_once('check_if_outdoor_manager.php');
             'pdfHtml5'
         ]
     }); //replace id with your first table's id
-</script>
+</script> -->
 
 <script>
     $(document).ready(function() {

@@ -55,7 +55,55 @@ if (isset($_GET['patient_id'])) {
                             <h3 class="widget-title">Doctor Visit</h3>
                             <form class="form-horizontal form-material mb-0" id="patient_service_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
+                                    <div class="form-group col-md-5">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Search">Patient Search</label>
+                                                <div class="row">
+                                                    <div class="col-md-9"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
+                                                    <div class="col-md-3"><a href="add_patients.php" class="btn btn-success ">Add Patient</a></div>
+                                                </div>
 
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <!-- <label for="patient_name">Patient Name</label> -->
+                                                <input type="text" placeholder="Patient Name" class="form-control" id="patient_name" name="patient_name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_age">Patient Age</label> -->
+                                                <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" required>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_gender">Patient Gender</label> -->
+                                                <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender...">
+                                                    <option value="">Select Gender...</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="other">Other</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient Phone" class="form-control" id="patient_phone" name="patient_phone" readonly>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_treatment_patient_id" name="outdoor_treatment_patient_id" readonly>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                    </div>
                                     <div class="form-group col-md-5">
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
@@ -97,52 +145,8 @@ if (isset($_GET['patient_id'])) {
 
 
                                     </div>
-                                    <div class="form-group col-md-2">
-                                    </div>
-                                    <div class="form-group col-md-5">
-                                        <div class="form-group col-md-12">
-                                            <label for="Search">Patient Search</label>
-                                            <div class="row">
-                                                <div class="col-md-9"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
-                                                <div class="col-md-3"><a href="add_patients.php" class="btn btn-success ">Add Patient</a></div>
-                                            </div>
 
 
-                                        </div>
-
-                                        <div class="form-group col-md-12">
-                                            <!-- <label for="patient_name">Patient Name</label> -->
-                                            <input type="text" placeholder="Patient Name" class="form-control" id="patient_name" name="patient_name">
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <!-- <label for="patient_age">Patient Age</label> -->
-                                                <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" required>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <!-- <label for="patient_gender">Patient Gender</label> -->
-                                                <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender...">
-                                                    <option value="">Select Gender...</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <!-- <label for="patient_phone">Patient Phone</label> -->
-                                                <input type="text" placeholder="Patient Phone" class="form-control" id="patient_phone" name="patient_phone" readonly>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <!-- <label for="patient_phone">Patient Phone</label> -->
-                                                <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_patient_id" name="outdoor_patient_id" readonly>
-                                            </div>
-                                        </div>
-
-                                    </div>
                                 </div>
 
                                 <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -355,7 +359,7 @@ if (isset($_GET['patient_id'])) {
                         document.getElementById("patient_age").value = "";
                         document.getElementById("patient_gender").value = "";
                         document.getElementById("patient_phone").value = "";
-                        document.getElementById("outdoor_patient_id").value = "";
+                        document.getElementById("outdoor_treatment_patient_id").value = "";
 
                     }
 
@@ -366,13 +370,13 @@ if (isset($_GET['patient_id'])) {
                         document.getElementById("patient_age").value = "";
                         document.getElementById("patient_gender").value = "";
                         document.getElementById("patient_phone").value = "";
-                        document.getElementById("outdoor_patient_id").value = "";
+                        document.getElementById("outdoor_treatment_patient_id").value = "";
                     } else {
                         for (var key in datas) {
                             if (datas.hasOwnProperty(key)) {
                                 // alert(datas[key])
                                 // console.log(datas[key])
-                                document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
+                                document.getElementById("outdoor_treatment_patient_id").value = datas[key].patient_id;
                                 document.getElementById("patient_name").value = datas[key].patient_name;
                                 document.getElementById("patient_age").value = datas[key].patient_age;
                                 document.getElementById("patient_gender").value = datas[key].patient_gender;
@@ -418,7 +422,7 @@ if (isset($_GET['patient_id'])) {
                     document.getElementById("patient_age").value = "";
                     document.getElementById("patient_gender").value = "";
                     document.getElementById("patient_phone").value = "";
-                    document.getElementById("outdoor_patient_id").value = "";
+                    document.getElementById("outdoor_treatment_patient_id").value = "";
 
                 }
 
@@ -429,13 +433,13 @@ if (isset($_GET['patient_id'])) {
                     document.getElementById("patient_age").value = "";
                     document.getElementById("patient_gender").value = "";
                     document.getElementById("patient_phone").value = "";
-                    document.getElementById("outdoor_patient_id").value = "";
+                    document.getElementById("outdoor_treatment_patient_id").value = "";
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
                             // alert(datas[key])
                             // console.log(datas[key])
-                            document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
+                            document.getElementById("outdoor_treatment_patient_id").value = datas[key].patient_id;
                             document.getElementById("patient_name").value = datas[key].patient_name;
                             document.getElementById("patient_age").value = datas[key].patient_age;
                             document.getElementById("patient_gender").value = datas[key].patient_gender;
@@ -487,7 +491,7 @@ if (isset($_GET['patient_id'])) {
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
-                            document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
+                            document.getElementById("outdoor_treatment_patient_id").value = datas[key].patient_id;
                             document.getElementById("patient_name").value = datas[key].patient_name;
                             document.getElementById("outdoor_patient_phone").value = datas[key].patient_phone;
                             document.getElementById("outdoor_treatment_indoor_treatment_id").value = datas[key].indoor_treatment_id;

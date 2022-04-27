@@ -19,7 +19,7 @@ class CreatePatientOutdoorTreatment
         $message = "message";
         $request_user_id   = $_POST['request_user_id'];
         $token  = $_POST['token'];
-        $outdoor_patient_id  = $_POST['outdoor_patient_id'];
+        $outdoor_treatment_patient_id  = $_POST['outdoor_treatment_patient_id'];
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
@@ -31,14 +31,14 @@ class CreatePatientOutdoorTreatment
                 $outdoor_treatment_total_bill  = if_empty($_POST['outdoor_treatment_total_bill']);
                 $outdoor_treatment_discount_pc   = if_empty($_POST['outdoor_treatment_discount_pc']);
                 $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
-                $outdoor_treatment_consultant=if_empty($_POST['outdoor_treatment_consultant']);
-                $outdoor_treatment_reference=if_empty($_POST['outdoor_treatment_reference']);
+                $outdoor_treatment_consultant = if_empty($_POST['outdoor_treatment_consultant']);
+                $outdoor_treatment_reference = if_empty($_POST['outdoor_treatment_reference']);
                 $outdoor_treatment_invoice_id = if_empty($_POST['outdoor_treatment_invoice_id']);
                 $patient_name = if_empty($_POST['patient_name']);
                 $patient_age = if_empty($_POST['patient_age']);
                 $patient_gender = if_empty($_POST['patient_gender']);
                 $patient_phone = if_empty($_POST['patient_phone']);
-               
+
                 $outdoor_treatment_total_paid  = if_empty($_POST['outdoor_treatment_total_paid']);
                 $outdoor_treatment_total_due  = if_empty($_POST['outdoor_treatment_total_due']);
                 $outdoor_treatment_payment_type   = if_empty($_POST['outdoor_treatment_payment_type']);
@@ -61,11 +61,11 @@ class CreatePatientOutdoorTreatment
                              outdoor_treatment_total_bill, outdoor_treatment_total_bill_after_discount, outdoor_treatment_discount_pc, 
                              outdoor_treatment_total_paid, outdoor_treatment_total_due,outdoor_treatment_payment_type,
                                outdoor_treatment_payment_type_no, outdoor_treatment_note) 
-                    VALUES ('$outdoor_treatment_invoice_id','$request_user_id','$outdoor_patient_id',$outdoor_treatment_indoor_treatment_id,
+                    VALUES ('$outdoor_treatment_invoice_id','$request_user_id','$outdoor_treatment_patient_id',$outdoor_treatment_indoor_treatment_id,
                     '$patient_name',
                     '$patient_age', 
-                    '$patient_gender', '
-                    $patient_phone', 
+                    '$patient_gender', 
+                    '$patient_phone', 
                     '$outdoor_treatment_consultant','$outdoor_treatment_reference','$outdoor_treatment_total_bill',
                             '$outdoor_treatment_total_bill_after_discount', '$outdoor_treatment_discount_pc',
                             '$outdoor_treatment_total_paid', '$outdoor_treatment_total_due', '$outdoor_treatment_payment_type',
