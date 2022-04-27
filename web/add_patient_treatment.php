@@ -107,7 +107,7 @@ if (isset($_GET['patient_id'])) {
                                     <div class="form-group col-md-5">
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                    
+                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="doctor_visit">
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="get_patient_id" id="get_patient_id" value="<?php echo $patient_id ?>">
                                         <div class="row">
@@ -313,18 +313,18 @@ if (isset($_GET['patient_id'])) {
                     spinner.hide();
                     var obj = JSON.parse(data);
                     alert(obj.message);
-                console.log(obj);
+                    console.log(obj);
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
                         // window.open("invoice.php?outdoor_treatment_id="+obj.outdoor_treatment_id, "_self");
                         form = document.getElementById('patient_service_form');
-        form.target = '_blank';
-        form.action = 'invoice.php?outdoor_treatment_id='+obj.outdoor_treatment_id;
-      
-        form.submit();
-        form.action = 'invoice.php?outdoor_treatment_id='+obj.outdoor_treatment_id;
-        form.target = '';
+                        form.target = '_blank';
+                        form.action = 'invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
+
+                        form.submit();
+                        form.action = 'invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
+                        form.target = '';
 
                     }
                 },

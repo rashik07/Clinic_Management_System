@@ -29,11 +29,12 @@ class CreatePatientOutdoorTreatment
             try {
 
                 $outdoor_treatment_total_bill  = if_empty($_POST['outdoor_treatment_total_bill']);
-                $outdoor_treatment_discount_pc   = if_empty($_POST['outdoor_treatment_discount_pc']);
+                $outdoor_treatment_discount_pc   = $_POST['outdoor_treatment_discount_pc'];
                 $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
                 $outdoor_treatment_consultant = if_empty($_POST['outdoor_treatment_consultant']);
                 $outdoor_treatment_reference = if_empty($_POST['outdoor_treatment_reference']);
                 $outdoor_treatment_invoice_id = if_empty($_POST['outdoor_treatment_invoice_id']);
+                $outdoor_treatment_outdoor_service_Category = if_empty($_POST['outdoor_treatment_outdoor_service_Category']);
                 $patient_name = if_empty($_POST['patient_name']);
                 $patient_age = if_empty($_POST['patient_age']);
                 $patient_gender = if_empty($_POST['patient_gender']);
@@ -53,6 +54,7 @@ class CreatePatientOutdoorTreatment
 
 
                 $post_content = "INSERT INTO outdoor_treatment (outdoor_treatment_invoice_id,outdoor_treatment_user_added_id, outdoor_treatment_patient_id, outdoor_treatment_indoor_treatment_id,
+                outdoor_treatment_outdoor_service_Category,
                 patient_name,
                 patient_age,
                 patient_gender,
@@ -62,6 +64,7 @@ class CreatePatientOutdoorTreatment
                              outdoor_treatment_total_paid, outdoor_treatment_total_due,outdoor_treatment_payment_type,
                                outdoor_treatment_payment_type_no, outdoor_treatment_note) 
                     VALUES ('$outdoor_treatment_invoice_id','$request_user_id','$outdoor_treatment_patient_id',$outdoor_treatment_indoor_treatment_id,
+                    '$outdoor_treatment_outdoor_service_Category',
                     '$patient_name',
                     '$patient_age', 
                     '$patient_gender', 

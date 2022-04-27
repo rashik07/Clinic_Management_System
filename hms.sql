@@ -116,6 +116,21 @@ CREATE TABLE `patient`
 ) ENGINE = InnoDB AUTO_INCREMENT=1000
   DEFAULT CHARSET = utf8;
 
+
+--
+-- Dumping data for table `patient`
+--
+
+INSERT INTO `patient` (`patient_id`, `patient_user_added_id`, `patient_name`, `patient_description`, `patient_age`, `patient_email`, `patient_dob`, `patient_gender`, `patient_blood_group`, `patient_phone`, `patient_address`, `patient_status`, `patient_creation_time`, `patient_modification_time`) VALUES
+(1000, 2, 'Sadik Ahammed', '', '29', '', '', 'male', '', '01686076067', '', 'active', '2022-04-25 13:14:15', NULL),
+(1003, 2, 'Muzahid', '', '29', '', '', 'male', '', '', '', 'active', '2022-04-25 13:17:04', NULL),
+(1004, 2, 'Rashik Saif', '', '30', '', '', 'male', 'B+', '01913846060', '', 'active', '2022-04-25 13:18:07', NULL),
+(1005, 2, 'Jodu modu', '', '20', '', '', 'male', '', '', '', 'active', '2022-04-25 13:39:45', NULL),
+(1006, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:50:37', NULL),
+(1007, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:51:03', NULL);
+
+-- --------------------------------------------------------
+
 CREATE TABLE `doctor`
 (
     `doctor_id`                int(11)      NOT NULL AUTO_INCREMENT,
@@ -144,7 +159,18 @@ CREATE TABLE `doctor`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+--
+-- Dumping data for table `doctor`
+--
 
+INSERT INTO `doctor` (`doctor_id`, `doctor_user_added_id`, `doctor_name`, `doctor_description`, `doctor_specialization`, `doctor_experience`, `doctor_age`, `doctor_email`, `doctor_dob`, `doctor_gender`, `doctor_blood_group`, `doctor_visit_fee`, `doctor_phone`, `doctor_emergency_phone`, `doctor_address`, `doctor_status`, `photo_url`, `document_url`, `doctor_creation_time`, `doctor_modification_time`) VALUES
+(1, 2, 'Dr rais', '', '', '', '', '', '', '', '', '500', '', '', '', 'active', '', '', '2022-04-25 13:18:37', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `indoor_bed`
+--
 
 
 -- indoor module
@@ -301,6 +327,7 @@ CREATE TABLE `outdoor_treatment`
     `outdoor_treatment_user_added_id`             int(11) NOT NULL,
     `outdoor_treatment_patient_id`                int(11) NOT NULL,
     `outdoor_treatment_indoor_treatment_id`       int(11) DEFAULT NULL,
+    `outdoor_treatment_outdoor_service_Category`  varchar(255) DEFAULT NULL,
     `patient_name`                                varchar(255) DEFAULT NULL,
     `patient_age`                                 varchar(255) DEFAULT NULL,
     `patient_gender`                              varchar(255) DEFAULT NULL,

@@ -89,6 +89,7 @@ require_once('check_if_outdoor_manager.php');
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="outdoor_treatment_id" value="<?php echo $outdoor_treatment_id; ?>">
                                         <input type="hidden" name="outdoor_treatment_patient_id" value="<?php echo $result_content_treatment[0]['patient_id']; ?>">
+                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="<?php echo $result_content_treatment[0]['outdoor_treatment_outdoor_service_Category']; ?>">
 
                                         <div class="row">
 
@@ -281,11 +282,11 @@ require_once('check_if_outdoor_manager.php');
     function invoice() {
         form = document.getElementById('patient_service_update_form');
         form.target = '_blank';
-        form.action = 'invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
+        form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
         // form.submit();
-        form.action = 'invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
+        form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
         form.target = '';
-       
+
     }
 
     function loadPatient() {
