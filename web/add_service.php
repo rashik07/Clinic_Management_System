@@ -37,17 +37,17 @@ require_once('check_if_outdoor_manager.php');
                                         <label for="discharge-date">Service Category<i class="text-danger"> * </i></label>
                                         <select class="form-control" id="outdoor_service_Category" name="outdoor_service_Category" required>
                                             <option value="">Select Service Category</option>
-                                            <option value="doctor_visit">Doctor Visit</option>
-                                            <option value="procedures">Procedures</option>
-                                            <option value="physiotherapy">Physiotherapy</option>
-                                            <option value="ot">OT</option>
+                                            <option value="Doctor Visit">Doctor Visit</option>
+                                            <option value="Procedures">Procedures</option>
+                                            <option value="Physiotherapy">Physiotherapy</option>
+                                            <option value="OT">OT</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="patient-name">Service Rate<i class="text-danger"> * </i></label>
                                         <input type="number" class="form-control" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate" required>
                                     </div>
-                                   
+
 
                                     <div class="form-group col-md-12">
                                         <label for="exampleFormControlTextarea1">Service Description</label>

@@ -58,16 +58,16 @@ require_once('check_if_outdoor_manager.php');
                                             <option value="procedures">Procedures</option>
                                             <option value="physiotherapy">Physiotherapy</option>
                                             <option value="ot">OT</option> -->
-                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "doctor_visit") {
+                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "Doctor Visit") {
                                                         echo 'selected';
                                                     } ?> value="doctor_visit">Doctor Visit</option>
-                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "procedures") {
+                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "Procedures") {
                                                         echo 'selected';
                                                     } ?> value="procedures">Procedures</option>
-                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "physiotherapy") {
+                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "Physiotherapy") {
                                                         echo 'selected';
                                                     } ?> value="physiotherapy">Physiotherapy</option>
-                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "ot") {
+                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "OT") {
                                                         echo 'selected';
                                                     } ?> value="ot">OT</option>
                                         </select>
@@ -138,9 +138,8 @@ require_once('check_if_outdoor_manager.php');
 
         });
     });
-  
-    function delete_data()
-    {
+
+    function delete_data() {
         var data_id = <?php echo $outdoor_service_id; ?>;
         if (confirm('Are you sure you want to Delete This Content?')) {
             // yes
@@ -156,7 +155,7 @@ require_once('check_if_outdoor_manager.php');
                     outdoor_service_id: data_id,
                     content: "outdoor_service"
                 },
-                success: function (response) {
+                success: function(response) {
                     //alert(response);
                     spinner.hide();
                     var obj = JSON.parse(response);
@@ -164,10 +163,10 @@ require_once('check_if_outdoor_manager.php');
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("service_list.php","_self");
+                        window.open("service_list.php", "_self");
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     spinner.hide();
                     alert("alert : " + errorThrown);
                 }

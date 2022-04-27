@@ -68,7 +68,7 @@ require_once('check_if_outdoor_manager.php');
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Edit Patient Treatment</h3>
+                            <h3 class="widget-title"><?php echo $result_content_treatment[0]['outdoor_treatment_outdoor_service_Category']; ?></h3>
                             <form class="form-horizontal form-material mb-0" id="patient_service_update_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
@@ -89,6 +89,7 @@ require_once('check_if_outdoor_manager.php');
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="outdoor_treatment_id" value="<?php echo $outdoor_treatment_id; ?>">
                                         <input type="hidden" name="outdoor_treatment_patient_id" value="<?php echo $result_content_treatment[0]['patient_id']; ?>">
+                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="<?php echo $result_content_treatment[0]['outdoor_treatment_outdoor_service_Category']; ?>">
 
                                         <div class="row">
 
@@ -157,6 +158,12 @@ require_once('check_if_outdoor_manager.php');
                                                 <div class="col-md-3"><label for="discharge-date">Discount</label></div>
                                                 <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_discount_pc']; ?>" required>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div class="row">
+                                                <div class="col-md-3"><label for="outdoor_treatment_exemption">Exemption</label></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Exemption" class="form-control" id="outdoor_treatment_exemption" name="outdoor_treatment_exemption" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_exemption']; ?>" required></div>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
@@ -281,11 +288,17 @@ require_once('check_if_outdoor_manager.php');
     function invoice() {
         form = document.getElementById('patient_service_update_form');
         form.target = '_blank';
+<<<<<<< HEAD
         form.action = 'doctor_visit_invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
         // form.submit();
         form.action = 'doctor_visit_invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
+=======
+        form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
+        // form.submit();
+        form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
+>>>>>>> df2d8d8e89c84862b9a39aa012331a8a50f56c84
         form.target = '';
-       
+
     }
 
     function loadPatient() {
@@ -380,6 +393,7 @@ require_once('check_if_outdoor_manager.php');
 
     function update_total_bill() {
         var in_total = 0;
+        var outdoor_treatment_exemption = document.getElementById("outdoor_treatment_exemption").value;
         $("tr").each(function() {
             var total = $(this).find("input.outdoor_service_total").val();
             in_total = parseInt(in_total) + parseInt(isNaN(parseInt(total)) ? 0 : total);
@@ -394,6 +408,9 @@ require_once('check_if_outdoor_manager.php');
             } else {
                 in_total = in_total - parseInt(discount);
             }
+        }
+        if (outdoor_treatment_exemption > 0) {
+            in_total = in_total - outdoor_treatment_exemption;
         }
         // discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
         // in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));

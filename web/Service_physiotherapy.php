@@ -37,7 +37,7 @@ if (isset($_GET['patient_id'])) {
                     $getJson->execute();
                     $result_content_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select * from outdoor_service where outdoor_service_Category='Doctor Visit'";
+                    $get_content = "select * from outdoor_service where outdoor_service_Category='Physiotherapy'";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
@@ -107,7 +107,7 @@ if (isset($_GET['patient_id'])) {
                                     <div class="form-group col-md-5">
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="Doctor Visit">
+                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="Physiotherapy">
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="get_patient_id" id="get_patient_id" value="<?php echo $patient_id ?>">
                                         <div class="row">
@@ -126,8 +126,8 @@ if (isset($_GET['patient_id'])) {
 
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label for="outdoor_treatment_consultant">Consultant Name</label><i class="text-danger"> * </i>
-                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." required>
+                                                <label for="outdoor_treatment_consultant">Consultant Name</label>
+                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service...">
                                                     <option value="">Select Doctor...</option>
                                                     <?php
                                                     foreach ($result_content_doctor as $data) {
