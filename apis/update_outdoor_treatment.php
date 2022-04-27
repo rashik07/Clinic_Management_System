@@ -28,9 +28,11 @@ class UpdatePatientOutdoorTreatment
 
                 $outdoor_treatment_id  = if_empty($_POST['outdoor_treatment_id']);
                 $outdoor_treatment_patient_id  = if_empty($_POST['outdoor_treatment_patient_id']);
+                $outdoor_treatment_consultant = if_empty($_POST['outdoor_treatment_consultant']);
 
                 $outdoor_treatment_total_bill  = if_empty($_POST['outdoor_treatment_total_bill']);
                 $outdoor_treatment_discount_pc   = $_POST['outdoor_treatment_discount_pc'];
+                $outdoor_treatment_exemption = if_empty($_POST['outdoor_treatment_exemption']);
                 $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
                 $outdoor_treatment_total_paid  = if_empty($_POST['outdoor_treatment_total_paid']);
                 $outdoor_treatment_total_due  = if_empty($_POST['outdoor_treatment_total_due']);
@@ -46,10 +48,12 @@ class UpdatePatientOutdoorTreatment
 
 
                 $post_content = "UPDATE outdoor_treatment SET outdoor_treatment_patient_id = '$outdoor_treatment_patient_id',
+                outdoor_treatment_consultant='$outdoor_treatment_consultant',
                 outdoor_treatment_reference='$outdoor_treatment_reference',
                 outdoor_treatment_total_bill = '$outdoor_treatment_total_bill',
                 outdoor_treatment_total_bill_after_discount='$outdoor_treatment_total_bill_after_discount',
                 outdoor_treatment_discount_pc = '$outdoor_treatment_discount_pc',
+                outdoor_treatment_exemption = '$outdoor_treatment_exemption',
                 outdoor_treatment_total_paid = '$outdoor_treatment_total_paid',
                 outdoor_treatment_total_due = '$outdoor_treatment_total_due',
                 outdoor_treatment_payment_type = '$outdoor_treatment_payment_type',

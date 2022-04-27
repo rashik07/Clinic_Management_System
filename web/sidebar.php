@@ -66,7 +66,16 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 <ul class="list-unstyled collapse" id="nav-bills">
 
                     <li>
-                        <a href="add_patient_treatment.php">Doctor Visit</a>
+                        <a href="Service_doctor_visit.php">Doctor Visit</a>
+                    </li>
+                    <li>
+                        <a href="Service_procedures.php">Procedures</a>
+                    </li>
+                    <li>
+                        <a href="Service_physiotherapy.php">Physiotherapy</a>
+                    </li>
+                    <li>
+                        <a href="Service_ot.php">OT</a>
                     </li>
                     <li>
                         <a href="patient_treatment_list.php">All Patient Treatments</a>

@@ -320,6 +320,27 @@ CREATE TABLE `outdoor_service`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
+
+--
+-- Dumping data for table `outdoor_service`
+--
+
+INSERT INTO `outdoor_service` (`outdoor_service_id`, `outdoor_service_user_added_id`, `outdoor_service_name`, `outdoor_service_Category`, `outdoor_service_description`, `outdoor_service_rate`, `outdoor_service_creation_time`, `outdoor_service_modification_time`) VALUES
+(1, 2, 'Doctor Visit', 'Doctor Visit', '', '500', '2022-04-27 15:03:26', NULL),
+(2, 2, 'Pluster', 'Procedures', '', '1000', '2022-04-27 15:03:48', NULL),
+(3, 2, 'Physiotherapy one', 'Physiotherapy', '', '1000', '2022-04-27 15:05:15', NULL),
+(5, 2, 'OT charge', 'OT', '', '500', '2022-04-27 15:37:27', NULL),
+(6, 2, 'Cardiac monitor charge', 'OT', '', '200', '2022-04-27 15:37:54', NULL),
+(7, 2, 'Surgon charge (Dressing)', 'OT', '', '5000', '2022-04-27 15:40:39', NULL);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `outdoor_service`
+--
+
 CREATE TABLE `outdoor_treatment`
 (
     `outdoor_treatment_id`                        int(11) NOT NULL AUTO_INCREMENT,
@@ -336,7 +357,8 @@ CREATE TABLE `outdoor_treatment`
     `outdoor_treatment_reference`                 varchar(255) DEFAULT NULL,
     `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
     `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 
-    `outdoor_treatment_discount_pc`               varchar(255) DEFAULT 0,    
+    `outdoor_treatment_discount_pc`               varchar(255) DEFAULT 0,
+    `outdoor_treatment_exemption`               varchar(255) DEFAULT 0,
     `outdoor_treatment_total_paid`                varchar(255) DEFAULT NULL, 
     `outdoor_treatment_total_due`                 varchar(255) DEFAULT 0,    
     `outdoor_treatment_payment_type`              varchar(255) DEFAULT NULL, 
