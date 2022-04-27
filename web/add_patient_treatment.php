@@ -37,7 +37,7 @@ if (isset($_GET['patient_id'])) {
                     $getJson->execute();
                     $result_content_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select * from outdoor_service";
+                    $get_content = "select * from outdoor_service where outdoor_service_Category='Doctor Visit'";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
@@ -107,7 +107,7 @@ if (isset($_GET['patient_id'])) {
                                     <div class="form-group col-md-5">
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="doctor_visit">
+                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="Doctor Visit">
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="get_patient_id" id="get_patient_id" value="<?php echo $patient_id ?>">
                                         <div class="row">
