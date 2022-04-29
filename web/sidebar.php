@@ -127,7 +127,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
         <?php } ?>
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 5) { ?>
 
-            <li>
+            <!-- <li>
                 <a href="#nav-appointment" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-pencil-alt"></span> Investigation/Test
                 </a>
@@ -145,7 +145,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                         <a href="pathology_investigation_list.php">All Investigation</a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
         <?php } ?>
         <!-- <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
 

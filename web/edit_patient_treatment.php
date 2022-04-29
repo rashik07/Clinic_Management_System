@@ -129,6 +129,7 @@ require_once('check_if_outdoor_manager.php');
                                             <th>Name<i class="text-danger"> * </i></th>
                                             <th>Quantity<i class="text-danger"> * </i></th>
                                             <th>Rate</th>
+                                            <th>Discount</th>
                                             <th>Total</th>
                                             <!-- <th>Add</th>
                                                 <th>Delete</th> -->
@@ -156,14 +157,14 @@ require_once('check_if_outdoor_manager.php');
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3"><label for="discharge-date">Discount</label></div>
-                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_discount_pc']; ?>" required>
+                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_discount_pc']; ?>">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3"><label for="outdoor_treatment_exemption">Exemption</label></div>
-                                                <div class="col-md-9"><input type="number" placeholder="Exemption" class="form-control" id="outdoor_treatment_exemption" name="outdoor_treatment_exemption" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_exemption']; ?>" required></div>
+                                                <div class="col-md-9"><input type="number" placeholder="Exemption" class="form-control" id="outdoor_treatment_exemption" name="outdoor_treatment_exemption" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_exemption']; ?>"></div>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
@@ -355,8 +356,16 @@ require_once('check_if_outdoor_manager.php');
         }
         var outdoor_service_rate = parseFloat(row.find(".outdoor_service_rate").val());
         var outdoor_service_quantity = parseFloat(row.find(".outdoor_service_quantity").val());
-        //alert(outdoor_service_id);
+        var outdoor_treatment_service_discount_pc = row.find(".outdoor_treatment_service_discount_pc").val();
         var total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity);
+        if (outdoor_treatment_service_discount_pc != "") {
+            if (outdoor_treatment_service_discount_pc.search("%") > 0) {
+                var total_dc = (parseInt(outdoor_treatment_service_discount_pc) / 100) * parseInt(total);
+                total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity) - total_dc;
+            } else {
+                total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity) - parseInt(outdoor_treatment_service_discount_pc);
+            }
+        }
         row.find(".outdoor_service_total").val(isNaN(total) ? 0 : total);
 
         update_total_bill();
@@ -484,13 +493,27 @@ require_once('check_if_outdoor_manager.php');
             text3.setAttribute("readonly", "readonly");
 
             var text4 = document.createElement("INPUT");
-            text4.setAttribute("type", "number");
-            text4.setAttribute("required", "required");
-            text4.setAttribute("class", "form-control outdoor_service_total");
-            text4.setAttribute("value", list[i]['outdoor_treatment_service_service_total']);
-            text4.setAttribute("placeholder", "Service Total");
-            text4.setAttribute("name", "outdoor_service_total[]");
-            text4.setAttribute("readonly", "readonly");
+            text4.setAttribute("type", "text");
+            // text4.setAttribute("required", "required");
+            text4.setAttribute("class", "form-control outdoor_treatment_service_discount_pc");
+            text4.setAttribute("value", list[i]['outdoor_treatment_service_discount_pc'])
+            text4.setAttribute("placeholder", "Discount");
+            text4.setAttribute("name", "outdoor_treatment_service_discount_pc[]");
+            if (list[i]['outdoor_treatment_outdoor_service_Category'] != 'Investigation/Test') {
+                text4.setAttribute("readonly", "readonly");
+            }
+            text4.onchange = function() {
+                changeData(this);
+            }
+
+            var text5 = document.createElement("INPUT");
+            text5.setAttribute("type", "number");
+            text5.setAttribute("required", "required");
+            text5.setAttribute("class", "form-control outdoor_service_total");
+            text5.setAttribute("value", list[i]['outdoor_treatment_service_service_total']);
+            text5.setAttribute("placeholder", "Service Total");
+            text5.setAttribute("name", "outdoor_service_total[]");
+            text5.setAttribute("readonly", "readonly");
 
             // var buttonAdd = document.createElement('button');
             // buttonAdd.setAttribute("type", "button");
@@ -516,6 +539,7 @@ require_once('check_if_outdoor_manager.php');
             td2.appendChild(text2);
             td3.appendChild(text3);
             td4.appendChild(text4);
+            td5.appendChild(text5);
 
             // td5.appendChild(buttonAdd);
             // td6.appendChild(buttonRemove);
@@ -526,7 +550,7 @@ require_once('check_if_outdoor_manager.php');
             tr.appendChild(td2);
             tr.appendChild(td3);
             tr.appendChild(td4);
-            // tr.appendChild(td5);
+            tr.appendChild(td5);
             // tr.appendChild(td6);
 
 
