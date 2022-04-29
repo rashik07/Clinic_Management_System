@@ -52,7 +52,7 @@ if (isset($_GET['patient_id'])) {
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">OT</h3>
+                            <h3 class="widget-title">Investigation/Test</h3>
                             <form class="form-horizontal form-material mb-0" id="patient_service_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
@@ -154,8 +154,10 @@ if (isset($_GET['patient_id'])) {
                                     <thead>
                                         <tr>
                                             <th>Name<i class="text-danger"> * </i></th>
+                                            <!-- <th>Room No.</th> -->
                                             <th>Quantity<i class="text-danger"> * </i></th>
                                             <th>Rate</th>
+                                            <th>Discount</th>
                                             <th>Total</th>
                                             <th>Add</th>
                                             <th>Delete</th>
@@ -174,6 +176,7 @@ if (isset($_GET['patient_id'])) {
 
                                                 </select>
                                             </td>
+
                                             <td>
                                                 <input type="number" class="form-control outdoor_service_quantity" onchange="calculate(this);" placeholder="Service Quantity" id="outdoor_service_quantity" name="outdoor_service_quantity[]" required>
 
@@ -181,6 +184,9 @@ if (isset($_GET['patient_id'])) {
                                             <td>
                                                 <input type="number" class="form-control outdoor_service_rate" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate[]" readonly required>
 
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control outdoor_treatment_service_discount_pc" onchange="changeData(this);" placeholder="Discount" id="outdoor_treatment_service_discount_pc" name="outdoor_treatment_service_discount_pc[]" readonly>
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control outdoor_service_total" placeholder="Service Total" id="outdoor_service_total" name="outdoor_service_total[]" readonly required>
@@ -192,10 +198,7 @@ if (isset($_GET['patient_id'])) {
                                                 <button type="button" class="btn btn-success pull-right" onclick="DeleteRow(this);">Delete Row</button>
                                             </td>
                                         </tr>
-
-
                                     </tbody>
-
                                 </table>
                                 <div class="row">
                                     <div class="col-md-7"></div>
@@ -538,8 +541,16 @@ if (isset($_GET['patient_id'])) {
         }
         var outdoor_service_rate = parseFloat(row.find(".outdoor_service_rate").val());
         var outdoor_service_quantity = parseFloat(row.find(".outdoor_service_quantity").val());
-        //alert(outdoor_service_id);
+        var outdoor_treatment_service_discount_pc = row.find(".outdoor_treatment_service_discount_pc").val();
         var total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity);
+        if (outdoor_treatment_service_discount_pc != "") {
+            if (outdoor_treatment_service_discount_pc.search("%") > 0) {
+                var total_dc = (parseInt(outdoor_treatment_service_discount_pc) / 100) * parseInt(total);
+                total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity) - total_dc;
+            } else {
+                total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity) - parseInt(outdoor_treatment_service_discount_pc);
+            }
+        }
         row.find(".outdoor_service_total").val(isNaN(total) ? 0 : total);
 
         update_total_bill();
@@ -602,11 +613,13 @@ if (isset($_GET['patient_id'])) {
         var tr = document.createElement('tr');
 
         var td1 = document.createElement('td');
-        var td2 = document.createElement('td');
+        // var td2 = document.createElement('td');
         var td3 = document.createElement('td');
         var td4 = document.createElement('td');
         var td5 = document.createElement('td');
         var td6 = document.createElement('td');
+        var td7 = document.createElement('td');
+        var td8 = document.createElement('td');
 
         /*var text1 = document.createElement("INPUT");
         text1.setAttribute("required", "required");
@@ -643,7 +656,14 @@ if (isset($_GET['patient_id'])) {
         //var cell = row.insertCell();
         //cell.appendChild(selectList);
 
-
+        // var text1 = document.createElement("INPUT");
+        // text1.setAttribute("class", "form-control outdoor_service_room_no");
+        // text1.setAttribute("type", "text");
+        // text1.setAttribute("placeholder", "Room No");
+        // text1.setAttribute("name", "outdoor_service_room_no[]");
+        // text1.onchange = function() {
+        //     calculate(this);
+        // }
 
 
         var text2 = document.createElement("INPUT");
@@ -665,13 +685,26 @@ if (isset($_GET['patient_id'])) {
         text3.setAttribute("readonly", "readonly");
 
         var text4 = document.createElement("INPUT");
-        text4.setAttribute("type", "number");
-        text4.setAttribute("required", "required");
-        text4.setAttribute("class", "form-control outdoor_service_total");
-        text4.setAttribute("placeholder", "Service Total");
-
-        text4.setAttribute("name", "outdoor_service_total[]");
+        text4.setAttribute("type", "text");
+        // text4.setAttribute("required", "required");
+        text4.setAttribute("class", "form-control outdoor_treatment_service_discount_pc");
+        text4.setAttribute("placeholder", "Discount");
+        text4.setAttribute("name", "outdoor_treatment_service_discount_pc[]");
         text4.setAttribute("readonly", "readonly");
+        text4.onchange = function() {
+            changeData(this);
+        }
+
+
+        var text5 = document.createElement("INPUT");
+        text5.setAttribute("type", "number");
+        text5.setAttribute("required", "required");
+        text5.setAttribute("class", "form-control outdoor_service_total");
+        text5.setAttribute("placeholder", "Service Total");
+        text5.setAttribute("name", "outdoor_service_total[]");
+        text5.setAttribute("readonly", "readonly");
+
+
 
         var buttonAdd = document.createElement('button');
         buttonAdd.setAttribute("type", "button");
@@ -693,20 +726,23 @@ if (isset($_GET['patient_id'])) {
 
 
         td1.appendChild(selectList);
-        td2.appendChild(text2);
-        td3.appendChild(text3);
-        td4.appendChild(text4);
-
-        td5.appendChild(buttonAdd);
-        td6.appendChild(buttonRemove);
+        // td2.appendChild(text1);
+        td3.appendChild(text2);
+        td4.appendChild(text3);
+        td5.appendChild(text4);
+        td6.appendChild(text5);
+        td7.appendChild(buttonAdd);
+        td8.appendChild(buttonRemove);
 
 
         tr.appendChild(td1);
-        tr.appendChild(td2);
+        // tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
         tr.appendChild(td5);
         tr.appendChild(td6);
+        tr.appendChild(td7);
+        tr.appendChild(td8);
 
 
         table.appendChild(tr);
