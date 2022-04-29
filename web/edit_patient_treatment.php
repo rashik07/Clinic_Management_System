@@ -222,7 +222,8 @@ require_once('check_if_outdoor_manager.php');
                                         </div>
                                         <div class="form-group col-md-12 mb-3">
                                             <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                                            <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button>
+                                            <!-- <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button> -->
+                                            <!-- <a class="btn btn-primary btn-lg" href="doctor_visit_invoice.php?outdoor_treatment_id=<?php echo $outdoor_treatment_id; ?>">invoice</a> -->
                                         </div>
                                     </div>
                                 </div>
@@ -267,8 +268,10 @@ require_once('check_if_outdoor_manager.php');
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        //window.open("patient_treatment_list.php","_self");
-                        document.getElementById('patient_service_update_form').submit();
+                        //   document.getElementById('patient_service_update_form').submit();
+                        window.open("doctor_visit_invoice.php?outdoor_treatment_id=" + <?php echo $outdoor_treatment_id; ?>, "_self");
+
+                        // document.getElementById('patient_service_update_form').submit();
 
                     }
                 },
@@ -286,15 +289,15 @@ require_once('check_if_outdoor_manager.php');
         loadPatient();
     });
 
-    function invoice() {
-        form = document.getElementById('patient_service_update_form');
-        form.target = '_blank';
-        form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
-        // form.submit();
-        form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
-        form.target = '';
+    // function invoice() {
+    //     form = document.getElementById('patient_service_update_form');
+    //     form.target = '_blank';
+    //     form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
+    //     // form.submit();
+    //     form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
+    //     form.target = '';
 
-    }
+    // }
 
     function loadPatient() {
         let patient_phone = document.getElementById("outdoor_patient_phone").value;
