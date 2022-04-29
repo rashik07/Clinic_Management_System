@@ -96,8 +96,8 @@ require_once('check_if_outdoor_manager.php');
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label for="outdoor_treatment_consultant">Consultant Name</label>
-                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." value="<?php echo $result_content_treatment[0]['outdoor_treatment_consultant']; ?>">
+                                                <label for="outdoor_treatment_consultant">Consultant Name</label><i class="text-danger"> * </i>
+                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." value="<?php echo $result_content_treatment[0]['outdoor_treatment_consultant']; ?>" required>
 
                                                     <option value="" selected="selected">Select Doctor...</option>
                                                     <?php
@@ -288,9 +288,15 @@ require_once('check_if_outdoor_manager.php');
     function invoice() {
         form = document.getElementById('patient_service_update_form');
         form.target = '_blank';
+<<<<<<< HEAD
+        form.action = 'doctor_visit_invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
+        // form.submit();
+        form.action = 'doctor_visit_invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
+=======
         form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
         // form.submit();
         form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
+>>>>>>> df2d8d8e89c84862b9a39aa012331a8a50f56c84
         form.target = '';
 
     }
