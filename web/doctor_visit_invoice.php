@@ -33,7 +33,7 @@
                         <div class="page-content container">
 
                             <div class="container px-0">
-                                <div class="row mt-4">
+                                <div class="row mt-2">
                                     <div class="col-12 col-lg-10 offset-lg-1">
                                         <div class="row">
                                             <div class="col-12 d-flex justify-content-between">
@@ -50,7 +50,7 @@
                                         </div>
                                         <!-- .row -->
 
-                                        <hr class="row brc-default-l1 mx-n1 mb-4" />
+                                        <hr class="row brc-default-l1 mx-n1 mb-1" />
                                         <?php
                                         require_once("../apis/Connection.php");
                                         require_once("../apis/related_func.php");
@@ -134,8 +134,8 @@
                                             <!-- /.col -->
                                         </div>
 
-                                        <div class="mt-4">
-                                            <div class="row text-600 text-white bgc-default-tp1 py-25">
+                                        <div class="mt-2">
+                                            <div class="row text-600 text-white bgc-default-tp1 py-20">
                                                 <div class="d-none d-sm-block col-1">#</div>
                                                 <div class="col-9 col-sm-5">Particulars</div>
                                                 <div class="d-none d-sm-block col-4 col-sm-2">Rate</div>
@@ -157,7 +157,7 @@
                                                 for ($i = 0; $i < count($result_content_outdoor_treatment); $i++) {
 
 
-                                                    echo '<div class="row mb-2 mb-sm-0 py-25">
+                                                    echo '<div class="row mb-2 mb-sm-0 py-20">
                                                     <div class="d-none d-sm-block col-1">' . ($count_service + 1) . '</div>
                                                     <div class="col-9 col-sm-5">' . $result_content_outdoor_treatment[$i]['outdoor_service_name'] . '</div>
                                                     <div class="d-none d-sm-block col-2">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_rate'] . ' Tk</div>
@@ -190,7 +190,7 @@
                                                         </div>
                                                     </div>
                                                     <?php
-echo  $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'][strlen($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'])-1];
+
                                                     if ($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] != "") {
                                                         if($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'][strlen($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'])-1]!='%'){
                                                             echo  '<div class="row my-2">
