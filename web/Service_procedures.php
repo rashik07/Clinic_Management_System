@@ -326,10 +326,10 @@ if (isset($_GET['patient_id'])) {
                         // window.open("invoice.php?outdoor_treatment_id="+obj.outdoor_treatment_id, "_self");
                         form = document.getElementById('patient_service_form');
                         form.target = '_blank';
-                        form.action = 'invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
+                        form.action = 'doctor_visit_invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
 
                         form.submit();
-                        form.action = 'invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
+                        form.action = 'doctor_visit_invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
                         form.target = '';
 
                     }
