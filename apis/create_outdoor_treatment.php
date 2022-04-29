@@ -50,6 +50,7 @@ class CreatePatientOutdoorTreatment
 
                 $outdoor_service_id = $_POST['outdoor_service_id'];
                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
+                $outdoor_treatment_service_discount_pc = $_POST['outdoor_treatment_service_discount_pc'];
                 $outdoor_service_rate  = $_POST['outdoor_service_rate'];
                 $outdoor_service_total  = $_POST['outdoor_service_total'];
 
@@ -84,13 +85,14 @@ class CreatePatientOutdoorTreatment
                     $service_quantity  = $outdoor_service_quantity[$count_service];
                     $service_rate  = $outdoor_service_rate[$count_service];
                     $service_total = $outdoor_service_total[$count_service];
+                    $service_discount_pc = $outdoor_treatment_service_discount_pc[$count_service];
 
                     $post_content = "INSERT INTO outdoor_treatment_service (outdoor_treatment_service_user_added_id,
                                        outdoor_treatment_service_treatment_id, outdoor_treatment_service_service_id,
-                    outdoor_treatment_service_service_quantity,outdoor_treatment_service_service_rate,
+                    outdoor_treatment_service_service_quantity,outdoor_treatment_service_service_rate,outdoor_treatment_service_discount_pc,
                      outdoor_treatment_service_service_total) 
                     VALUES ('$request_user_id','$outdoor_treatment_id','$service_id', '$service_quantity',
-                            '$service_rate','$service_total')";
+                            '$service_rate','$service_discount_pc','$service_total')";
                     //echo $post_content;
                     $result = $conn->exec($post_content);
                     $last_id = $conn->lastInsertId();

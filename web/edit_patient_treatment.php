@@ -288,15 +288,9 @@ require_once('check_if_outdoor_manager.php');
     function invoice() {
         form = document.getElementById('patient_service_update_form');
         form.target = '_blank';
-<<<<<<< HEAD
-        form.action = 'doctor_visit_invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
-        // form.submit();
-        form.action = 'doctor_visit_invoice.php?outdoor_treatment_id='+<?php echo $outdoor_treatment_id; ?>;
-=======
         form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
         // form.submit();
         form.action = 'invoice.php?outdoor_treatment_id=' + <?php echo $outdoor_treatment_id; ?>;
->>>>>>> df2d8d8e89c84862b9a39aa012331a8a50f56c84
         form.target = '';
 
     }

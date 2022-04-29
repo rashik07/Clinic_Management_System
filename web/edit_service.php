@@ -60,22 +60,31 @@ require_once('check_if_outdoor_manager.php');
                                             <option value="ot">OT</option> -->
                                             <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "Doctor Visit") {
                                                         echo 'selected';
-                                                    } ?> value="doctor_visit">Doctor Visit</option>
+                                                    } ?> value="Doctor Visit">Doctor Visit</option>
                                             <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "Procedures") {
                                                         echo 'selected';
-                                                    } ?> value="procedures">Procedures</option>
+                                                    } ?> value="Procedures">Procedures</option>
                                             <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "Physiotherapy") {
                                                         echo 'selected';
-                                                    } ?> value="physiotherapy">Physiotherapy</option>
+                                                    } ?> value="Physiotherapy">Physiotherapy</option>
                                             <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "OT") {
                                                         echo 'selected';
-                                                    } ?> value="ot">OT</option>
+                                                    } ?> value="OT">OT</option>
+                                            <option <?php if ($result_content_outdoor_service[0]['outdoor_service_Category'] == "Investigation/Test") {
+                                                        echo 'selected';
+                                                    } ?> value="Investigation/Test">Investigation/Test</option>
                                         </select>
+
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="patient-name">Service Rate<i class="text-danger"> * </i></label>
                                         <input type="number" class="form-control" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate" value="<?php echo $result_content_outdoor_service[0]['outdoor_service_rate']; ?>" required>
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="outdoor_service_room_no">Room No.</label>
+                                        <input type="text" class="form-control" placeholder="Room No." id="outdoor_service_room_no" name="outdoor_service_room_no" value="<?php echo $result_content_outdoor_service[0]['outdoor_service_room_no']; ?>">
+                                    </div>
+
 
                                     <div class="form-group col-md-12">
                                         <label for="exampleFormControlTextarea1">Service Description</label>

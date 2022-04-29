@@ -310,6 +310,7 @@ CREATE TABLE `outdoor_service`
     `outdoor_service_user_added_id`     int(11)      NOT NULL,
     `outdoor_service_name`              varchar(255) NOT NULL,
     `outdoor_service_Category`          varchar(255) NOT NULL,
+    `outdoor_service_room_no`           varchar(255) DEFAULT NULL,
     `outdoor_service_description`       varchar(255) DEFAULT NULL,
     `outdoor_service_rate`              varchar(255) DEFAULT NULL,
     `outdoor_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
@@ -325,13 +326,16 @@ CREATE TABLE `outdoor_service`
 -- Dumping data for table `outdoor_service`
 --
 
-INSERT INTO `outdoor_service` (`outdoor_service_id`, `outdoor_service_user_added_id`, `outdoor_service_name`, `outdoor_service_Category`, `outdoor_service_description`, `outdoor_service_rate`, `outdoor_service_creation_time`, `outdoor_service_modification_time`) VALUES
-(1, 2, 'Doctor Visit', 'Doctor Visit', '', '500', '2022-04-27 15:03:26', NULL),
-(2, 2, 'Pluster', 'Procedures', '', '1000', '2022-04-27 15:03:48', NULL),
-(3, 2, 'Physiotherapy one', 'Physiotherapy', '', '1000', '2022-04-27 15:05:15', NULL),
-(5, 2, 'OT charge', 'OT', '', '500', '2022-04-27 15:37:27', NULL),
-(6, 2, 'Cardiac monitor charge', 'OT', '', '200', '2022-04-27 15:37:54', NULL),
-(7, 2, 'Surgon charge (Dressing)', 'OT', '', '5000', '2022-04-27 15:40:39', NULL);
+INSERT INTO `outdoor_service` (`outdoor_service_id`, `outdoor_service_user_added_id`, `outdoor_service_name`, `outdoor_service_Category`, `outdoor_service_room_no`, `outdoor_service_description`, `outdoor_service_rate`, `outdoor_service_creation_time`, `outdoor_service_modification_time`) VALUES
+(1, 2, 'Doctor Visit', 'Doctor Visit', NULL, '', '500', '2022-04-27 15:03:26', NULL),
+(2, 2, 'Pluster', 'Procedures', NULL, '', '1000', '2022-04-27 15:03:48', NULL),
+(3, 2, 'Physiotherapy one', 'Physiotherapy', NULL, '', '1000', '2022-04-27 15:05:15', NULL),
+(5, 2, 'OT charge', 'OT', NULL, '', '500', '2022-04-27 15:37:27', NULL),
+(6, 2, 'Cardiac monitor charge', 'OT', NULL, '', '200', '2022-04-27 15:37:54', NULL),
+(7, 2, 'Surgon charge (Dressing)', 'OT', NULL, '', '5000', '2022-04-27 15:40:39', NULL),
+(8, 2, 'PA chest xray', 'Investigation/Test', '303', '', '800', '2022-04-29 15:40:18', '2022-04-29 15:47:03'),
+(9, 2, 'RBS', 'Investigation/Test', '203', '', '300', '2022-04-29 16:37:28', NULL);
+
 
 --
 -- Indexes for dumped tables
@@ -355,11 +359,11 @@ CREATE TABLE `outdoor_treatment`
     `patient_phone`                               varchar(255) DEFAULT NULL,
     `outdoor_treatment_consultant`                varchar(255) DEFAULT NULL,
     `outdoor_treatment_reference`                 varchar(255) DEFAULT NULL,
-    `outdoor_treatment_total_bill`                varchar(255) DEFAULT NULL, 
-    `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_total_bill`                varchar(255) DEFAULT 0, 
+    `outdoor_treatment_total_bill_after_discount` varchar(255) DEFAULT 0, 
     `outdoor_treatment_discount_pc`               varchar(255) DEFAULT 0,
     `outdoor_treatment_exemption`               varchar(255) DEFAULT 0,
-    `outdoor_treatment_total_paid`                varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_total_paid`                varchar(255) DEFAULT 0, 
     `outdoor_treatment_total_due`                 varchar(255) DEFAULT 0,    
     `outdoor_treatment_payment_type`              varchar(255) DEFAULT NULL, 
     `outdoor_treatment_payment_type_no`           varchar(255) DEFAULT NULL, 
@@ -380,9 +384,10 @@ CREATE TABLE `outdoor_treatment_service`
     `outdoor_treatment_service_user_added_id`     int(11) NOT NULL,
     `outdoor_treatment_service_treatment_id`      int(11) NOT NULL,
     `outdoor_treatment_service_service_id`        int(11) NOT NULL,
-    `outdoor_treatment_service_service_quantity`  varchar(255) DEFAULT NULL, 
-    `outdoor_treatment_service_service_rate`      varchar(255) DEFAULT NULL, 
-    `outdoor_treatment_service_service_total`     varchar(255) DEFAULT NULL, 
+    `outdoor_treatment_service_service_quantity`  varchar(255) DEFAULT 0, 
+    `outdoor_treatment_service_service_rate`      varchar(255) DEFAULT 0,
+    `outdoor_treatment_service_discount_pc`       varchar(255) DEFAULT 0, 
+    `outdoor_treatment_service_service_total`     varchar(255) DEFAULT 0, 
     `outdoor_treatment_service_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `outdoor_treatment_service_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (outdoor_treatment_service_id),

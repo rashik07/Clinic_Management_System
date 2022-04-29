@@ -41,11 +41,16 @@ require_once('check_if_outdoor_manager.php');
                                             <option value="Procedures">Procedures</option>
                                             <option value="Physiotherapy">Physiotherapy</option>
                                             <option value="OT">OT</option>
+                                            <option value="Investigation/Test">Investigation/Test</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="patient-name">Service Rate<i class="text-danger"> * </i></label>
                                         <input type="number" class="form-control" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="outdoor_service_room_no">Room No.</label>
+                                        <input type="text" class="form-control" placeholder="Room No." id="outdoor_service_room_no" name="outdoor_service_room_no">
                                     </div>
 
 
