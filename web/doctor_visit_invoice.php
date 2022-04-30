@@ -76,12 +76,12 @@
                                         );
                                         $patient_name = $result_content_outdoor_treatment[0]['patient_name'];
 
-                                        
+
                                         $get_content = "select * from doctor where doctor_id = '$outdoor_treatment_consultant'";
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
                                         $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                  
+
                                         $doctor_name = if_empty($result_content[0]['doctor_name']);
                                         $user_id = $result_content_outdoor_treatment[0]['outdoor_treatment_service_user_added_id'];
                                         $get_content_user = "select * from user where user_id = '$user_id'";
@@ -99,7 +99,7 @@
                                                     <span class="text-sm text-grey-m2 align-middle">Invoice No:</span>
                                                     <span class="text-600 text-110 text-blue align-middle"><?php echo  $invoice_no ?></span>
                                                 </div>
-                                           
+
                                                 <div>
                                                     <span class="text-sm text-grey-m2 align-middle">Patient Name:</span>
                                                     <span class="text-600 text-110 text-blue align-middle">
@@ -192,34 +192,31 @@
                                                     <?php
 
                                                     if ($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] != "") {
-                                                        if($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'][strlen($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'])-1]!='%'){
+                                                        if ($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'][strlen($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc']) - 1] != '%') {
                                                             echo  '<div class="row my-2">
                                                             <div class="col-7 text-right">
                                                                 Discount (  ' . $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] . ' )
                                                             </div>
                                                         <div class="col-5 text-right">
                                                             <span class="text-110 text-secondary-d1 ">'
-                                                            . 
-                                                            $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] 
-                                                            . '  </span>
+                                                                .
+                                                                $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc']
+                                                                . '  </span>
                                                         </div>
                                                         </div>';
-                                                           
+                                                        } else {
+                                                            echo  '<div class="row my-2">
+                                                            <div class="col-7 text-right">
+                                                                Discount (  ' . $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] . ' )
+                                                            </div>
+                                                        <div class="col-5 text-right">
+                                                            <span class="text-110 text-secondary-d1 ">'
+                                                                .
+                                                                $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill'] * trim($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'], "%") / 100
+                                                                . '  </span>
+                                                        </div>
+                                                        </div>';
                                                         }
-                                                        else{
-                                                            echo  '<div class="row my-2">
-                                                            <div class="col-7 text-right">
-                                                                Discount (  ' . $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] . ' )
-                                                            </div>
-                                                        <div class="col-5 text-right">
-                                                            <span class="text-110 text-secondary-d1 ">'
-                                                            . 
-                                                                $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill'] * trim($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'],"%")/ 100 
-                                                            . '  </span>
-                                                        </div>
-                                                        </div>';
-                                                        } 
-                                                       
                                                     } else {
                                                         echo    "";
                                                     }
@@ -291,7 +288,7 @@
                                                 </div>
 
                                                 <div>
-                                                    <span class="text-sm text-black-m2 align-middle">Prepared By:<?php echo $result_content_user[0]['username']; ?></span>
+                                                    <span class="text-sm text-black-m2 align-middle">Prepared By: <?php echo $result_content_user[0]['username']; ?></span>
 
                                                 </div>
                                             </div>

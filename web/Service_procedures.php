@@ -52,7 +52,7 @@ if (isset($_GET['patient_id'])) {
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Doctor Visit</h3>
+                            <h3 class="widget-title">Procedures</h3>
                             <form class="form-horizontal form-material mb-0" id="patient_service_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
@@ -327,7 +327,7 @@ if (isset($_GET['patient_id'])) {
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("doctor_visit_invoice.php?outdoor_treatment_id="+obj.outdoor_treatment_id, "_self");
+                        window.open("doctor_visit_invoice.php?outdoor_treatment_id=" + obj.outdoor_treatment_id, "_self");
                         // form = document.getElementById('patient_service_form');
                         // form.target = '_blank';
                         // form.action = 'doctor_visit_invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
