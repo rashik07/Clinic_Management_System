@@ -63,8 +63,6 @@ if (isset($_GET['patient_id'])) {
                                                     <div class="col-md-9"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
                                                     <div class="col-md-3"><a href="add_patients.php" class="btn btn-success ">Add Patient</a></div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                         <div class="row">
@@ -100,7 +98,6 @@ if (isset($_GET['patient_id'])) {
                                                 <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_treatment_patient_id" name="outdoor_treatment_patient_id" readonly>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="form-group col-md-2">
                                     </div>
@@ -121,9 +118,6 @@ if (isset($_GET['patient_id'])) {
                                             </div>
                                         </div>
 
-
-
-
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="outdoor_treatment_consultant">Consultant Name</label><i class="text-danger"> * </i>
@@ -143,11 +137,7 @@ if (isset($_GET['patient_id'])) {
                                                 <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference">
                                             </div>
                                         </div>
-
-
                                     </div>
-
-
                                 </div>
 
                                 <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -196,10 +186,7 @@ if (isset($_GET['patient_id'])) {
                                                     <button type="button" class="btn btn-success pull-right" onclick="DeleteRow(this);">Delete Row</button>
                                                 </td> -->
                                         </tr>
-
-
                                     </tbody>
-
                                 </table>
                                 <div class="row">
                                     <div class="col-md-7"></div>
@@ -275,8 +262,6 @@ if (isset($_GET['patient_id'])) {
                                         </div>
                                     </div>
                                 </div>
-
-
                         </div>
                         </form>
                         <div id="loader"></div>
@@ -327,7 +312,7 @@ if (isset($_GET['patient_id'])) {
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("doctor_visit_invoice.php?outdoor_treatment_id="+obj.outdoor_treatment_id, "_self");
+                        window.open("doctor_visit_invoice.php?outdoor_treatment_id=" + obj.outdoor_treatment_id, "_self");
                         // form = document.getElementById('patient_service_form');
                         // form.target = '_blank';
                         // form.action = 'doctor_visit_invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
