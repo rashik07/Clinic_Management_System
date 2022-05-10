@@ -48,7 +48,7 @@ from medicine
             left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
-                    $getJson->execute();
+                    // $getJson->execute();
                     $result_content_medicine = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     $get_content = "select * from medicine_leaf";
