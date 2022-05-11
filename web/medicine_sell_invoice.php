@@ -67,9 +67,9 @@
  LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
  WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
 from medicine
-            left join medicine_category mc on mc.medicine_category_id = medicine.medicine_category
+           
             left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
-            left join medicine_type mt on mt.medicine_type_id = medicine.medicine_type
+           
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
             left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
@@ -222,7 +222,7 @@ from pharmacy_sell_medicine
                                                 </div>
 
                                                 <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last">
-                                                    <div class="row my-2">
+                                                    <div class="row my-1">
                                                         <div class="col-7 text-right">
                                                             SubTotal
                                                         </div>
@@ -232,7 +232,7 @@ from pharmacy_sell_medicine
                                                     </div>
                                                     <?php
                                                     if ($result_content_medicine_sell[0]['pharmacy_sell_discount'] > 0) {
-                                                        echo  '<div class="row my-2">
+                                                        echo  '<div class="row my-1">
                                                         <div class="col-7 text-right">
                                                         discount
                                                     </div>
@@ -249,7 +249,7 @@ from pharmacy_sell_medicine
 
                                                     ?>
                                                
-                                                    <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 p-2">
                                                         <div class="col-7 text-right">
                                                             Total Adjusted Amount
                                                         </div>
@@ -257,7 +257,7 @@ from pharmacy_sell_medicine
                                                             <span class="text-150 text-success-d3 opacity-2"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_grand_total']; ?>Tk</span>
                                                         </div>
                                                     </div>
-                                                    <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 p-2">
                                                         <div class="col-7 text-right">
                                                             Paid
                                                         </div>
@@ -265,7 +265,7 @@ from pharmacy_sell_medicine
                                                             <span class="text-150 text-success-d3 opacity-2"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_paid_amount']; ?> Tk</span>
                                                         </div>
                                                     </div>
-                                                    <div class="row my-2 align-items-center bgc-primary-l3 p-2">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 p-2">
                                                         <div class="col-7 text-right">
                                                             Due
                                                         </div>
@@ -293,9 +293,7 @@ from pharmacy_sell_medicine
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle">Customer Signature</span>
                                                     </div>
-                                                    <div>
-                                                        <span class="text-sm text-grey-m2 align-middle">Date:</span>
-                                                    </div>
+                                              
 
                                                 </div>
                                                 <!-- /.col -->
@@ -307,9 +305,7 @@ from pharmacy_sell_medicine
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle">Authority Signature</span>
                                                     </div>
-                                                    <div>
-                                                        <span class="text-sm text-grey-m2 align-middle">Date:</span>
-                                                    </div>
+                                                   
                                                 </div>
                                                 <!-- /.col -->
                                             </div>

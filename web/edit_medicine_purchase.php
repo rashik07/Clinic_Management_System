@@ -38,9 +38,9 @@ require_once('check_if_pharmacy_manager.php');
                 $get_content = "select *,
        (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id) as total_quantity  
 from medicine
-            left join medicine_category mc on mc.medicine_category_id = medicine.medicine_category
+         
             left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
-            left join medicine_type mt on mt.medicine_type_id = medicine.medicine_type
+      
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
             left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";

@@ -12,7 +12,6 @@ require_once('check_if_pharmacy_manager.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
@@ -109,7 +108,7 @@ from medicine
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <!-- <label for="patient_phone">Patient Phone</label> -->
-                                                <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_treatment_patient_id" name="outdoor_treatment_patient_id" readonly>
+                                                <input type="text" placeholder="Patient ID" class="form-control" id="pharmacy_sell_patient_id" name="pharmacy_sell_patient_id" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -279,7 +278,7 @@ from medicine
                 currentdate.getMinutes().toString() +
                 currentdate.getSeconds().toString();
             console.log(datetime);
-            // formData.append('pharmacy_sell_invoice_id', datetime);
+            formData.append('pharmacy_sell_invoice_id', datetime);
 
             $.ajax({
                 url: '../apis/create_pharmacy_medicine_sell.php',
@@ -493,7 +492,7 @@ from medicine
                     document.getElementById("patient_age").value = "";
                     document.getElementById("patient_gender").value = "";
                     document.getElementById("patient_phone").value = "";
-                    document.getElementById("outdoor_treatment_patient_id").value = "";
+                    document.getElementById("pharmacy_sell_patient_id").value = "";
 
                 }
 
@@ -504,13 +503,13 @@ from medicine
                     document.getElementById("patient_age").value = "";
                     document.getElementById("patient_gender").value = "";
                     document.getElementById("patient_phone").value = "";
-                    document.getElementById("outdoor_treatment_patient_id").value = "";
+                    document.getElementById("pharmacy_sell_patient_id").value = "";
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
                             // alert(datas[key])
                             // console.log(datas[key])
-                            document.getElementById("outdoor_treatment_patient_id").value = datas[key].patient_id;
+                            document.getElementById("pharmacy_sell_patient_id").value = datas[key].patient_id;
                             document.getElementById("patient_name").value = datas[key].patient_name;
                             document.getElementById("patient_age").value = datas[key].patient_age;
                             document.getElementById("patient_gender").value = datas[key].patient_gender;
