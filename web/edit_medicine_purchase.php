@@ -231,7 +231,7 @@ from pharmacy_purchase_medicine
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("medicine_purchase_list.php","_self");
+                        // window.open("medicine_purchase_list.php","_self");
 
                     }
                 },
@@ -783,18 +783,7 @@ from pharmacy_purchase_medicine
 
 
 </script>
-<script>
-    $('#datatable1').dataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    }); //replace id with your first table's id
 
-</script>
 
 <script>
     $(document).ready(function () {

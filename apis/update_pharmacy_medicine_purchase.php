@@ -74,7 +74,7 @@ where pharmacy_purchase_id='$pharmacy_purchase_id'";
                     $total_price = $pharmacy_purchase_medicine_total_purchase_price[$count_service];
 
                     $get_content = "select * from pharmacy_medicine where pharmacy_medicine_medicine_id='$medicine_id'
-                    and pharmacy_medicine_batch_id='$batch_id' and pharmacy_medicine_exp_date='$exp_date'";
+                    and pharmacy_medicine_batch_id='$batch_id' ";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
@@ -83,7 +83,7 @@ where pharmacy_purchase_id='$pharmacy_purchase_id'";
 
                         $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '$total_pieces'
                    where pharmacy_medicine_medicine_id='$medicine_id' and pharmacy_medicine_batch_id='$batch_id' 
-                     and pharmacy_medicine_exp_date='$exp_date'";
+                     ";
 
                         //echo $post_content;
                         $result = $conn->exec($post_content);
@@ -98,7 +98,7 @@ where pharmacy_purchase_id='$pharmacy_purchase_id'";
                         //echo $post_content;
                         $result = $conn->exec($post_content);
                         $pharmacy_medicine_id = $conn->lastInsertId();
-                    }
+                    
 
                     $post_content = "INSERT INTO pharmacy_purchase_medicine (pharmacy_purchase_medicine_user_added_id,
                                     pharmacy_purchase_medicine_medicine_id, pharmacy_purchase_medicine_purchase_id, 
@@ -111,6 +111,7 @@ where pharmacy_purchase_id='$pharmacy_purchase_id'";
                     $result = $conn->exec($post_content);
                     $last_id = $conn->lastInsertId();
                     $count_service = $count_service + 1;
+                    }
                 }
 
 
