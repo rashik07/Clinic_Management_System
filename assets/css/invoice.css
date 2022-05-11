@@ -2,15 +2,15 @@
 body{
     /* margin-top:20px; */
     color: #484b51;
+    font-size: 14px;
 }
 .text-secondary-d1 {
     color: #728299!important;
 }
 .page-header {
-    margin: 0 0 1rem;
+    margin: 26px 508px 1rem;
     padding-bottom: 1rem;
     padding-top: .5rem;
-    border-bottom: 1px dotted #e2e2e2;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: justify;
@@ -39,7 +39,7 @@ body{
 }
 
 hr {
-    margin-top: 1rem;
+    margin-top: 0rem !important;
     margin-bottom: 1rem;
     border: 0;
     border-top: 1px solid rgba(0,0,0,.1);
@@ -47,6 +47,7 @@ hr {
 
 .text-grey-m2 {
     color: #888a8d!important;
+    font-size: 14px;
 }
 
 .text-success-m2 {
@@ -54,14 +55,17 @@ hr {
 }
 
 .font-bolder, .text-600 {
+    font-size: 14px;
     font-weight: 600!important;
 }
 
 .text-110 {
-    font-size: 110%!important;
+
+    font-size: 14px!important;
 }
 .text-blue {
     color: #478fcc!important;
+ 
 }
 .pb-25, .py-25 {
     padding-bottom: .75rem!important;

@@ -37,7 +37,7 @@ require_once('check_if_outdoor_manager.php');
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Edit Patient</h3>
+                            <h3 class="widget-title">Edit Service</h3>
                             <form class="form-horizontal form-material mb-0" id="edit_service_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
                                     <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">

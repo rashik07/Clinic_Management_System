@@ -642,8 +642,10 @@ CREATE TABLE `pharmacy_purchase_medicine`
 CREATE TABLE `pharmacy_sell`
 (
     `pharmacy_sell_id`                int(11) NOT NULL AUTO_INCREMENT,
+    `pharmacy_sell_invoice_id`         varchar(255) DEFAULT NULL,
     `pharmacy_sell_user_added_id`     int(11) NOT NULL,
-    `pharmacy_sell_patient_id`        int(11) NOT NULL,
+    `pharmacy_sell_patient_id`        int(11) DEFAULT NULL,
+    
     `pharmacy_sell_indoor_treatment_id`       int(11) DEFAULT NULL,
     `pharmacy_sell_date`              DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `pharmacy_sell_sub_total`         varchar(255) DEFAULT NULL,

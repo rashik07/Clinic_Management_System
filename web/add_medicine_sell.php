@@ -12,7 +12,6 @@ require_once('check_if_pharmacy_manager.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
@@ -34,15 +33,21 @@ require_once('check_if_pharmacy_manager.php');
                     $getJson->execute();
                     $result_content_medicine_manufacturer = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+                    $get_content = "select * from patient";
+                    //echo $get_content;
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
                     $get_content = "select *,
        (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
        (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
  LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
  WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
 from medicine
-            left join medicine_category mc on mc.medicine_category_id = medicine.medicine_category
+       
             left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
-            left join medicine_type mt on mt.medicine_type_id = medicine.medicine_type
+          
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
             left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
@@ -63,148 +68,186 @@ from medicine
                             <h3 class="widget-title">Medicine Sell</h3>
                             <form class="form-horizontal form-material mb-0" id="medicine_sell_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
-                                    <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-                                    <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                    <input type="hidden" name="content" value="pharmacy_medicine_sell">
+                                    <div class="form-group col-md-5">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Search">Patient Search</label>
+                                                <div class="row">
+                                                    <div class="col-md-9"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
+                                                    <div class="col-md-3"><a href="add_patients.php" class="btn btn-success ">Add Patient</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <!-- <label for="patient_name">Patient Name</label> -->
+                                                <input type="text" placeholder="Patient Name" class="form-control" id="patient_name" name="patient_name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_age">Patient Age</label> -->
+                                                <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" >
+                                            </div>
 
-                                    <div class="form-group col-md-6">
-                                        <label for="indoor_treatment_admission_id">Admission ID.</label>
-                                        <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_gender">Patient Gender</label> -->
+                                                <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender...">
+                                                    <option value="">Select Gender...</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="other">Other</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient Phone" class="form-control" id="patient_phone" name="patient_phone" readonly>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient ID" class="form-control" id="pharmacy_sell_patient_id" name="pharmacy_sell_patient_id" readonly>
+                                            </div>
+                                        </div>
                                     </div>
-
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_phone">Patient Phone
-                                            <!-- <i class="text-danger"> * </i> -->
-                                        </label>
-                                        <input type="text" placeholder="Patient Phone." class="form-control" id="pharmacy_sell_patient_phone" name="pharmacy_sell_patient_phone"  onchange="loadPatient();">
+                                    <div class="form-group col-md-2">
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_id">Patient ID</label>
-                                        <input type="text" placeholder="Patient ID." class="form-control" id="pharmacy_sell_patient_id" name="pharmacy_sell_patient_id" readonly required>
+                                    <div class="form-group col-md-5">
+                                        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                        <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                        <input type="hidden" name="outdoor_treatment_outdoor_service_Category" value="Doctor Visit">
+                                        <input type="hidden" name="content" value="pharmacy_medicine_sell">
+                                        <input type="hidden" name="get_patient_id" id="get_patient_id" value="<?php echo $patient_id ?>">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="indoor_treatment_admission_id">Admission ID.</label>
+                                                <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" onchange="loadAdmission();">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
+                                                <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="pharmacy_sell_indoor_treatment_id" required readonly>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                    <label for="pharmacy_sell_date">Selling Date<i class="text-danger"> * </i></label>
+                                    <input type="date" placeholder="Selling Date" class="form-control" id="pharmacy_sell_date" name="pharmacy_sell_date" required>
+                                </div>
+                                        </div>
+
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_name">Patient Name</label>
-                                        <input type="text" placeholder="Patient Name" class="form-control" id="pharmacy_sell_patient_name" name="pharmacy_sell_patient_name" required readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_indoor_treatment_id">Indoor treatement id</label>
-                                        <input type="text" placeholder="Indoor treatement id" class="form-control" id="pharmacy_sell_indoor_treatment_id" name="pharmacy_sell_indoor_treatment_id" required readonly>
-                                    </div>
+                                </div>
+                      
+                                <datalist id="medicine_list"></datalist>
 
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_date">Selling Date<i class="text-danger"> * </i></label>
-                                        <input type="date" placeholder="Selling Date" class="form-control" id="pharmacy_sell_date" name="pharmacy_sell_date" required>
-                                    </div>
-                                    <datalist id="medicine_list"></datalist>
+                                <table id="datatable1" class="table table-bordered table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Medicine<i class="text-danger"> * </i></th>
+                                            <th>Batch ID</th>
+                                            <th>Exp. Date</th>
+                                            <th>Stock Qty</th>
+                                            <th>Per Piece Price</th>
+                                            <th>selling Piece<i class="text-danger"> * </i></th>
+                                            <th>Total Selling Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="datatable1_body">
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-control pharmacy_selling_medicine_medicine_name" id="pharmacy_selling_medicine_medicine_name" name="pharmacy_selling_medicine_medicine_name[]" list="medicine_list" onchange="medicine_update(this);" autocomplete="off">
+                                                <input required="required" class="form-control pharmacy_selling_medicine_medicine_id" type="hidden" id="pharmacy_selling_medicine_medicine_id" name="pharmacy_selling_medicine_medicine_id[]">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control pharmacy_selling_medicine_batch_id" placeholder="Batch ID" id="pharmacy_selling_medicine_batch_id" name="pharmacy_selling_medicine_batch_id[]" required readonly>
 
-                                    <table id="datatable1" class="table table-bordered table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>Medicine<i class="text-danger"> * </i></th>
-                                                <th>Batch ID</th>
-                                                <th>Exp. Date</th>
-                                                <th>Stock Qty</th>
-                                                <th>Per Piece Price</th>
-                                                <th>selling Piece<i class="text-danger"> * </i></th>
-                                                <th>Total Selling Price</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="datatable1_body">
-                                            <tr>
-                                                <td>
-                                                    <input type="text" class="form-control pharmacy_selling_medicine_medicine_name" id="pharmacy_selling_medicine_medicine_name" name="pharmacy_selling_medicine_medicine_name[]" list="medicine_list" onchange="medicine_update(this);" autocomplete="off">
-                                                    <input required="required" class="form-control pharmacy_selling_medicine_medicine_id" type="hidden" id="pharmacy_selling_medicine_medicine_id" name="pharmacy_selling_medicine_medicine_id[]">
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control pharmacy_selling_medicine_batch_id" placeholder="Batch ID" id="pharmacy_selling_medicine_batch_id" name="pharmacy_selling_medicine_batch_id[]" required readonly>
+                                            </td>
+                                            <td>
+                                                <input type="date" class="form-control pharmacy_selling_medicine_exp_date" placeholder="Exp. Date" id="pharmacy_selling_medicine_exp_date" name="pharmacy_selling_medicine_exp_date[]" required readonly>
 
-                                                </td>
-                                                <td>
-                                                    <input type="date" class="form-control pharmacy_selling_medicine_exp_date" placeholder="Exp. Date" id="pharmacy_selling_medicine_exp_date" name="pharmacy_selling_medicine_exp_date[]" required readonly>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control pharmacy_selling_medicine_stock_qty" placeholder="Stock Qty" id="pharmacy_selling_medicine_stock_qty" name="pharmacy_selling_medicine_stock_qty[]" readonly required>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control pharmacy_selling_medicine_per_pc_price" placeholder="Per Pc Price" id="pharmacy_selling_medicine_per_pc_price" name="pharmacy_selling_medicine_per_pc_price[]" required readonly>
+                                            </td>
 
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control pharmacy_selling_medicine_stock_qty" placeholder="Stock Qty" id="pharmacy_selling_medicine_stock_qty" name="pharmacy_selling_medicine_stock_qty[]" readonly required>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control pharmacy_selling_medicine_per_pc_price" placeholder="Per Pc Price" id="pharmacy_selling_medicine_per_pc_price" name="pharmacy_selling_medicine_per_pc_price[]" required readonly>
-                                                </td>
+                                            <td>
+                                                <input type="text" class="form-control pharmacy_selling_medicine_selling_pieces" placeholder="Selling Pieces" id="pharmacy_selling_medicine_selling_pieces" name="pharmacy_selling_medicine_selling_pieces[]" required onchange="row_update(this);">
+                                            </td>
 
-                                                <td>
-                                                    <input type="text" class="form-control pharmacy_selling_medicine_selling_pieces" placeholder="Selling Pieces" id="pharmacy_selling_medicine_selling_pieces" name="pharmacy_selling_medicine_selling_pieces[]" required onchange="row_update(this);">
-                                                </td>
+                                            <td>
+                                                <input type="text" class="form-control pharmacy_purchase_medicine_total_selling_price" placeholder="total" id="pharmacy_purchase_medicine_total_selling_price" name="pharmacy_purchase_medicine_total_selling_price[]" readonly required>
+                                            </td>
 
-                                                <td>
-                                                    <input type="text" class="form-control pharmacy_purchase_medicine_total_selling_price" placeholder="total" id="pharmacy_purchase_medicine_total_selling_price" name="pharmacy_purchase_medicine_total_selling_price[]" readonly required>
-                                                </td>
-
-                                                <td>
-                                                    <button type="button" class="btn btn-danger-soft far fa-trash-alt" onclick="DeleteRow(this);"></i></button>
-                                                </td>
-                                            </tr>
+                                            <td>
+                                                <button type="button" class="btn btn-danger-soft far fa-trash-alt" onclick="DeleteRow(this);"></i></button>
+                                            </td>
+                                        </tr>
 
 
-                                        </tbody>
-                                        <tfoot id="datatable1_foot">
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Sub Total:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_sub_total" class="text-right form-control" name="pharmacy_selling_sub_total" placeholder="0.00" readonly="">
-                                                </td>
-                                                <td>
-                                                    <button onclick="AddRowTable();" id="add_invoice_item" type="button" class="btn btn-info-soft" name="add-invoice-item"><i class="fa fa-plus"></i></button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Vat:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_vat" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_selling_vat" placeholder="0.00" tabindex="15">
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Discount:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_discount" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_selling_discount" placeholder="0.00" tabindex="16">
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Grand Total:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_grand_total" class="text-right form-control" name="pharmacy_selling_grand_total" value="0.00" readonly="readonly">
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Paid Amount<i class="text-danger"> * </i>:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_paid_amount" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_selling_paid_amount" placeholder="0.00" tabindex="18">
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Due Amount:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_due_amount" class="text-right form-control" name="pharmacy_selling_due_amount" placeholder="0.00" readonly="readonly">
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
+                                    </tbody>
+                                    <tfoot id="datatable1_foot">
+                                        <tr>
+                                            <td class="text-right" colspan="6"><b>Sub Total:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="pharmacy_selling_sub_total" class="text-right form-control" name="pharmacy_selling_sub_total" placeholder="0.00" readonly="">
+                                            </td>
+                                            <td>
+                                                <button onclick="AddRowTable();" id="add_invoice_item" type="button" class="btn btn-info-soft" name="add-invoice-item"><i class="fa fa-plus"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="6"><b>Vat:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="pharmacy_selling_vat" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_selling_vat" placeholder="0.00" tabindex="15">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="6"><b>Discount:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="pharmacy_selling_discount" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_selling_discount" placeholder="0.00" tabindex="16">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="6"><b>Grand Total:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="pharmacy_selling_grand_total" class="text-right form-control" name="pharmacy_selling_grand_total" value="0.00" readonly="readonly">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="6"><b>Paid Amount<i class="text-danger"> * </i>:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="pharmacy_selling_paid_amount" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_selling_paid_amount" placeholder="0.00" tabindex="18">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" colspan="6"><b>Due Amount:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="pharmacy_selling_due_amount" class="text-right form-control" name="pharmacy_selling_due_amount" placeholder="0.00" readonly="readonly">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
 
-                                        </tfoot>
+                                    </tfoot>
 
 
-                                    </table>
+                                </table>
 
-                                    <div class="form-group col-md-6 mb-3">
-                                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                                    </div>
+                                <div class="form-group col-md-6 mb-3">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                </div>
                             </form>
                             <div id="loader"></div>
                         </div>
@@ -383,8 +426,49 @@ from medicine
 
     }
 
+    // function loadPatient() {
+    //     let patient_phone = document.getElementById("pharmacy_sell_patient_phone").value;
+    //     spinner.show();
+    //     jQuery.ajax({
+    //         type: 'POST',
+    //         url: '../apis/get_patient.php',
+    //         cache: false,
+    //         //dataType: "json", // and this
+    //         data: {
+    //             token: "<?php echo $_SESSION['token']; ?>",
+    //             request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+    //             patient_phone: patient_phone,
+    //             content: "patient_single_phone",
+    //         },
+    //         success: function(response) {
+    //             //alert(response);
+    //             spinner.hide();
+    //             var obj = JSON.parse(response);
+    //             var datas = obj.patient;
+    //             var count = Object.keys(datas).length;
+    //             if (count == 0) {
+    //                 alert("No Patient Found");
+    //             } else {
+    //                 for (var key in datas) {
+    //                     if (datas.hasOwnProperty(key)) {
+    //                         document.getElementById("pharmacy_sell_patient_id").value = datas[key].patient_id;
+    //                         document.getElementById("pharmacy_sell_patient_name").value = datas[key].patient_name;
+    //                     }
+    //                 }
+    //             }
+
+
+    //         },
+    //         error: function(jqXHR, textStatus, errorThrown) {
+    //             //console.log(textStatus, errorThrown);
+    //             spinner.hide();
+    //             alert("alert : " + errorThrown);
+    //         }
+    //     });
+    // }
     function loadPatient() {
-        let patient_phone = document.getElementById("pharmacy_sell_patient_phone").value;
+
+        let Search = document.getElementById("Search").value;
         spinner.show();
         jQuery.ajax({
             type: 'POST',
@@ -394,22 +478,42 @@ from medicine
             data: {
                 token: "<?php echo $_SESSION['token']; ?>",
                 request_user_id: "<?php echo $_SESSION['user_id']; ?>",
-                patient_phone: patient_phone,
-                content: "patient_single_phone",
+                Search: Search,
+                content: "patient_Search",
             },
             success: function(response) {
-                //alert(response);
                 spinner.hide();
                 var obj = JSON.parse(response);
                 var datas = obj.patient;
-                var count = Object.keys(datas).length;
-                if (count == 0) {
+
+                if (datas === null) {
                     alert("No Patient Found");
+                    document.getElementById("patient_name").value = "";
+                    document.getElementById("patient_age").value = "";
+                    document.getElementById("patient_gender").value = "";
+                    document.getElementById("patient_phone").value = "";
+                    document.getElementById("pharmacy_sell_patient_id").value = "";
+
+                }
+
+                var count = Object.keys(datas).length;
+                if (count === 0) {
+                    alert("No Patient Found");
+                    document.getElementById("patient_name").value = "";
+                    document.getElementById("patient_age").value = "";
+                    document.getElementById("patient_gender").value = "";
+                    document.getElementById("patient_phone").value = "";
+                    document.getElementById("pharmacy_sell_patient_id").value = "";
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
+                            // alert(datas[key])
+                            // console.log(datas[key])
                             document.getElementById("pharmacy_sell_patient_id").value = datas[key].patient_id;
-                            document.getElementById("pharmacy_sell_patient_name").value = datas[key].patient_name;
+                            document.getElementById("patient_name").value = datas[key].patient_name;
+                            document.getElementById("patient_age").value = datas[key].patient_age;
+                            document.getElementById("patient_gender").value = datas[key].patient_gender;
+                            document.getElementById("patient_phone").value = datas[key].patient_phone;
                         }
                     }
                 }

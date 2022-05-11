@@ -12,17 +12,7 @@
             <?php
             include 'top_navbar.php';
             ?>
-            <div class="page-header text-blue-d2">
 
-                <div class="page-tools">
-                    <div class="action-buttons">
-                        <button class="btn bg-white btn-light mx-1px text-95" onclick="print_div();">
-                            <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
-                            Print
-                        </button>
-                    </div>
-                </div>
-            </div>
             <div id="print_bill">
                 <div class="container-fluid">
                     <div class="row">
@@ -33,18 +23,18 @@
                         <div class="page-content container">
 
                             <div class="container px-0">
-                                <div class="row mt-2">
+                                <div class="row mt-1" style="margin:-24px">
                                     <div class="col-12 col-lg-10 offset-lg-1">
                                         <div class="row">
                                             <div class="col-12 d-flex justify-content-between">
                                                 <div>
-                                                    <img class="center" src="../assets/images/logo.png" style="height: 100px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
+                                                    <img class="center" src="../assets/images/logo.png" style="height: 60px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
                                                 </div>
 
                                                 <div class="float-end text-right text-150">
-                                                    <p style="font-size: 20px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
-                                                    <p style="font-size: 15px; margin:0px; padding:0px;">House #56, Road #03, Dhaka Real State, Kaderabad housing,Mohammadpur, Dhaka-1207</p>
-                                                    <p style="font-size: 15px; margin:0px; padding:0px;">For Serial: +88 01844080671, +88 01844 080 674, +88 01844 080 676</p>
+                                                    <p style="font-size: 18px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
+                                                    <p style="font-size: 14px; margin:0px; padding:0px;">House #56, Road #03, Dhaka Real State, Kaderabad housing,Mohammadpur, Dhaka-1207</p>
+                                                    <p style="font-size: 14px; margin:0px; padding:0px;">For Serial: +88 01844080671 , +88 028101496, +88 01844 080 675, +88 01844 080 676</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,6 +64,7 @@
                                         $invoice_no = if_empty(
                                             $result_content_outdoor_treatment[0]['outdoor_treatment_invoice_id']
                                         );
+                                        $patient_id = $result_content_outdoor_treatment[0]['patient_id'];
                                         $patient_name = $result_content_outdoor_treatment[0]['patient_name'];
 
 
@@ -83,6 +74,7 @@
                                         $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                                         $doctor_name = if_empty($result_content[0]['doctor_name']);
+                                        $doctor_experience = if_empty($result_content[0]['doctor_experience']);
                                         $user_id = $result_content_outdoor_treatment[0]['outdoor_treatment_service_user_added_id'];
                                         $get_content_user = "select * from user where user_id = '$user_id'";
                                         //echo $get_content;
@@ -99,6 +91,13 @@
                                                     <span class="text-sm text-grey-m2 align-middle">Invoice No:</span>
                                                     <span class="text-600 text-110 text-blue align-middle"><?php echo  $invoice_no ?></span>
                                                 </div>
+                                                <div>
+                                                    <span class="text-sm text-grey-m2 align-middle">Patient Id:</span>
+                                                    <span class="text-600 text-110 text-blue align-middle">
+                                                        <?php
+                                                        echo $patient_id;
+                                                        ?></span>
+                                                </div>
 
                                                 <div>
                                                     <span class="text-sm text-grey-m2 align-middle">Patient Name:</span>
@@ -113,7 +112,9 @@
                                                 </div>
                                                 <div>
                                                     <span class="text-sm text-grey-m2 align-middle">Consultant:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo $doctor_name ?></span>
+                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo $doctor_name ?></span>(
+                                                    <span class="text-300 text-110  align-middle"><?php echo $doctor_experience ?></span>)
+
                                                 </div>
 
 
@@ -127,8 +128,16 @@
                                                 <div class="text-grey-m2">
 
                                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j,Y"); ?></div>
+
                                                     <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Age:</span> <?php echo  $result_content_outdoor_treatment[0]['patient_age']; ?></div>
-                                                    <div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600"><?php echo  $result_content_outdoor_treatment[0]['patient_phone']; ?></b></div>
+
+                                                    <?php
+                                                    if ($result_content_outdoor_treatment[0]['patient_phone']) {
+                                                        echo '<div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">' . $result_content_outdoor_treatment[0]['patient_phone'] . '</b></div>';
+                                                    } else {
+                                                        echo "";
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                             <!-- /.col -->
@@ -159,7 +168,7 @@
 
                                                     echo '<div class="row mb-2 mb-sm-0 py-20">
                                                     <div class="d-none d-sm-block col-1">' . ($count_service + 1) . '</div>
-                                                    <div class="col-9 col-sm-5">' . $result_content_outdoor_treatment[$i]['outdoor_service_name'] . '</div>
+                                                    <div class="col-9 col-sm-5">' . $result_content_outdoor_treatment[$i]['outdoor_service_name'].-$result_content_outdoor_treatment[$i]['outdoor_service_room_no'] . '</div>
                                                     <div class="d-none d-sm-block col-2">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_rate'] . ' Tk</div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_quantity'] . '</div>
                                                     <div class="col-2 text-secondary-d2 text-right">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_total'] . ' </div>
@@ -181,7 +190,7 @@
                                                 </div>
 
                                                 <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last ">
-                                                    <div class="row my-2">
+                                                    <div class="row my-1">
                                                         <div class="col-7 text-right">
                                                             SubTotal
                                                         </div>
@@ -193,7 +202,7 @@
 
                                                     if ($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] != "") {
                                                         if ($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'][strlen($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc']) - 1] != '%') {
-                                                            echo  '<div class="row my-2">
+                                                            echo  '<div class="row my-1">
                                                             <div class="col-7 text-right">
                                                                 Discount (  ' . $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] . ' )
                                                             </div>
@@ -205,7 +214,7 @@
                                                         </div>
                                                         </div>';
                                                         } else {
-                                                            echo  '<div class="row my-2">
+                                                            echo  '<div class="row my-1">
                                                             <div class="col-7 text-right">
                                                                 Discount (  ' . $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] . ' )
                                                             </div>
@@ -224,7 +233,15 @@
 
 
                                                     ?>
-                                                    <div class="row my-2 align-items-center bgc-primary-l3 ">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 ">
+                                                        <div class="col-7 text-right">
+                                                            Examption
+                                                        </div>
+                                                        <div class="col-5 text-right">
+                                                            <span class="text-120 text-secondary-d1 text-right"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_exemption'];  ?> </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 ">
                                                         <div class="col-7 text-right">
                                                             Total Adjusted Amount
                                                         </div>
@@ -232,7 +249,7 @@
                                                             <span class="text-120 text-secondary-d1 text-right"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill_after_discount'];  ?> </span>
                                                         </div>
                                                     </div>
-                                                    <div class="row my-2 align-items-center bgc-primary-l3">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3">
                                                         <div class="col-7 text-right">
                                                             Paid
                                                         </div>
@@ -240,12 +257,20 @@
                                                             <span class="text-120 text-secondary-d1"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_paid']; ?> </span>
                                                         </div>
                                                     </div>
-                                                    <div class="row my-2 align-items-center bgc-primary-l3 ">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 ">
                                                         <div class="col-7 text-right">
                                                             Due
                                                         </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_due']; ?> </span>
+                                                            <span class="text-120 text-secondary-d1">
+                                                                <?php
+                                                                if ($result_content_outdoor_treatment[0]['outdoor_treatment_total_due']) {
+                                                                    echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_due'];
+                                                                } else {
+                                                                    echo 0;
+                                                                }
+                                                                ?>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -260,9 +285,6 @@
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle">Customer Signature</span>
                                                     </div>
-                                                    <div>
-                                                        <span class="text-sm text-grey-m2 align-middle">Date:</span>
-                                                    </div>
 
                                                 </div>
                                                 <!-- /.col -->
@@ -274,9 +296,9 @@
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle">Authority Signature</span>
                                                     </div>
-                                                    <div>
+                                                    <!-- <div>
                                                         <span class="text-sm text-grey-m2 align-middle">Date:</span>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                                 <!-- /.col -->
                                             </div>
@@ -302,7 +324,20 @@
                 </div>
 
             </div>
+            <div class="page-header  text-blue-d2">
+
+                <div class="page-tools">
+                    <div class="action-buttons">
+                        <button class="btn bg-white btn-light mx-1px text-95" onclick="print_div();">
+                            <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
+                            Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
 
         <?php include 'footer.php'
         ?>

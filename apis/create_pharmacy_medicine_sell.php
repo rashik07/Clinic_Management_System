@@ -26,11 +26,12 @@ class CreatePharmacyMedicineSell
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
         if ($check_token && $check_permission) {
             try {
-                $pharmacy_sell_patient_id  = if_empty($_POST['pharmacy_sell_patient_id']);
-                $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
+                $pharmacy_sell_patient_id  = if_empty_return_null($_POST['pharmacy_sell_patient_id']);
+                // $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
                 $pharmacy_sell_date = if_empty($_POST['pharmacy_sell_date']);
                 $pharmacy_sell_indoor_treatment_id = if_empty_return_null($_POST['pharmacy_sell_indoor_treatment_id']);
-
+                $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
+               
                 $pharmacy_selling_sub_total  = if_empty($_POST['pharmacy_selling_sub_total']);
                 $pharmacy_selling_vat   = if_empty($_POST['pharmacy_selling_vat']);
                 $pharmacy_selling_discount  = if_empty($_POST['pharmacy_selling_discount']);
@@ -50,7 +51,7 @@ class CreatePharmacyMedicineSell
                            pharmacy_sell_patient_id, pharmacy_sell_indoor_treatment_id, pharmacy_sell_date, pharmacy_sell_sub_total,
                            pharmacy_sell_vat, pharmacy_sell_discount, pharmacy_sell_grand_total,
                            pharmacy_sell_paid_amount, pharmacy_sell_due_amount) 
-                    VALUES ('$pharmacy_sell_invoice_id','$request_user_id','$pharmacy_sell_patient_id',$pharmacy_sell_indoor_treatment_id,
+                    VALUES ('$pharmacy_sell_invoice_id','$request_user_id',$pharmacy_sell_patient_id,$pharmacy_sell_indoor_treatment_id,
                             '$pharmacy_sell_date', '$pharmacy_selling_sub_total',
                             '$pharmacy_selling_vat','$pharmacy_selling_discount',
                             '$pharmacy_selling_grand_total', '$pharmacy_selling_paid_amount',

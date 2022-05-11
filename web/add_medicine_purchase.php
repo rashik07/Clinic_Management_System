@@ -2,7 +2,7 @@
 // need to enable on production
 require_once('check_if_pharmacy_manager.php');
 ?>
-<?php include 'header.php'
+<?php include 'header.php';
 ?>
 
 <body>
@@ -79,7 +79,7 @@ from medicine
 
                                         </select>
                                     </div>
-                                    <datalist id="manufacturer_medicines"></datalist>
+                               
 
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_purchase_invoice_no">Invoice No<i class="text-danger"> * </i></label>
@@ -89,7 +89,7 @@ from medicine
                                         <label for="pharmacy_purchase_date">Purchase Date<i class="text-danger"> * </i></label>
                                         <input type="date" placeholder="Purchase Date" class="form-control" id="pharmacy_purchase_date" name="pharmacy_purchase_date" required>
                                     </div>
-
+                                    <datalist id="manufacturer_medicines"></datalist>
                                     <table id="datatable1" class="table table-bordered table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
@@ -256,13 +256,14 @@ from medicine
 
 
         });
+        load_medicine();
     });
 
     var all_medicine = <?php echo json_encode($result_content_medicine); ?>;
     var all_pattern = <?php echo json_encode($result_content_medicine_leaf); ?>;
 
     var total_bill = 0;
-
+// console.log(all_medicine);
     function medicine_update(instance) {
 
         var row = $(instance).closest("tr");
@@ -281,7 +282,7 @@ from medicine
             row.find(".pharmacy_purchase_medicine_total_purchase_price").val("");
             return;
         }
-        var name = $("#manufacturer_medicines option[value=" + val + "]").text();
+        const name = $("#manufacturer_medicines option[value=" + val + "]").text();
 
         //alert(val);
         //alert(name);
@@ -336,7 +337,12 @@ from medicine
 
         }
     }
+    function load_medicine() {
+        for (var i = 0; i < Object.keys(all_medicine).length; i++) {
+            $("#manufacturer_medicines").append('<option value="' + all_medicine[i]['medicine_id'] + '">' + all_medicine[i]['medicine_name']+ '</option>');
+        }
 
+    }
     function row_update(instance) {
 
         var row = $(instance).closest("tr");
@@ -607,7 +613,7 @@ from medicine
         return [year, month, day].join('-');
     }
 </script>
-<script>
+<!-- <script>
     $('#datatable1').dataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -617,7 +623,7 @@ from medicine
             'pdfHtml5'
         ]
     }); //replace id with your first table's id
-</script>
+</script> -->
 
 <script>
     $(document).ready(function() {
