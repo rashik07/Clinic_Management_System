@@ -40,16 +40,13 @@ require_once('check_if_outdoor_manager.php');
                     $get_content = "select * from patient 
     left join outdoor_treatment ot on patient.patient_id = ot.outdoor_treatment_patient_id
     where outdoor_treatment_id='$outdoor_treatment_id'";
-                    //echo $get_content;
+
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select * from outdoor_service";
-                    //echo $get_content;
-                    $getJson = $conn->prepare($get_content);
-                    $getJson->execute();
-                    $result_content_outdoor_service = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+
 
                     $get_content = "select * from outdoor_service 
     left join outdoor_treatment_service ots on outdoor_service.outdoor_service_id = ots.outdoor_treatment_service_service_id
@@ -64,6 +61,13 @@ require_once('check_if_outdoor_manager.php');
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                    // echo $result_content_treatment[0]['outdoor_treatment_outdoor_service_Category'];
+                    $get_content = "select * from outdoor_service where outdoor_service_Category='" . $result_content_treatment[0]["outdoor_treatment_outdoor_service_Category"] . "'";
+                    //echo $get_content;
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_outdoor_service = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     ?>
                     <div class="col-md-12">
@@ -131,8 +135,8 @@ require_once('check_if_outdoor_manager.php');
                                             <th>Rate</th>
                                             <th>Discount</th>
                                             <th>Total</th>
-                                            <!-- <th>Add</th>
-                                                <th>Delete</th> -->
+                                            <th>Add</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody id="datatable1_body">
@@ -156,8 +160,8 @@ require_once('check_if_outdoor_manager.php');
                                         </div>
                                         <div class="form-group col-md-12">
                                             <div class="row">
-                                                <div class="col-md-3"><label for="discharge-date">Discount</label></div>
-                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_discount_pc']; ?>">
+                                                <div class="col-md-3"><label for="discharge-date">Total Discount</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_treatment[0]['outdoor_treatment_discount_pc']; ?>" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -360,6 +364,10 @@ require_once('check_if_outdoor_manager.php');
         var outdoor_service_rate = parseFloat(row.find(".outdoor_service_rate").val());
         var outdoor_service_quantity = parseFloat(row.find(".outdoor_service_quantity").val());
         var outdoor_treatment_service_discount_pc = row.find(".outdoor_treatment_service_discount_pc").val();
+        if (!outdoor_service_quantity > 0) {
+            row.find(".outdoor_service_quantity").val(1);
+            outdoor_service_quantity = 1
+        }
         var total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity);
         if (outdoor_treatment_service_discount_pc != "") {
             if (outdoor_treatment_service_discount_pc.search("%") > 0) {
@@ -370,6 +378,7 @@ require_once('check_if_outdoor_manager.php');
             }
         }
         row.find(".outdoor_service_total").val(isNaN(total) ? 0 : total);
+
 
         update_total_bill();
     }
@@ -398,29 +407,46 @@ require_once('check_if_outdoor_manager.php');
     }
 
     function update_total_bill() {
+
         var in_total = 0;
+        var in_total_discount = 0;
         var outdoor_treatment_exemption = document.getElementById("outdoor_treatment_exemption").value;
         $("tr").each(function() {
             var total = $(this).find("input.outdoor_service_total").val();
+            var quantity = $(this).find("input.outdoor_service_quantity").val();
+            var rate = $(this).find("input.outdoor_service_rate").val();
+            var actual_Value = quantity * rate;
             in_total = parseInt(in_total) + parseInt(isNaN(parseInt(total)) ? 0 : total);
+            var outdoor_treatment_service_discount_pc = $(this).find("input.outdoor_treatment_service_discount_pc").val();
+            if (outdoor_treatment_service_discount_pc != "" && typeof outdoor_treatment_service_discount_pc !== "undefined") {
+                if (outdoor_treatment_service_discount_pc.search("%") > 0) {
+                    var total_dc = (parseInt(outdoor_treatment_service_discount_pc) / 100) * parseInt(actual_Value);
+                    console.log(total_dc);
+                    in_total_discount = parseInt(in_total_discount) + parseInt(isNaN(parseInt(total_dc)) ? 0 : total_dc);
+                } else {
+                    in_total_discount = parseInt(in_total_discount) + parseInt(isNaN(parseInt(outdoor_treatment_service_discount_pc)) ? 0 : outdoor_treatment_service_discount_pc);
+                }
+            }
+
         });
-        //alert(in_total);
+        // alert(in_total_discount);
         document.getElementById("outdoor_treatment_total_bill").value = parseInt(in_total);
         var discount = document.getElementById("outdoor_treatment_discount_pc").value;
-        if (discount != "") {
-            if (discount.search("%") > 0) {
-                var total_dc = (parseInt(discount) / 100) * parseInt(in_total);
-                in_total = in_total - total_dc;
-            } else {
-                in_total = in_total - parseInt(discount);
-            }
-        }
+        // if (discount != "") {
+        //     if (discount.search("%") > 0) {
+        //         var total_dc = (parseInt(discount) / 100) * parseInt(in_total);
+        //         in_total = in_total - total_dc;
+        //     } else {
+        //         in_total = in_total - parseInt(discount);
+        //     }
+        // }
         if (outdoor_treatment_exemption > 0) {
             in_total = in_total - outdoor_treatment_exemption;
         }
         // discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
         // in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));
         document.getElementById("outdoor_treatment_total_bill_after_discount").value = in_total;
+        document.getElementById("outdoor_treatment_discount_pc").value = in_total_discount;
         update_payment();
 
     }
@@ -443,6 +469,7 @@ require_once('check_if_outdoor_manager.php');
             var td4 = document.createElement('td');
             var td5 = document.createElement('td');
             var td6 = document.createElement('td');
+            var td7 = document.createElement('td');
 
 
 
@@ -482,7 +509,7 @@ require_once('check_if_outdoor_manager.php');
             text2.setAttribute("value", list[i]['outdoor_treatment_service_service_quantity']);
             text2.setAttribute("name", "outdoor_service_quantity[]");
             text2.onchange = function() {
-                calculate(this);
+                changeData(this);
             }
             //alert(list[i]['outdoor_treatment_service_service_rate']);
 
@@ -502,9 +529,9 @@ require_once('check_if_outdoor_manager.php');
             text4.setAttribute("value", list[i]['outdoor_treatment_service_discount_pc'])
             text4.setAttribute("placeholder", "Discount");
             text4.setAttribute("name", "outdoor_treatment_service_discount_pc[]");
-            if (list[i]['outdoor_treatment_outdoor_service_Category'] != 'Investigation/Test') {
-                text4.setAttribute("readonly", "readonly");
-            }
+            // if (list[i]['outdoor_treatment_outdoor_service_Category'] != 'Investigation/Test') {
+            //     text4.setAttribute("readonly", "readonly");
+            // }
             text4.onchange = function() {
                 changeData(this);
             }
@@ -518,23 +545,23 @@ require_once('check_if_outdoor_manager.php');
             text5.setAttribute("name", "outdoor_service_total[]");
             text5.setAttribute("readonly", "readonly");
 
-            // var buttonAdd = document.createElement('button');
-            // buttonAdd.setAttribute("type", "button");
-            // buttonAdd.innerHTML = "Add Row";
-            // buttonAdd.setAttribute("class", "btn btn-success pull-right");
-            // buttonAdd.onclick = function() {
-            //     // ...
-            //     AddRowQ19(this);
-            // };
+            var buttonAdd = document.createElement('button');
+            buttonAdd.setAttribute("type", "button");
+            buttonAdd.innerHTML = "Add Row";
+            buttonAdd.setAttribute("class", "btn btn-success pull-right");
+            buttonAdd.onclick = function() {
+                // ...
+                AddRowQ19(this);
+            };
 
-            // var buttonRemove = document.createElement('button');
-            // buttonRemove.setAttribute("type", "button");
-            // buttonRemove.innerHTML = "Delete Row";
-            // buttonRemove.setAttribute("class", "btn btn-success pull-right");
-            // buttonRemove.onclick = function() {
-            //     // ...
-            //     DeleteRow(this);
-            // };
+            var buttonRemove = document.createElement('button');
+            buttonRemove.setAttribute("type", "button");
+            buttonRemove.innerHTML = "Delete Row";
+            buttonRemove.setAttribute("class", "btn btn-success pull-right");
+            buttonRemove.onclick = function() {
+                // ...
+                DeleteRow(this);
+            };
 
 
 
@@ -544,8 +571,8 @@ require_once('check_if_outdoor_manager.php');
             td4.appendChild(text4);
             td5.appendChild(text5);
 
-            // td5.appendChild(buttonAdd);
-            // td6.appendChild(buttonRemove);
+            td6.appendChild(buttonAdd);
+            td7.appendChild(buttonRemove);
 
 
 
@@ -554,7 +581,8 @@ require_once('check_if_outdoor_manager.php');
             tr.appendChild(td3);
             tr.appendChild(td4);
             tr.appendChild(td5);
-            // tr.appendChild(td6);
+            tr.appendChild(td6);
+            tr.appendChild(td7);
 
 
             table.appendChild(tr);
@@ -577,6 +605,7 @@ require_once('check_if_outdoor_manager.php');
         var td4 = document.createElement('td');
         var td5 = document.createElement('td');
         var td6 = document.createElement('td');
+        var td7 = document.createElement('td');
 
         /*var text1 = document.createElement("INPUT");
         text1.setAttribute("required", "required");
@@ -610,8 +639,6 @@ require_once('check_if_outdoor_manager.php');
             changeData(this);
         }
 
-        //var cell = row.insertCell();
-        //cell.appendChild(selectList);
 
 
 
@@ -635,13 +662,27 @@ require_once('check_if_outdoor_manager.php');
         text3.setAttribute("readonly", "readonly");
 
         var text4 = document.createElement("INPUT");
-        text4.setAttribute("type", "number");
-        text4.setAttribute("required", "required");
-        text4.setAttribute("class", "form-control outdoor_service_total");
-        text4.setAttribute("placeholder", "Service Total");
+        text4.setAttribute("type", "text");
+        // text4.setAttribute("required", "required");
+        text4.setAttribute("class", "form-control outdoor_treatment_service_discount_pc");
+        // text4.setAttribute("value", list[i]['outdoor_treatment_service_discount_pc'])
+        text4.setAttribute("placeholder", "Discount");
+        text4.setAttribute("name", "outdoor_treatment_service_discount_pc[]");
+        // if (list[i]['outdoor_treatment_outdoor_service_Category'] != 'Investigation/Test') {
+        //     text4.setAttribute("readonly", "readonly");
+        // }
+        text4.onchange = function() {
+            changeData(this);
+        }
 
-        text4.setAttribute("name", "outdoor_service_total[]");
-        text4.setAttribute("readonly", "readonly");
+        var text5 = document.createElement("INPUT");
+        text5.setAttribute("type", "number");
+        text5.setAttribute("required", "required");
+        text5.setAttribute("class", "form-control outdoor_service_total");
+        text5.setAttribute("placeholder", "Service Total");
+
+        text5.setAttribute("name", "outdoor_service_total[]");
+        text5.setAttribute("readonly", "readonly");
 
         var buttonAdd = document.createElement('button');
         buttonAdd.setAttribute("type", "button");
@@ -666,9 +707,9 @@ require_once('check_if_outdoor_manager.php');
         td2.appendChild(text2);
         td3.appendChild(text3);
         td4.appendChild(text4);
-
-        td5.appendChild(buttonAdd);
-        td6.appendChild(buttonRemove);
+        td5.appendChild(text5);
+        td6.appendChild(buttonAdd);
+        td7.appendChild(buttonRemove);
 
 
         tr.appendChild(td1);
@@ -677,6 +718,7 @@ require_once('check_if_outdoor_manager.php');
         tr.appendChild(td4);
         tr.appendChild(td5);
         tr.appendChild(td6);
+        tr.appendChild(td7);
 
 
         table.appendChild(tr);

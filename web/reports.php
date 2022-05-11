@@ -66,7 +66,7 @@ if (isset($_POST["max"])) {
                             <div id="printD">
                                 <h3 style="text-align: center; margin-bottom: 20px;background: lightyellow;">OUTDOOR REPORT</h3>
                                 <h5>Doctor Visit</h5>
-                                <table class="Report_table" style="width: 100%;">
+                                <table class="Report_table" id="datatable_report_doctor_visit" style="width: 100%;">
                                     <thead>
                                         <tr>
 
@@ -129,18 +129,22 @@ if (isset($_POST["max"])) {
 
                                                         </tr>';
                                                 }
+                                                // echo '
+                                                // <tr class="footer_row">
+                                                //     <td> Total
+                                                //     </td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td id="payment_doctor_visit">' . $total_payment . '</td>
+                                                //     <td id="due_doctor_visit">' . $total_due . '</td>
+                                                //     <td id="bill_doctor_visit">' . $total_bill . '</td>
+
+                                                // </tr>';
                                                 echo '
                                                 <tr class="footer_row">
-                                                    <td> Total
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>' . $total_payment . '</td>
-                                                    <td>' . $total_due . '</td>
-                                                    <td>' . $total_bill . '</td>
                                                     
                                                 </tr>';
                                             }
@@ -154,7 +158,7 @@ if (isset($_POST["max"])) {
                                 <div style="min-height: 40px"></div>
 
                                 <h5>Physiotherapy</h5>
-                                <table class="Report_table" style="width: 100%;">
+                                <table class="Report_table" id="datatable_report" style="width: 100%;">
                                     <thead>
                                         <tr>
 
@@ -179,7 +183,7 @@ if (isset($_POST["max"])) {
                                             $conn = $connection->getConnection();
                                             // $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                             $get_content = "SELECT * FROM outdoor_treatment LEFT JOIN patient on outdoor_treatment.outdoor_treatment_patient_id=patient.patient_id WHERE (outdoor_treatment_creation_time BETWEEN '$start_date' AND '$end_date') AND (`outdoor_treatment_indoor_treatment_id` IS NULL) AND (outdoor_treatment_outdoor_service_Category = 'Physiotherapy')";
-                                            // echo $get_content;
+
                                             $getJson = $conn->prepare($get_content);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
@@ -217,20 +221,20 @@ if (isset($_POST["max"])) {
 
                                                         </tr>';
                                                 }
-                                                echo '
-                                                <tr class="footer_row">
-                                                    <td> Total
-                                                    </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>' . $total_payment . '</td>
-                                                    <td>' . $total_due . '</td>
-                                                    <td>' . $total_bill . '</td>
-                                                    
-                                                </tr>';
+                                                // echo '
+                                                // <tr class="footer_row">
+                                                //     <td> Total
+                                                //     </td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td></td>
+                                                //     <td>' . $total_payment . '</td>
+                                                //     <td>' . $total_due . '</td>
+                                                //     <td>' . $total_bill . '</td>
+
+                                                // </tr>';
                                             }
                                         }
 
@@ -511,7 +515,7 @@ if (isset($_POST["max"])) {
                                                     <td>' . $total_payment . '</td>
                                                     <td>' . $total_due . '</td>
                                                     <td>' . $total_bill . '</td>
-                                                    
+
                                                 </tr>';
                                             }
                                         }
@@ -545,6 +549,13 @@ if (isset($_POST["max"])) {
 
 <script>
     function printDiv(divName) {
+        var x = document.getElementsByClassName("dt-buttons");
+        var y = document.getElementsByClassName("dataTables_filter");
+        var i;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = 'none';
+            y[i].style.display = 'none';
+        }
         var printContents = document.getElementById("printD").innerHTML;
         var originalContents = document.body.innerHTML;
 
@@ -553,6 +564,44 @@ if (isset($_POST["max"])) {
         window.print();
 
         document.body.innerHTML = originalContents;
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = 'inline-flex';
+            y[i].style.display = 'block';
+        }
 
     }
+</script>
+
+<script>
+    $('#datatable_report_doctor_visit').dataTable({
+        paging: false,
+        info: false,
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ],
+        "footerCallback": function(row, data, start, end, display) {
+            var api = this.api();
+            // Remove the formatting to get integer data for summation
+            var intVal = function(i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+            pageTotal = api
+                .column(7, {
+                    page: 'current'
+                })
+                .data()
+                .reduce(function(a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0);
+            // Update footer
+            $(api.column(4).footer()).html();
+        }
+    }); //replace id with your first table's id
 </script>

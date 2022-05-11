@@ -178,7 +178,7 @@ if (isset($_GET['patient_id'])) {
                                             </td>
 
                                             <td>
-                                                <input type="number" class="form-control outdoor_service_quantity" onchange="calculate(this);" placeholder="Service Quantity" id="outdoor_service_quantity" name="outdoor_service_quantity[]" required>
+                                                <input type="number" class="form-control outdoor_service_quantity" onchange="changeData(this);" placeholder="Service Quantity" id="outdoor_service_quantity" name="outdoor_service_quantity[]" required>
 
                                             </td>
                                             <td>
@@ -186,7 +186,7 @@ if (isset($_GET['patient_id'])) {
 
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control outdoor_treatment_service_discount_pc" onchange="changeData(this);" placeholder="Discount" id="outdoor_treatment_service_discount_pc" name="outdoor_treatment_service_discount_pc[]" readonly>
+                                                <input type="text" class="form-control outdoor_treatment_service_discount_pc" onchange="changeData(this);" placeholder="Discount" id="outdoor_treatment_service_discount_pc" name="outdoor_treatment_service_discount_pc[]">
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control outdoor_service_total" placeholder="Service Total" id="outdoor_service_total" name="outdoor_service_total[]" readonly required>
@@ -213,8 +213,8 @@ if (isset($_GET['patient_id'])) {
                                         </div>
                                         <div class="form-group col-md-12">
                                             <div class="row">
-                                                <div class="col-md-3"><label for="discharge-date">Discount</label></div>
-                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="0" required></div>
+                                                <div class="col-md-3"><label for="discharge-date">Total Discount</label></div>
+                                                <div class="col-md-9"><input type="text" placeholder="Discount" class="form-control" id="outdoor_treatment_discount_pc" name="outdoor_treatment_discount_pc" onchange="update_total_bill();" value="0" required readonly></div>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
@@ -318,7 +318,7 @@ if (isset($_GET['patient_id'])) {
                 data: formData,
                 success: function(data) {
                     //alert(data);
-                    console.log(data);
+                    // console.log(data);
                     spinner.hide();
                     var obj = JSON.parse(data);
                     alert(obj.message);
@@ -327,13 +327,6 @@ if (isset($_GET['patient_id'])) {
                     if (obj.status) {
                         //location.reload();
                         window.open("doctor_visit_invoice.php?outdoor_treatment_id=" + obj.outdoor_treatment_id, "_self");
-                        // form = document.getElementById('patient_service_form');
-                        // form.target = '_blank';
-                        // form.action = 'doctor_visit_invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
-
-                        // form.submit();
-                        // form.action = 'doctor_visit_invoice.php?outdoor_treatment_id=' + obj.outdoor_treatment_id;
-                        // form.target = '';
 
                     }
                 },
@@ -542,6 +535,10 @@ if (isset($_GET['patient_id'])) {
         var outdoor_service_rate = parseFloat(row.find(".outdoor_service_rate").val());
         var outdoor_service_quantity = parseFloat(row.find(".outdoor_service_quantity").val());
         var outdoor_treatment_service_discount_pc = row.find(".outdoor_treatment_service_discount_pc").val();
+        if (!outdoor_service_quantity > 0) {
+            row.find(".outdoor_service_quantity").val(1);
+            outdoor_service_quantity = 1
+        }
         var total = parseInt(outdoor_service_rate) * parseInt(outdoor_service_quantity);
         if (outdoor_treatment_service_discount_pc != "") {
             if (outdoor_treatment_service_discount_pc.search("%") > 0) {
@@ -553,20 +550,10 @@ if (isset($_GET['patient_id'])) {
         }
         row.find(".outdoor_service_total").val(isNaN(total) ? 0 : total);
 
-        update_total_bill();
-    }
-
-    function calculate(instance) {
-        var row = $(instance).closest("tr");
-        var outdoor_service_id = parseFloat(row.find(".outdoor_service_id").val());
-        var outdoor_service_rate = parseFloat(row.find(".outdoor_service_rate").val());
-        var outdoor_service_quantity = parseFloat(row.find(".outdoor_service_quantity").val());
-        //alert(outdoor_service_id);
-        var total = outdoor_service_rate * outdoor_service_quantity
-        row.find(".outdoor_service_total").val(isNaN(parseInt(total)) ? 0 : total);
 
         update_total_bill();
     }
+
 
     function update_payment() {
         var total_paid = document.getElementById("outdoor_treatment_total_paid").value;
@@ -580,29 +567,46 @@ if (isset($_GET['patient_id'])) {
     }
 
     function update_total_bill() {
+
         var in_total = 0;
+        var in_total_discount = 0;
         var outdoor_treatment_exemption = document.getElementById("outdoor_treatment_exemption").value;
         $("tr").each(function() {
             var total = $(this).find("input.outdoor_service_total").val();
+            var quantity = $(this).find("input.outdoor_service_quantity").val();
+            var rate = $(this).find("input.outdoor_service_rate").val();
+            var actual_Value = quantity * rate;
             in_total = parseInt(in_total) + parseInt(isNaN(parseInt(total)) ? 0 : total);
+            var outdoor_treatment_service_discount_pc = $(this).find("input.outdoor_treatment_service_discount_pc").val();
+            if (outdoor_treatment_service_discount_pc != "" && typeof outdoor_treatment_service_discount_pc !== "undefined") {
+                if (outdoor_treatment_service_discount_pc.search("%") > 0) {
+                    var total_dc = (parseInt(outdoor_treatment_service_discount_pc) / 100) * parseInt(actual_Value);
+                    console.log(total_dc);
+                    in_total_discount = parseInt(in_total_discount) + parseInt(isNaN(parseInt(total_dc)) ? 0 : total_dc);
+                } else {
+                    in_total_discount = parseInt(in_total_discount) + parseInt(isNaN(parseInt(outdoor_treatment_service_discount_pc)) ? 0 : outdoor_treatment_service_discount_pc);
+                }
+            }
+
         });
-        //alert(in_total);
+        // alert(in_total_discount);
         document.getElementById("outdoor_treatment_total_bill").value = parseInt(in_total);
         var discount = document.getElementById("outdoor_treatment_discount_pc").value;
-        if (discount != "") {
-            if (discount.search("%") > 0) {
-                var total_dc = (parseInt(discount) / 100) * parseInt(in_total);
-                in_total = in_total - total_dc;
-            } else {
-                in_total = in_total - parseInt(discount);
-            }
-        }
+        // if (discount != "") {
+        //     if (discount.search("%") > 0) {
+        //         var total_dc = (parseInt(discount) / 100) * parseInt(in_total);
+        //         in_total = in_total - total_dc;
+        //     } else {
+        //         in_total = in_total - parseInt(discount);
+        //     }
+        // }
         if (outdoor_treatment_exemption > 0) {
             in_total = in_total - outdoor_treatment_exemption;
         }
         // discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);
         // in_total = parseInt(in_total) - (parseInt(in_total) * (parseInt(discount) / 100));
         document.getElementById("outdoor_treatment_total_bill_after_discount").value = in_total;
+        document.getElementById("outdoor_treatment_discount_pc").value = in_total_discount;
         update_payment();
 
     }
@@ -673,7 +677,7 @@ if (isset($_GET['patient_id'])) {
         text2.setAttribute("placeholder", "Service Quantity");
         text2.setAttribute("name", "outdoor_service_quantity[]");
         text2.onchange = function() {
-            calculate(this);
+            changeData(this);
         }
 
         var text3 = document.createElement("INPUT");
@@ -690,7 +694,6 @@ if (isset($_GET['patient_id'])) {
         text4.setAttribute("class", "form-control outdoor_treatment_service_discount_pc");
         text4.setAttribute("placeholder", "Discount");
         text4.setAttribute("name", "outdoor_treatment_service_discount_pc[]");
-        text4.setAttribute("readonly", "readonly");
         text4.onchange = function() {
             changeData(this);
         }
