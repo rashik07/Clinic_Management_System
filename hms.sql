@@ -113,7 +113,8 @@ CREATE TABLE `patient`
     PRIMARY KEY (patient_id),
     FOREIGN KEY (patient_user_added_id) REFERENCES user (user_id)
     -- UNIQUE (patient_phone)
-) ENGINE = InnoDB AUTO_INCREMENT=1000
+) ENGINE = InnoDB 
+-- AUTO_INCREMENT=1000
   DEFAULT CHARSET = utf8;
 
 
@@ -122,12 +123,12 @@ CREATE TABLE `patient`
 --
 
 INSERT INTO `patient` (`patient_id`, `patient_user_added_id`, `patient_name`, `patient_description`, `patient_age`, `patient_email`, `patient_dob`, `patient_gender`, `patient_blood_group`, `patient_phone`, `patient_address`, `patient_status`, `patient_creation_time`, `patient_modification_time`) VALUES
-(1000, 2, 'Sadik Ahammed', '', '29', '', '', 'male', '', '01686076067', '', 'active', '2022-04-25 13:14:15', NULL),
-(1003, 2, 'Muzahid', '', '29', '', '', 'male', '', '', '', 'active', '2022-04-25 13:17:04', NULL),
-(1004, 2, 'Rashik Saif', '', '30', '', '', 'male', 'B+', '01913846060', '', 'active', '2022-04-25 13:18:07', NULL),
-(1005, 2, 'Jodu modu', '', '20', '', '', 'male', '', '', '', 'active', '2022-04-25 13:39:45', NULL),
-(1006, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:50:37', NULL),
-(1007, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:51:03', NULL);
+(1, 2, 'Sadik Ahammed', '', '29', '', '', 'male', '', '01686076067', '', 'active', '2022-04-25 13:14:15', NULL),
+(2, 2, 'Muzahid', '', '29', '', '', 'male', '', '', '', 'active', '2022-04-25 13:17:04', NULL),
+(3, 2, 'Rashik Saif', '', '30', '', '', 'male', 'B+', '01913846060', '', 'active', '2022-04-25 13:18:07', NULL),
+(4, 2, 'Jodu modu', '', '20', '', '', 'male', '', '', '', 'active', '2022-04-25 13:39:45', NULL),
+(5, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:50:37', NULL),
+(6, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:51:03', NULL);
 
 -- --------------------------------------------------------
 

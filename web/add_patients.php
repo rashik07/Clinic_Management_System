@@ -100,7 +100,7 @@ require_once('check_if_outdoor_manager.php');
                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" id="options" aria-labelledby="options" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <div id="modal_content" style="padding: 10px"></div>
+                            <div id="modal_content"></div>
                         </div>
                     </div>
                 </div>
@@ -172,7 +172,7 @@ require_once('check_if_outdoor_manager.php');
                     // spinner.hide();
                     var obj = JSON.parse(data);
                     if (obj.status) {
-                        let htmlcontent = '<div class="row"><a class="col-md-4" href="Service_doctor_visit.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Doctor Visit</p></div></div></a><a class="col-md-4" href="Service_physiotherapy.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Physiotherapy</p></div></div></a><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Admission</p></div></div></a><a class="col-md-4" href="Service_ot.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">OT</p></div></div></a><a class="col-md-4" href="Service_procedures.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Procedures</p></div></div></a><a class="col-md-4" href="Service_test.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Investigation/Test</p></div></div></a></div>';
+                        let htmlcontent = '<div class="row" style="margin: 20px;padding: 10px;"><a class="col-md-4" href="Service_doctor_visit.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Doctor Visit</p></div></div></a><a class="col-md-4" href="Service_physiotherapy.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Physiotherapy</p></div></div></a><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Admission</p></div></div></a><a class="col-md-4" href="Service_ot.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">OT</p></div></div></a><a class="col-md-4" href="Service_procedures.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Procedures</p></div></div></a><a class="col-md-4" href="Service_test.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Investigation/Test</p></div></div></a></div>';
                         // document.getElementById("modal_content").innerHTML("");
                         document.getElementById("modal_content").insertAdjacentHTML("afterend", htmlcontent);
                         $('#options').modal('show')

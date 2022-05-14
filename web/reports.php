@@ -97,12 +97,12 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                             <div id="printD">
 
                                 <h3 style="text-align: center; margin-bottom: 20px;background: lightyellow;">OUTDOOR REPORT</h3>
-                                <h5>Doctor Visit</h5>
+                                <h5 style="text-align: center; margin-bottom: 20px;">Doctor Visit</h5>
                                 <table class="Report_table" id="datatable_report_doctor_visit" style="width: 100%;">
                                     <thead>
                                         <tr>
 
-                                            <td style="width: 40%;">Details</td>
+                                            <td style="width: 40%;">Doctor Visit Details</td>
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
@@ -190,12 +190,12 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- <div id="footer_doctor_visit"></div> -->
                                 <div style="min-height: 40px"></div>
 
-                                <h5>Physiotherapy</h5>
+                                <h5 style="text-align: center; margin-bottom: 20px;">Physiotherapy</h5>
                                 <table class="Report_table" id="datatable_report_Physiotherapy" style="width: 100%;">
                                     <thead>
                                         <tr>
 
-                                            <td style="width: 40%;">Details</td>
+                                            <td style="width: 40%;">Physiotherapy Details</td>
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
@@ -286,12 +286,12 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                 <!-- <div id="footer_doctor_visit"></div> -->
                                 <div style="min-height: 40px"></div>
 
-                                <h5>Procedures</h5>
+                                <h5 style="text-align: center; margin-bottom: 20px;">Procedures</h5>
                                 <table class="Report_table" id="datatable_report_Procedures" style="width: 100%;">
                                     <thead>
                                         <tr>
 
-                                            <td style="width: 40%;">Details</td>
+                                            <td style="width: 40%;">Procedures Details</td>
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
@@ -383,12 +383,12 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                 <div style="min-height: 40px"></div>
 
 
-                                <h5>OT</h5>
+                                <h5 style="text-align: center; margin-bottom: 20px;">OT</h5>
                                 <table class="Report_table" id="datatable_report_OT" style="width: 100%;">
                                     <thead>
                                         <tr>
 
-                                            <td style="width: 40%;">Details</td>
+                                            <td style="width: 40%;">OT Details</td>
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
@@ -480,12 +480,12 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                 <div style="min-height: 40px"></div>
 
 
-                                <h5>Investigation/Test</h5>
+                                <h5 style="text-align: center; margin-bottom: 20px;">Investigation/Test</h5>
                                 <table class="Report_table" id="datatable_report_Investigation" style="width: 100%;">
                                     <thead>
                                         <tr>
 
-                                            <td style="width: 40%;">Details</td>
+                                            <td style="width: 40%;">Investigation Details</td>
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
@@ -575,7 +575,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                 </table>
                                 <!-- <div id="footer_doctor_visit"></div> -->
                                 <div style="min-height: 40px"></div>
-                                <h4>Outdoor bill</h4>
+                                <h4 style="text-align: center; margin-bottom: 20px;">Outdoor bill</h4>
                                 <table style="border: 1px solid gray; width: 100%;">
                                     <tr>
                                         <td>Total Bill</td>
