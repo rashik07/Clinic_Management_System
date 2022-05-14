@@ -108,13 +108,13 @@ from pharmacy_sell_medicine
                                                     <span class="text-sm text-grey-m2 align-middle">Invoice No:</span>
                                                     <span class="text-600 text-110 text-blue align-middle"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_invoice_id'] ?></span>
                                                 </div>
-                                                <!-- <div>
+                                                <div>
                                                     <span class="text-sm text-grey-m2 align-middle">Prepared By:</span>
                                                     <span class="text-600 text-110 text-blue align-middle">
                                                         <?php
-                                                        // echo $result_content_user[0]['username']; 
+                                                        echo $result_content_medicine_sell[0]['patient_id']; 
                                                         ?></span>
-                                                </div> -->
+                                                </div>
                                                 <div>
                                                     <span class="text-sm text-grey-m2 align-middle">Patient Name:</span>
                                                     <span class="text-600 text-110 text-blue align-middle">
@@ -147,15 +147,15 @@ from pharmacy_sell_medicine
                                             <!-- /.col -->
                                         </div>
 
-                                        <div class="mt-4">
-                                            <div class="row text-600 text-white bgc-default-tp1 py-25">
+                                        <div class="mt-2">
+                                            <div class="row text-600 text-white bgc-default-tp1 py-20">
                                                 <div class="d-none d-sm-block col-1">#</div>
                                                 <div class="col-9 col-sm-5">Particulars</div>
                                                 <div class="d-none d-sm-block col-4 col-sm-2">Rate</div>
                                                 <div class="d-none d-sm-block col-sm-2">Quantity</div>
-                                                <div class="col-2">Amount</div>
+                                                <div class="col-2 text-right">Amount(TK)</div>
                                             </div>
-                                            <div class="text-95 text-secondary-d3">
+                                            <div class="text-95 text-secondary-d3 ">
                                                 <?php
 
 
@@ -165,12 +165,12 @@ from pharmacy_sell_medicine
                                                 for ($i = 0; $i < count($result_content_pharmacy_medicine_sell); $i++) {
 
 
-                                                    echo '<div class="row mb-2 mb-sm-0 py-25">
+                                                    echo '<div class="row mb-2 mb-sm-0 py-20">
                                                     <div class="d-none d-sm-block col-1">' . ($count_service + 1) . '</div>
                                                     <div class="col-9 col-sm-5">' . $result_content_pharmacy_medicine_sell[$i]['medicine_name'] . '</div>
                                                     <div class="d-none d-sm-block col-2">' . $result_content_pharmacy_medicine_sell[$i]['pharmacy_sell_medicine_per_piece_price'] . ' Tk</div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . $result_content_pharmacy_medicine_sell[$i]['pharmacy_sell_medicine_selling_piece'] . '</div>
-                                                    <div class="col-2 text-secondary-d2">' . $result_content_pharmacy_medicine_sell[$i]['pharmacy_sell_medicine_total_selling_price'] . ' TK</div>
+                                                    <div class="col-2 text-secondary-d2 text-right">' . $result_content_pharmacy_medicine_sell[$i]['pharmacy_sell_medicine_total_selling_price'] . ' </div>
                                                     </div>';
 
                                                     $count_service = $count_service + 1;
@@ -219,8 +219,8 @@ from pharmacy_sell_medicine
                                                         <div class="col-7 text-right">
                                                             SubTotal
                                                         </div>
-                                                        <div class="col-5">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_sub_total']; ?> Tk</span>
+                                                        <div class="col-5 text-right">
+                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_sub_total']; ?></span>
                                                         </div>
                                                     </div>
                                                     <?php
@@ -229,9 +229,9 @@ from pharmacy_sell_medicine
                                                         <div class="col-7 text-right">
                                                         discount
                                                     </div>
-                                                        <div class="col-5">
+                                                        <div class="col-5 text-right">
                                                             <span class="text-120 text-secondary-d1">'
-                                                            . $result_content_medicine_sell[0]['pharmacy_sell_discount'] . '  Tk.</span>
+                                                            . $result_content_medicine_sell[0]['pharmacy_sell_discount'] . ' .</span>
                                                         </div>
                                                         </div>';
                                                     } else {
@@ -242,34 +242,34 @@ from pharmacy_sell_medicine
 
                                                     ?>
 
-                                                    <div class="row my-1 align-items-center bgc-primary-l3 p-2">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 ">
                                                         <div class="col-7 text-right">
                                                             Total Adjusted Amount
                                                         </div>
-                                                        <div class="col-5">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_grand_total']; ?>Tk</span>
+                                                        <div class="col-5 text-right">
+                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_grand_total']; ?></span>
                                                         </div>
                                                     </div>
-                                                    <div class="row my-1 align-items-center bgc-primary-l3 p-2">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 ">
                                                         <div class="col-7 text-right">
                                                             Paid
                                                         </div>
-                                                        <div class="col-5">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_paid_amount']; ?> Tk</span>
+                                                        <div class="col-5 text-right">
+                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_medicine_sell[0]['pharmacy_sell_paid_amount']; ?></span>
                                                         </div>
                                                     </div>
-                                                    <div class="row my-1 align-items-center bgc-primary-l3 p-2">
+                                                    <div class="row my-1 align-items-center bgc-primary-l3">
                                                         <div class="col-7 text-right">
                                                             Due
                                                         </div>
-                                                        <div class="col-5">
+                                                        <div class="col-5 text-right">
                                                             <span class="text-120 text-secondary-d1"><?php
                                                                                                                 if ($result_content_medicine_sell[0]['pharmacy_sell_due_amount']) {
                                                                                                                     echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount'];
                                                                                                                 } else {
                                                                                                                     echo '0';
                                                                                                                 }
-                                                                                                                ?> Tk</span>
+                                                                                                                ?></span>
                                                         </div>
                                                     </div>
                                                 </div>

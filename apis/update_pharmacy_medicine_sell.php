@@ -26,8 +26,9 @@ class UpdatePharamacyMedicineSell{
         if($check_token && $check_permission)
         {
             try {
-                $pharmacy_sell_patient_id  = if_empty($_POST['pharmacy_sell_patient_id']);
+                // $pharmacy_sell_patient_id  =if_empty($_POST['pharmacy_sell_patient_id']);
                 $pharmacy_sell_date = if_empty($_POST['pharmacy_sell_date']);
+              
 
                 $pharmacy_selling_sub_total  = if_empty($_POST['pharmacy_selling_sub_total']);
                 $pharmacy_selling_vat   = if_empty($_POST['pharmacy_selling_vat']);
@@ -36,6 +37,7 @@ class UpdatePharamacyMedicineSell{
                 $pharmacy_selling_paid_amount= if_empty($_POST['pharmacy_selling_paid_amount']);
                 $pharmacy_selling_due_amount   = if_empty($_POST['pharmacy_selling_due_amount']);
 
+                // $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
                 $pharmacy_selling_medicine_medicine_id = $_POST['pharmacy_selling_medicine_medicine_id'];
                 $pharmacy_selling_medicine_batch_id  = $_POST['pharmacy_selling_medicine_batch_id'];
                 $pharmacy_selling_medicine_exp_date= $_POST['pharmacy_selling_medicine_exp_date'];
@@ -45,7 +47,7 @@ class UpdatePharamacyMedicineSell{
                 $pharmacy_purchase_medicine_total_selling_price= $_POST['pharmacy_purchase_medicine_total_selling_price'];
 
                 $post_content = "UPDATE pharmacy_sell SET pharmacy_sell_user_added_id = '$request_user_id',
-                pharmacy_sell_patient_id = '$pharmacy_sell_patient_id', pharmacy_sell_date= '$pharmacy_sell_date',
+            pharmacy_sell_date= '$pharmacy_sell_date',
                 pharmacy_sell_sub_total = '$pharmacy_selling_sub_total', pharmacy_sell_vat = '$pharmacy_selling_vat',
                 pharmacy_sell_discount = '$pharmacy_selling_discount', pharmacy_sell_grand_total='$pharmacy_selling_grand_total',
                 pharmacy_sell_paid_amount = '$pharmacy_selling_paid_amount', pharmacy_sell_due_amount='$pharmacy_selling_due_amount'
