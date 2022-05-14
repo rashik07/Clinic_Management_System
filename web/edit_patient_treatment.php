@@ -1,6 +1,6 @@
 <?php
 // need to enable on production
-require_once('check_if_outdoor_manager.php');
+require_once('check_if_admin.php');
 ?>
 <?php include 'header.php'
 ?>

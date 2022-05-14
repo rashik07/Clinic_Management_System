@@ -15,7 +15,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 <span class="ti-home"></span> Dashboard
             </a>
         </li>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3) { ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patients" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Patients
@@ -88,7 +88,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             </li>
 
         <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
+        <!-- <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patient-treatment" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Admission
@@ -124,7 +124,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
                 </ul>
             </li>
-        <?php } ?>
+        <?php } ?> -->
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 5) { ?>
 
             <!-- <li>
@@ -222,6 +222,14 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="medicine_sell_list.php">Medicine Sell List</a>
                     </li>
+                    <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
+                        <li>
+                            <a href="report_pharmacy_sell.php">Pharmacy Sell Report</a>
+                        </li>
+                        <li>
+                            <a href="report_pharmacy_purchase.php">Pharmacy Purchase Report</a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </li>
         <?php } ?>
@@ -236,14 +244,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                         <a href="reports.php?t=1">Reports</a>
                     </li>
                 <?php } ?>
-                <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
-                    <li>
-                        <a href="report_pharmacy_sell.php">Pharmacy Sell Report</a>
-                    </li>
-                    <li>
-                        <a href="report_pharmacy_purchase.php">Pharmacy Purchase Report</a>
-                    </li>
-                <?php } ?>
+
             </ul>
         </li>
 

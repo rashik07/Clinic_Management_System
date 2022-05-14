@@ -109,7 +109,7 @@ require_once('check_if_outdoor_manager.php');
                     $result_content_ot_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     ?>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
                             <h3 class="widget-title">Patient Details</h3>
                             <div class="table-responsive">
@@ -145,12 +145,12 @@ require_once('check_if_outdoor_manager.php');
 
 
                             <a type="button" class="btn btn-success mb-3" href="edit_patient.php?patient_id=<?php echo $result_content_patient[0]['patient_id']; ?>"><span class="ti-pencil-alt"></span> Edit Patient</a>
-                            <button type="button" class="btn btn-danger btn-lg" onclick="delete_data();">Delete</button>
+                            <button type="button" class="btn btn-danger mb-3" onclick="delete_data();">Delete</button>
                             <!--<a type="button" class="btn btn-danger mb-3"><span class="ti-trash"></span> Delete Patient</a>-->
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-6">
                         <div class="widget-area-2 proclinic-box-shadow">
                             <h3 class="widget-title">Patient Bill History</h3>
                             <div class="table-responsive">
@@ -201,7 +201,7 @@ require_once('check_if_outdoor_manager.php');
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
                             <h3 class="widget-title">Patient Outdoor History</h3>
@@ -217,7 +217,12 @@ require_once('check_if_outdoor_manager.php');
                                             <th>Paid</th>
                                             <th>Due</th>
                                             <th>Visit Date</th>
-                                            <th>Action</th>
+                                            <?php
+                                            if ($_SESSION['user_type_access_level'] <= 2) {
+                                                echo "<th>Action</th>";
+                                            }
+                                            ?>
+                                            <th>Collection</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -250,13 +255,20 @@ require_once('check_if_outdoor_manager.php');
                                             echo '<td>' . $data['outdoor_treatment_total_paid'] . '</td>';
                                             echo '<td>' . $data['outdoor_treatment_total_due'] . '</td>';
                                             echo '<td>' . $data['outdoor_treatment_creation_time'] . '</td>';
-                                            echo '<td><a href="edit_patient_treatment.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-                                            $count = $count + 1;
+                                            if ($_SESSION['user_type_access_level'] <= 2) {
+                                                echo '<td><a href="edit_patient_treatment.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                                $count = $count + 1;
+                                            }
+                                            if ($data['outdoor_treatment_total_due'] > 0) {
+                                                echo '<td><a href="edit_patient_treatment_due.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '">Collection</a></td>';
+                                            } else {
+                                                echo '<td> - </td>';
+                                            }
                                             echo '</tr>';
                                         }
                                         ?>
 
-                                       
+
                                     </tbody>
                                 </table>
                             </div>
@@ -330,180 +342,16 @@ require_once('check_if_outdoor_manager.php');
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Patient Pathology History</h3>
-                            <div class="table-responsive">
-                                <table id="datatable4" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Test Names</th>
-                                            <th>Date</th>
-                                            <th>Total Bill</th>
-                                            <th>Paid</th>
-                                            <th>Due</th>
-                                            <th>View</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-
-                                        $body = '';
-                                        $count = 1;
-                                        foreach ($result_content_pathology as $data) {
-                                            echo '<tr>';
-                                            echo '<td>' . $count . '</td>';
-                                            $investigation_id = $data['pathology_investigation_id'];
-
-                                            $get_content = "select * from pathology_investigation 
-                                    left join pathology_investigation_test pit on pathology_investigation.pathology_investigation_id = pit.pathology_investigation_test_investigation_id
-                                    left join pathology_test pt on pt.pathology_test_id = pit.pathology_investigation_test_pathology_test_id
-                                    where pathology_investigation_id = '$investigation_id'";
-                                            $getJson = $conn->prepare($get_content);
-                                            $getJson->execute();
-                                            $result_content_tests = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                            $test_list = array();
-
-                                            foreach ($result_content_tests as $services) {
-                                                array_push($test_list, $services['pathology_test_name']);
-                                            }
-                                            $test_names = implode(', ', $test_list);
-
-                                            echo '<td>' . $test_names . '</td>';
-                                            echo '<td>' . $data['pathology_investigation_date'] . '</td>';
-                                            echo '<td>' . $data['pathology_investigation_total_bill_after_discount'] . '</td>';
-                                            echo '<td>' . $data['pathology_investigation_total_paid'] . '</td>';
-                                            echo '<td>' . $data['pathology_investigation_total_due'] . '</td>';
-                                            echo '<td><a href="edit_pathology_investigation.php?pathology_investigation_id=' . $data['pathology_investigation_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-                                            $count = $count + 1;
-                                        }
-                                        ?>
 
 
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Patient Pharmacy History</h3>
-                            <div class="table-responsive">
-                                <table id="datatable5" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Medicine</th>
-                                            <th>Total Bill</th>
-                                            <th>Discount%</th>
-                                            <th>After Discount</th>
-                                            <th>Paid</th>
-                                            <th>Due</th>
-                                            <th>Purchase Date</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-
-                                        $body = '';
-                                        $count = 1;
-                                        foreach ($result_content_pharmacy as $data) {
-                                            echo '<tr>';
-                                            echo '<td>' . $count . '</td>';
-                                            $pharmacy_sell_id = $data['pharmacy_sell_id'];
-
-                                            $get_content = "select * from pharmacy_sell 
-                                    left join pharmacy_sell_medicine psm on pharmacy_sell.pharmacy_sell_id = psm.pharmacy_sell_medicine_sell_id 
-                                    left join pharmacy_medicine pm on pm.pharmacy_medicine_id = psm.pharmacy_sell_medicine_medicine_id 
-                                    left join medicine m on pm.pharmacy_medicine_id=m.medicine_id 
-                                    where pharmacy_sell_id = '$pharmacy_sell_id'";
-                                            $getJson = $conn->prepare($get_content);
-                                            $getJson->execute();
-                                            $result_content_pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                            $medicine_list = array();
-
-                                            foreach ($result_content_pharmacy_sells as $services) {
-                                                array_push($medicine_list, $services['medicine_name']);
-                                            }
-                                            $medicine_names = implode(', ', $medicine_list);
-
-                                            echo '<td>' . $medicine_names . '</td>';
-                                            echo '<td>' . $data['pharmacy_sell_sub_total'] . '</td>';
-                                            echo '<td>' . $data['pharmacy_sell_discount'] . '</td>';
-                                            echo '<td>' . $data['pharmacy_sell_grand_total'] . '</td>';
-                                            echo '<td>' . $data['pharmacy_sell_paid_amount'] . '</td>';
-                                            echo '<td>' . $data['pharmacy_sell_due_amount'] . '</td>';
-                                            echo '<td>' . $data['pharmacy_sell_creation_time'] . '</td>';
-                                            echo '<td><a href="edit_medicine_sell.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-
-                                            $count = $count + 1;
-                                            echo '</tr>';
-                                        }
-                                        ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Patient OT History</h3>
-                            <div class="table-responsive">
-                                <table id="datatable6" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>OT Note</th>
-                                            <th>Total Bill</th>
-                                            <th>Discount%</th>
-                                            <th>After Discount</th>
-                                            <th>Paid</th>
-                                            <th>Due</th>
-                                            <th>OT Date</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-
-                                        $body = '';
-                                        $count = 1;
-                                        foreach ($result_content_ot as $data) {
-                                            echo '<tr>';
-                                            echo '<td>' . $count . '</td>';
-
-                                            echo '<td>' . $data['ot_treatment_note'] . '</td>';
-                                            echo '<td>' . $data['ot_treatment_total_bill'] . '</td>';
-                                            echo '<td>' . $data['ot_treatment_discount_pc'] . '</td>';
-                                            echo '<td>' . $data['ot_treatment_total_bill_after_discount'] . '</td>';
-                                            echo '<td>' . $data['ot_treatment_total_paid'] . '</td>';
-                                            echo '<td>' . $data['ot_treatment_total_due'] . '</td>';
-                                            echo '<td>' . $data['ot_treatment_creation_time'] . '</td>';
-                                            echo '<td><a href="edit_ot_treatment.php?ot_treatment_id=' . $data['ot_treatment_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-
-                                            $count = $count + 1;
-                                            echo '</tr>';
-                                        }
-                                        ?>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- /Widget Item -->
                     <!-- Widget Item -->
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
-                            <h3 class="widget-title">Patient Payment Transactions</h3>
+                            <!-- <h3 class="widget-title">Patient Payment Transactions</h3> -->
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <!-- <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Date</th>
@@ -572,10 +420,10 @@ require_once('check_if_outdoor_manager.php');
                                             <td><span class="badge badge-success">Completed</span></td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
 
                                 <!--Export links-->
-                                <nav aria-label="Page navigation example">
+                                <!-- <nav aria-label="Page navigation example">
                                     <ul class="pagination justify-content-center export-pagination">
                                         <li class="page-item">
                                             <a class="page-link" href="#"><span class="ti-download"></span> csv</a>
@@ -590,7 +438,7 @@ require_once('check_if_outdoor_manager.php');
                                             <a class="page-link" href="#"><span class="ti-align-justify"></span> Excel</a>
                                         </li>
                                     </ul>
-                                </nav>
+                                </nav> -->
                                 <!-- /Export links-->
                             </div>
                         </div>
@@ -606,8 +454,8 @@ require_once('check_if_outdoor_manager.php');
 </body>
 <script>
     var spinner = $('#loader');
-    function delete_data()
-    {
+
+    function delete_data() {
         var data_id = <?php echo $patient_id; ?>;
         if (confirm('Are you sure you want to Delete This Content?')) {
             // yes
@@ -623,7 +471,7 @@ require_once('check_if_outdoor_manager.php');
                     patient_id: data_id,
                     content: "patient"
                 },
-                success: function (response) {
+                success: function(response) {
                     //alert(response);
                     spinner.hide();
                     var obj = JSON.parse(response);
@@ -631,10 +479,10 @@ require_once('check_if_outdoor_manager.php');
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("patients_list.php","_self");
+                        window.open("patients_list.php", "_self");
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     spinner.hide();
                     alert("alert : " + errorThrown);
                 }

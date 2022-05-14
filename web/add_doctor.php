@@ -49,11 +49,11 @@ require_once('check_if_indoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="patient-name">Doctor Specialization</label>
-                                        <input type="text" class="form-control" placeholder="Doctor Specialization" id="doctor_specialization" name="doctor_specialization" >
+                                        <input type="text" class="form-control" placeholder="Doctor Specialization" id="doctor_specialization" name="doctor_specialization">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="patient-name">Doctor Degree</label>
-                                        <input type="text" class="form-control" placeholder="Doctor Degree" id="doctor_experience" name="doctor_experience" >
+                                        <input type="text" class="form-control" placeholder="Doctor Degree" id="doctor_experience" name="doctor_experience">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="age">Age</label>
@@ -61,11 +61,11 @@ require_once('check_if_indoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="phone">Phone</label>
-                                        <input type="text" placeholder="Phone" class="form-control" id="doctor_phone" name="doctor_phone" >
+                                        <input type="text" placeholder="Phone" class="form-control" id="doctor_phone" name="doctor_phone">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="doctor_emergency_phone">Emergency Phone</label>
-                                        <input type="text" placeholder="Emergency Phone" class="form-control" id="doctor_emergency_phone" name="doctor_emergency_phone" >
+                                        <input type="text" placeholder="Emergency Phone" class="form-control" id="doctor_emergency_phone" name="doctor_emergency_phone">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="email">Email</label>
@@ -73,7 +73,7 @@ require_once('check_if_indoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="gender">Gender</label>
-                                        <select class="form-control" id="doctor_gender" name="doctor_gender" >
+                                        <select class="form-control" id="doctor_gender" name="doctor_gender">
                                             <option value="">Select Gender</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
@@ -82,7 +82,7 @@ require_once('check_if_indoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="gender">Blood Group</label>
-                                        <select class="form-control" id="doctor_blood_group" name="doctor_blood_group" >
+                                        <select class="form-control" id="doctor_blood_group" name="doctor_blood_group">
                                             <option value="">Select Blood Group</option>
                                             <option value="A+">A+</option>
                                             <option value="B+">B+</option>
@@ -105,7 +105,7 @@ require_once('check_if_indoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="exampleFormControlTextarea1">Address</label>
-                                        <textarea placeholder="Address" class="form-control" id="doctor_address" name="doctor_address" rows="3" ></textarea>
+                                        <textarea placeholder="Address" class="form-control" id="doctor_address" name="doctor_address" rows="3"></textarea>
                                     </div>
 
                                     <div class="form-group col-md-6 mb-3">
