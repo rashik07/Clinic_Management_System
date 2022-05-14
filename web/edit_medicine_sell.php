@@ -89,11 +89,21 @@ from pharmacy_sell_medicine
                             <h3 class="widget-title">Medicine Sell</h3>
                             <form class="form-horizontal form-material mb-0" id="medicine_purchase_update_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
+                                <div class="form-group col-md-5">
+                                        Invoice No: <?php echo $result_content_medicine_sell[0]['pharmacy_sell_invoice_id']; ?><br>
+                                        Patient Name: <?php echo $result_content_medicine_sell[0]['patient_name']; ?><br>
+                                        Gender: <?php echo $result_content_medicine_sell[0]['patient_gender']; ?><br>
+                                        Age: <?php echo $result_content_medicine_sell[0]['patient_age']; ?><br>
+                                        Phone: <?php echo $result_content_medicine_sell[0]['patient_phone']; ?><br>
+
+
+
+                                    </div>
                                     <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                     <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <input type="hidden" name="medicine_sell_id" value="<?php echo $medicine_sell_id; ?>">
                                     <input type="hidden" name="content" value="pharmacy_medicine_sell">
-                                    <div class="form-group col-md-6">
+                                    <!-- <div class="form-group col-md-6">
                                         <label for="indoor_treatment_admission_id">Admission ID.</label>
                                         <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" value="<?php  echo $result_content_medicine_sell[0]['indoor_treatment_admission_id'] ?>" readonly>
                                     </div>
@@ -108,7 +118,7 @@ from pharmacy_sell_medicine
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_sell_patient_name">Patient Name</label>
                                         <input type="text" placeholder="Patient Name" class="form-control" id="pharmacy_sell_patient_name" name="pharmacy_sell_patient_name" value="<?php echo $result_content_medicine_sell[0]['patient_name']; ?>" required readonly>
-                                    </div>
+                                    </div> -->
 
 
                                     <div class="form-group col-md-6">
