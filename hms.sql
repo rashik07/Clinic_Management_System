@@ -125,10 +125,7 @@ CREATE TABLE `patient`
 INSERT INTO `patient` (`patient_id`, `patient_user_added_id`, `patient_name`, `patient_description`, `patient_age`, `patient_email`, `patient_dob`, `patient_gender`, `patient_blood_group`, `patient_phone`, `patient_address`, `patient_status`, `patient_creation_time`, `patient_modification_time`) VALUES
 (1, 2, 'Sadik Ahammed', '', '29', '', '', 'male', '', '01686076067', '', 'active', '2022-04-25 13:14:15', NULL),
 (2, 2, 'Muzahid', '', '29', '', '', 'male', '', '', '', 'active', '2022-04-25 13:17:04', NULL),
-(3, 2, 'Rashik Saif', '', '30', '', '', 'male', 'B+', '01913846060', '', 'active', '2022-04-25 13:18:07', NULL),
-(4, 2, 'Jodu modu', '', '20', '', '', 'male', '', '', '', 'active', '2022-04-25 13:39:45', NULL),
-(5, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:50:37', NULL),
-(6, 2, 'Rahat', '', '28', '', '', 'female', '', '', '', 'active', '2022-04-25 13:51:03', NULL);
+(3, 2, 'Rashik Saif', '', '30', '', '', 'male', 'B+', '01913846060', '', 'active', '2022-04-25 13:18:07', NULL)
 
 -- --------------------------------------------------------
 
@@ -739,7 +736,7 @@ CREATE TABLE `ot_treatment_guest_doctor`
     `ot_treatment_guest_doctor_treatment_id`              int(11) NOT NULL,
     `ot_treatment_guest_doctor_bill`                      varchar(255) DEFAULT NULL,
     `ot_treatment_guest_doctor_note`                      varchar(255) DEFAULT NULL,   --
-    `ot_treatment_guest_doctor_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    `ot_treatment_guest_doctor_creation_time`             DATETIME ON DEFAULT CURRENT_TIMESTAMP,
     `ot_treatment_guest_doctor_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (ot_treatment_guest_doctor_id),
     FOREIGN KEY (ot_treatment_guest_doctor_user_added_id) REFERENCES user (user_id),
