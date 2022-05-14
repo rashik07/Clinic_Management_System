@@ -25,13 +25,13 @@
                             <div class="container px-0">
                                 <div class="row mt-1" style="margin:-24px">
                                     <div class="col-12 col-lg-10 offset-lg-1">
-                                        <div class="row">
-                                            <div class="col-12 d-flex justify-content-between">
-                                                <div>
+                                    <div class="row">
+                                            <div class="col-12  justify-content-center">
+                                                <div class="float-left">
                                                     <img class="center" src="../assets/images/logo.png" style="height: 60px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
                                                 </div>
 
-                                                <div class="float-end text-right text-150">
+                                                <div class=" text-center text-150">
                                                     <p style="font-size: 18px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
                                                     <p style="font-size: 14px; margin:0px; padding:0px;">House #56, Road #03, Dhaka Real State, Kaderabad housing,Mohammadpur, Dhaka-1207</p>
                                                     <p style="font-size: 14px; margin:0px; padding:0px;">For Serial: +88 01844080671 , +88 028101496, +88 01844 080 675, +88 01844 080 676</p>
@@ -81,8 +81,6 @@
                                         $getJson = $conn->prepare($get_content_user);
                                         $getJson->execute();
                                         $result_content_user = $getJson->fetchAll(PDO::FETCH_ASSOC);
-
-
 
                                         ?>
                                         <div class="row">

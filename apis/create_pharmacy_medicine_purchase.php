@@ -77,20 +77,21 @@ class CreatePharmacyMedicinePurchase{
                     $total_price = $pharmacy_purchase_medicine_total_purchase_price[$count_service];
 
                     $get_content = "select * from pharmacy_medicine where pharmacy_medicine_medicine_id='$medicine_id'
-                    and pharmacy_medicine_batch_id='$batch_id' and pharmacy_medicine_exp_date='$exp_date'";
+                    and pharmacy_medicine_batch_id='$batch_id' ";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
                     if(count($result_content) > 0) {
-
-                        $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '$total_pieces'
+                        $pharmacy_medicine_quantity = $result_content[0]['pharmacy_medicine_quantity']+$total_pieces ;
+                        $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '$pharmacy_medicine_quantity'
                    where pharmacy_medicine_medicine_id='$medicine_id' and pharmacy_medicine_batch_id='$batch_id' 
                      and pharmacy_medicine_exp_date='$exp_date'";
 
                         //echo $post_content;
                         $result = $conn->exec($post_content);
                         $pharmacy_medicine_id = $result_content[0]['pharmacy_medicine_id'];
+                        
                     }
                     else{
                         $post_content = "INSERT INTO pharmacy_medicine (pharmacy_medicine_user_added_id,
