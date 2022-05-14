@@ -51,11 +51,24 @@ from medicine
                     $getJson->execute();
                     $result_content_medicine = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+
+
                     $get_content = "select * from medicine_leaf";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_medicine_leaf = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                    $get_content = "select * from medicine left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
+            
+                    left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
+                    left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
+                    ";
+                    //echo $get_content;
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_medicine_list = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
 
                     ?>
                     <div class="col-md-12">
@@ -259,7 +272,7 @@ from medicine
         load_medicine();
     });
 
-    var all_medicine = <?php echo json_encode($result_content_medicine); ?>;
+    var all_medicine = <?php echo json_encode($result_content_medicine_list); ?>;
     var all_pattern = <?php echo json_encode($result_content_medicine_leaf); ?>;
 
     var total_bill = 0;
