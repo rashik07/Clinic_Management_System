@@ -98,7 +98,7 @@ from pharmacy_purchase_medicine
 
                                     </select>
                                 </div>
-                                <datalist id="manufacturer_medicines"></datalist>
+                                <!-- <datalist id="manufacturer_medicines"></datalist> -->
 
                                 <div class="form-group col-md-6">
                                     <label for="pharmacy_purchase_invoice_no">Invoice No<i class="text-danger"> * </i></label>
@@ -110,7 +110,7 @@ from pharmacy_purchase_medicine
                                     <input type="date" placeholder="Purchase Date" class="form-control" id="pharmacy_purchase_date" name="pharmacy_purchase_date"
                                            value="<?php echo $result_content_medicine_purchase[0]['pharmacy_purchase_date']; ?>" required>
                                 </div>
-
+                                <datalist id="manufacturer_medicines"></datalist>
                                 <table id="datatable1" class="table table-bordered table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                     <tr>
@@ -246,6 +246,7 @@ from pharmacy_purchase_medicine
 
 
         });
+        load_medicine();
     });
 
 
@@ -272,10 +273,19 @@ from pharmacy_purchase_medicine
             row.find(".pharmacy_purchase_medicine_total_purchase_price").val("");
             return;
         }
-        var name = $("#manufacturer_medicines option[value=" + val + "]").text();
+        // var name = $("#manufacturer_medicines option[value=" + val + "]").text();
+     
 
-        //alert(val);
-        //alert(name);
+        // //alert(val);
+        // //alert(name);
+        // var obj = $("#manufacturer_medicines").find("option[value='" + val + "']");
+
+        const data_name = $("#manufacturer_medicines option[value=" + val + "]").text();
+        const arr = data_name.split("~");
+        var name = arr[0];
+        var batch_id = arr[1];
+        var medicine_id = arr[2];
+        var pharmacy_medicine_id = val;
         var obj = $("#manufacturer_medicines").find("option[value='" + val + "']");
 
         if(obj != null && obj.length > 0)
@@ -416,7 +426,12 @@ from pharmacy_purchase_medicine
 
 
     }
+    function load_medicine() {
+        for (var i = 0; i < Object.keys(all_medicine).length; i++) {
+            $("#manufacturer_medicines").append('<option value="' + all_medicine[i]['pharmacy_medicine_id'] + '">' + all_medicine[i]['medicine_name'] + '~' + all_medicine[i]['pharmacy_medicine_batch_id'] + '~' + all_medicine[i]['medicine_id'] + '</option>');
+        }
 
+    }
     function initRowTable()
     {
         var list = <?php echo json_encode($result_content_pharmacy_medicine_purchase); ?>;
