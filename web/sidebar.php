@@ -88,7 +88,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             </li>
 
         <?php } ?>
-        <!-- <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patient-treatment" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Admission
@@ -124,7 +124,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
                 </ul>
             </li>
-        <?php } ?> -->
+        <?php } ?>
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 5) { ?>
 
             <!-- <li>
@@ -167,18 +167,10 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             </li>
         <?php } ?> -->
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
-
-            <li>
-                <a href="#nav-maps" data-toggle="collapse" aria-expanded="false">
-                    <span class="ti-location-pin"></span>Pharmacy
+            <li><a href="#nav-Medicine" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-wheelchair"></span> Medicine
                 </a>
-                <ul class="collapse list-unstyled" id="nav-maps">
-                    <!-- <li>
-                        <a href="add_medicine_category.php">Category Entry</a>
-                    </li>
-                    <li>
-                        <a href="medicine_category_list.php">Category List</a>
-                    </li> -->
+                <ul class="list-unstyled collapse" id="nav-Medicine">
                     <li>
                         <a href="add_medicine_unit.php">Unit Entry</a>
                     </li>
@@ -210,24 +202,50 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="medicine_list.php">Medicine List</a>
                     </li>
-                    <li>
-                        <a href="add_medicine_purchase.php">Medicine Purchase Entry</a>
+
+
+                </ul>
+            </li>
+
+            <li>
+                <a href="#nav-maps" data-toggle="collapse" aria-expanded="false">
+                    <span class="ti-location-pin"></span>Pharmacy
+                </a>
+                <ul class="collapse list-unstyled" id="nav-maps">
+                    <!-- <li>
+                        <a href="add_medicine_category.php">Category Entry</a>
                     </li>
                     <li>
-                        <a href="medicine_purchase_list.php">Medicine Purchase List</a>
+                        <a href="medicine_category_list.php">Category List</a>
+                    </li> -->
+                    <li>
+                        <a href="stock.php"> Stock</a>
                     </li>
                     <li>
-                        <a href="add_medicine_sell.php">Medicine Sell Entry</a>
+                        <a href="stock_alert.php">Stock Alert</a>
                     </li>
                     <li>
-                        <a href="medicine_sell_list.php">Medicine Sell List</a>
+                        <a href="stock_experied.php">Expired Medicine</a>
+                    </li>
+
+                    <li>
+                        <a href="add_medicine_purchase.php"> Purchase Entry</a>
+                    </li>
+                    <li>
+                        <a href="medicine_purchase_list.php"> Purchase List</a>
+                    </li>
+                    <li>
+                        <a href="add_medicine_sell.php"> Sell Entry</a>
+                    </li>
+                    <li>
+                        <a href="medicine_sell_list.php"> Sell List</a>
                     </li>
                     <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
                         <li>
-                            <a href="report_pharmacy_sell.php">Pharmacy Sell Report</a>
+                            <a href="report_pharmacy_sell.php"> Sell Report</a>
                         </li>
                         <li>
-                            <a href="report_pharmacy_purchase.php">Pharmacy Purchase Report</a>
+                            <a href="report_pharmacy_purchase.php"> Purchase Report</a>
                         </li>
                     <?php } ?>
                 </ul>
