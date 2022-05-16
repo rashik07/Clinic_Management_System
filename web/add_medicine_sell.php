@@ -291,9 +291,11 @@ from medicine
                     var obj = JSON.parse(data);
                     alert(obj.message);
                     //alert(obj.status);
+                    console.log(obj);
                     if (obj.status) {
                         //location.reload();
-                        window.open("medicine_sell_list.php", "_self");
+                        // window.open("medicine_sell_list.php", "_self");
+                        window.open("medicine_sell_invoice.php?medicine_sell_id=" + obj.pharmacy_sell_id, "_self");
 
                     }
                 },
