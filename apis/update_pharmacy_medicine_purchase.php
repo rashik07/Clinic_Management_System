@@ -30,7 +30,7 @@ class UpdatePharamacyMedicinePurchase
                 $pharmacy_purchase_manufacturer_id  = if_empty($_POST['pharmacy_purchase_manufacturer_id']);
                 $pharmacy_purchase_invoice_no  = if_empty($_POST['pharmacy_purchase_invoice_no']);
                 $pharmacy_purchase_date  = if_empty($_POST['pharmacy_purchase_date']);
-
+           
                 $pharmacy_purchase_sub_total  = if_empty($_POST['pharmacy_purchase_sub_total']);
                 $pharmacy_purchase_vat   = if_empty($_POST['pharmacy_purchase_vat']);
                 $pharmacy_purchase_discount  = if_empty($_POST['pharmacy_purchase_discount']);
@@ -105,7 +105,7 @@ where pharmacy_purchase_id='$pharmacy_purchase_id'";
 // echo $pharmacy_purchase_medicine_total_pieces;
                     if (count($result_content) > 0) {
 
-                        $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '$pharmacy_purchase_medicine_total_pieces'
+                        $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '$pharmacy_purchase_medicine_total_pieces',pharmacy_medicine_exp_date = '$exp_date'
                    where pharmacy_medicine_medicine_id='$medicine_id' and pharmacy_medicine_batch_id='$batch_id' 
                      ";
 
