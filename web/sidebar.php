@@ -222,9 +222,11 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                         <a href="stock.php"> Stock</a>
                     </li>
                     <li>
-                        <a href="stock_alert.php">Expired Medicine</a>
+                        <a href="stock_alert.php">Stock Alert</a>
                     </li>
-
+                    <li>
+                        <a href="stock_experied.php">Expired Medicine</a>
+                    </li>
 
                     <li>
                         <a href="add_medicine_purchase.php"> Purchase Entry</a>
