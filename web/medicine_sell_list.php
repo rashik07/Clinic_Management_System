@@ -37,6 +37,7 @@ require_once('check_if_pharmacy_manager.php');
                         <th>Total</th>
                         <th>Due</th>
                         <th>Action</th>
+                        <th>Collection</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,6 +67,7 @@ require_once('check_if_pharmacy_manager.php');
                         echo '<td>'.$data['pharmacy_sell_due_amount'].'</td>';
 
                         echo '<td><a href="edit_medicine_sell.php?medicine_sell_id='.$data['pharmacy_sell_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                        echo '<td><a href="edit_medicine_sell_due_collection.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '">Collection</a></td>';
                         echo '</tr>';
                         $count = $count+1;
                     }
