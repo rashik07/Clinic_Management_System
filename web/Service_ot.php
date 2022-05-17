@@ -504,8 +504,10 @@ if (isset($_GET['patient_id'])) {
                         if (datas.hasOwnProperty(key)) {
                             document.getElementById("outdoor_treatment_patient_id").value = datas[key].patient_id;
                             document.getElementById("patient_name").value = datas[key].patient_name;
-                            document.getElementById("outdoor_patient_phone").value = datas[key].patient_phone;
+                            document.getElementById("patient_phone").value = datas[key].patient_phone;
+                            document.getElementById("patient_age").value = datas[key].patient_age;
                             document.getElementById("outdoor_treatment_indoor_treatment_id").value = datas[key].indoor_treatment_id;
+                            document.getElementById("patient_gender").value = datas[key].patient_gender;
                         }
                     }
                 }
