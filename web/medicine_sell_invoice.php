@@ -278,7 +278,7 @@ from pharmacy_sell_medicine
                                             </br>
                                             </br>
                                             <div class="row">
-                                                <div class="col-sm-6" style="float:left;">
+                                                <div class="col-sm-4" style="float:left;">
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle">-------------------------------------------</span>
                                                     </div>
@@ -290,7 +290,7 @@ from pharmacy_sell_medicine
                                                 </div>
                                                 <!-- /.col -->
 
-                                                <div class="col-sm-4 offset-sm-2" style="float:right;">
+                                                <div class="col-sm-4 " style="float:right;">
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle" style="text-align:right;">-------------------------------------------</span>
                                                     </div>

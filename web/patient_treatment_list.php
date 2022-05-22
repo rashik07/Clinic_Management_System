@@ -44,6 +44,11 @@ require_once('check_if_outdoor_manager.php');
                                             ?>
                                             <th>Collection</th>
                                             <th>Invoice</th>
+                                            <?php if ($_SESSION['user_type_access_level'] <= 2) {
+                                                echo "<th>Delete</th>";
+                                            }
+
+                                            ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -64,7 +69,7 @@ require_once('check_if_outdoor_manager.php');
                                         foreach ($result_content as $data) {
                                             echo '<tr>';
                                             echo '<td>' . $count . '</td>';
-                                            echo '<td>' . $data['outdoor_treatment_invoice_id'] . '</td>';
+                                            echo '<td>' . $data['outdoor_treatment_id'] . '</td>';
                                             echo '<td>' . $data['patient_name'] . '</td>';
 
                                             $treatment_id = $data['outdoor_treatment_id'];
@@ -94,9 +99,12 @@ require_once('check_if_outdoor_manager.php');
                                             } else {
                                                 echo '<td> - </td>';
                                             }
-
+                                          
                                             echo '<td><a href="doctor_visit_invoice.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '"><i class="ti ti-save" style="font-size:24px"></i></a></td>';
-
+                                            if ($_SESSION['user_type_access_level'] <= 2) {
+                                            echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data('.$treatment_id.');">Delete</button></td>';
+                                            }
+                                           
                                             $count = $count + 1;
                                         }
                                         ?>
@@ -114,6 +122,47 @@ require_once('check_if_outdoor_manager.php');
             ?>
 </body>
 <script>
+     var spinner = $('#loader');
+
+    function delete_data(treatment_id) {
+        // var data_id = <?php echo $treatment_id; ?>;
+      
+        if (confirm('Are you sure you want to Delete This Content?')) {
+            // yes
+            spinner.show();
+            $.ajax({
+                type: 'POST',
+                url: '../apis/delete_treatment_list.php',
+                cache: false,
+                //dataType: "json", // and this
+                data: {
+                    request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                    token: "<?php echo $_SESSION['token']; ?>",
+                    treatment_id: treatment_id,
+                    content: "outdoor_treatment"
+                },
+                success: function(response) {
+                    //alert(response);
+                    spinner.hide();
+                    var obj = JSON.parse(response);
+                    alert(obj.message);
+                    //alert(obj.status);
+                    if (obj.status) {
+                        //location.reload();
+                        window.open("patient_treatment_list.php", "_self");
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    spinner.hide();
+                    alert("alert : " + errorThrown);
+                }
+            });
+        } else {
+            // Do nothing!
+            console.log('Said No');
+        }
+    }
+
     $('#datatable1').dataTable({
         dom: 'Bfrtip',
         buttons: [

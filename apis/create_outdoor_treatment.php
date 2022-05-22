@@ -51,7 +51,7 @@ class CreatePatientOutdoorTreatment
                 $outdoor_service_id = $_POST['outdoor_service_id'];
                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
                 $outdoor_treatment_service_discount_pc = $_POST['outdoor_treatment_service_discount_pc'];
-                $outdoor_service_rate  = $_POST['outdoor_service_rate'];
+                $outdoor_service_rate  = if_empty($_POST['outdoor_service_rate']);
                 $outdoor_service_total  = $_POST['outdoor_service_total'];
 
 
@@ -71,7 +71,9 @@ class CreatePatientOutdoorTreatment
                     '$patient_age', 
                     '$patient_gender', 
                     '$patient_phone', 
-                    '$outdoor_treatment_consultant','$outdoor_treatment_reference','$outdoor_treatment_total_bill',
+                    '$outdoor_treatment_consultant',
+                    '$outdoor_treatment_reference',
+                    '$outdoor_treatment_total_bill',
                             '$outdoor_treatment_total_bill_after_discount', '$outdoor_treatment_discount_pc','$outdoor_treatment_exemption',
                             '$outdoor_treatment_total_paid', '$outdoor_treatment_total_due', '$outdoor_treatment_payment_type',
                             '$outdoor_treatment_payment_type_no','$outdoor_treatment_note')";

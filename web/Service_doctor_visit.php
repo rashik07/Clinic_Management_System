@@ -121,12 +121,14 @@ if (isset($_GET['patient_id'])) {
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="outdoor_treatment_consultant">Consultant Name</label><i class="text-danger"> * </i>
-                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." required>
+                                                <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service..." onchange="changeData(this);" required>
                                                     <option value="">Select Doctor...</option>
                                                     <?php
                                                     foreach ($result_content_doctor as $data) {
-                                                        echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
+                                                        echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'].$data['doctor_visit_fee'] . '</option>';
+                                                        $doctor_fee=$data['doctor_visit_fee'];
                                                     }
+                                                    
                                                     ?>
 
                                                 </select>
@@ -149,8 +151,8 @@ if (isset($_GET['patient_id'])) {
                                             <th>Rate</th>
                                             <th>Discount</th>
                                             <th>Total</th>
-                                            <th>Add</th>
-                                            <th>Delete</th>
+                                            <!-- <th>Add</th>
+                                            <th>Delete</th> -->
                                         </tr>
                                     </thead>
                                     <tbody id="datatable1_body">
@@ -173,6 +175,7 @@ if (isset($_GET['patient_id'])) {
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control outdoor_service_rate" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate[]" readonly required>
+                                            
 
                                             </td>
                                             <td>
@@ -181,12 +184,12 @@ if (isset($_GET['patient_id'])) {
                                             <td>
                                                 <input type="number" class="form-control outdoor_service_total" placeholder="Service Total" id="outdoor_service_total" name="outdoor_service_total[]" readonly required>
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 <button type="button" class="btn btn-success pull-right" onclick="AddRowQ19();">Add Row</button>
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btn-success pull-right" onclick="DeleteRow(this);">Delete Row</button>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                     </tbody>
                                 </table>
@@ -224,7 +227,8 @@ if (isset($_GET['patient_id'])) {
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3"><label for="discharge-date">Paid<i class="text-danger"> * </i></label></div>
-                                                <div class="col-md-9"><input type="number" placeholder="Total Paid" class="form-control" onchange="update_payment();" id="outdoor_treatment_total_paid" name="outdoor_treatment_total_paid" required>
+                                                <div class="col-md-9">
+                                                    <input type="number" placeholder="Total Paid" class="form-control" onchange="update_payment();" id="outdoor_treatment_total_paid" name="outdoor_treatment_total_paid" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -506,7 +510,9 @@ if (isset($_GET['patient_id'])) {
                         }
                     }
                 }
-
+                if (document.getElementById("outdoor_treatment_indoor_treatment_id").value) {
+                    document.getElementById("outdoor_treatment_total_paid").disabled = true;
+                }
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -519,15 +525,20 @@ if (isset($_GET['patient_id'])) {
 
     var all_service = <?php echo json_encode($result_content_outdoor_service); ?>;
     var total_bill = 0;
-
+    var doctor_fee = <?php echo json_encode($result_content_doctor); ?>;
+    console.log(doctor_fee);
     function changeData(instance) {
         var row = $(instance).closest("tr");
         var outdoor_service_id = parseFloat(row.find(".outdoor_service_id").val());
-
-        for (var i = 0; i < Object.keys(all_service).length; i++) {
-            if (all_service[i]['outdoor_service_id'] == outdoor_service_id) {
-                row.find(".outdoor_service_rate").val(isNaN(parseInt(all_service[i]['outdoor_service_rate'])) ? 0 : all_service[i]['outdoor_service_rate']);
-            }
+        // var outdoor_treatment_consultant = parseFloat(row.find(".outdoor_treatment_consultant").val());
+        var outdoor_treatment_consultant =document.getElementById("outdoor_treatment_consultant").value;
+// console.log(outdoor_treatment_consultant);
+        for (var i = 0; i < Object.keys(doctor_fee).length; i++) {
+            if (doctor_fee[i]['doctor_id'] == outdoor_treatment_consultant) {
+                console.log(doctor_fee[i]['doctor_visit_fee']);  
+                // row.find(".outdoor_service_rate").val(isNaN(parseInt(doctor_fee[i]['doctor_visit_fee'])) ? 0 : doctor_fee[i]['doctor_visit_fee']);
+                document.getElementById("outdoor_service_rate").value=doctor_fee[i]['doctor_visit_fee'];
+            } 
         }
         var outdoor_service_rate = parseFloat(row.find(".outdoor_service_rate").val());
         var outdoor_service_quantity = parseFloat(row.find(".outdoor_service_quantity").val());
@@ -553,6 +564,8 @@ if (isset($_GET['patient_id'])) {
 
 
     function update_payment() {
+
+
         var total_paid = document.getElementById("outdoor_treatment_total_paid").value;
         total_paid = isNaN(parseInt(total_paid)) ? 0 : total_paid;
 
