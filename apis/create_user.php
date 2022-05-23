@@ -26,7 +26,7 @@ class CreateUser{
         $user_type_id  = $_POST['user_type_id'];
 
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,1);
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1]);
 
         if($check_token && $check_permission)
         {

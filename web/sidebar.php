@@ -30,21 +30,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </ul>
             </li>
 
-            <li>
-                <a href="#nav-doctors" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-user"></span> Doctors
-                </a>
-                <ul class="list-unstyled collapse" id="nav-doctors">
-                    <li>
-                        <a href="add_doctor.php">Add Doctor</a>
-                    </li>
-                    <li>
-                        <a href="doctors_list.php">All Doctors</a>
-                    </li>
-                </ul>
-            </li>
+         
 
-            <li>
+            <!-- <li>
                 <a href="#nav-services" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Services
                 </a>
@@ -58,7 +46,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
 
                 </ul>
-            </li>
+            </li> -->
             <li>
                 <a href="#nav-bills" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Billing
@@ -86,9 +74,6 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
                 </ul>
             </li>
-
-        <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patient-treatment" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Admission
@@ -103,7 +88,6 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     </li>
                 </ul>
             </li>
-
             <li>
                 <a href="#nav-bed" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-home"></span> Bed Management
@@ -124,6 +108,40 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
                 </ul>
             </li>
+
+        <?php } ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3) { ?>
+            <li>
+                <a href="#nav-doctors" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-user"></span> Doctors
+                </a>
+                <ul class="list-unstyled collapse" id="nav-doctors">
+                    <li>
+                        <a href="add_doctor.php">Add Doctor</a>
+                    </li>
+                    <li>
+                        <a href="doctors_list.php">All Doctors</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#nav-services" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-wheelchair"></span> Services
+                </a>
+                <ul class="list-unstyled collapse" id="nav-services">
+                    <li>
+                        <a href="add_service.php">Add Service</a>
+                    </li>
+                    <li>
+                        <a href="service_list.php">All Service</a>
+                    </li>
+
+
+                </ul>
+            </li>
+            </li>
+
+
         <?php } ?>
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 5) { ?>
 

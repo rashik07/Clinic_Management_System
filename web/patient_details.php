@@ -145,7 +145,9 @@ require_once('check_if_outdoor_manager.php');
 
 
                             <a type="button" class="btn btn-success mb-3" href="edit_patient.php?patient_id=<?php echo $result_content_patient[0]['patient_id']; ?>"><span class="ti-pencil-alt"></span> Edit Patient</a>
+                            <?php if ($_SESSION['user_type_access_level'] <= 2) { ?>
                             <button type="button" class="btn btn-danger mb-3" onclick="delete_data();">Delete</button>
+                            <?php } ?>
                             <!--<a type="button" class="btn btn-danger mb-3"><span class="ti-trash"></span> Delete Patient</a>-->
                         </div>
                     </div>

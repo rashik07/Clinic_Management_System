@@ -1,6 +1,8 @@
 <?php
 // need to enable on production
 require_once('check_if_indoor_manager.php');
+
+
 ?>
 <?php include 'header.php'
 ?>

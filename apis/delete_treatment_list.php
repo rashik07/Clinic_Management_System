@@ -17,7 +17,7 @@ class DeleteOutdoorService{
         $token   = $_POST['token'];
         $outdoor_service_id  = $_POST['treatment_id'];
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,3);
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2,3]);
         // DELETE T1, T2
         // FROM T1
         // INNER JOIN T2 ON T1.key = T2.key

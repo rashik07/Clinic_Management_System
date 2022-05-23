@@ -12,7 +12,7 @@ if (!isset($_SESSION['loggedIn']))   // Checking whether the session is already 
     exit();
     /* Redirect browser */
 } else {
-    if ($_SESSION['loggedIn'] == false && $_SESSION['user_Status'] == "Not Active" && $_SESSION['user_type_access_level'] > 3) {
+    if ($_SESSION['loggedIn'] == false && $_SESSION['user_Status'] == "Not Active" && $_SESSION['user_type_access_level'] > 3 ) {
         //echo $_SESSION['loggedIn'] . " ".$_SESSION['user_Status']. " ". $_SESSION['user_type_access_level'];
         echo '<script type="text/javascript"> window.open("login.php","_self");</script>';            //  On Successful Login redirects to home.php
         exit();

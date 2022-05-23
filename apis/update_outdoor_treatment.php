@@ -21,7 +21,7 @@ class UpdatePatientOutdoorTreatment
         $token  = $_POST['token'];
 
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
-        $check_permission = $token_generator->check_permission($request_user_id, $conn, 1) || $token_generator->check_permission($request_user_id, $conn, 2);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1,2,3,4]) || $token_generator->check_permission($request_user_id, $conn, [1,2,3,4]);
 
         if ($check_token && $check_permission) {
             try {
