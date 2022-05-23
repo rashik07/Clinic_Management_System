@@ -29,10 +29,22 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     </li>
                 </ul>
             </li>
-
-         
-
-            <!-- <li>
+        <?php } ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3) { ?>
+            <li>
+                <a href="#nav-doctors" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-user"></span> Doctors
+                </a>
+                <ul class="list-unstyled collapse" id="nav-doctors">
+                    <li>
+                        <a href="add_doctor.php">Add Doctor</a>
+                    </li>
+                    <li>
+                        <a href="doctors_list.php">All Doctors</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
                 <a href="#nav-services" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Services
                 </a>
@@ -46,7 +58,13 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
 
                 </ul>
-            </li> -->
+            </li>
+            </li>
+
+
+        <?php } ?>
+
+        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-bills" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Billing
@@ -110,80 +128,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             </li>
 
         <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3) { ?>
-            <li>
-                <a href="#nav-doctors" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-user"></span> Doctors
-                </a>
-                <ul class="list-unstyled collapse" id="nav-doctors">
-                    <li>
-                        <a href="add_doctor.php">Add Doctor</a>
-                    </li>
-                    <li>
-                        <a href="doctors_list.php">All Doctors</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#nav-services" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-wheelchair"></span> Services
-                </a>
-                <ul class="list-unstyled collapse" id="nav-services">
-                    <li>
-                        <a href="add_service.php">Add Service</a>
-                    </li>
-                    <li>
-                        <a href="service_list.php">All Service</a>
-                    </li>
 
-
-                </ul>
-            </li>
-            </li>
-
-
-        <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 5) { ?>
-
-            <!-- <li>
-                <a href="#nav-appointment" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-pencil-alt"></span> Investigation/Test
-                </a>
-                <ul class="list-unstyled collapse" id="nav-appointment">
-                    <li>
-                        <a href="add_pathology_test.php">Add Test</a>
-                    </li>
-                    <li>
-                        <a href="pathology_test_list.php">All Test</a>
-                    </li>
-                    <li>
-                        <a href="add_pathology_investigation.php">Investigation</a>
-                    </li>
-                    <li>
-                        <a href="pathology_investigation_list.php">All Investigation</a>
-                    </li>
-                </ul>
-            </li> -->
-        <?php } ?>
-        <!-- <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 7) { ?>
-
-            <li class="nav-level-one">
-                <a href="#nav-uiKit" data-toggle="collapse" aria-expanded="false">
-                    <span class="ti-layout-tab"></span> OT Management
-                </a>
-                <ul class="list-unstyled collapse" aria-expanded="true" id="nav-uiKit">
-
-                    <li>
-                        <a href="add_ot_treatment.php">OT Treatment</a>
-                    </li>
-                    <li>
-                        <a href="ot_treatment_list.php">OT Treatment List</a>
-                    </li>
-
-
-                </ul>
-            </li>
-        <?php } ?> -->
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
             <li><a href="#nav-Medicine" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-wheelchair"></span> Medicine

@@ -1,6 +1,6 @@
 <?php
 // need to enable on production
-require_once('check_if_indoor_manager.php');
+require_once('check_if_outdoor_manager.php');
 ?>
 <?php include 'header.php'
 ?>
@@ -45,10 +45,13 @@ require_once('check_if_indoor_manager.php');
                             <h4 class="card-title"><?php echo $result_content_doctor[0]['doctor_name']; ?></h4>
                             <p class="card-text"><?php echo $result_content_doctor[0]['doctor_description']; ?></p>
 
-
+                            <?php if ($_SESSION['user_type_access_level'] <= 2 ) { ?>
                             <a type="button" class="btn btn-success mb-3" href="edit_doctor.php?doctor_id=<?php echo $result_content_doctor[0]['doctor_id']; ?>"><span class="ti-pencil-alt"></span> Edit Doctor</a>
+                            <?php } ?>
                             <a type="button" class="btn btn-success mb-3" href="../<?php echo $result_content_doctor[0]['document_url']; ?>"><span class="ti-pencil-alt"></span> View Document</a>
+                            <?php if ($_SESSION['user_type_access_level'] <= 2 ) { ?>
                             <button type="button" class="btn btn-danger btn-lg" onclick="delete_data();">Delete</button>
+                            <?php } ?>
 
                             <!--<a type="button" class="btn btn-danger mb-3"><span class="ti-trash"></span> Delete Patient</a>-->
 

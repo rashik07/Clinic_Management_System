@@ -93,7 +93,9 @@ require_once('check_if_outdoor_manager.php');
 
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                        <?php if ($_SESSION['user_type_access_level'] <= 2 ) { ?>
                                         <button type="button" class="btn btn-danger btn-lg" onclick="delete_data();">Delete</button>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </form>
