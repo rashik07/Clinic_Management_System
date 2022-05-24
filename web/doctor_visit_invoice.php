@@ -25,13 +25,13 @@
                             <div class="container px-0">
                                 <div class="row mt-1" style="margin:-24px">
                                     <div class="col-12 col-lg-10 offset-lg-1">
-                                    <div class="row">
+                                        <div class="row">
                                             <div class="col-12  justify-content-center">
                                                 <div class="float-left">
                                                     <img class="center" src="../assets/images/logo.png" style="height: 60px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
                                                 </div>
 
-                                                <div class=" text-center text-150">
+                                                <div class=" text-center text-600">
                                                     <p style="font-size: 18px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
                                                     <p style="font-size: 14px; margin:0px; padding:0px;">House #56, Road #03, Dhaka Real State, Kaderabad housing,Mohammadpur, Dhaka-1207</p>
                                                     <p style="font-size: 14px; margin:0px; padding:0px;">For Serial: +88 01844080671 , +88 028101496, +88 01844 080 675, +88 01844 080 676</p>
@@ -54,7 +54,9 @@
 
 
 
-                                        $get_content_user = "select * from outdoor_treatment  left join patient p on p.patient_id = outdoor_treatment.outdoor_treatment_patient_id left join outdoor_treatment_service ots on ots.outdoor_treatment_service_treatment_id = outdoor_treatment.outdoor_treatment_id left join outdoor_service os on os.outdoor_service_id = ots.outdoor_treatment_service_service_id  where outdoor_treatment_id = '$treatment_id'";
+                                        $get_content_user = "select * from outdoor_treatment  left join patient p on p.patient_id = outdoor_treatment.outdoor_treatment_patient_id left join outdoor_treatment_service ots on ots.outdoor_treatment_service_treatment_id = outdoor_treatment.outdoor_treatment_id left join outdoor_service os on os.outdoor_service_id = ots.outdoor_treatment_service_service_id  
+                                        left join indoor_treatment  on outdoor_treatment.outdoor_treatment_indoor_treatment_id = indoor_treatment.indoor_treatment_id
+                                        where outdoor_treatment_id = '$treatment_id'";
                                         // echo $get_content;
                                         $getJson = $conn->prepare($get_content_user);
                                         $getJson->execute();
@@ -86,11 +88,24 @@
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div>
-                                                    <span class="text-sm text-grey-m2 align-middle">Invoice No:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo  $invoice_no ?></span>
+                                                    <span class="text-600 text-grey-m2 align-middle">Invoice No:</span>
+                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo  $treatment_id ?></span>
                                                 </div>
                                                 <div>
-                                                    <span class="text-sm text-grey-m2 align-middle">Patient Id:</span>
+                                                    <?php
+                                                    if ($result_content_outdoor_treatment[0]['outdoor_treatment_indoor_treatment_id'] > 0) {
+                                                        echo   '   <span class="text-600 text-grey-m2 align-middle">Admission Id:</span>
+                                                        <span class="text-600 text-110 text-blue align-middle">'
+
+                                                            . $result_content_outdoor_treatment[0]["indoor_treatment_admission_id"] . '
+                                                            </span>';
+                                                    }
+
+                                                    ?>
+
+                                                </div>
+                                                <div>
+                                                    <span class="text-600 text-grey-m2 align-middle">Patient Id:</span>
                                                     <span class="text-600 text-110 text-blue align-middle">
                                                         <?php
                                                         echo $patient_id;
@@ -98,18 +113,18 @@
                                                 </div>
 
                                                 <div>
-                                                    <span class="text-sm text-grey-m2 align-middle">Patient Name:</span>
+                                                    <span class="text-600 text-grey-m2 align-middle">Patient Name:</span>
                                                     <span class="text-600 text-110 text-blue align-middle">
                                                         <?php
                                                         echo $patient_name;
                                                         ?></span>
                                                 </div>
                                                 <div>
-                                                    <span class="text-sm text-grey-m2 align-middle">Gender:</span>
+                                                    <span class="text-600 text-grey-m2 align-middle">Gender:</span>
                                                     <span class="text-600 text-110 text-blue align-middle"><?php echo $result_content_outdoor_treatment[0]['patient_gender']; ?></span>
                                                 </div>
                                                 <div>
-                                                    <span class="text-sm text-grey-m2 align-middle">Consultant:</span>
+                                                    <span class="text-600 text-grey-m2 align-middle">Consultant:</span>
                                                     <span class="text-600 text-110 text-blue align-middle"><?php echo $doctor_name ?></span>(
                                                     <span class="text-300 text-110  align-middle"><?php echo $doctor_experience ?></span>)
 
@@ -121,7 +136,7 @@
                                             </div>
                                             <!-- /.col -->
 
-                                            <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
+                                            <div class="text-600 col-sm-6 align-self-start d-sm-flex justify-content-end">
                                                 <hr class="d-sm-none" />
                                                 <div class="text-grey-m2">
 
@@ -149,7 +164,7 @@
                                                 <div class="d-none d-sm-block col-sm-2">Quantity</div>
                                                 <div class="col-2 text-right">Amount(TK)</div>
                                             </div>
-                                            <div class="text-95 text-secondary-d3">
+                                            <div class="text-600 text-secondary-d3">
                                                 <?php
 
 
@@ -166,7 +181,7 @@
 
                                                     echo '<div class="row mb-2 mb-sm-0 py-20">
                                                     <div class="d-none d-sm-block col-1">' . ($count_service + 1) . '</div>
-                                                    <div class="col-9 col-sm-5">' . $result_content_outdoor_treatment[$i]['outdoor_service_name'].-$result_content_outdoor_treatment[$i]['outdoor_service_room_no'] . '</div>
+                                                    <div class="col-9 col-sm-5">' . $result_content_outdoor_treatment[$i]['outdoor_service_name'] . -$result_content_outdoor_treatment[$i]['outdoor_service_room_no'] . '</div>
                                                     <div class="d-none d-sm-block col-2">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_rate'] . ' Tk</div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_quantity'] . '</div>
                                                     <div class="col-2 text-secondary-d2 text-right">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_total'] . ' </div>
@@ -187,7 +202,7 @@
 
                                                 </div>
 
-                                                <div class="col-12 col-sm-5 text-grey text-90 order-first order-sm-last ">
+                                                <div class="col-12 col-sm-5 text-grey text-600 order-first order-sm-last ">
                                                     <div class="row my-1">
                                                         <div class="col-7 text-right">
                                                             SubTotal
@@ -202,7 +217,7 @@
                                                         if ($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'][strlen($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc']) - 1] != '%') {
                                                             echo  '<div class="row my-1">
                                                             <div class="col-7 text-right">
-                                                                Discount (  ' . $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] . ' )
+                                                                Discount 
                                                             </div>
                                                         <div class="col-5 text-right">
                                                             <span class="text-110 text-secondary-d1 ">'
@@ -214,7 +229,7 @@
                                                         } else {
                                                             echo  '<div class="row my-1">
                                                             <div class="col-7 text-right">
-                                                                Discount (  ' . $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'] . ' )
+                                                                Discount 
                                                             </div>
                                                         <div class="col-5 text-right">
                                                             <span class="text-110 text-secondary-d1 ">'
@@ -276,23 +291,23 @@
                                             </br>
 
                                             <div class="row">
-                                                <div class="col-sm-6" style="float:left;">
+                                                <div class="col-sm-4" style="float:left;">
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle">-------------------------------------------</span>
                                                     </div>
                                                     <div>
-                                                        <span class="text-sm text-grey-m2 align-middle">Customer Signature</span>
+                                                        <span class="text-600 text-grey-m2 align-middle">Customer Signature</span>
                                                     </div>
 
                                                 </div>
                                                 <!-- /.col -->
 
-                                                <div class="col-sm-4 offset-sm-2" style="float:right;">
+                                                <div class="col-sm-4 " style="float:right;">
                                                     <div>
                                                         <span class="text-sm text-grey-m2 align-middle" style="text-align:right;">-------------------------------------------</span>
                                                     </div>
                                                     <div>
-                                                        <span class="text-sm text-grey-m2 align-middle">Authority Signature</span>
+                                                        <span class="text-600 text-grey-m2 align-middle">Authority Signature</span>
                                                     </div>
                                                     <!-- <div>
                                                         <span class="text-sm text-grey-m2 align-middle">Date:</span>
@@ -304,11 +319,11 @@
 
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <span class="text-secondary-d1 text-105">Thank you for your business</span>
+                                                    <span class="text-secondary-d1 text-600">Thank you for your business</span>
                                                 </div>
 
                                                 <div>
-                                                    <span class="text-sm text-black-m2 align-middle">Prepared By: <?php echo $result_content_user[0]['username']; ?></span>
+                                                    <span class="text-600 text-black-m2 align-middle">Prepared By: <?php echo $result_content_user[0]['username']; ?></span>
 
                                                 </div>
                                             </div>
@@ -326,8 +341,8 @@
 
                 <div class="page-tools">
                     <div class="action-buttons">
-                        <button class="btn bg-white btn-light mx-1px text-95" onclick="print_div();">
-                            <i class="mr-1 fa fa-print text-primary-m1 text-120 w-2"></i>
+                        <button class="btn btn-primary mx-1px text-95" onclick="print_div();">
+                            <i class="mr-1 fa fa-print text-white-m1 text-120 w-2"></i>
                             Print
                         </button>
                     </div>

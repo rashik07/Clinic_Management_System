@@ -33,7 +33,9 @@ require_once('check_if_outdoor_manager.php');
                         <th>Service Name</th>
                         <th>Service Category</th>
                         <th>Rate</th>
+                        <?php if ($_SESSION['user_type_access_level'] <= 2 ) { ?>
                         <th>Action</th>
+                        <?php } ?>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,7 +58,9 @@ require_once('check_if_outdoor_manager.php');
                         echo '<td>'.$data['outdoor_service_name'].'</td>';
                         echo '<td>'.$data['outdoor_service_Category'].'</td>';
                         echo '<td>'.$data['outdoor_service_rate'].'</td>';
+                        if ($_SESSION['user_type_access_level'] <= 2 ) { 
                         echo '<td><a href="edit_service.php?outdoor_service_id='.$data['outdoor_service_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                        }
                         echo '</tr>';
                         $count = $count+1;
                     }

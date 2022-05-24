@@ -81,7 +81,7 @@ from pharmacy_sell_medicine
                     $getJson->execute();
                     $result_content_medicine_leaf = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                
+
 
                     ?>
                     <div class="col-md-12">
@@ -89,7 +89,7 @@ from pharmacy_sell_medicine
                             <h3 class="widget-title">Medicine Sell</h3>
                             <form class="form-horizontal form-material mb-0" id="medicine_purchase_update_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
-                                <div class="form-group col-md-5">
+                                    <div class="form-group col-md-5">
                                         Invoice No: <?php echo $result_content_medicine_sell[0]['pharmacy_sell_invoice_id']; ?><br>
                                         Patient Name: <?php echo $result_content_medicine_sell[0]['patient_name']; ?><br>
                                         Gender: <?php echo $result_content_medicine_sell[0]['patient_gender']; ?><br>
@@ -105,7 +105,7 @@ from pharmacy_sell_medicine
                                     <input type="hidden" name="content" value="pharmacy_medicine_sell">
                                     <!-- <div class="form-group col-md-6">
                                         <label for="indoor_treatment_admission_id">Admission ID.</label>
-                                        <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" value="<?php  echo $result_content_medicine_sell[0]['indoor_treatment_admission_id'] ?>" readonly>
+                                        <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" value="<?php echo $result_content_medicine_sell[0]['indoor_treatment_admission_id'] ?>" readonly>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_sell_patient_phone">Patient Phone</label>
@@ -189,16 +189,17 @@ from pharmacy_sell_medicine
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_selling_due_amount" class="text-right form-control" name="pharmacy_selling_due_amount" placeholder="0.00" value="<?php echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount']; ?>" readonly="readonly">
                                                 </td>
-                                            
+
                                             </tr>
                                             <tr>
-                                                    
-                                            <td class="text-right" colspan="6">
-                                              <label for="discharge-date">Due collection<i class="text-danger"> * </i></label></td>
-                                              <td>
-                                               <input type="number" min=1 max=<?php echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount']; ?> placeholder="Due" class="form-control" onchange="update_payment_due();" id="pharmacy_sell_due_amount" name="pharmacy_sell_due_amount" required>
-                                             
-                                          
+
+                                                <td class="text-right" colspan="6">
+                                                    <label for="discharge-date">Due collection<i class="text-danger"> * </i></label>
+                                                </td>
+                                                <td>
+                                                    <input type="number" min=1 max="<?php echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount']; ?>" placeholder="Due" class="form-control" onchange="update_payment_due();" id="due_collection_amount" name="due_collection_amount" required>
+
+
                                                 </td>
                                             </tr>
 
@@ -210,9 +211,9 @@ from pharmacy_sell_medicine
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                                         <!-- <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button> -->
-                                   <?php  
-                                     echo '<a class="btn btn-primary btn-lg" href="medicine_sell_invoice.php?medicine_sell_id='.$medicine_sell_id.'">invoice</a>'
-                                     ?>
+                                        <?php
+                                        echo '<a class="btn btn-primary btn-lg" href="medicine_sell_invoice.php?medicine_sell_id=' . $medicine_sell_id . '">invoice</a>'
+                                        ?>
                                     </div>
                             </form>
                             <div id="loader"></div>
@@ -268,6 +269,7 @@ from pharmacy_sell_medicine
         load_medicine();
         loadPatient();
     });
+
     function invoice() {
         form = document.getElementById('medicine_purchase_update_form');
         form.target = '_blank';
@@ -390,6 +392,34 @@ from pharmacy_sell_medicine
         let grand_total = document.getElementById("pharmacy_selling_grand_total").value;
         let paid = document.getElementById("pharmacy_selling_paid_amount").value;
         document.getElementById("pharmacy_selling_due_amount").value = grand_total - paid;
+
+    }
+
+    function update_payment_due() {
+// alert("sds");
+        let sub_total = 0;
+        $("tr").each(function() {
+            var total = $(this).find("input.pharmacy_purchase_medicine_total_selling_price").val();
+            sub_total = parseInt(sub_total) + parseInt(isNaN(parseInt(total)) ? 0 : total);
+        });
+        //alert(sub_total);
+        document.getElementById("pharmacy_selling_sub_total").value = sub_total;
+        let vat = document.getElementById("pharmacy_selling_vat").value;
+        let due_collection = document.getElementById("due_collection_amount").value;
+        let discount = document.getElementById("pharmacy_selling_discount").value;
+        let sub_total_with_vat = (sub_total + ((sub_total * vat) / 100))
+        document.getElementById("pharmacy_selling_grand_total").value = (sub_total_with_vat - ((sub_total * discount) / 100));
+        let grand_total = document.getElementById("pharmacy_selling_grand_total").value;
+        let paid = document.getElementById("pharmacy_selling_paid_amount").value;
+        if(due_collection>0){
+            paid= parseInt(due_collection)+parseInt(paid);
+            document.getElementById("pharmacy_selling_paid_amount").value = paid;
+            document.getElementById("pharmacy_selling_due_amount").value = grand_total - paid;
+        }else{
+            window.location.reload();
+        }
+      
+        console.log(due_collection);
 
     }
 
@@ -619,13 +649,13 @@ from pharmacy_sell_medicine
 
         var text1 = document.createElement("INPUT");
         text1.setAttribute("required", "required");
-       
+
         text1.setAttribute("class", "form-control pharmacy_selling_medicine_medicine_name");
         text1.setAttribute("type", "text");
         text1.setAttribute("list", "medicine_list");
         text1.setAttribute("id", "pharmacy_selling_medicine_medicine_name");
         text1.setAttribute("name", "pharmacy_selling_medicine_medicine_name[]");
-        
+
         text1.onchange = function() {
             medicine_update(this);
         }
@@ -635,7 +665,7 @@ from pharmacy_sell_medicine
         hiddenText.setAttribute("type", "hidden");
         hiddenText.setAttribute("id", "pharmacy_selling_medicine_medicine_id");
         hiddenText.setAttribute("name", "pharmacy_selling_medicine_medicine_id[]");
-       
+
 
         //var cell = row.insertCell();
         //cell.appendChild(selectList);
@@ -661,7 +691,7 @@ from pharmacy_sell_medicine
         text3.setAttribute("placeholder", "Exp Date");
         text3.setAttribute("name", "pharmacy_selling_medicine_exp_date[]");
         text3.setAttribute("id", "pharmacy_selling_medicine_exp_date");
-     
+
 
 
 

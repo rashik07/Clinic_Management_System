@@ -23,7 +23,7 @@ class CreateIndoorBedCategory{
         $indoor_bed_category_status   = if_empty($_POST['indoor_bed_category_status']);
 
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,4);
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2,3,4]);
 
         if($check_token && $check_permission)
         {

@@ -35,7 +35,9 @@ require_once('check_if_indoor_manager.php');
                         <th>Room No</th>
                         <th>Price</th>
                         <th>Status</th>
+                        <?php if ($_SESSION['user_type_access_level'] <= 2 ) { ?>
                         <th>Action</th>
+                        <?php } ?>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,8 +64,9 @@ require_once('check_if_indoor_manager.php');
                         echo '<td>'.$data['indoor_bed_room_no'].'</td>';
                         echo '<td>'.$data['indoor_bed_price'].'</td>';
                         echo '<td>'.$data['indoor_bed_status'].'</td>';
-
+                         if ($_SESSION['user_type_access_level'] <= 2 ) { 
                         echo '<td><a href="edit_indoor_bed.php?bed_id='.$data['indoor_bed_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                         }
                         echo '</tr>';
                         $count = $count+1;
                     }

@@ -181,7 +181,7 @@ class GetPatient
         $indoor_treatment_admission_id   = $_POST['indoor_treatment_admission_id'];
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
         if ($check_token) {
-            $get_content = "select * from indoor_treatment NATURAL JOIN patient where indoor_treatment_admission_id='$indoor_treatment_admission_id'";
+            $get_content = "select * from indoor_treatment INNER JOIN patient ON patient.patient_id = indoor_treatment.indoor_treatment_patient_id where indoor_treatment_admission_id='$indoor_treatment_admission_id'";
             // echo $get_content;
             $getJson = $conn->prepare($get_content);
             $getJson->execute();

@@ -52,6 +52,8 @@ class Token{
     }
     function check_permission($user_id, $conn, $required_permission_level)
     {
+      
+       
         $get_token = "select * from user left join user_type ut on user.user_type_id = ut.user_type_id
                             where user.user_id='$user_id'";
         //echo $get_token;
@@ -62,12 +64,13 @@ class Token{
         if(count($result) > 0) {
             foreach($result as $data)
             {
-                if($data['user_type_access_level'] == $required_permission_level
-                || $data['user_type_access_level'] == 1
-                || $data['user_type_access_level'] == 2)
-                {
-                    return true;
+                foreach($required_permission_level as $permission_level){
+                    if($data['user_type_access_level'] == $permission_level)
+                    {
+                        return true;
+                    }
                 }
+               
             }
         }
         return false;

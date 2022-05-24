@@ -106,7 +106,7 @@ class UpdateDoctor
         //$content_type = mime_content_type($target_file_thumbnail);
         //echo $content_type;
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,4);            //echo $check_token;        
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2,3]);            //echo $check_token;        
             if ($check_token && $check_permission) {
                 try {
 
