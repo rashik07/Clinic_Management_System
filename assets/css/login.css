@@ -43,7 +43,7 @@ h2 {
 #formContent {
     -webkit-border-radius: 10px 10px 10px 10px;
     border-radius: 10px 10px 10px 10px;
-    background: #fff;
+    /* background: #fff; */
     padding: 30px;
     width: 90%;
     max-width: 450px;
@@ -94,7 +94,7 @@ input[type=button], input[type=submit], input[type=reset]  {
     box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
-    margin: 5px 20px 40px 20px;
+    margin: 5px 20px 5px 20px;
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
@@ -257,5 +257,16 @@ input[type=text]:placeholder {
 }
 
 #icon {
-    width:60%;
+    width: 120px;
+}
+
+.login-form {
+    /* From https://css.glass */
+    padding: 5%;
+    background: hsla(0,0%,100%,.25);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / 37%);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid hsla(0,0%,100%,.18);
 }
