@@ -8,7 +8,6 @@ if (isset($_GET['patient_id'])) {
 } else {
     $patient_id = "";
 }
-
 ?>
 
 <body>
@@ -48,8 +47,8 @@ if (isset($_GET['patient_id'])) {
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
-
                     ?>
+
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
                             <h3 class="widget-title">Doctor Visit</h3>
@@ -76,7 +75,6 @@ if (isset($_GET['patient_id'])) {
                                                 <!-- <label for="patient_age">Patient Age</label> -->
                                                 <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" required>
                                             </div>
-
                                             <div class="form-group col-md-6">
                                                 <!-- <label for="patient_gender">Patient Gender</label> -->
                                                 <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender...">
@@ -84,7 +82,6 @@ if (isset($_GET['patient_id'])) {
                                                     <option value="male">Male</option>
                                                     <option value="female">Female</option>
                                                     <option value="other">Other</option>
-
                                                 </select>
                                             </div>
                                         </div>
@@ -125,7 +122,7 @@ if (isset($_GET['patient_id'])) {
                                                     <option value="">Select Doctor...</option>
                                                     <?php
                                                     foreach ($result_content_doctor as $data) {
-                                                        echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'].$data['doctor_visit_fee'] . '</option>';
+                                                        echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
                                                         $doctor_fee=$data['doctor_visit_fee'];
                                                     }
                                                     

@@ -63,8 +63,6 @@ if (isset($_GET['patient_id'])) {
                                                     <div class="col-md-9"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
                                                     <div class="col-md-3"><a href="add_patients.php" class="btn btn-success ">Add Patient</a></div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                         <div class="row">
@@ -141,6 +139,10 @@ if (isset($_GET['patient_id'])) {
                                             <div class="form-group col-md-6">
                                                 <label for="outdoor_treatment_reference">Reference Name</label>
                                                 <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_report_delivery_date">Report Delivery Date</label>
+                                                <input type="date" placeholder="Report Delivery Date" class="form-control" id="outdoor_treatment_report_delivery_date" name="outdoor_treatment_report_delivery_date">
                                             </div>
                                         </div>
 
@@ -511,8 +513,8 @@ if (isset($_GET['patient_id'])) {
                         }
                     }
                 }
-                if(document.getElementById("outdoor_treatment_indoor_treatment_id").value){
-            document.getElementById("outdoor_treatment_total_paid").disabled = true;
+                if (document.getElementById("outdoor_treatment_indoor_treatment_id").value) {
+                    document.getElementById("outdoor_treatment_total_paid").disabled = true;
                 }
 
 

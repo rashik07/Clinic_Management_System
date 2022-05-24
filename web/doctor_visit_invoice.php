@@ -150,6 +150,15 @@
                                                     } else {
                                                         echo "";
                                                     }
+                                                    
+                                                    ?>
+                                                        <?php
+                                                    if ($result_content_outdoor_treatment[0]['outdoor_treatment_report_delivery_date']=="NULL") {
+                                                        echo "";
+                                                    } else {
+                                                       
+                                                        echo '<div class="my-1">Report delivery date: <b class="text-600">' . $result_content_outdoor_treatment[0]['outdoor_treatment_report_delivery_date'] . '</b></div>';
+                                                    }
                                                     ?>
                                                 </div>
                                             </div>

@@ -40,6 +40,7 @@ class UpdatePatientOutdoorTreatment
                 $outdoor_treatment_payment_type_no  = if_empty($_POST['outdoor_treatment_payment_type_no']);
                 $outdoor_treatment_note   = if_empty($_POST['outdoor_treatment_note']);
                 $outdoor_treatment_reference = if_empty($_POST['outdoor_treatment_reference']);
+                $outdoor_treatment_report_delivery_date = if_empty_return_null($_POST['outdoor_treatment_report_delivery_date']);
 
                 $outdoor_service_id = $_POST['outdoor_service_id'];
                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
@@ -48,7 +49,7 @@ class UpdatePatientOutdoorTreatment
                 $outdoor_treatment_service_discount_pc = $_POST['outdoor_treatment_service_discount_pc'];
 
 
-                $post_content = "UPDATE outdoor_treatment SET outdoor_treatment_patient_id = '$outdoor_treatment_patient_id',
+                $post_content = "UPDATE outdoor_treatment SET outdoor_treatment_patient_id = '$outdoor_treatment_patient_id', outdoor_treatment_report_delivery_date='$outdoor_treatment_report_delivery_date',
                 outdoor_treatment_consultant='$outdoor_treatment_consultant',
                 outdoor_treatment_reference='$outdoor_treatment_reference',
                 outdoor_treatment_total_bill = '$outdoor_treatment_total_bill',
