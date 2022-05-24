@@ -29,26 +29,27 @@
 </style>
 
 <body>
-    <div class="proclinic-bg fadeInDown margin_auto" style="height: 100%;">
-        <div class="fadeIn first">
-            <img src="../assets/images/logo-dark.png" id="icon" alt="User Icon" />
+
+    <div class="proclinic-bg  margin_auto" style="height: 100%; 
+    background-image: url('../assets/images/loginbackground.png');
+    /* background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); */
+    background-size: cover;">
+        <div style="text-align: center; padding-top: 5%;">
+            <img src="../assets/images/logo-dark.png" id="icon" alt="User Icon" width="20%" />
+            <h1 style="color: white; font-size: 40px;margin-top: 30px; margin-bottom: 30px; font-weight: 500;">WELCOME TO MOMTAJ TRAUMA CENTER</h1>
         </div>
-        <div class="fadeIn first">
-            <h1 style="color: white; font-size: 50px;margin-bottom: 20px">Welcome to Momtaj Trauma Center</h1>
-        </div>
+
         <div id="formContent">
-            <!-- Tabs Titles -->
 
-            <!-- Icon -->
-
-
-            <!-- Login Form -->
-            <form onsubmit="authenticate(); return false;">
-                <input type="text" id="email" class="fadeIn second" name="email" placeholder="Email">
-                <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
+            <form onsubmit="authenticate(); return false;" class="login-form">
+                <input type="text" id="email" name="email" placeholder="Email">
+                <input type="text" id="password" name="password" placeholder="Password">
+                <input type="submit" value="Log In">
             </form>
 
+        </div>
+        <div style="color: white; text-align: center;margin-top: 30px;">
+            <p>Developed by <a href="https://theicthub.com/" style="color: white;">THE ICT HUB </a></p>
         </div>
     </div>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
