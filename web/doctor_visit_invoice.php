@@ -140,9 +140,25 @@
                                                 <hr class="d-sm-none" />
                                                 <div class="text-grey-m2">
 
-                                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j,Y"); ?></div>
+                                                    <div class="my-2">
+                                                        <!-- <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> -->
+                                                        <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j, Y"); ?>
+                                                    </div>
+                                                    <?php
+                                                    if ($result_content_outdoor_treatment[0]['outdoor_treatment_report_delivery_date'] == "NULL") {
+                                                        echo "";
+                                                    } else {
 
-                                                    <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Age:</span> <?php echo  $result_content_outdoor_treatment[0]['patient_age']; ?></div>
+                                                        echo '<div class="my-1">Delivery Date: <b class="text-600">' .
+                                                            date("M d, Y", strtotime($result_content_outdoor_treatment[0]['outdoor_treatment_report_delivery_date']))
+                                                            . '</b></div>';
+                                                    }
+                                                    ?>
+
+                                                    <div class="my-2">
+                                                        <!-- <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i>  -->
+                                                        <span class="text-600 text-90">Age:</span> <?php echo  $result_content_outdoor_treatment[0]['patient_age']; ?>
+                                                    </div>
 
                                                     <?php
                                                     if ($result_content_outdoor_treatment[0]['patient_phone']) {
@@ -150,16 +166,9 @@
                                                     } else {
                                                         echo "";
                                                     }
-                                                    
+
                                                     ?>
-                                                        <?php
-                                                    if ($result_content_outdoor_treatment[0]['outdoor_treatment_report_delivery_date']=="NULL") {
-                                                        echo "";
-                                                    } else {
-                                                       
-                                                        echo '<div class="my-1">Report delivery date: <b class="text-600">' . $result_content_outdoor_treatment[0]['outdoor_treatment_report_delivery_date'] . '</b></div>';
-                                                    }
-                                                    ?>
+
                                                 </div>
                                             </div>
                                             <!-- /.col -->

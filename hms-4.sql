@@ -199,8 +199,6 @@ CREATE TABLE `indoor_treatment_doctor` (
 -- Dumping data for table `indoor_treatment_doctor`
 --
 
-INSERT INTO `indoor_treatment_doctor` (`indoor_treatment_doctor_id`, `indoor_treatment_doctor_user_added_id`, `indoor_treatment_doctor_treatment_id`, `indoor_treatment_doctor_doctor_id`, `indoor_treatment_doctor_specialization`, `indoor_treatment_doctor_visit_fee`, `indoor_treatment_doctor_total_bill`, `indoor_treatment_doctor_entry_time`, `indoor_treatment_doctor_discharge_time`, `indoor_treatment_doctor_creation_time`, `indoor_treatment_doctor_modification_time`) VALUES
-(1, 2, 1, 1, '', '500', '500', '2022-05-17 13:58:00', '2022-05-18 13:58:00', '2022-05-17 13:58:48', NULL);
 
 -- --------------------------------------------------------
 
