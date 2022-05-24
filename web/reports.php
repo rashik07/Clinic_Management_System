@@ -10,6 +10,7 @@ $outdoor_treatment_consultant = "";
 $final_bill = 0;
 $final_due = 0;
 $final_payment = 0;
+$final_discount = 0;
 if (isset($_POST["min"])) {
     $start_date = $_POST["min"];
 }
@@ -106,6 +107,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
+                                            <td>Reference</td>
                                             <td style="text-align: right;">Bill</td>
                                             <td style="text-align: right;">Discount</td>
                                             <td style="text-align: right;">Payment</td>
@@ -129,7 +131,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $total_bill = 0;
-                                            // $total_discount = 0;
+                                            $total_discount = 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
@@ -144,7 +146,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     }
 
                                                     $total_bill += (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'];
-
+                                                    $total_bill += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
                                                     $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
                                                     $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_creation_time']));
@@ -154,6 +156,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $pharmacy_sell['patient_age'] . '</td>
                                                             <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_reference'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_bill'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_discount_pc'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_paid'] . '</td>
@@ -171,6 +174,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td style="text-align: right;">' . $total_bill . '</td>
                                                     <td style="text-align: right;">' . $total_payment . '</td>
                                                     <td style="text-align: right;">' . $total_due . '</td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
@@ -179,6 +183,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                 $final_bill += $total_bill;
                                                 $final_payment += $total_payment;
                                                 $final_due += $total_due;
+                                                $final_discount += $total_discount;
                                             }
                                         }
 
@@ -199,6 +204,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
+                                            <td>Reference</td>
                                             <td style="text-align: right;">Bill</td>
                                             <td style="text-align: right;">Discount</td>
                                             <td style="text-align: right;">Payment</td>
@@ -225,7 +231,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $total_bill = 0;
-                                            // $total_discount = 0;
+                                            $total_discount = 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
@@ -240,7 +246,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     }
 
                                                     $total_bill += (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'];
-
+                                                    $total_bill += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
                                                     $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
                                                     $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_creation_time']));
@@ -250,6 +256,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $pharmacy_sell['patient_age'] . '</td>
                                                             <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_reference'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_bill'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_discount_pc'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_paid'] . '</td>
@@ -267,6 +274,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td style="text-align: right;">' . $total_bill . '</td>
                                                     <td style="text-align: right;">' . $total_payment . '</td>
                                                     <td style="text-align: right;">' . $total_due . '</td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
@@ -275,6 +283,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                 $final_bill += $total_bill;
                                                 $final_payment += $total_payment;
                                                 $final_due += $total_due;
+                                                $final_discount += $total_discount;
                                             }
                                         }
 
@@ -295,6 +304,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
+                                            <td>Reference</td>
                                             <td style="text-align: right;">Bill</td>
                                             <td style="text-align: right;">Discount</td>
                                             <td style="text-align: right;">Payment</td>
@@ -321,7 +331,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $total_bill = 0;
-                                            // $total_discount = 0;
+                                            $total_discount = 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
@@ -336,7 +346,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     }
 
                                                     $total_bill += (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'];
-
+                                                    $total_bill += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
                                                     $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
                                                     $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_creation_time']));
@@ -346,6 +356,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $pharmacy_sell['patient_age'] . '</td>
                                                             <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_reference'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_bill'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_discount_pc'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_paid'] . '</td>
@@ -363,6 +374,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td style="text-align: right;">' . $total_bill . '</td>
                                                     <td style="text-align: right;">' . $total_payment . '</td>
                                                     <td style="text-align: right;">' . $total_due . '</td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
@@ -371,8 +383,10 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                 $final_bill += $total_bill;
                                                 $final_payment += $total_payment;
                                                 $final_due += $total_due;
+                                                $final_discount += $total_discount;
                                             }
                                         }
+
 
                                         ?>
 
@@ -392,6 +406,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
+                                            <td>Reference</td>
                                             <td style="text-align: right;">Bill</td>
                                             <td style="text-align: right;">Discount</td>
                                             <td style="text-align: right;">Payment</td>
@@ -418,7 +433,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $total_bill = 0;
-                                            // $total_discount = 0;
+                                            $total_discount = 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
@@ -433,7 +448,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     }
 
                                                     $total_bill += (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'];
-
+                                                    $total_bill += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
                                                     $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
                                                     $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_creation_time']));
@@ -443,6 +458,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $pharmacy_sell['patient_age'] . '</td>
                                                             <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_reference'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_bill'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_discount_pc'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_paid'] . '</td>
@@ -460,6 +476,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td style="text-align: right;">' . $total_bill . '</td>
                                                     <td style="text-align: right;">' . $total_payment . '</td>
                                                     <td style="text-align: right;">' . $total_due . '</td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
@@ -468,6 +485,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                 $final_bill += $total_bill;
                                                 $final_payment += $total_payment;
                                                 $final_due += $total_due;
+                                                $final_discount += $total_discount;
                                             }
                                         }
 
@@ -489,6 +507,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             <td>Name</td>
                                             <td>Age</td>
                                             <td>Issue Date</td>
+                                            <td>Reference</td>
                                             <td style="text-align: right;">Bill</td>
                                             <td style="text-align: right;">Discount</td>
                                             <td style="text-align: right;">Payment</td>
@@ -515,7 +534,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $total_bill = 0;
-                                            // $total_discount = 0;
+                                            $total_discount = 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
@@ -530,7 +549,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     }
 
                                                     $total_bill += (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'];
-
+                                                    $total_bill += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
                                                     $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
                                                     $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_creation_time']));
@@ -540,6 +559,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $pharmacy_sell['patient_age'] . '</td>
                                                             <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_reference'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_bill'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_discount_pc'] . '</td>
                                                             <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_paid'] . '</td>
@@ -557,6 +577,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td></td>
                                                     <td></td>
                                                     <td></td>
+                                                    <td style="text-align: right;">' . $total_bill . '</td>
                                                     <td style="text-align: right;">' . $total_payment . '</td>
                                                     <td style="text-align: right;">' . $total_due . '</td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
@@ -565,6 +586,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                 $final_bill += $total_bill;
                                                 $final_payment += $total_payment;
                                                 $final_due += $total_due;
+                                                $final_discount += $total_discount;
                                             }
                                         }
 
@@ -588,6 +610,10 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                     <tr>
                                         <td>Total Due</td>
                                         <td style="text-align: right;"><?php echo $final_due ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Discount</td>
+                                        <td style="text-align: right;"><?php echo $final_discount ?></td>
                                     </tr>
                                 </table>
                                 <!-- <table class="Report_table" style="width: 100%;">
