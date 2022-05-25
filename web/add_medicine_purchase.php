@@ -81,9 +81,9 @@ from medicine
                                     <input type="hidden" name="content" value="pharmacy_medicine_purchase">
 
                                     <div class="form-group col-md-6">
-                                        <label for="pharmacy_purchase_manufacturer_id">Manufacturer<i class="text-danger"> * </i></label>
-                                        <select id="select-manufacturer" name="pharmacy_purchase_manufacturer_id" placeholder="Pick a Manufacturer..." onchange="changeManufacturer();" required>
-                                            <option value="">Select a manufacturer...</option>
+                                        <label for="pharmacy_purchase_manufacturer_id">Supplier<i class="text-danger"> * </i></label>
+                                        <select id="select-manufacturer" name="pharmacy_purchase_manufacturer_id" placeholder="Pick a Supplier..." onchange="changeManufacturer();" required>
+                                            <option value="">Select a Supplier...</option>
                                             <?php
                                             foreach ($result_content_medicine_manufacturer as $data) {
                                                 echo '<option value="' . $data['medicine_manufacturer_id'] . '">' . $data['medicine_manufacturer_name'] . '</option>';
@@ -112,7 +112,7 @@ from medicine
                                                 <th>Stock Qty</th>
                                                 <th>Box Qty<i class="text-danger"> * </i></th>
                                                 <th>Pieces</th>
-                                                <th>Manufacture Price</th>
+                                                <th>Supplier Price</th>
                                                 <th>Box Mrp</th>
                                                 <th>Total Purchase Price</th>
                                                 <th>Action</th>

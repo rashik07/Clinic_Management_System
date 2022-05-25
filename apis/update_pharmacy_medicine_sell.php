@@ -21,7 +21,7 @@ class UpdatePharamacyMedicineSell{
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,1) || $token_generator->check_permission($request_user_id,$conn,2);
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2,6]) || $token_generator->check_permission($request_user_id,$conn,[1,2,6]);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
         if($check_token && $check_permission)
         {

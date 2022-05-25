@@ -32,7 +32,7 @@ if (!isset($_SESSION)) {
                                             <th>Medicine Name</th>
                                             <th>Generic Name</th>
                                             <!-- <th>Batch ID</th> -->
-                                            <th>Manufacturer</th>
+                                            <th>Supplier</th>
                                             <th>Stock</th>
                                             <!-- <th>Exp Date</th> -->
                                         </tr>

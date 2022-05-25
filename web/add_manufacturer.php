@@ -6,17 +6,13 @@ require_once('check_if_pharmacy_manager.php');
 ?>
 <body>
 <div class="wrapper">
-
     <?php
     include 'sidebar.php';
     ?>
 
-
     <div id="content">
-
         <?php
         include 'top_navbar.php';
-
         ?>
         <div class="body-content px-3 py-3">
             <div class="row">
@@ -25,11 +21,11 @@ require_once('check_if_pharmacy_manager.php');
                         <div class="card-header py-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
-                                    <h6 class="fs-17 font-weight-600 mb-0">Add Manufacturer</h6>
+                                    <h6 class="fs-17 font-weight-600 mb-0">Add Supplier</h6>
                                 </div>
                                 <div class="text-right">
                                     <a href="manufacturer_list.php" class="btn btn-success btn-sm mr-1"><i
-                                                class="fas fa-align-justify mr-1"></i>Manufacturer List</a>
+                                                class="fas fa-align-justify mr-1"></i>Supplier List</a>
                                 </div>
                             </div>
                         </div>
@@ -41,21 +37,21 @@ require_once('check_if_pharmacy_manager.php');
                                 <input type="hidden" name="content" value="medicine_manufacturer">
 
                                 <div class="form-group row">
-                                    <label for="manufacturer_name" class="col-md-2 text-right col-form-label">Manufacturer
+                                    <label for="manufacturer_name" class="col-md-2 text-right col-form-label">Supplier
                                         Name <i class="text-danger"> * </i>:</label>
                                     <div class="col-md-4">
                                         <div class="">
                                             <input type="text" name="medicine_manufacturer_name" class="form-control"
-                                                   id="medicine_manufacturer_name" placeholder="Manufacturer Name" required>
+                                                   id="medicine_manufacturer_name" placeholder="Supplier Name" required>
                                         </div>
                                     </div>
                                     <label for="manufacturer_mobile" class="col-md-2 text-right col-form-label">Mobile
-                                        No <i class="text-danger"> * </i>:</label>
+                                        No:</label>
                                     <div class="col-md-4">
                                         <div class="">
                                             <input type="text" name="medicine_manufacturer_mobile"
                                                    class="form-control input-mask-trigger text-left valid_number"
-                                                   id="medicine_manufacturer_mobile" placeholder="Mobile No" required>
+                                                   id="medicine_manufacturer_mobile" placeholder="Mobile No" >
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +98,7 @@ require_once('check_if_pharmacy_manager.php');
                                 </div>
                                 <div class="form-group row">
 
-                                    <label for="address1" class="col-md-2 text-right col-form-label">Manufacturer
+                                    <label for="address1" class="col-md-2 text-right col-form-label">Supplier
                                         Details:</label>
                                     <div class="col-md-4">
                                         <div class="">
