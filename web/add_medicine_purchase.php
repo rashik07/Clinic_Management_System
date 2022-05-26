@@ -41,7 +41,7 @@ require_once('check_if_pharmacy_manager.php');
  WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
 from medicine
             
-          
+         
             
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
@@ -60,7 +60,7 @@ from medicine
                     $result_content_medicine_leaf = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     $get_content = "select * from medicine 
-             
+                  
             
                     left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
                     left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
@@ -93,7 +93,7 @@ from medicine
 
                                         </select>
                                     </div>
-                               
+
 
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_purchase_invoice_no">Invoice No<i class="text-danger"> * </i></label>
@@ -136,13 +136,10 @@ from medicine
                                                 <td>
                                                     <input type="text" class="form-control pharmacy_purchase_medicine_stock_qty" placeholder="Stock Qty" id="pharmacy_purchase_medicine_stock_qty" name="pharmacy_purchase_medicine_stock_qty[]" readonly required>
                                                 </td>
-                                                <!-- <td>
-                                                    <input type="text" class="form-control pharmacy_purchase_medicine_box_quantity" placeholder="Box Qty" id="pharmacy_purchase_medicine_box_quantity" name="pharmacy_purchase_medicine_box_quantity[]" onchange="row_update(this);" required>
-                                                </td> -->
-                                                <td>
-                                                    <input type="text" class="form-control pharmacy_purchase_medicine_total_pieces" placeholder="Total Pieces" id="pharmacy_purchase_medicine_total_pieces" name="pharmacy_purchase_medicine_total_pieces[]"  required>
-                                                </td>
 
+                                                <td>
+                                                    <input type="text" class="form-control pharmacy_purchase_medicine_total_pieces" placeholder="pharmacy_purchase_medicine_total_pieces" id="pharmacy_purchase_medicine_total_pieces" name="pharmacy_purchase_medicine_total_pieces[]" required onchange="row_update(this);">
+                                                </td>
                                                 <td>
                                                     <input type="text" class="form-control pharmacy_purchase_medicine_manufacture_price" placeholder="mPrice" id="pharmacy_purchase_medicine_manufacture_price" name="pharmacy_purchase_medicine_manufacture_price[]" required readonly>
                                                 </td>
@@ -162,7 +159,7 @@ from medicine
                                         </tbody>
                                         <tfoot id="datatable1_foot">
                                             <tr>
-                                                <td class="text-right" colspan="8"><b>Sub Total:</b></td>
+                                                <td class="text-right" colspan="7"><b>Sub Total:</b></td>
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_purchase_sub_total" class="text-right form-control" name="pharmacy_purchase_sub_total" placeholder="0.00" readonly="">
                                                 </td>
@@ -171,7 +168,7 @@ from medicine
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right" colspan="8"><b>Vat:</b></td>
+                                                <td class="text-right" colspan="7"><b>Vat:</b></td>
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_purchase_vat" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_purchase_vat" placeholder="0.00" tabindex="15">
                                                 </td>
@@ -179,7 +176,7 @@ from medicine
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right" colspan="8"><b>Discount:</b></td>
+                                                <td class="text-right" colspan="7"><b>Discount:</b></td>
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_purchase_discount" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_purchase_discount" placeholder="0.00" tabindex="16">
                                                 </td>
@@ -187,7 +184,7 @@ from medicine
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right" colspan="8"><b>Grand Total:</b></td>
+                                                <td class="text-right" colspan="7"><b>Grand Total:</b></td>
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_purchase_grand_total" class="text-right form-control" name="pharmacy_purchase_grand_total" value="0.00" readonly="readonly">
                                                 </td>
@@ -195,7 +192,7 @@ from medicine
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right" colspan="8"><b>Paid Amount<i class="text-danger"> * </i>:</b></td>
+                                                <td class="text-right" colspan="7"><b>Paid Amount<i class="text-danger"> * </i>:</b></td>
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_purchase_paid_amount" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_purchase_paid_amount" placeholder="0.00" tabindex="18">
                                                 </td>
@@ -203,7 +200,7 @@ from medicine
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-right" colspan="8"><b>Due Amount:</b></td>
+                                                <td class="text-right" colspan="7"><b>Due Amount:</b></td>
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_purchase_due_amount" class="text-right form-control" name="pharmacy_purchase_due_amount" placeholder="0.00" readonly="readonly">
                                                 </td>
@@ -274,10 +271,10 @@ from medicine
     });
 
     var all_medicine = <?php echo json_encode($result_content_medicine_list); ?>;
-    var all_pattern = <?php echo json_encode($result_content_medicine_leaf); ?>;
+    
 
     var total_bill = 0;
-// console.log(all_medicine);
+    // console.log(all_medicine);
     function medicine_update(instance) {
 
         var row = $(instance).closest("tr");
@@ -287,7 +284,7 @@ from medicine
             row.find(".pharmacy_purchase_medicine_batch_id").val("");
             row.find(".pharmacy_purchase_medicine_exp_date").val("");
             row.find(".pharmacy_purchase_medicine_stock_qty").val("");
-            row.find(".pharmacy_purchase_medicine_box_quantity").val("");
+         
             row.find(".pharmacy_purchase_medicine_total_pieces").val("");
 
             row.find(".pharmacy_purchase_medicine_total_quantity").val("");
@@ -314,17 +311,17 @@ from medicine
 
                     row.find(".pharmacy_purchase_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
 
-                    row.find(".pharmacy_purchase_medicine_box_quantity").val(all_medicine[i]['medicine_quantity']);
 
-                    // var box_qty = row.find(".pharmacy_purchase_medicine_box_quantity").val();
-                    // var total_pieces = box_qty * (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box']));
-                    //alert(total_pieces);
-                    // row.find(".pharmacy_purchase_medicine_total_pieces").val(total_pieces);
 
                     row.find(".pharmacy_purchase_medicine_manufacture_price").val(all_medicine[i]['medicine_purchase_price']);
                     row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
 
-                    var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val()) * parseFloat(row.find(".pharmacy_purchase_medicine_total_pieces").val());
+                    row.find(".pharmacy_purchase_medicine_manufacture_price").val(all_medicine[i]['medicine_purchase_price']);
+                row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
+
+                var total_pieces = row.find(".pharmacy_purchase_medicine_total_pieces").val();
+               
+                var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val())*parseFloat(total_pieces);
 
                     row.find(".pharmacy_purchase_medicine_total_purchase_price").val(total_purchase_price);
 
@@ -351,12 +348,14 @@ from medicine
 
         }
     }
+
     function load_medicine() {
         for (var i = 0; i < Object.keys(all_medicine).length; i++) {
-            $("#manufacturer_medicines").append('<option value="' + all_medicine[i]['medicine_id'] + '">' + all_medicine[i]['medicine_name']+ '</option>');
+            $("#manufacturer_medicines").append('<option value="' + all_medicine[i]['medicine_id'] + '">' + all_medicine[i]['medicine_name'] + '</option>');
         }
 
     }
+
     function row_update(instance) {
 
         var row = $(instance).closest("tr");
@@ -365,16 +364,16 @@ from medicine
         for (var i = 0; i < Object.keys(all_medicine).length; i++) {
             if (all_medicine[i]['medicine_name'] === medicine_name) {
                 //alert("matched");
+
                 row.find(".pharmacy_purchase_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
 
-                // var box_qty = row.find(".pharmacy_purchase_medicine_box_quantity").val();
-                // var total_pieces = box_qty * (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box']));
-                row.find(".pharmacy_purchase_medicine_total_pieces").val(total_pieces);
 
                 row.find(".pharmacy_purchase_medicine_manufacture_price").val(all_medicine[i]['medicine_purchase_price']);
                 row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
 
-                var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val()) * parseFloat(row.find(".pharmacy_purchase_medicine_box_quantity").val());
+                var total_pieces = row.find(".pharmacy_purchase_medicine_total_pieces").val();
+               
+                var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val())*parseFloat(total_pieces);
 
                 row.find(".pharmacy_purchase_medicine_total_purchase_price").val(total_purchase_price);
 
@@ -508,15 +507,7 @@ from medicine
         text4.setAttribute("readonly", "readonly");
 
 
-        // var text5 = document.createElement("INPUT");
-        // text5.setAttribute("type", "text");
-        // text5.setAttribute("required", "required");
-        // text5.setAttribute("class", "form-control pharmacy_purchase_medicine_box_quantity");
-        // text5.setAttribute("placeholder", "Box Qty");
-        // text5.setAttribute("name", "pharmacy_purchase_medicine_box_quantity[]");
-        // text5.onchange = function() {
-        //     row_update(this);
-        // }
+
 
         var text6 = document.createElement("INPUT");
         text6.setAttribute("type", "text");
@@ -524,8 +515,10 @@ from medicine
         text6.setAttribute("class", "form-control pharmacy_purchase_medicine_total_pieces");
         text6.setAttribute("placeholder", "Total Pieces");
         text6.setAttribute("name", "pharmacy_purchase_medicine_total_pieces[]");
-        // text6.setAttribute("readonly", "readonly");
-
+        text6.setAttribute("id", "pharmacy_purchase_medicine_total_pieces");
+        text6.onchange = function() {
+            row_update(this);
+        }
 
 
         var text7 = document.createElement("INPUT");
@@ -572,7 +565,7 @@ from medicine
         td2.appendChild(text2);
         td3.appendChild(text3);
         td4.appendChild(text4);
-        // td5.appendChild(text5);
+
         td6.appendChild(text6);
         td7.appendChild(text7);
         td8.appendChild(text8);
