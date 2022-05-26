@@ -247,9 +247,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
         [].forEach.call(elems, function(el) {
             el.classList.remove("active");
         });
-        // alert(e.target);
         e.target.class = "active";
-
     }
 </script>
 
