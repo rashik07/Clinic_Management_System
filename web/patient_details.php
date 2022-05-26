@@ -64,19 +64,19 @@ require_once('check_if_outdoor_manager.php');
                     $getJson->execute();
                     $result_content_indoor_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select *, DATE(patient_creation_time) as patient_creation_time from patient 
-                    left join pathology_investigation pi on patient.patient_id = pi.pathology_investigation_patient_id
-                    where patient_id='$patient_id'";
-                    $getJson = $conn->prepare($get_content);
-                    $getJson->execute();
-                    $result_content_pathology = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                    // $get_content = "select *, DATE(patient_creation_time) as patient_creation_time from patient 
+                    // left join pathology_investigation pi on patient.patient_id = pi.pathology_investigation_patient_id
+                    // where patient_id='$patient_id'";
+                    // $getJson = $conn->prepare($get_content);
+                    // $getJson->execute();
+                    // $result_content_pathology = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select SUM(pathology_investigation_total_bill_after_discount) as total_bill,SUM(pathology_investigation_total_due) as total_due  from patient 
-                    left join pathology_investigation pi on patient.patient_id = pi.pathology_investigation_patient_id
-                    where patient_id='$patient_id'";
-                    $getJson = $conn->prepare($get_content);
-                    $getJson->execute();
-                    $result_content_pathology_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                    // $get_content = "select SUM(pathology_investigation_total_bill_after_discount) as total_bill,SUM(pathology_investigation_total_due) as total_due  from patient 
+                    // left join pathology_investigation pi on patient.patient_id = pi.pathology_investigation_patient_id
+                    // where patient_id='$patient_id'";
+                    // $getJson = $conn->prepare($get_content);
+                    // $getJson->execute();
+                    // $result_content_pathology_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
 
                     $get_content = "select *, DATE(pharmacy_sell_creation_time) as pharmacy_sell_creation_time from patient 
@@ -93,20 +93,20 @@ require_once('check_if_outdoor_manager.php');
                     $getJson->execute();
                     $result_content_pharmacy_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select *, DATE(ot_treatment_creation_time) as ot_treatment_creation_time from patient 
-                    left join ot_treatment ot on patient.patient_id = ot.ot_treatment_patient_id
-                    where patient_id='$patient_id'";
+                    // $get_content = "select *, DATE(ot_treatment_creation_time) as ot_treatment_creation_time from patient 
+                    // left join ot_treatment ot on patient.patient_id = ot.ot_treatment_patient_id
+                    // where patient_id='$patient_id'";
 
-                    $getJson = $conn->prepare($get_content);
-                    $getJson->execute();
-                    $result_content_ot = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                    // $getJson = $conn->prepare($get_content);
+                    // $getJson->execute();
+                    // $result_content_ot = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select SUM(ot.ot_treatment_total_bill_after_discount) as total_bill, SUM(ot.ot_treatment_total_due) as total_due from patient 
-                    left join ot_treatment ot on patient.patient_id = ot.ot_treatment_patient_id
-                    where patient_id='$patient_id'";
-                    $getJson = $conn->prepare($get_content);
-                    $getJson->execute();
-                    $result_content_ot_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                    // $get_content = "select SUM(ot.ot_treatment_total_bill_after_discount) as total_bill, SUM(ot.ot_treatment_total_due) as total_due from patient 
+                    // left join ot_treatment ot on patient.patient_id = ot.ot_treatment_patient_id
+                    // where patient_id='$patient_id'";
+                    // $getJson = $conn->prepare($get_content);
+                    // $getJson->execute();
+                    // $result_content_ot_billing = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     ?>
                     <div class="col-md-12">
@@ -146,7 +146,7 @@ require_once('check_if_outdoor_manager.php');
 
                             <a type="button" class="btn btn-success mb-3" href="edit_patient.php?patient_id=<?php echo $result_content_patient[0]['patient_id']; ?>"><span class="ti-pencil-alt"></span> Edit Patient</a>
                             <?php if ($_SESSION['user_type_access_level'] <= 2) { ?>
-                            <button type="button" class="btn btn-danger mb-3" onclick="delete_data();">Delete</button>
+                                <button type="button" class="btn btn-danger mb-3" onclick="delete_data();">Delete</button>
                             <?php } ?>
                             <!--<a type="button" class="btn btn-danger mb-3"><span class="ti-trash"></span> Delete Patient</a>-->
                         </div>
