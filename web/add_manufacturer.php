@@ -103,7 +103,7 @@ require_once('check_if_pharmacy_manager.php');
                                     <div class="col-md-4">
                                         <div class="">
                                             <textarea name="medicine_manufacturer_description" id="medicine_manufacturer_description" class="form-control"
-                                                      placeholder="Manufacturer Details "></textarea>
+                                                      placeholder="Supplier  Details "></textarea>
                                         </div>
                                     </div>
 

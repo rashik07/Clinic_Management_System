@@ -51,7 +51,7 @@ if (!isset($_SESSION)) {
                WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pharmacy_medicine.pharmacy_medicine_medicine_id) as total_sell
               from medicine
               
-                  left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
+                
                         
                           left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
                           left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer";
