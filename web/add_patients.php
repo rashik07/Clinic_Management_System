@@ -111,6 +111,7 @@ require_once('check_if_outdoor_manager.php');
             <?php include 'footer.php'
             ?>
 </body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
     var spinner = $('#loader');
 
@@ -175,9 +176,7 @@ require_once('check_if_outdoor_manager.php');
                         let htmlcontent = '<div class="row" style="margin: 20px;padding: 10px;"><a class="col-md-4" href="Service_doctor_visit.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Doctor Visit</p></div></div></a><a class="col-md-4" href="Service_physiotherapy.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Physiotherapy</p></div></div></a><a class="col-md-4" href="add_patient_treatment.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Admission</p></div></div></a><a class="col-md-4" href="Service_ot.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">OT</p></div></div></a><a class="col-md-4" href="Service_procedures.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Procedures</p></div></div></a><a class="col-md-4" href="Service_test.php?patient_id=' + obj.patient_id + '"><div class="card"><div class="card-body"><p class="card-text">Investigation/Test</p></div></div></a></div>';
                         // document.getElementById("modal_content").innerHTML("");
                         document.getElementById("modal_content").insertAdjacentHTML("afterend", htmlcontent);
-                        $('#options').modal('show')
-                        //location.reload();
-                        // window.open("patients_list.php", "_self");
+                        $('#options').modal('show');
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
