@@ -94,7 +94,7 @@ require_once('check_if_pharmacy_manager.php');
                                     </div>
 
                                     <div class="form-group row">
-                                        <label for="medicine_leaf" class="col-md-2 text-right col-form-label">Box Size <i class="text-danger"> * </i>:</label>
+                                        <!-- <label for="medicine_leaf" class="col-md-2 text-right col-form-label">Box Size <i class="text-danger"> * </i>:</label>
                                         <div class="col-md-4">
                                             <div class="">
                                                 <select name="medicine_leaf" class="form-control select2 required select2-hidden-accessible" id="medicine_leaf" required>
@@ -106,7 +106,7 @@ require_once('check_if_pharmacy_manager.php');
                                                     ?>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <label for="medicine_unit" class="col-md-2 text-right col-form-label">Unit <i class="text-danger"> * </i>:</label>
                                         <div class="col-md-4">
                                             <div class="">
@@ -119,6 +119,20 @@ require_once('check_if_pharmacy_manager.php');
                                                     ?>
                                                 </select>
 
+                                            </div>
+                                        </div>
+                                        <label for="medicine_manufacturer" class="col-md-2 text-right col-form-label">Supplier
+                                            <i class="text-danger"> * </i>:</label>
+                                        <div class="col-md-4">
+                                            <div class="">
+                                                <select name="medicine_manufacturer" id="medicine_manufacturer" class="form-control select2 select2-hidden-accessible" required>
+                                                    <option value="">Select Supplier</option>
+                                                    <?php
+                                                    foreach ($result_content_medicine_manufacturer as $data) {
+                                                        echo '<option value="' . $data['medicine_manufacturer_id'] . '">' . $data['medicine_manufacturer_name'] . '</option>';
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -161,31 +175,18 @@ require_once('check_if_pharmacy_manager.php');
                                             </select>
                                         </div>
                                     </div> -->
-                                        <label for="medicine_manufacturer" class="col-md-2 text-right col-form-label">Manufacturer
-                                            <i class="text-danger"> * </i>:</label>
-                                        <div class="col-md-4">
-                                            <div class="">
-                                                <select name="medicine_manufacturer" id="medicine_manufacturer" class="form-control select2 select2-hidden-accessible" required>
-                                                    <option value="">Select Manufacturer</option>
-                                                    <?php
-                                                    foreach ($result_content_medicine_manufacturer as $data) {
-                                                        echo '<option value="' . $data['medicine_manufacturer_id'] . '">' . $data['medicine_manufacturer_name'] . '</option>';
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
+                                       
 
 
                                     </div>
 
                                     <div class="form-group row">
 
-                                        <label for="medicine_purchase_price" class="col-md-2 text-right col-form-label">Manufacturer
+                                        <label for="medicine_purchase_price" class="col-md-2 text-right col-form-label">Supplier
                                             Price(TP) <i class="text-danger"> * </i>:</label>
                                         <div class="col-md-4">
                                             <div class="">
-                                                <input type="text" name="medicine_purchase_price" class="form-control valid_number" id="medicine_purchase_price" placeholder="Manufacturer Price" required>
+                                                <input type="text" name="medicine_purchase_price" class="form-control valid_number" id="medicine_purchase_price" placeholder="Supplier Price" required>
                                             </div>
                                         </div>
                                         <label for="medicine_selling_price" class="col-md-2 text-right col-form-label">Selling Price(MRP)<i class="text-danger"> * </i>:</label>

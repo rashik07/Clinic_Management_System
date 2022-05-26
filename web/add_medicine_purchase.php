@@ -41,7 +41,7 @@ require_once('check_if_pharmacy_manager.php');
  WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
 from medicine
             
-            left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
+          
             
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
@@ -59,7 +59,8 @@ from medicine
                     $getJson->execute();
                     $result_content_medicine_leaf = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select * from medicine left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
+                    $get_content = "select * from medicine 
+             
             
                     left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
                     left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
@@ -81,9 +82,9 @@ from medicine
                                     <input type="hidden" name="content" value="pharmacy_medicine_purchase">
 
                                     <div class="form-group col-md-6">
-                                        <label for="pharmacy_purchase_manufacturer_id">Manufacturer<i class="text-danger"> * </i></label>
-                                        <select id="select-manufacturer" name="pharmacy_purchase_manufacturer_id" placeholder="Pick a Manufacturer..." onchange="changeManufacturer();" required>
-                                            <option value="">Select a manufacturer...</option>
+                                        <label for="pharmacy_purchase_manufacturer_id">Supplier<i class="text-danger"> * </i></label>
+                                        <select id="select-manufacturer" name="pharmacy_purchase_manufacturer_id" placeholder="Pick a Supplier..." onchange="changeManufacturer();" required>
+                                            <option value="">Select a Supplier...</option>
                                             <?php
                                             foreach ($result_content_medicine_manufacturer as $data) {
                                                 echo '<option value="' . $data['medicine_manufacturer_id'] . '">' . $data['medicine_manufacturer_name'] . '</option>';
@@ -110,9 +111,9 @@ from medicine
                                                 <th>Batch ID<i class="text-danger"> * </i></th>
                                                 <th>Exp. Date<i class="text-danger"> * </i></th>
                                                 <th>Stock Qty</th>
-                                                <th>Box Qty<i class="text-danger"> * </i></th>
+                                                <!-- <th>Box Qty<i class="text-danger"> * </i></th> -->
                                                 <th>Pieces</th>
-                                                <th>Manufacture Price</th>
+                                                <th>Supplier Price</th>
                                                 <th>Box Mrp</th>
                                                 <th>Total Purchase Price</th>
                                                 <th>Action</th>
@@ -135,11 +136,11 @@ from medicine
                                                 <td>
                                                     <input type="text" class="form-control pharmacy_purchase_medicine_stock_qty" placeholder="Stock Qty" id="pharmacy_purchase_medicine_stock_qty" name="pharmacy_purchase_medicine_stock_qty[]" readonly required>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <input type="text" class="form-control pharmacy_purchase_medicine_box_quantity" placeholder="Box Qty" id="pharmacy_purchase_medicine_box_quantity" name="pharmacy_purchase_medicine_box_quantity[]" onchange="row_update(this);" required>
-                                                </td>
+                                                </td> -->
                                                 <td>
-                                                    <input type="text" class="form-control pharmacy_purchase_medicine_total_pieces" placeholder="Total Pieces" id="pharmacy_purchase_medicine_total_pieces" name="pharmacy_purchase_medicine_total_pieces[]" readonly required>
+                                                    <input type="text" class="form-control pharmacy_purchase_medicine_total_pieces" placeholder="Total Pieces" id="pharmacy_purchase_medicine_total_pieces" name="pharmacy_purchase_medicine_total_pieces[]"  required>
                                                 </td>
 
                                                 <td>
@@ -315,15 +316,15 @@ from medicine
 
                     row.find(".pharmacy_purchase_medicine_box_quantity").val(all_medicine[i]['medicine_quantity']);
 
-                    var box_qty = row.find(".pharmacy_purchase_medicine_box_quantity").val();
-                    var total_pieces = box_qty * (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box']));
+                    // var box_qty = row.find(".pharmacy_purchase_medicine_box_quantity").val();
+                    // var total_pieces = box_qty * (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box']));
                     //alert(total_pieces);
-                    row.find(".pharmacy_purchase_medicine_total_pieces").val(total_pieces);
+                    // row.find(".pharmacy_purchase_medicine_total_pieces").val(total_pieces);
 
                     row.find(".pharmacy_purchase_medicine_manufacture_price").val(all_medicine[i]['medicine_purchase_price']);
                     row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
 
-                    var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val()) * parseFloat(row.find(".pharmacy_purchase_medicine_box_quantity").val());
+                    var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val()) * parseFloat(row.find(".pharmacy_purchase_medicine_total_pieces").val());
 
                     row.find(".pharmacy_purchase_medicine_total_purchase_price").val(total_purchase_price);
 
@@ -366,8 +367,8 @@ from medicine
                 //alert("matched");
                 row.find(".pharmacy_purchase_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
 
-                var box_qty = row.find(".pharmacy_purchase_medicine_box_quantity").val();
-                var total_pieces = box_qty * (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box']));
+                // var box_qty = row.find(".pharmacy_purchase_medicine_box_quantity").val();
+                // var total_pieces = box_qty * (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box']));
                 row.find(".pharmacy_purchase_medicine_total_pieces").val(total_pieces);
 
                 row.find(".pharmacy_purchase_medicine_manufacture_price").val(all_medicine[i]['medicine_purchase_price']);
@@ -450,7 +451,7 @@ from medicine
         var td2 = document.createElement('td');
         var td3 = document.createElement('td');
         var td4 = document.createElement('td');
-        var td5 = document.createElement('td');
+        // var td5 = document.createElement('td');
         var td6 = document.createElement('td');
         var td7 = document.createElement('td');
         var td8 = document.createElement('td');
@@ -507,15 +508,15 @@ from medicine
         text4.setAttribute("readonly", "readonly");
 
 
-        var text5 = document.createElement("INPUT");
-        text5.setAttribute("type", "text");
-        text5.setAttribute("required", "required");
-        text5.setAttribute("class", "form-control pharmacy_purchase_medicine_box_quantity");
-        text5.setAttribute("placeholder", "Box Qty");
-        text5.setAttribute("name", "pharmacy_purchase_medicine_box_quantity[]");
-        text5.onchange = function() {
-            row_update(this);
-        }
+        // var text5 = document.createElement("INPUT");
+        // text5.setAttribute("type", "text");
+        // text5.setAttribute("required", "required");
+        // text5.setAttribute("class", "form-control pharmacy_purchase_medicine_box_quantity");
+        // text5.setAttribute("placeholder", "Box Qty");
+        // text5.setAttribute("name", "pharmacy_purchase_medicine_box_quantity[]");
+        // text5.onchange = function() {
+        //     row_update(this);
+        // }
 
         var text6 = document.createElement("INPUT");
         text6.setAttribute("type", "text");
@@ -523,7 +524,7 @@ from medicine
         text6.setAttribute("class", "form-control pharmacy_purchase_medicine_total_pieces");
         text6.setAttribute("placeholder", "Total Pieces");
         text6.setAttribute("name", "pharmacy_purchase_medicine_total_pieces[]");
-        text6.setAttribute("readonly", "readonly");
+        // text6.setAttribute("readonly", "readonly");
 
 
 
@@ -571,7 +572,7 @@ from medicine
         td2.appendChild(text2);
         td3.appendChild(text3);
         td4.appendChild(text4);
-        td5.appendChild(text5);
+        // td5.appendChild(text5);
         td6.appendChild(text6);
         td7.appendChild(text7);
         td8.appendChild(text8);
@@ -583,7 +584,7 @@ from medicine
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
-        tr.appendChild(td5);
+        // tr.appendChild(td5);
         tr.appendChild(td6);
         tr.appendChild(td7);
         tr.appendChild(td8);

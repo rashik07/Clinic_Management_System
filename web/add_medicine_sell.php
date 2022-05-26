@@ -87,7 +87,7 @@ from medicine
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <!-- <label for="patient_age">Patient Age</label> -->
-                                                <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" >
+                                                <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age">
                                             </div>
 
                                             <div class="form-group col-md-6">
@@ -130,14 +130,14 @@ from medicine
                                                 <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="pharmacy_sell_indoor_treatment_id" required readonly>
                                             </div>
                                             <div class="form-group col-md-6">
-                                    <label for="pharmacy_sell_date">Selling Date<i class="text-danger"> * </i></label>
-                                    <input type="date" placeholder="Selling Date" class="form-control" id="pharmacy_sell_date" name="pharmacy_sell_date" required>
-                                </div>
+                                                <label for="pharmacy_sell_date">Selling Date<i class="text-danger"> * </i></label>
+                                                <input type="date" placeholder="Selling Date" class="form-control" id="pharmacy_sell_date" name="pharmacy_sell_date" required>
+                                            </div>
                                         </div>
 
                                     </div>
                                 </div>
-                      
+
                                 <datalist id="medicine_list"></datalist>
 
                                 <table id="datatable1" class="table table-bordered table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">

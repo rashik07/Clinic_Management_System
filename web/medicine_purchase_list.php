@@ -30,7 +30,7 @@ require_once('check_if_pharmacy_manager.php');
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Manufacturer</th>
+                        <th>Supplier</th>
                         <th>Purchase Date</th>
                         <th>Total</th>
                         <th>Due</th>

@@ -34,9 +34,9 @@ require_once('check_if_pharmacy_manager.php');
                                             <th>Medicine Name</th>
                                             <th>Generic Name</th>
                                             <!-- <th>Category</th> -->
-                                            <th>Manufacturer</th>
+                                            <th>Supplier</th>
                                             <th>Selling Price</th>
-                                            <th>Manufacturer Price</th>
+                                            <th>Supplier Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>

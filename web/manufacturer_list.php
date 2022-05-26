@@ -24,13 +24,13 @@ require_once('check_if_pharmacy_manager.php');
     <!-- Widget Item -->
     <div class="col-md-12">
         <div class="widget-area-2 proclinic-box-shadow">
-            <h3 class="widget-title">Medicine Manufacturer List</h3>
+            <h3 class="widget-title">Medicine Supplier List</h3>
             <div class="table-responsive mb-3">
                 <table id="datatable_medicine_manufacturer" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Manufacturer Name</th>
+                        <th>Supplier Name</th>
                         <th>Address</th>
                         <th>Phone</th>
                         <th>City</th>

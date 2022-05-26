@@ -20,7 +20,7 @@ class CreatePharmacyMedicinePurchase{
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,6);
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2,6]);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
         if($check_token && $check_permission)
         {
@@ -86,7 +86,8 @@ class CreatePharmacyMedicinePurchase{
                         $pharmacy_medicine_quantity = $result_content[0]['pharmacy_medicine_quantity']+$total_pieces ;
                         $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '$pharmacy_medicine_quantity'
                    where pharmacy_medicine_medicine_id='$medicine_id' and pharmacy_medicine_batch_id='$batch_id' 
-                     and pharmacy_medicine_exp_date='$exp_date'";
+                    --  and pharmacy_medicine_exp_date='$exp_date'
+                     ";
 
                         //echo $post_content;
                         $result = $conn->exec($post_content);

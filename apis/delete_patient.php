@@ -17,7 +17,7 @@ class DeletePatient{
         $token   = $_POST['token'];
         $patient_id   = $_POST['patient_id'];
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,3);
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2]);
 
         if($check_token && $check_permission)
         {

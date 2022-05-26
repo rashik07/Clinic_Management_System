@@ -21,17 +21,17 @@ class UpdateMedicine{
         $medicine_name  = if_empty($_POST['medicine_name']);
         $medicine_generic_name   = if_empty($_POST['medicine_generic_name']);
         $medicine_description   = if_empty($_POST['medicine_description']);
-        $medicine_quantity   = if_empty($_POST['medicine_quantity']);
+        // $medicine_quantity   = if_empty($_POST['medicine_quantity']);
         $medicine_purchase_price  = if_empty($_POST['medicine_purchase_price']);
         $medicine_selling_price   = if_empty($_POST['medicine_selling_price']);
-        $medicine_vat   = if_empty($_POST['medicine_vat']);
-        $medicine_batch_id   = if_empty($_POST['medicine_batch_id']);
+        // $medicine_vat   = if_empty($_POST['medicine_vat']);
+        // $medicine_batch_id   = if_empty($_POST['medicine_batch_id']);
 
-        $medicine_exp_date   = if_empty($_POST['medicine_exp_date']);
+        // $medicine_exp_date   = if_empty($_POST['medicine_exp_date']);
 
-        $medicine_category   = $_POST['medicine_category'];
+        // $medicine_category   = $_POST['medicine_category'];
         $medicine_unit   = $_POST['medicine_unit'];
-        $medicine_type   = $_POST['medicine_type'];
+        // $medicine_type   = $_POST['medicine_type'];
         $medicine_leaf   = $_POST['medicine_leaf'];
         $medicine_manufacturer   = $_POST['medicine_manufacturer'];
 
@@ -39,7 +39,7 @@ class UpdateMedicine{
 
 
         $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,6);
+        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2,6]);
 
         if($check_token && $check_permission)
         {
@@ -48,8 +48,8 @@ class UpdateMedicine{
                 $post_content = "UPDATE medicine SET medicine_name = '$medicine_name',
                     medicine_generic_name = '$medicine_generic_name', medicine_description='$medicine_description',
                     medicine_purchase_price = '$medicine_purchase_price', medicine_selling_price = '$medicine_selling_price',
-                    medicine_category = '$medicine_category', medicine_unit = '$medicine_unit',
-                    medicine_type = '$medicine_type', medicine_leaf = '$medicine_leaf',
+                 medicine_unit = '$medicine_unit',
+                   medicine_leaf = '$medicine_leaf',
                     medicine_manufacturer = '$medicine_manufacturer', medicine_status = '$medicine_status'
                     where medicine_id='$medicine_id'";
 

@@ -197,7 +197,7 @@ CREATE TABLE `medicine` (
   `medicine_purchase_price` varchar(255) DEFAULT NULL,
   `medicine_selling_price` varchar(255) DEFAULT NULL,
   `medicine_unit` int(11) NOT NULL,
-  `medicine_leaf` int(11) NOT NULL,
+  
   `medicine_manufacturer` int(11) NOT NULL,
   `medicine_status` varchar(255) DEFAULT NULL,
   `medicine_creation_time` datetime DEFAULT current_timestamp(),
@@ -991,7 +991,7 @@ ALTER TABLE `medicine`
   ADD PRIMARY KEY (`medicine_id`),
   ADD KEY `medicine_user_added_id` (`medicine_user_added_id`),
   ADD KEY `medicine_unit` (`medicine_unit`),
-  ADD KEY `medicine_leaf` (`medicine_leaf`),
+
   ADD KEY `medicine_manufacturer` (`medicine_manufacturer`);
 
 --
@@ -1452,7 +1452,7 @@ ALTER TABLE `indoor_treatment_doctor`
 ALTER TABLE `medicine`
   ADD CONSTRAINT `medicine_ibfk_1` FOREIGN KEY (`medicine_user_added_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `medicine_ibfk_2` FOREIGN KEY (`medicine_unit`) REFERENCES `medicine_unit` (`medicine_unit_id`),
-  ADD CONSTRAINT `medicine_ibfk_3` FOREIGN KEY (`medicine_leaf`) REFERENCES `medicine_leaf` (`medicine_leaf_id`),
+
   ADD CONSTRAINT `medicine_ibfk_4` FOREIGN KEY (`medicine_manufacturer`) REFERENCES `medicine_manufacturer` (`medicine_manufacturer_id`);
 
 --

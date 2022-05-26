@@ -43,7 +43,7 @@
 
             <form onsubmit="authenticate(); return false;" class="login-form">
                 <input type="text" id="email" name="email" placeholder="Email">
-                <input type="text" id="password" name="password" placeholder="Password">
+                <input type="password" id="password" name="password" placeholder="Password">
                 <input type="submit" value="Log In">
             </form>
 

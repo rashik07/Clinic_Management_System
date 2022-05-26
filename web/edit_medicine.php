@@ -173,7 +173,7 @@ require_once('check_if_pharmacy_manager.php');
                                         </div>
                                     </div>
 
-                                    <label for="medicine_category" class="col-md-2 text-right col-form-label">Category<i
+                                    <!-- <label for="medicine_category" class="col-md-2 text-right col-form-label">Category<i
                                                 class="text-danger"> * </i>:</label>
                                     <div class="col-md-4">
                                         <div class="">
@@ -196,16 +196,16 @@ require_once('check_if_pharmacy_manager.php');
                                                 ?>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="form-group row">
 
 
                                 </div>
                                 <div class="form-group row">
-                                    <label for="medicine_type" class="col-md-2 text-right col-form-label">Medicine
-                                        Type<i class="text-danger"> * </i>:</label>
-                                    <div class="col-md-4">
+                                    <!-- <label for="medicine_type" class="col-md-2 text-right col-form-label">Medicine
+                                        Type<i class="text-danger"> * </i>:</label> -->
+                                    <!-- <div class="col-md-4">
                                         <div class="">
                                             <select name="medicine_type"
                                                     class="form-control select2 select2-hidden-accessible" required>
@@ -226,7 +226,7 @@ require_once('check_if_pharmacy_manager.php');
                                                 ?>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <label for="medicine_manufacturer" class="col-md-2 text-right col-form-label">Manufacturer
                                         <i class="text-danger"> * </i>:</label>
                                     <div class="col-md-4">
