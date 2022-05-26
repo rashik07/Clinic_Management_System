@@ -271,7 +271,7 @@ from medicine
     });
 
     var all_medicine = <?php echo json_encode($result_content_medicine_list); ?>;
-    
+
 
     var total_bill = 0;
     // console.log(all_medicine);
@@ -284,7 +284,7 @@ from medicine
             row.find(".pharmacy_purchase_medicine_batch_id").val("");
             row.find(".pharmacy_purchase_medicine_exp_date").val("");
             row.find(".pharmacy_purchase_medicine_stock_qty").val("");
-         
+
             row.find(".pharmacy_purchase_medicine_total_pieces").val("");
 
             row.find(".pharmacy_purchase_medicine_total_quantity").val("");
@@ -317,11 +317,11 @@ from medicine
                     row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
 
                     row.find(".pharmacy_purchase_medicine_manufacture_price").val(all_medicine[i]['medicine_purchase_price']);
-                row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
+                    row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
 
-                var total_pieces = row.find(".pharmacy_purchase_medicine_total_pieces").val();
-               
-                var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val())*parseFloat(total_pieces);
+                    var total_pieces = row.find(".pharmacy_purchase_medicine_total_pieces").val();
+
+                    var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val()) * parseFloat(total_pieces);
 
                     row.find(".pharmacy_purchase_medicine_total_purchase_price").val(total_purchase_price);
 
@@ -372,8 +372,8 @@ from medicine
                 row.find(".pharmacy_purchase_medicine_box_mrp").val(all_medicine[i]['medicine_selling_price']);
 
                 var total_pieces = row.find(".pharmacy_purchase_medicine_total_pieces").val();
-               
-                var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val())*parseFloat(total_pieces);
+
+                var total_purchase_price = parseFloat(row.find(".pharmacy_purchase_medicine_manufacture_price").val()) * parseFloat(total_pieces);
 
                 row.find(".pharmacy_purchase_medicine_total_purchase_price").val(total_purchase_price);
 

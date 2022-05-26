@@ -354,8 +354,8 @@ from medicine
                     row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
                     row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
                     //alert(all_medicine[i]['total_quantity']);
-                    var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']) / (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box'])));
-                    //alert(per_pc_price);
+                    var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
+                    // alert(per_pc_price);
                     row.find(".pharmacy_selling_medicine_per_pc_price").val(per_pc_price);
 
                     var selling_pieces = row.find(".pharmacy_selling_medicine_selling_pieces").val();
@@ -394,7 +394,7 @@ from medicine
                 row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                 row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
                 row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
-                var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']) / (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box'])));
+                var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
                 row.find(".pharmacy_selling_medicine_per_pc_price").val(per_pc_price);
 
                 var selling_pieces = row.find(".pharmacy_selling_medicine_selling_pieces").val();

@@ -40,7 +40,7 @@ class CreatePharmacyMedicinePurchase{
                 $pharmacy_purchase_medicine_batch_id  = $_POST['pharmacy_purchase_medicine_batch_id'];
                 $pharmacy_purchase_medicine_exp_date = $_POST['pharmacy_purchase_medicine_exp_date'];
                 $pharmacy_purchase_medicine_stock_qty = $_POST['pharmacy_purchase_medicine_stock_qty'];
-                $pharmacy_purchase_medicine_box_quantity = $_POST['pharmacy_purchase_medicine_box_quantity'];
+                // $pharmacy_purchase_medicine_box_quantity = $_POST['pharmacy_purchase_medicine_box_quantity'];
                 $pharmacy_purchase_medicine_total_pieces = $_POST['pharmacy_purchase_medicine_total_pieces'];
 
                 $pharmacy_purchase_medicine_manufacture_price = $_POST['pharmacy_purchase_medicine_manufacture_price'];
@@ -69,7 +69,7 @@ class CreatePharmacyMedicinePurchase{
                     $medicine_id  = $pharmacy_purchase_medicine_medicine_id[$count_service];
                     $batch_id  = $pharmacy_purchase_medicine_batch_id[$count_service];
                     $exp_date  = $pharmacy_purchase_medicine_exp_date[$count_service];
-                    $box_qty = $pharmacy_purchase_medicine_box_quantity[$count_service];
+                    // $box_qty = $pharmacy_purchase_medicine_box_quantity[$count_service];
                     $total_pieces = $pharmacy_purchase_medicine_total_pieces[$count_service];
 
                     $manufacture_price = $pharmacy_purchase_medicine_manufacture_price[$count_service];
@@ -108,11 +108,10 @@ class CreatePharmacyMedicinePurchase{
 
                     $post_content = "INSERT INTO pharmacy_purchase_medicine (pharmacy_purchase_medicine_user_added_id,
                                     pharmacy_purchase_medicine_medicine_id, pharmacy_purchase_medicine_purchase_id, 
-                                    pharmacy_purchase_medicine_batch_id, pharmacy_purchase_medicine_box_quantity,
+                                    pharmacy_purchase_medicine_batch_id, 
                                         pharmacy_purchase_medicine_total_pieces,pharmacy_purchase_medicine_manufacture_price,
                                         pharmacy_purchase_medicine_box_mrp, pharmacy_purchase_medicine_total_purchase_price) 
-                    VALUES ('$request_user_id','$pharmacy_medicine_id','$pharmacy_purchase_id', '$batch_id',
-                            '$box_qty','$total_pieces','$manufacture_price', '$selling_price','$total_price')";
+                    VALUES ('$request_user_id','$pharmacy_medicine_id','$pharmacy_purchase_id', '$batch_id','$total_pieces','$manufacture_price', '$selling_price','$total_price')";
                     //echo $post_content;
                     $result = $conn->exec($post_content);
                     $last_id = $conn->lastInsertId();
