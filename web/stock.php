@@ -28,7 +28,7 @@ if (!isset($_SESSION)) {
                                             <th>#</th>
                                             <th>Medicine Name</th>
                                             <th>Generic Name</th>
-                                            <!-- <th>Batch ID</th> -->
+                                            <th>Batch ID</th>
                                             <th>Supplier</th>
                                             <th>Stock</th>
                                             <!-- <th>Exp Date</th> -->
@@ -42,7 +42,7 @@ if (!isset($_SESSION)) {
                                         $conn = $connection->getConnection();
 
                                         $get_content = "select *,
-                     (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id ) as total_quantity,
+                     (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id ) as total_quantity,
                          (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
                LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
                WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pharmacy_medicine.pharmacy_medicine_medicine_id) as total_sell
@@ -65,7 +65,7 @@ if (!isset($_SESSION)) {
                                                 echo '<td>' . $count . '</td>';
                                                 echo '<td>' . $data['medicine_name'] . '</td>';
                                                 echo '<td>' . $data['medicine_generic_name'] . '</td>';
-                                                // echo '<td>'.$data['pharmacy_medicine_batch_id'].'</td>';
+                                                echo '<td>'.$data['pharmacy_medicine_batch_id'].'</td>';
                                                 echo '<td>' . $data['medicine_manufacturer_name'] . '</td>';
                                                 echo '<td>' . $data['total_quantity'] - $data['total_sell'] . '</td>';
                                                 // echo '<td>'.date_format($date,"Y/m/d").'</td>';

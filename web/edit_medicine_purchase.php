@@ -463,6 +463,14 @@ from pharmacy_purchase_medicine
             hiddenText.setAttribute("name", "pharmacy_purchase_medicine_medicine_id[]");
             hiddenText.setAttribute("value", list[i]['medicine_id']);
 
+            var hiddenText2 = document.createElement("INPUT");
+            hiddenText2.setAttribute("required", "required");
+            hiddenText2.setAttribute("class", "form-control pharmacy_purchase_medicine_purchase_id");
+            hiddenText2.setAttribute("type", "hidden");
+            hiddenText2.setAttribute("id", "pharmacy_purchase_medicine_purchase_id");
+            hiddenText2.setAttribute("name", "pharmacy_purchase_medicine_purchase_id");
+            hiddenText2.setAttribute("value", list[i]['pharmacy_purchase_medicine_purchase_id']);
+
             //var cell = row.insertCell();
             //cell.appendChild(selectList);
 
@@ -566,6 +574,7 @@ from pharmacy_purchase_medicine
 
             td1.appendChild(text1);
             td1.appendChild(hiddenText);
+            td1.appendChild(hiddenText2);
 
             td2.appendChild(text2);
             td3.appendChild(text3);
@@ -638,7 +647,13 @@ from pharmacy_purchase_medicine
 
         //var cell = row.insertCell();
         //cell.appendChild(selectList);
-
+        var hiddenText2 = document.createElement("INPUT");
+            hiddenText2.setAttribute("required", "required");
+            hiddenText2.setAttribute("class", "form-control pharmacy_purchase_medicine_purchase_id");
+            hiddenText2.setAttribute("type", "hidden");
+            hiddenText2.setAttribute("id", "pharmacy_purchase_medicine_purchase_id");
+            hiddenText2.setAttribute("name", "pharmacy_purchase_medicine_purchase_id");
+            hiddenText2.setAttribute("value", list[i]['pharmacy_purchase_medicine_purchase_id']);
 
 
 
@@ -729,6 +744,7 @@ from pharmacy_purchase_medicine
 
         td1.appendChild(text1);
         td1.appendChild(hiddenText);
+        td1.appendChild(hiddenText2);
 
         td2.appendChild(text2);
         td3.appendChild(text3);
