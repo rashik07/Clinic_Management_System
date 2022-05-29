@@ -42,17 +42,16 @@ if (!isset($_SESSION)) {
                                         $conn = $connection->getConnection();
 
                                         $get_content = "select *,
-                     (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id ) as total_quantity,
-                         (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
-               LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
-               WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pharmacy_medicine.pharmacy_medicine_medicine_id) as total_sell
-              from medicine
-              
-               
-                        
-                          left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
-                          left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
-                          left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
+                                        (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
+                                        (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
+                                  LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
+                                  WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
+                                 from medicine
+                                        
+                                           
+                                             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
+                                             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
+                                             left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
 
