@@ -32,7 +32,7 @@ class UpdateMedicine{
         // $medicine_category   = $_POST['medicine_category'];
         $medicine_unit   = $_POST['medicine_unit'];
         // $medicine_type   = $_POST['medicine_type'];
-        $medicine_leaf   = $_POST['medicine_leaf'];
+ 
         $medicine_manufacturer   = $_POST['medicine_manufacturer'];
 
         $medicine_status  = if_empty($_POST['medicine_status']);
@@ -49,7 +49,7 @@ class UpdateMedicine{
                     medicine_generic_name = '$medicine_generic_name', medicine_description='$medicine_description',
                     medicine_purchase_price = '$medicine_purchase_price', medicine_selling_price = '$medicine_selling_price',
                  medicine_unit = '$medicine_unit',
-                   medicine_leaf = '$medicine_leaf',
+                
                     medicine_manufacturer = '$medicine_manufacturer', medicine_status = '$medicine_status'
                     where medicine_id='$medicine_id'";
 

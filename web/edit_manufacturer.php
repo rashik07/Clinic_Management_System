@@ -66,13 +66,13 @@ require_once('check_if_pharmacy_manager.php');
                                         </div>
                                     </div>
                                     <label for="manufacturer_mobile" class="col-md-2 text-right col-form-label">Mobile
-                                        No <i class="text-danger"> * </i>:</label>
+                                        No :</label>
                                     <div class="col-md-4">
                                         <div class="">
                                             <input type="text" name="medicine_manufacturer_mobile"
                                                    class="form-control input-mask-trigger text-left valid_number"
                                                    id="medicine_manufacturer_mobile" placeholder="Mobile No"
-                                                   value="<?php echo $result_content_medicine_manufacturer[0]['medicine_manufacturer_mobile']; ?>" required>
+                                                   value="<?php echo $result_content_medicine_manufacturer[0]['medicine_manufacturer_mobile']; ?>" >
                                         </div>
                                     </div>
                                 </div>

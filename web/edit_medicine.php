@@ -109,31 +109,7 @@ require_once('check_if_pharmacy_manager.php');
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="medicine_leaf" class="col-md-2 text-right col-form-label">Box Size <i
-                                                class="text-danger"> * </i>:</label>
-                                    <div class="col-md-4">
-                                        <div class="">
-                                            <select name="medicine_leaf"
-                                                    class="form-control select2 required select2-hidden-accessible"
-                                                    id="medicine_leaf" required>
-                                                <option value="">Select Leaf Pattern</option>
-                                                <?php
-                                                foreach($result_content_medicine_leaf as $data)
-                                                {
-                                                    if ($result_content_medicine[0]['medicine_leaf'] == $data['medicine_leaf_id'])
-                                                    {
-                                                        echo '<option selected value="'.$data['medicine_leaf_id'].'">'.$data['medicine_leaf_name'].'*'.$data['medicine_leaf_total_per_box'].'</option>';
-                                                    }
-                                                    else
-                                                    {
-                                                        echo '<option value="'.$data['medicine_leaf_id'].'">'.$data['medicine_leaf_name'].'*'.$data['medicine_leaf_total_per_box'].'</option>';
-
-                                                    }
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
                                     <label for="medicine_unit" class="col-md-2 text-right col-form-label">Unit <i
                                                 class="text-danger"> * </i>:</label>
                                     <div class="col-md-4">
@@ -227,13 +203,13 @@ require_once('check_if_pharmacy_manager.php');
                                             </select>
                                         </div>
                                     </div> -->
-                                    <label for="medicine_manufacturer" class="col-md-2 text-right col-form-label">Manufacturer
+                                    <label for="medicine_manufacturer" class="col-md-2 text-right col-form-label">Supplier
                                         <i class="text-danger"> * </i>:</label>
                                     <div class="col-md-4">
                                         <div class="">
                                             <select name="medicine_manufacturer" id="medicine_manufacturer"
                                                     class="form-control select2 select2-hidden-accessible" required>
-                                                <option value="">Select Manufacturer</option>
+                                                <option value="">Select Supplier</option>
                                                 <?php
                                                 foreach($result_content_medicine_manufacturer as $data)
                                                 {

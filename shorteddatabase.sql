@@ -693,7 +693,7 @@ CREATE TABLE `pharmacy_purchase_medicine`
   `pharmacy_purchase_medicine_purchase_id` int(11) NOT NULL,
   `pharmacy_purchase_medicine_batch_id` varchar(255) DEFAULT NULL,
     `pharmacy_purchase_medicine_exp_date`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
-    `pharmacy_purchase_medicine_box_quantity` varchar(255) DEFAULT NULL,
+
   `pharmacy_purchase_medicine_total_pieces` varchar(255) DEFAULT NULL,
   `pharmacy_purchase_medicine_manufacture_price` varchar(255) DEFAULT NULL,
   `pharmacy_purchase_medicine_box_mrp` varchar(255) DEFAULT NULL,
