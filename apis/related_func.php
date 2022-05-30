@@ -8,8 +8,7 @@ function if_empty($var)
         } else {
             return $var;
         }
-    }
-    else{
+    } else {
         return "";
     }
 }
@@ -21,9 +20,20 @@ function if_empty_return_null($var)
         } else {
             return $var;
         }
-    }
-    else{
+    } else {
         return "NULL";
+    }
+}
+function if_empty_return_zero($var)
+{
+    if (isset($var)) {
+        if (empty($var)) {
+            return 0;
+        } else {
+            return $var;
+        }
+    } else {
+        return 0;
     }
 }
 function if_empty_datetime($var)
@@ -35,9 +45,7 @@ function if_empty_datetime($var)
         } else {
             return $var;
         }
-    }
-    else{
+    } else {
         return 'NULL';
     }
-
 }

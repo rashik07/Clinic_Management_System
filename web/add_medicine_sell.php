@@ -215,6 +215,14 @@ from medicine
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td class="text-right" colspan="6"><b>Exemption:</b></td>
+                                            <td class="text-right">
+                                                <input type="text" id="pharmacy_selling_exemption" onchange="total_calculation_update();" class="text-right form-control valid_number" name="pharmacy_selling_exemption" placeholder="0.00" tabindex="16">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td class="text-right" colspan="6"><b>Grand Total:</b></td>
                                             <td class="text-right">
                                                 <input type="text" id="pharmacy_selling_grand_total" class="text-right form-control" name="pharmacy_selling_grand_total" value="0.00" readonly="readonly">
@@ -419,8 +427,20 @@ from medicine
         document.getElementById("pharmacy_selling_sub_total").value = sub_total;
         let vat = document.getElementById("pharmacy_selling_vat").value;
         let discount = document.getElementById("pharmacy_selling_discount").value;
+        let exemption = document.getElementById("pharmacy_selling_exemption").value;
         let sub_total_with_vat = (sub_total + ((sub_total * vat) / 100))
-        document.getElementById("pharmacy_selling_grand_total").value = (sub_total_with_vat - ((sub_total * discount) / 100));
+        if (discount != "") {
+            if (discount.search("%") > 0) {
+                var total_dc = (parseInt(discount) / 100) * parseInt(sub_total_with_vat);
+                sub_total_with_vat = parseInt(sub_total_with_vat) - total_dc;
+            } else {
+                sub_total_with_vat = parseInt(sub_total_with_vat) - parseInt(discount);
+            }
+        }
+        if (exemption > 0) {
+            sub_total_with_vat = parseInt(sub_total_with_vat) - parseInt(exemption);
+        }
+        document.getElementById("pharmacy_selling_grand_total").value = sub_total_with_vat;
         let grand_total = document.getElementById("pharmacy_selling_grand_total").value;
         let paid = document.getElementById("pharmacy_selling_paid_amount").value;
         document.getElementById("pharmacy_selling_due_amount").value = grand_total - paid;

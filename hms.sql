@@ -807,6 +807,7 @@ CREATE TABLE `pharmacy_sell` (
   `pharmacy_sell_sub_total` varchar(255) DEFAULT NULL,
   `pharmacy_sell_vat` varchar(255) DEFAULT NULL,
   `pharmacy_sell_discount` varchar(255) DEFAULT NULL,
+  `pharmacy_selling_exemption` varchar(255) DEFAULT NULL,
   `pharmacy_sell_grand_total` varchar(255) DEFAULT NULL,
   `pharmacy_sell_paid_amount` varchar(255) DEFAULT NULL,
   `pharmacy_sell_due_amount` varchar(255) DEFAULT NULL,

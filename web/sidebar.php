@@ -156,10 +156,10 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                         <a href="medicine_leaf_list.php">Leaf List</a>
                     </li> -->
                     <li>
-                        <a href="add_manufacturer.php">Manufacturer Entry</a>
+                        <a href="add_manufacturer.php">Supplier Entry</a>
                     </li>
                     <li>
-                        <a href="manufacturer_list.php">Manufacturer List</a>
+                        <a href="manufacturer_list.php">Supplier List</a>
                     </li>
 
                     <li>
