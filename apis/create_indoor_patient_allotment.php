@@ -22,21 +22,47 @@ class CreteIndoorPatientAllotment
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
-        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1,2,3,4]);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 3, 4]);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
         if ($check_token && $check_permission) {
             try {
-                $indoor_patient_id  = if_empty($_POST['outdoor_patient_id']);
-                $indoor_patient_name = if_empty($_POST['outdoor_patient_name']);
+                $indoor_patient_id  = if_empty($_POST['outdoor_treatment_patient_id']);
+                // echo $_POST['patient_name'];
+                $indoor_patient_name = if_empty($_POST['patient_name']);
 
                 $indoor_treatment_total_bill  = if_empty($_POST['indoor_treatment_total_bill']);
                 $indoor_treatment_discount_pc   = if_empty($_POST['indoor_treatment_discount_pc']);
                 $indoor_treatment_total_bill_after_discount  = if_empty($_POST['indoor_treatment_total_bill_after_discount']);
-                $indoor_treatment_total_paid  = if_empty($_POST['indoor_treatment_total_paid']);
-                $indoor_treatment_total_due  = if_empty($_POST['indoor_treatment_total_due']);
-                $indoor_treatment_payment_type   = if_empty($_POST['indoor_treatment_payment_type']);
-                $indoor_treatment_payment_type_no  = if_empty($_POST['indoor_treatment_payment_type_no']);
-                $indoor_treatment_note   = if_empty($_POST['indoor_treatment_note']);
+                if (isset($_POST['indoor_treatment_total_paid'])) {
+                    $indoor_treatment_total_paid  = if_empty($_POST['indoor_treatment_total_paid']);
+                } else {
+                    $indoor_treatment_total_paid = "";
+                }
+                if (isset($_POST['indoor_treatment_total_due'])) {
+                    $indoor_treatment_total_due  = if_empty($_POST['indoor_treatment_total_due']);
+                } else {
+                    $indoor_treatment_total_due = "";
+                }
+                if (isset($_POST['indoor_treatment_payment_type'])) {
+                    $indoor_treatment_payment_type  = if_empty($_POST['indoor_treatment_payment_type']);
+                } else {
+                    $indoor_treatment_payment_type = "";
+                }
+                if (isset($_POST['indoor_treatment_payment_type_no'])) {
+                    $indoor_treatment_payment_type_no  = if_empty($_POST['indoor_treatment_payment_type_no']);
+                } else {
+                    $indoor_treatment_payment_type_no = "";
+                }
+                if (isset($_POST['indoor_treatment_payment_type_no'])) {
+                    $indoor_treatment_payment_type_no  = if_empty($_POST['indoor_treatment_payment_type_no']);
+                } else {
+                    $indoor_treatment_payment_type_no = "";
+                }
+                if (isset($_POST['indoor_treatment_note'])) {
+                    $indoor_treatment_note  = if_empty($_POST['indoor_treatment_note']);
+                } else {
+                    $indoor_treatment_note = "";
+                }
                 $indoor_treatment_admission_id = if_empty($_POST['indoor_treatment_admission_id']);
 
                 $indoor_patient_bed_bed_id = if_empty($_POST['indoor_patient_bed_bed_id']);

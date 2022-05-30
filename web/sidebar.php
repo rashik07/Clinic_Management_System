@@ -87,7 +87,10 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                         <a href="Service_test.php">Investigation</a>
                     </li>
                     <li>
-                        <a href="patient_treatment_list.php">All Patient Treatments</a>
+                        <a href="patient_treatment_list.php">Outdoor Invoices</a>
+                    </li>
+                    <li>
+                        <a href="patient_treatment_list_indoor.php">Indoor Invoices</a>
                     </li>
 
                 </ul>
