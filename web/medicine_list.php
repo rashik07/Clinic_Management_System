@@ -38,6 +38,7 @@ require_once('check_if_pharmacy_manager.php');
                                             <th>Selling Price</th>
                                             <th>Supplier Price</th>
                                             <th>Action</th>
+                                            <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,7 +68,9 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<td>' . $data['medicine_purchase_price'] . '</td>';
 
                                             echo '<td><a href="edit_medicine.php?medicine_id=' . $data['medicine_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-                                            echo '</tr>';
+                                            echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data('.$data['medicine_id'].');">Delete</button></td>';
+                                            echo '</tr>'
+                                            ;
                                             $count = $count + 1;
                                         }
                                         ?>
@@ -89,6 +92,46 @@ require_once('check_if_pharmacy_manager.php');
         ?>
 </body>
 <script>
+    var spinner = $('#loader');
+
+function delete_data(medicine_id) {
+   
+  
+    if (confirm('Are you sure you want to Delete This Content?')) {
+        // yes
+        spinner.show();
+        $.ajax({
+            type: 'POST',
+            url: '../apis/delete_medicine.php',
+            cache: false,
+            //dataType: "json", // and this
+            data: {
+                request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                token: "<?php echo $_SESSION['token']; ?>",
+                medicine_id: medicine_id,
+                content: "medicine"
+            },
+            success: function(response) {
+                //alert(response);
+                spinner.hide();
+                var obj = JSON.parse(response);
+                alert(obj.message);
+                //alert(obj.status);
+                if (obj.status) {
+                    //location.reload();
+                    window.open("medicine_list.php", "_self");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                spinner.hide();
+                alert("alert : " + errorThrown);
+            }
+        });
+    } else {
+        // Do nothing!
+        console.log('Said No');
+    }
+}
     $('#datatable_medicine').dataTable({
         dom: 'Bfrtip',
         buttons: [
