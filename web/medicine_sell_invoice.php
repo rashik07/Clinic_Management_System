@@ -25,7 +25,7 @@
                             <div class="container px-0">
                                 <div class="row mt-4">
                                     <div class="col-12 col-lg-10 offset-lg-1">
-                                    <div class="row">
+                                        <div class="row">
                                             <div class="col-12  justify-content-center">
                                                 <div class="float-left">
                                                     <img class="center" src="../assets/images/logo.png" style="height: 60px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
@@ -112,7 +112,7 @@ from pharmacy_sell_medicine
                                                     <span class="text-sm text-grey-m2 align-middle">Prepared By:</span>
                                                     <span class="text-600 text-110 text-blue align-middle">
                                                         <?php
-                                                        echo $result_content_medicine_sell[0]['patient_id']; 
+                                                        echo $result_content_medicine_sell[0]['patient_id'];
                                                         ?></span>
                                                 </div>
                                                 <div>
@@ -231,7 +231,7 @@ from pharmacy_sell_medicine
                                                     </div>
                                                         <div class="col-5 text-right">
                                                             <span class="text-120 text-secondary-d1">'
-                                                            . $result_content_medicine_sell[0]['pharmacy_sell_discount'] . ' .</span>
+                                                            . $result_content_medicine_sell[0]['pharmacy_sell_discount'] . '</span>
                                                         </div>
                                                         </div>';
                                                     } else {
@@ -241,6 +241,14 @@ from pharmacy_sell_medicine
 
 
                                                     ?>
+                                                    <div class="row my-1 align-items-center bgc-primary-l3 ">
+                                                        <div class="col-7 text-right">
+                                                            Exemption
+                                                        </div>
+                                                        <div class="col-5 text-right">
+                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_medicine_sell[0]['pharmacy_selling_exemption']; ?></span>
+                                                        </div>
+                                                    </div>
 
                                                     <div class="row my-1 align-items-center bgc-primary-l3 ">
                                                         <div class="col-7 text-right">
@@ -264,12 +272,12 @@ from pharmacy_sell_medicine
                                                         </div>
                                                         <div class="col-5 text-right">
                                                             <span class="text-120 text-secondary-d1"><?php
-                                                                                                                if ($result_content_medicine_sell[0]['pharmacy_sell_due_amount']) {
-                                                                                                                    echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount'];
-                                                                                                                } else {
-                                                                                                                    echo '0';
-                                                                                                                }
-                                                                                                                ?></span>
+                                                                                                        if ($result_content_medicine_sell[0]['pharmacy_sell_due_amount']) {
+                                                                                                            echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount'];
+                                                                                                        } else {
+                                                                                                            echo '0';
+                                                                                                        }
+                                                                                                        ?></span>
                                                         </div>
                                                     </div>
                                                 </div>

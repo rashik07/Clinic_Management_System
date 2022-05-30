@@ -123,9 +123,9 @@ if (isset($_GET['patient_id'])) {
                                                     <?php
                                                     foreach ($result_content_doctor as $data) {
                                                         echo '<option value="' . $data['doctor_id'] . '">' . $data['doctor_name'] . '</option>';
-                                                        $doctor_fee=$data['doctor_visit_fee'];
+                                                        $doctor_fee = $data['doctor_visit_fee'];
                                                     }
-                                                    
+
                                                     ?>
 
                                                 </select>
@@ -172,7 +172,7 @@ if (isset($_GET['patient_id'])) {
                                             </td>
                                             <td>
                                                 <input type="number" class="form-control outdoor_service_rate" placeholder="Service Rate" id="outdoor_service_rate" name="outdoor_service_rate[]" readonly required>
-                                            
+
 
                                             </td>
                                             <td>
@@ -523,19 +523,19 @@ if (isset($_GET['patient_id'])) {
     var all_service = <?php echo json_encode($result_content_outdoor_service); ?>;
     var total_bill = 0;
     var doctor_fee = <?php echo json_encode($result_content_doctor); ?>;
-    console.log(doctor_fee);
+    // console.log(doctor_fee);
     function changeData(instance) {
         var row = $(instance).closest("tr");
         var outdoor_service_id = parseFloat(row.find(".outdoor_service_id").val());
         // var outdoor_treatment_consultant = parseFloat(row.find(".outdoor_treatment_consultant").val());
-        var outdoor_treatment_consultant =document.getElementById("outdoor_treatment_consultant").value;
-// console.log(outdoor_treatment_consultant);
+        var outdoor_treatment_consultant = document.getElementById("outdoor_treatment_consultant").value;
+        // console.log(outdoor_treatment_consultant);
         for (var i = 0; i < Object.keys(doctor_fee).length; i++) {
             if (doctor_fee[i]['doctor_id'] == outdoor_treatment_consultant) {
-                console.log(doctor_fee[i]['doctor_visit_fee']);  
+                console.log(doctor_fee[i]['doctor_visit_fee']);
                 // row.find(".outdoor_service_rate").val(isNaN(parseInt(doctor_fee[i]['doctor_visit_fee'])) ? 0 : doctor_fee[i]['doctor_visit_fee']);
-                document.getElementById("outdoor_service_rate").value=doctor_fee[i]['doctor_visit_fee'];
-            } 
+                document.getElementById("outdoor_service_rate").value = doctor_fee[i]['doctor_visit_fee'];
+            }
         }
         var outdoor_service_rate = parseFloat(row.find(".outdoor_service_rate").val());
         var outdoor_service_quantity = parseFloat(row.find(".outdoor_service_quantity").val());

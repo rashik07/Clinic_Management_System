@@ -2,7 +2,12 @@
 // need to enable on production
 require_once('check_if_indoor_manager.php');
 ?>
-<?php include 'header.php'
+<?php include 'header.php';
+if (isset($_GET['patient_id'])) {
+    $patient_id = $_GET['patient_id'];
+} else {
+    $patient_id = "";
+}
 ?>
 
 <body>
@@ -56,19 +61,52 @@ require_once('check_if_indoor_manager.php');
                                     <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                     <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <input type="hidden" name="content" value="indoor_allotment">
+                                    <input type="hidden" name="get_patient_id" id="get_patient_id" value="<?php echo $patient_id ?>">
+                                    <div class="form-group col-md-5">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Search">Patient Search</label>
+                                                <div class="row">
+                                                    <div class="col-md-9"><input type="text" placeholder="Patient Phone / Name / ID" class="form-control" id="Search" name="Search" onchange="loadPatient();"></div>
+                                                    <div class="col-md-3"><a href="add_patients.php" class="btn btn-success ">Add Patient</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <!-- <label for="patient_name">Patient Name</label> -->
+                                                <input type="text" placeholder="Patient Name" class="form-control" id="patient_name" name="patient_name">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_age">Patient Age</label> -->
+                                                <input type="text" placeholder="Patient Age" class="form-control" id="patient_age" name="patient_age" required>
+                                            </div>
 
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_phone">Patient Phone<i class="text-danger"> * </i></label>
-                                        <input type="text" placeholder="Patient Phone." class="form-control" id="outdoor_patient_phone" name="outdoor_patient_phone" required onchange="loadPatient();">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_gender">Patient Gender</label> -->
+                                                <select id="patient_gender" class="form-control " name="patient_gender" placeholder="Pick a Gender..." disabled>
+                                                    <option value="">Select Gender...</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                    <option value="other">Other</option>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient Phone" class="form-control" id="patient_phone" name="patient_phone" readonly>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <!-- <label for="patient_phone">Patient Phone</label> -->
+                                                <input type="text" placeholder="Patient ID" class="form-control" id="outdoor_treatment_patient_id" name="outdoor_treatment_patient_id" readonly>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_id">Patient ID</label>
-                                        <input type="text" placeholder="Patient ID." class="form-control" id="outdoor_patient_id" name="outdoor_patient_id" readonly required>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="outdoor_patient_name">Patient Name</label>
-                                        <input type="text" placeholder="Patient Name" class="form-control" id="outdoor_patient_name" name="outdoor_patient_name" required readonly>
-                                    </div>
+
 
                                     <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
@@ -194,7 +232,7 @@ require_once('check_if_indoor_manager.php');
                                         <label for="indoor_treatment_total_bill_after_discount">In Total Bill</label>
                                         <input type="number" placeholder="In Total Bill" class="form-control" id="indoor_treatment_total_bill_after_discount" name="indoor_treatment_total_bill_after_discount" readonly>
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <!-- <div class="form-group col-md-3">
                                         <label for="indoor_treatment_total_paid">Paid<i class="text-danger"> * </i></label>
                                         <input type="number" placeholder="Total Paid" class="form-control" onchange="update_total_bill();" id="indoor_treatment_total_paid" name="indoor_treatment_total_paid" required>
                                     </div>
@@ -218,7 +256,7 @@ require_once('check_if_indoor_manager.php');
                                     <div class="form-group col-md-12">
                                         <label for="indoor_treatment_note">Note</label>
                                         <input type="text" placeholder="Note" class="form-control" id="indoor_treatment_note" name="indoor_treatment_note">
-                                    </div>
+                                    </div> -->
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                                     </div>
@@ -239,6 +277,7 @@ require_once('check_if_indoor_manager.php');
 <script>
     var spinner = $('#loader');
     $(document).ready(function() {
+        loadPatientonbegining();
 
 
         $('form#patient_allotment_form').on('submit', function(event) {
@@ -281,8 +320,74 @@ require_once('check_if_indoor_manager.php');
         });
     });
 
+
+    function loadPatientonbegining() {
+
+        let Search = document.getElementById("get_patient_id").value;
+        if (Search > 0) {
+            spinner.show();
+            jQuery.ajax({
+                type: 'POST',
+                url: '../apis/get_patient.php',
+                cache: false,
+                //dataType: "json", // and this
+                data: {
+                    token: "<?php echo $_SESSION['token']; ?>",
+                    request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                    Search: Search,
+                    content: "patient_Search",
+                },
+                success: function(response) {
+                    spinner.hide();
+                    var obj = JSON.parse(response);
+                    var datas = obj.patient;
+
+                    if (datas === null) {
+                        alert("No Patient Found");
+                        document.getElementById("patient_name").value = "";
+                        document.getElementById("patient_age").value = "";
+                        document.getElementById("patient_gender").value = "";
+                        document.getElementById("patient_phone").value = "";
+                        document.getElementById("outdoor_treatment_patient_id").value = "";
+
+                    }
+
+                    var count = Object.keys(datas).length;
+                    if (count === 0) {
+                        alert("No Patient Found");
+                        document.getElementById("patient_name").value = "";
+                        document.getElementById("patient_age").value = "";
+                        document.getElementById("patient_gender").value = "";
+                        document.getElementById("patient_phone").value = "";
+                        document.getElementById("outdoor_treatment_patient_id").value = "";
+                    } else {
+                        for (var key in datas) {
+                            if (datas.hasOwnProperty(key)) {
+                                // alert(datas[key])
+                                // console.log(datas[key])
+                                document.getElementById("outdoor_treatment_patient_id").value = datas[key].patient_id;
+                                document.getElementById("patient_name").value = datas[key].patient_name;
+                                document.getElementById("patient_age").value = datas[key].patient_age;
+                                document.getElementById("patient_gender").value = datas[key].patient_gender;
+                                document.getElementById("patient_phone").value = datas[key].patient_phone;
+                            }
+                        }
+                    }
+
+
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    //console.log(textStatus, errorThrown);
+                    spinner.hide();
+                    alert("alert : " + errorThrown);
+                }
+            });
+        }
+    }
+
     function loadPatient() {
-        let patient_phone = document.getElementById("outdoor_patient_phone").value;
+
+        let Search = document.getElementById("Search").value;
         spinner.show();
         jQuery.ajax({
             type: 'POST',
@@ -292,29 +397,42 @@ require_once('check_if_indoor_manager.php');
             data: {
                 token: "<?php echo $_SESSION['token']; ?>",
                 request_user_id: "<?php echo $_SESSION['user_id']; ?>",
-                patient_phone: patient_phone,
-                content: "patient_single_phone",
+                Search: Search,
+                content: "patient_Search",
             },
             success: function(response) {
-                //alert(response);
                 spinner.hide();
                 var obj = JSON.parse(response);
                 var datas = obj.patient;
+
                 if (datas === null) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    document.getElementById("patient_name").value = "";
+                    document.getElementById("patient_age").value = "";
+                    document.getElementById("patient_gender").value = "";
+                    document.getElementById("patient_phone").value = "";
+                    document.getElementById("outdoor_treatment_patient_id").value = "";
 
                 }
 
                 var count = Object.keys(datas).length;
                 if (count === 0) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    document.getElementById("patient_name").value = "";
+                    document.getElementById("patient_age").value = "";
+                    document.getElementById("patient_gender").value = "";
+                    document.getElementById("patient_phone").value = "";
+                    document.getElementById("outdoor_treatment_patient_id").value = "";
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
-                            document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
-                            document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
+                            // alert(datas[key])
+                            // console.log(datas[key])
+                            document.getElementById("outdoor_treatment_patient_id").value = datas[key].patient_id;
+                            document.getElementById("patient_name").value = datas[key].patient_name;
+                            document.getElementById("patient_age").value = datas[key].patient_age;
+                            document.getElementById("patient_gender").value = datas[key].patient_gender;
+                            document.getElementById("patient_phone").value = datas[key].patient_phone;
                         }
                     }
                 }

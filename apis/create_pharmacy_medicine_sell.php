@@ -22,7 +22,7 @@ class CreatePharmacyMedicineSell
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
-        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1,2,6]);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 6]);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
         if ($check_token && $check_permission) {
             try {
@@ -31,13 +31,14 @@ class CreatePharmacyMedicineSell
                 $pharmacy_sell_date = if_empty($_POST['pharmacy_sell_date']);
                 $pharmacy_sell_indoor_treatment_id = if_empty_return_null($_POST['pharmacy_sell_indoor_treatment_id']);
                 $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
-               
-                $pharmacy_selling_sub_total  = if_empty($_POST['pharmacy_selling_sub_total']);
-                $pharmacy_selling_vat   = if_empty($_POST['pharmacy_selling_vat']);
-                $pharmacy_selling_discount  = if_empty($_POST['pharmacy_selling_discount']);
-                $pharmacy_selling_grand_total  = if_empty($_POST['pharmacy_selling_grand_total']);
-                $pharmacy_selling_paid_amount = if_empty($_POST['pharmacy_selling_paid_amount']);
-                $pharmacy_selling_due_amount   = if_empty($_POST['pharmacy_selling_due_amount']);
+
+                $pharmacy_selling_sub_total  = if_empty_return_zero($_POST['pharmacy_selling_sub_total']);
+                $pharmacy_selling_vat   = if_empty_return_zero($_POST['pharmacy_selling_vat']);
+                $pharmacy_selling_discount  = if_empty_return_zero($_POST['pharmacy_selling_discount']);
+                $pharmacy_selling_exemption = if_empty_return_zero($_POST['pharmacy_selling_exemption']);
+                $pharmacy_selling_grand_total  = if_empty_return_zero($_POST['pharmacy_selling_grand_total']);
+                $pharmacy_selling_paid_amount = if_empty_return_zero($_POST['pharmacy_selling_paid_amount']);
+                $pharmacy_selling_due_amount   = if_empty_return_zero($_POST['pharmacy_selling_due_amount']);
 
                 $pharmacy_selling_medicine_medicine_id = $_POST['pharmacy_selling_medicine_medicine_id'];
                 $pharmacy_selling_medicine_batch_id  = $_POST['pharmacy_selling_medicine_batch_id'];
@@ -49,11 +50,11 @@ class CreatePharmacyMedicineSell
 
                 $post_content = "INSERT INTO pharmacy_sell (pharmacy_sell_invoice_id,pharmacy_sell_user_added_id,
                            pharmacy_sell_patient_id, pharmacy_sell_indoor_treatment_id, pharmacy_sell_date, pharmacy_sell_sub_total,
-                           pharmacy_sell_vat, pharmacy_sell_discount, pharmacy_sell_grand_total,
+                           pharmacy_sell_vat, pharmacy_sell_discount,pharmacy_selling_exemption, pharmacy_sell_grand_total,
                            pharmacy_sell_paid_amount, pharmacy_sell_due_amount) 
                     VALUES ('$pharmacy_sell_invoice_id','$request_user_id',$pharmacy_sell_patient_id,$pharmacy_sell_indoor_treatment_id,
                             '$pharmacy_sell_date', '$pharmacy_selling_sub_total',
-                            '$pharmacy_selling_vat','$pharmacy_selling_discount',
+                            '$pharmacy_selling_vat','$pharmacy_selling_discount', '$pharmacy_selling_exemption',
                             '$pharmacy_selling_grand_total', '$pharmacy_selling_paid_amount',
                             '$pharmacy_selling_due_amount')";
                 //echo $post_content;
