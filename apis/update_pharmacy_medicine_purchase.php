@@ -103,7 +103,7 @@ where pharmacy_purchase_id='$pharmacy_purchase_id'";
                     // echo count($result_content_purchase);
                     if (count($result_content_purchase) > 0) {
                         $post_content = "UPDATE pharmacy_purchase_medicine SET 
-                        pharmacy_purchase_medicine_total_pieces = '$total_pieces'
+                        pharmacy_purchase_medicine_total_pieces = '$total_pieces' ,pharmacy_purchase_medicine_total_purchase_price='$total_price'
                         where pharmacy_purchase_medicine_medicine_id='$pharmacy_medicine_id' and pharmacy_purchase_medicine_batch_id='$batch_id ' and pharmacy_purchase_medicine_purchase_id='$pharmacy_purchase_medicine_purchase_id'
                           ";
                             //  echo $post_content;
