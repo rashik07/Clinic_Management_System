@@ -439,7 +439,7 @@ from pharmacy_sell_medicine
             window.location.reload();
         }
 
-        console.log(due_collection);
+        // console.log(due_collection);
 
     }
 

@@ -174,7 +174,7 @@ from medicine
                                             </td>
 
                                             <td>
-                                                <input type="text" class="form-control pharmacy_selling_medicine_selling_pieces" placeholder="Selling Pieces" id="pharmacy_selling_medicine_selling_pieces" name="pharmacy_selling_medicine_selling_pieces[]" required onchange="row_update(this);">
+                                                <input type="number" min=1 max="<?php echo $result_content_medicine[0]['pharmacy_medicine_quantity']; ?>" class="form-control pharmacy_selling_medicine_selling_pieces" placeholder="Selling Pieces" id="pharmacy_selling_medicine_selling_pieces" name="pharmacy_selling_medicine_selling_pieces[]" required onchange="row_update(this);">
                                             </td>
 
                                             <td>
