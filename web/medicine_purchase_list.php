@@ -31,6 +31,7 @@ require_once('check_if_pharmacy_manager.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Invoice No</th>
                                             <th>Supplier</th>
                                             <th>Purchase Date</th>
                                             <th>Total</th>
@@ -66,7 +67,7 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<tr>';
                                           
                                             echo '<td>' . $count . '</td>';
-                                       
+                                            echo '<td>' . $data['pharmacy_purchase_invoice_no'] . '</td>';
                                             echo '<td>' . $data['medicine_manufacturer_name'] . '</td>';
                                             echo '<td>' . $data['pharmacy_purchase_date'] . '</td>';
                                             echo '<td>' . $data['pharmacy_purchase_grand_total'] . '</td>';

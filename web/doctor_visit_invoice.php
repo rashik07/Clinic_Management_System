@@ -4,7 +4,9 @@ if (!isset($_SESSION)) {
 }
 ?>
 
-<?php include 'header.php'
+<?php include 'header.php';
+
+// require_once __DIR__ . '/related_func.php';
 ?>
 
 <body>
@@ -69,6 +71,7 @@ if (!isset($_SESSION)) {
                                         $result_content_outdoor_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                         // var_dump( $result_content_outdoor_treatment);
                                         $outdoor_treatment_consultant = $result_content_outdoor_treatment[0]['outdoor_treatment_consultant'];
+                                        
                                         $invoice_no = if_empty(
                                             $result_content_outdoor_treatment[0]['outdoor_treatment_invoice_id']
                                         );
@@ -201,11 +204,19 @@ if (!isset($_SESSION)) {
 
                                                 $count_service = 0;
                                                 for ($i = 0; $i < count($result_content_outdoor_treatment); $i++) {
+                                                    // if($result_content_outdoor_treatment[$i]['outdoor_service_room_no'] ){
+                                                    //     $room_no=$result_content_outdoor_treatment[$i]['outdoor_service_room_no'];
+                                                    // }
+                                                    // else{
+                                                    //     $room_no="";
+
+                                                    // }
 
 
                                                     echo '<div class="row mb-2 mb-sm-0 py-20">
                                                     <div class="d-none d-sm-block col-1">' . ($count_service + 1) . '</div>
-                                                    <div class="col-9 col-sm-5">' . $result_content_outdoor_treatment[$i]['outdoor_service_name'] . -$result_content_outdoor_treatment[$i]['outdoor_service_room_no'] . '</div>
+                                                    <div class="col-9 col-sm-5">' . $result_content_outdoor_treatment[$i]['outdoor_service_name'] . "-".
+                                                    $result_content_outdoor_treatment[$i]['outdoor_service_room_no']. '</div>
                                                     <div class="d-none d-sm-block col-2">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_rate'] . ' Tk</div>
                                                     <div class="d-none d-sm-block col-2 text-95">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_quantity'] . '</div>
                                                     <div class="col-2 text-secondary-d2 text-right">' . $result_content_outdoor_treatment[$i]['outdoor_treatment_service_service_total'] . ' </div>

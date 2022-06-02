@@ -408,7 +408,7 @@ from medicine
                 var selling_pieces = row.find(".pharmacy_selling_medicine_selling_pieces").val();
                 var total_selling_price = parseFloat(selling_pieces) * per_pc_price;
 
-                row.find(".pharmacy_purchase_medicine_total_selling_price").val(total_selling_price);
+                row.find(".pharmacy_purchase_medicine_total_selling_price").val(total_selling_price.toFixed(2));
 
             }
         }
