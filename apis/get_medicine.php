@@ -19,9 +19,7 @@ class GetMedicine{
         if($check_token)
         {
             $get_content = "select * from medicine
-            left join medicine_category mc on mc.medicine_category_id = medicine.medicine_category
-            left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
-            left join medicine_type mt on mt.medicine_type_id = medicine.medicine_type
+            
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer";
             $getJson = $conn->prepare($get_content);
@@ -120,9 +118,7 @@ class GetMedicine{
         if($check_token)
         {
             $get_content = "select * from medicine
-            left join medicine_category mc on mc.medicine_category_id = medicine.medicine_category
-            left join medicine_leaf ml on ml.medicine_leaf_id = medicine.medicine_leaf
-            left join medicine_type mt on mt.medicine_type_id = medicine.medicine_type
+       
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
             where medicine_manufacturer='$manufacturer_id'";
@@ -150,12 +146,12 @@ class GetMedicine{
                             'medicine_creation_time'=>$data['medicine_creation_time'],
                             'medicine_modification_time'=>$data['medicine_modification_time'],
 
-                            'medicine_category_id'=>$data['medicine_category_id'],
-                            'medicine_category_user_added_id'=>$data['medicine_category_user_added_id'],
-                            'medicine_category_name'=>$data['medicine_category_name'],
-                            'medicine_category_description'=>$data['medicine_category_description'],
-                            'medicine_category_creation_time'=>$data['medicine_category_creation_time'],
-                            'medicine_category_modification_time'=>$data['medicine_category_modification_time'],
+                            // 'medicine_category_id'=>$data['medicine_category_id'],
+                            // 'medicine_category_user_added_id'=>$data['medicine_category_user_added_id'],
+                            // 'medicine_category_name'=>$data['medicine_category_name'],
+                            // 'medicine_category_description'=>$data['medicine_category_description'],
+                            // 'medicine_category_creation_time'=>$data['medicine_category_creation_time'],
+                            // 'medicine_category_modification_time'=>$data['medicine_category_modification_time'],
 
                             'medicine_unit_id'=>$data['medicine_unit_id'],
                             'medicine_unit_user_added_id'=>$data['medicine_unit_user_added_id'],
@@ -164,20 +160,20 @@ class GetMedicine{
                             'medicine_unit_creation_time'=>$data['medicine_unit_creation_time'],
                             'medicine_unit_modification_time'=>$data['medicine_unit_modification_time'],
 
-                            'medicine_type_id'=>$data['medicine_type_id'],
-                            'medicine_type_user_added_id'=>$data['medicine_type_user_added_id'],
-                            'medicine_type_name'=>$data['medicine_type_name'],
-                            'medicine_type_description'=>$data['medicine_type_description'],
-                            'medicine_type_creation_time'=>$data['medicine_type_creation_time'],
-                            'medicine_type_modification_time'=>$data['medicine_type_modification_time'],
+                            // 'medicine_type_id'=>$data['medicine_type_id'],
+                            // 'medicine_type_user_added_id'=>$data['medicine_type_user_added_id'],
+                            // 'medicine_type_name'=>$data['medicine_type_name'],
+                            // 'medicine_type_description'=>$data['medicine_type_description'],
+                            // 'medicine_type_creation_time'=>$data['medicine_type_creation_time'],
+                            // 'medicine_type_modification_time'=>$data['medicine_type_modification_time'],
 
-                            'medicine_leaf_id'=>$data['medicine_leaf_id'],
-                            'medicine_leaf_user_added_id'=>$data['medicine_leaf_user_added_id'],
-                            'medicine_leaf_name'=>$data['medicine_leaf_name'],
-                            'medicine_leaf_description'=>$data['medicine_leaf_description'],
-                            'medicine_leaf_total_per_box'=>$data['medicine_leaf_total_per_box'],
-                            'medicine_leaf_creation_time'=>$data['medicine_leaf_creation_time'],
-                            'medicine_leaf_modification_time'=>$data['medicine_leaf_modification_time'],
+                            // 'medicine_leaf_id'=>$data['medicine_leaf_id'],
+                            // 'medicine_leaf_user_added_id'=>$data['medicine_leaf_user_added_id'],
+                            // 'medicine_leaf_name'=>$data['medicine_leaf_name'],
+                            // 'medicine_leaf_description'=>$data['medicine_leaf_description'],
+                            // 'medicine_leaf_total_per_box'=>$data['medicine_leaf_total_per_box'],
+                            // 'medicine_leaf_creation_time'=>$data['medicine_leaf_creation_time'],
+                            // 'medicine_leaf_modification_time'=>$data['medicine_leaf_modification_time'],
 
                             'medicine_manufacturer_id'=>$data['medicine_manufacturer_id'],
                             'medicine_manufacturer_user_added_id'=>$data['medicine_manufacturer_user_added_id'],

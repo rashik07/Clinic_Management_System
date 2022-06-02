@@ -64,13 +64,14 @@ if (!isset($_SESSION)) {
                                         foreach ($result_content as $data) {
                                             if ($data['total_quantity'] - $data['total_sell'] < 50) {
                                                 // $date=date_create($data['pharmacy_medicine_exp_date']);
+                                                $res_quantity=$data['total_quantity'] - $data['total_sell'];
                                                 echo '<tr>';
                                                 echo '<td>' . $count . '</td>';
                                                 echo '<td>' . $data['medicine_name'] . '</td>';
                                                 echo '<td>' . $data['medicine_generic_name'] . '</td>';
                                                 // echo '<td>'.$data['pharmacy_medicine_batch_id'].'</td>';
                                                 echo '<td>' . $data['medicine_manufacturer_name'] . '</td>';
-                                                echo '<td>' . $data['total_quantity'] - $data['total_sell'] . '</td>';
+                                                echo '<td>' .  $res_quantity. '</td>';
                                                 // echo '<td>'.date_format($date,"Y/m/d").'</td>';
                                                 echo '</tr>';
                                                 $count = $count + 1;

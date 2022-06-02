@@ -236,7 +236,7 @@ from pharmacy_purchase_medicine
 
 
         });
-        load_medicine();
+        // load_medicine();
     });
 
 

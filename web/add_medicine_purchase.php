@@ -64,8 +64,9 @@ from medicine
             
                     left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
                     left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
+                  
                     ";
-                    //echo $get_content;
+                    // echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_medicine_list = $getJson->fetchAll(PDO::FETCH_ASSOC);
@@ -267,7 +268,7 @@ from medicine
 
 
         });
-        load_medicine();
+        // load_medicine();
     });
 
     var all_medicine = <?php echo json_encode($result_content_medicine_list); ?>;
@@ -352,6 +353,7 @@ from medicine
     function load_medicine() {
         for (var i = 0; i < Object.keys(all_medicine).length; i++) {
             $("#manufacturer_medicines").append('<option value="' + all_medicine[i]['medicine_id'] + '">' + all_medicine[i]['medicine_name'] + '</option>');
+            console.log(all_medicine);
         }
 
     }
@@ -423,12 +425,15 @@ from medicine
                 spinner.hide();
                 var obj = JSON.parse(response);
                 var datas = obj.medicine;
-
+                // console.log(datas);
+                
+                $("#manufacturer_medicines").html('');
                 for (var key in datas) {
                     if (datas.hasOwnProperty(key)) {
                         $("#manufacturer_medicines").append('<option value="' + datas[key].medicine_id + '">' + datas[key].medicine_name + '</option>');
                     }
                 }
+            
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
