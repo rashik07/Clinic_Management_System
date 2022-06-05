@@ -2,9 +2,12 @@
 if (!isset($_SESSION)) {
     session_start();
 }
+
+
 $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
 ?>
+<?php include 'header.php'; ?>
 <nav id="sidebar" class="proclinic-bg">
     <div class="sidebar-header">
         <a href="index.php"><img src="../assets/images/logo.png" class="logo" alt="logo"></a>
@@ -18,7 +21,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patients" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-wheelchair"></span> Patients
+                <i class="fas fa-hospital-user"></i> Patients
                 </a>
                 <ul class="list-unstyled collapse" id="nav-patients">
                     <li>
@@ -46,7 +49,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             </li>
             <li>
                 <a href="#nav-services" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-wheelchair"></span> Services
+                    <span class="ti-server"></span> Services
                 </a>
                 <ul class="list-unstyled collapse" id="nav-services">
                     <li>
@@ -67,7 +70,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-bills" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-wheelchair"></span> Billing
+                    <span class="ti-money"></span> Billing
                 </a>
                 <ul class="list-unstyled collapse" id="nav-bills">
 
@@ -111,7 +114,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             </li>
             <li>
                 <a href="#nav-bed" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-home"></span> Bed Management
+                    <i class="fas fa-bed"></i> Bed Management
                 </a>
                 <ul class="list-unstyled collapse" id="nav-bed">
                     <li>
@@ -134,7 +137,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
             <li><a href="#nav-Medicine" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                    <span class="ti-wheelchair"></span> Medicine
+                    <span class="ti-write"></span> Pharmacy Data Entry
                 </a>
                 <ul class="list-unstyled collapse" id="nav-Medicine">
                     <li>
@@ -175,7 +178,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
             <li>
                 <a href="#nav-maps" data-toggle="collapse" aria-expanded="false">
-                    <span class="ti-location-pin"></span>Pharmacy
+                    <i class="fas fa-capsules"></i>Pharmacy
                 </a>
                 <ul class="collapse list-unstyled" id="nav-maps">
                     <!-- <li>
@@ -220,7 +223,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
         <li>
             <a href="#nav-icons" data-toggle="collapse" aria-expanded="false">
-                <span class="ti-themify-favicon"></span> Reports
+                <span class="ti-bar-chart"></span> Reports
             </a>
             <ul class="collapse list-unstyled" id="nav-icons">
                 <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
