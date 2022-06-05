@@ -174,7 +174,7 @@ from medicine
                                             </td>
 
                                             <td>
-                                                <input type="text" class="form-control pharmacy_selling_medicine_selling_pieces" placeholder="Selling Pieces" id="pharmacy_selling_medicine_selling_pieces" name="pharmacy_selling_medicine_selling_pieces[]" required onchange="row_update(this);">
+                                                <input type="number" min=1 max="<?php echo $result_content_medicine[0]['pharmacy_medicine_quantity']; ?>" class="form-control pharmacy_selling_medicine_selling_pieces" placeholder="Selling Pieces" id="pharmacy_selling_medicine_selling_pieces" name="pharmacy_selling_medicine_selling_pieces[]" required onchange="row_update(this);">
                                             </td>
 
                                             <td>
@@ -408,7 +408,7 @@ from medicine
                 var selling_pieces = row.find(".pharmacy_selling_medicine_selling_pieces").val();
                 var total_selling_price = parseFloat(selling_pieces) * per_pc_price;
 
-                row.find(".pharmacy_purchase_medicine_total_selling_price").val(total_selling_price);
+                row.find(".pharmacy_purchase_medicine_total_selling_price").val(total_selling_price.toFixed(2));
 
             }
         }

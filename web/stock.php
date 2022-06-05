@@ -60,13 +60,14 @@ if (!isset($_SESSION)) {
                                         $count = 1;
                                         foreach ($result_content as $data) {
                                             if($data['pharmacy_medicine_id']){
+                                                $stock_quantity= $data['total_quantity'] - $data['total_sell'];
                                                 echo '<tr>';
                                                 echo '<td>' . $count . '</td>';
                                                 echo '<td>' . $data['medicine_name'] . '</td>';
                                                 echo '<td>' . $data['medicine_generic_name'] . '</td>';
                                                 echo '<td>'.$data['pharmacy_medicine_batch_id'].'</td>';
                                                 echo '<td>' . $data['medicine_manufacturer_name'] . '</td>';
-                                                echo '<td>' . $data['total_quantity'] - $data['total_sell'] . '</td>';
+                                                echo '<td>' . $stock_quantity . '</td>';
                                                 // echo '<td>'.date_format($date,"Y/m/d").'</td>';
                                                 echo '</tr>';
                                                 $count = $count + 1;

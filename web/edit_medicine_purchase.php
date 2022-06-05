@@ -133,9 +133,7 @@ from pharmacy_purchase_medicine
                                                 <td class="text-right">
                                                     <input type="text" id="pharmacy_purchase_sub_total" class="text-right form-control" name="pharmacy_purchase_sub_total" placeholder="0.00" value="<?php echo $result_content_medicine_purchase[0]['pharmacy_purchase_sub_total']; ?>" readonly="">
                                                 </td>
-                                                <td>
-                                                    <button onclick="AddRowTable();" id="add_invoice_item" type="button" class="btn btn-info-soft" name="add-invoice-item"><i class="fa fa-plus"></i></button>
-                                                </td>
+                                             
                                             </tr>
                                             <tr>
                                                 <td class="text-right" colspan="7"><b>Vat:</b></td>
@@ -238,7 +236,7 @@ from pharmacy_purchase_medicine
 
 
         });
-        load_medicine();
+        // load_medicine();
     });
 
 
@@ -371,7 +369,7 @@ from pharmacy_purchase_medicine
         let grand_total = document.getElementById("pharmacy_purchase_grand_total").value;
         let paid = document.getElementById("pharmacy_purchase_paid_amount").value;
         document.getElementById("pharmacy_purchase_due_amount").value = grand_total - paid;
-
+        // row_update(this);
     }
 
     function changeManufacturer() {
@@ -484,7 +482,7 @@ from pharmacy_purchase_medicine
             text2.setAttribute("placeholder", "Batch ID");
             text2.setAttribute("name", "pharmacy_purchase_medicine_batch_id[]");
             text2.setAttribute("value", list[i]['pharmacy_medicine_batch_id']);
-
+            text2.setAttribute("readonly", "readonly");
 
             var text3 = document.createElement("INPUT");
             text3.setAttribute("type", "date");
@@ -493,7 +491,7 @@ from pharmacy_purchase_medicine
             text3.setAttribute("placeholder", "Exp Date");
             text3.setAttribute("name", "pharmacy_purchase_medicine_exp_date[]");
             text3.setAttribute("value", list[i]['pharmacy_medicine_exp_date']);
-
+            text3.setAttribute("readonly", "readonly");
 
             var text4 = document.createElement("INPUT");
             text4.setAttribute("type", "text");
