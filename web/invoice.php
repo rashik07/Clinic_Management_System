@@ -122,7 +122,7 @@
                                         } else if ($_POST['content'] == 'indoor_allotment') {
                                             $invoice_no = "IPT-002";
                                             $patient_id  = $_POST['outdoor_patient_id'];
-                                            $treatment_id  = $_POST['outdoor_treatment_id'];
+                                            $treatment_id  = $_POST['indoor_treatment_id'];
                                             $invoice_no = $invoice_no . $patient_id . $treatment_id;
                                             $indoor_treatment_total_bill  = if_empty($_POST['indoor_treatment_total_bill']);
                                             $indoor_treatment_discount_pc   = if_empty($_POST['indoor_treatment_discount_pc']);
