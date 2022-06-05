@@ -78,12 +78,13 @@ require_once('check_if_admin.php');
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
                                         Invoice No: <?php echo $result_content_treatment[0]['outdoor_treatment_invoice_id']; ?><br>
-                                        <?php 
-                                        if($result_content_treatment[0]['outdoor_treatment_indoor_treatment_id']){
-                                            echo  'Admission id:'.   $result_content_treatment[0]["indoor_treatment_admission_id"] .'<br>';}?>
-                                            
-                                        
-                                        
+                                        <?php
+                                        if ($result_content_treatment[0]['outdoor_treatment_indoor_treatment_id']) {
+                                            echo  'Admission id:' .   $result_content_treatment[0]["indoor_treatment_admission_id"] . '<br>';
+                                        } ?>
+
+
+
                                         Patient Name: <?php echo $result_content_treatment[0]['patient_name']; ?><br>
                                         Gender: <?php echo $result_content_treatment[0]['patient_gender']; ?><br>
                                         Age: <?php echo $result_content_treatment[0]['patient_age']; ?><br>
@@ -348,7 +349,6 @@ require_once('check_if_admin.php');
                         if (datas.hasOwnProperty(key)) {
                             document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
                             document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
-
                         }
                     }
                 }

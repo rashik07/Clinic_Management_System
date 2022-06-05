@@ -34,27 +34,11 @@ require_once('check_if_outdoor_manager.php');
                                     <input type="hidden" name="content" value="patient">
                                     <input type="hidden" name="patient_status" value="active">
 
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="patient-name">Patient Name<i class="text-danger"> * </i></label>
                                         <input type="text" class="form-control" placeholder="Patient name" id="patient_name" name="patient_name" required>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="dob">Date Of Birth</label>
-                                        <input type="date" placeholder="Date of Birth" class="form-control" id="patient_dob" name="patient_dob">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="age">Age<i class="text-danger"> * </i></label>
-                                        <input type="text" placeholder="Age" class="form-control" id="patient_age" name="patient_age" required>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" placeholder="Phone" onchange="phoneOnChange(this.value)" class="form-control" id="patient_phone" name="patient_phone">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="email">Email</label>
-                                        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="email" class="form-control" id="patient_email" name="patient_email">
-                                    </div>
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-4">
                                         <label for="gender">Gender<i class="text-danger"> * </i></label>
                                         <select class="form-control" id="patient_gender" name="patient_gender" required>
                                             <option value="">Select Gender</option>
@@ -63,29 +47,82 @@ require_once('check_if_outdoor_manager.php');
                                             <option value="other">Other</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="gender">Blood Group</label>
-                                        <select class="form-control" id="patient_blood_group" name="patient_blood_group">
-                                            <option value="">Select Blood Group</option>
-                                            <option value="A+">A+</option>
-                                            <option value="B+">B+</option>
-                                            <option value="O+">O+</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="B-">B-</option>
-                                            <option value="O-">O-</option>
-                                            <option value="AB-">AB-</option>
-                                            <option value="not tested">Not Tested</option>
-                                        </select>
+
+                                    <div class="form-group col-md-4">
+                                        <label for="age">Age<i class="text-danger"> * </i></label>
+                                        <input type="text" placeholder="Age" class="form-control" id="patient_age" name="patient_age" required>
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="exampleFormControlTextarea1">Description</label>
-                                        <textarea placeholder="Description" class="form-control" id="patient_description" name="patient_description" rows="3"></textarea>
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding: 20px;">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="phone">Phone</label>
+                                                    <input type="text" placeholder="Phone" onchange="phoneOnChange(this.value)" class="form-control" id="patient_phone" name="patient_phone">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="email">Email</label>
+                                                    <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="email" class="form-control" id="patient_email" name="patient_email">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="dob">Date Of Birth</label>
+                                                    <input type="date" placeholder="Date of Birth" class="form-control" id="patient_dob" name="patient_dob">
+                                                </div>
+
+
+
+                                                <div class="form-group col-md-6">
+                                                    <label for="gender">Blood Group</label>
+                                                    <select class="form-control" id="patient_blood_group" name="patient_blood_group">
+                                                        <option value="">Select Blood Group</option>
+                                                        <option value="A+">A+</option>
+                                                        <option value="B+">B+</option>
+                                                        <option value="O+">O+</option>
+                                                        <option value="AB+">AB+</option>
+                                                        <option value="A-">A-</option>
+                                                        <option value="B-">B-</option>
+                                                        <option value="O-">O-</option>
+                                                        <option value="AB-">AB-</option>
+                                                        <option value="not tested">Not Tested</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="patient_national_ID">National ID</label>
+                                                    <input type="text" placeholder="National ID" class="form-control" id="patient_national_ID" name="patient_national_ID">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="exampleFormControlTextarea1">Description</label>
+                                                    <textarea placeholder="Description" class="form-control" id="patient_description" name="patient_description" rows="3"></textarea>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="exampleFormControlTextarea1">Address</label>
+                                                    <textarea placeholder="Address" class="form-control" id="patient_address" name="patient_address" rows="3"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="background-color: #f9f5f5;padding: 20px;border-radius: 10px;">
+                                            <div class="row">
+                                                <h3>Emergency Contact Person</h3>
+                                                <div class="form-group col-md-12">
+                                                    <label for="patient_emergency_name">Name</label>
+                                                    <input type="text" placeholder="Name" class="form-control" id="patient_emergency_name" name="patient_emergency_name">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="patient_emergency_relation">Relation with patient</label>
+                                                    <input type="text" placeholder="Relation" class="form-control" id="patient_emergency_relation" name="patient_emergency_relation">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="patient_emergency_contact">Contact number</label>
+                                                    <input type="text" placeholder="Contact number" class="form-control" id="patient_emergency_contact" name="patient_emergency_contact">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="exampleFormControlTextarea1">Address</label>
+                                                    <textarea placeholder="Address" class="form-control" id="patient_emergency_address" name="patient_emergency_address" rows="3"></textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="exampleFormControlTextarea1">Address</label>
-                                        <textarea placeholder="Address" class="form-control" id="patient_address" name="patient_address" rows="3"></textarea>
-                                    </div>
+
 
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -144,7 +181,7 @@ require_once('check_if_outdoor_manager.php');
                         }
                     }
                     //document.getElementById("patient_phone").value = "";
-                    document.getElementById("patient_form").reset();
+                    // document.getElementById("patient_form").reset();
 
                 }
             },

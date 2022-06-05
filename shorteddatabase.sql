@@ -95,7 +95,12 @@ CREATE TABLE `patient`
     `patient_blood_group`       varchar(255) DEFAULT NULL,
     `patient_phone`             varchar(255) DEFAULT NULL,
     `patient_address`           varchar(255) DEFAULT NULL,
-    `patient_status`            varchar(255) DEFAULT NULL, --
+    `patient_status`            varchar(255) DEFAULT NULL,
+    `patient_national_ID`       varchar(255) DEFAULT NULL,
+    `patient_emergency_name`    varchar(255) DEFAULT NULL,
+    `patient_emergency_relation`       varchar(255) DEFAULT NULL,
+    `patient_emergency_address`       varchar(2000) DEFAULT NULL,
+    `patient_emergency_contact`       varchar(255) DEFAULT NULL,
     `patient_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `patient_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (patient_id),
@@ -221,11 +226,11 @@ CREATE TABLE `indoor_treatment`
   `indoor_treatment_user_added_id` int(11) NOT NULL,
   `indoor_treatment_patient_id` int(11) NOT NULL,
   `indoor_treatment_reference` varchar(255) DEFAULT NULL,
-  `indoor_treatment_total_bill` varchar(255) DEFAULT NULL,
-  `indoor_treatment_total_bill_after_discount` varchar(255) DEFAULT NULL,
-  `indoor_treatment_discount_pc` varchar(255) DEFAULT '0',
-  `indoor_treatment_total_paid` varchar(255) DEFAULT NULL,
-  `indoor_treatment_total_due` varchar(255) DEFAULT '0',
+  `indoor_treatment_total_bill` varchar(255) DEFAULT 0,
+  `indoor_treatment_total_bill_after_discount` varchar(255) DEFAULT 0,
+  `indoor_treatment_discount_pc` varchar(255) DEFAULT 0,
+  `indoor_treatment_total_paid` varchar(255) DEFAULT 0,
+  `indoor_treatment_total_due` varchar(255) DEFAULT 0,
   `indoor_treatment_payment_type` varchar(255) DEFAULT NULL,
   `indoor_treatment_payment_type_no` varchar(255) DEFAULT NULL,
   `indoor_treatment_note` varchar(255) DEFAULT NULL,
@@ -280,6 +285,8 @@ CREATE TABLE `indoor_treatment_doctor`
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+
 
 
 -- outdoor 
@@ -484,6 +491,24 @@ INSERT INTO `outdoor_service` (`outdoor_service_id`, `outdoor_service_user_added
 --
 -- Indexes for table `outdoor_service`
 --
+
+  CREATE TABLE `indoor_treatment_admission`
+(
+    `indoor_treatment_admission_id`                int(11) NOT NULL AUTO_INCREMENT,
+    `indoor_treatment_doctor_user_added_id` int(11) NOT NULL,
+    `indoor_treatment_id` int(11) NOT NULL,
+    `outdoor_service_id` int(11) NOT NULL,
+    `outdoor_service_rate` int(11) NOT NULL,
+    `indoor_treatment_doctor_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    `indoor_treatment_doctor_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (indoor_treatment_admission_id),
+    FOREIGN KEY (indoor_treatment_doctor_user_added_id) REFERENCES user (user_id),
+    FOREIGN KEY (indoor_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id),
+    FOREIGN KEY (outdoor_service_id) REFERENCES outdoor_service (outdoor_service_id)
+
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
 
 CREATE TABLE `outdoor_treatment`
 (

@@ -79,6 +79,9 @@ class CreteIndoorPatientAllotment
                 $indoor_patient_doctor_entry_time = $_POST['indoor_patient_doctor_entry_time'];
                 $indoor_patient_doctor_discharge_time = $_POST['indoor_patient_doctor_discharge_time'];
 
+                $outdoor_service_id = $_POST['outdoor_service_id'];
+                $outdoor_service_rate = $_POST['outdoor_service_rate'];
+
 
                 // create indoor treatment
                 $post_content = "INSERT INTO indoor_treatment (indoor_treatment_admission_id,indoor_treatment_user_added_id,
@@ -148,6 +151,22 @@ class CreteIndoorPatientAllotment
                     VALUES ('$request_user_id','$indoor_treatment_id','$doctor_id','$doctor_specialization',
                             '$doctor_visit_fee','$doctor_total_bill',
                             '$doctor_entry', '$doctor_discharge')";
+                    //echo $post_content;
+                    $result = $conn->exec($post_content);
+                    $last_id = $conn->lastInsertId();
+                    $count_service = $count_service + 1;
+                }
+
+                $count_service = 0;
+                foreach ($outdoor_service_id as $rowservice) {
+
+                    $outdoor_service_id  = $outdoor_service_id[$count_service];
+                    $outdoor_service_rate  = $outdoor_service_rate[$count_service];
+
+                    $post_content = "INSERT INTO indoor_treatment_admission (indoor_treatment_doctor_user_added_id,
+                                     indoor_treatment_id, outdoor_service_id,
+                                     outdoor_service_rate) 
+                    VALUES ('$request_user_id','$indoor_treatment_id','$outdoor_service_id','$outdoor_service_rate')";
                     //echo $post_content;
                     $result = $conn->exec($post_content);
                     $last_id = $conn->lastInsertId();

@@ -37,6 +37,7 @@ require_once('check_if_outdoor_manager.php');
                                         <label for="discharge-date">Service Category<i class="text-danger"> * </i></label>
                                         <select class="form-control" id="outdoor_service_Category" name="outdoor_service_Category" required>
                                             <option value="">Select Service Category</option>
+                                            <option value="Admission">Admission</option>
                                             <option value="Doctor Visit">Doctor Visit</option>
                                             <option value="Procedures">Procedures</option>
                                             <option value="Physiotherapy">Physiotherapy</option>

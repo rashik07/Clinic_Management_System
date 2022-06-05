@@ -52,6 +52,13 @@ if (isset($_GET['patient_id'])) {
                     $getJson->execute();
                     $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+                    $get_content = "select * from outdoor_service where outdoor_service_Category='Admission'";
+                    //echo $get_content;
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_Admission = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+
                     ?>
                     <div class="col-md-12">
                         <div class="widget-area-2 proclinic-box-shadow">
@@ -220,6 +227,50 @@ if (isset($_GET['patient_id'])) {
                                         </tbody>
 
                                     </table>
+
+                                    <table id="datatable3" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Admission Charge<i class="text-danger"> * </i></th>
+                                                <th>Amount</th>
+
+
+                                                <!-- <th>Assign New</th>
+                                                <th>Delete</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody id="datatable3_body">
+                                            <tr>
+                                                <td>
+                                                    <select id="outdoor_service_id" class="form-control outdoor_service_id" name="outdoor_service_id[]" placeholder="Pick a Service..." onchange="changeDataService(this);" required>
+                                                        <option value="">Select a service...</option>
+                                                        <?php
+                                                        foreach ($result_content_Admission as $data) {
+                                                            echo '<option value="' . $data['outdoor_service_id'] . '">' . $data['outdoor_service_name'] . '</option>';
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+
+
+                                                <td>
+                                                    <input type="number" class="form-control outdoor_service_rate" placeholder="Fee" id="outdoor_service_rate" name="outdoor_service_rate[]" readonly required>
+
+                                                </td>
+
+
+                                                <!-- <td>
+                                                    <button type="button" class="btn btn-success pull-right" onclick="AddRowDoctor();">Assign New</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-success pull-right" onclick="DeleteRowDoctor(this);">Delete Row</button>
+                                                </td> -->
+                                            </tr>
+
+
+                                        </tbody>
+
+                                    </table>
                                     <div class="form-group col-md-4">
                                         <label for="indoor_treatment_total_bill">Total Bill</label>
                                         <input type="number" placeholder="Total Bill" class="form-control" id="indoor_treatment_total_bill" name="indoor_treatment_total_bill" readonly>
@@ -232,7 +283,7 @@ if (isset($_GET['patient_id'])) {
                                         <label for="indoor_treatment_total_bill_after_discount">In Total Bill</label>
                                         <input type="number" placeholder="In Total Bill" class="form-control" id="indoor_treatment_total_bill_after_discount" name="indoor_treatment_total_bill_after_discount" readonly>
                                     </div>
-                                    <!-- <div class="form-group col-md-3">
+                                    <div class="form-group col-md-3">
                                         <label for="indoor_treatment_total_paid">Paid<i class="text-danger"> * </i></label>
                                         <input type="number" placeholder="Total Paid" class="form-control" onchange="update_total_bill();" id="indoor_treatment_total_paid" name="indoor_treatment_total_paid" required>
                                     </div>
@@ -256,7 +307,7 @@ if (isset($_GET['patient_id'])) {
                                     <div class="form-group col-md-12">
                                         <label for="indoor_treatment_note">Note</label>
                                         <input type="text" placeholder="Note" class="form-control" id="indoor_treatment_note" name="indoor_treatment_note">
-                                    </div> -->
+                                    </div>
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                                     </div>
@@ -448,6 +499,7 @@ if (isset($_GET['patient_id'])) {
     }
     var all_bed = <?php echo json_encode($result_content_indoor_bed); ?>;
     var all_doctor = <?php echo json_encode($result_content_doctor); ?>;
+    var all_admission = <?php echo json_encode($result_content_Admission); ?>;
 
     function changeDataBed(instance) {
         var row = $(instance).closest("tr");
@@ -497,6 +549,23 @@ if (isset($_GET['patient_id'])) {
         update_total_bill();
     }
 
+    function changeDataService(instance) {
+        var row = $(instance).closest("tr");
+        var outdoor_service_id = parseFloat(row.find(".outdoor_service_id").val());
+
+        for (var i = 0; i < Object.keys(all_admission).length; i++) {
+            //alert(all_bed[i]['indoor_bed_id']);
+            //alert(indoor_bed_id);
+            //alert(all_bed[i]['indoor_bed_id'] == indoor_bed_id);
+            if (all_admission[i]['outdoor_service_id'] == outdoor_service_id) {
+                //alert("matched");
+                let per_day_price = isNaN(parseInt(all_admission[i]['outdoor_service_rate'])) ? 0 : all_admission[i]['outdoor_service_rate'];
+                row.find(".outdoor_service_rate").val(per_day_price);
+            }
+        }
+        update_total_bill();
+    }
+
     function DateDiff(date1, date2) {
         date1 = new Date(date1);
         date2 = new Date(date2);
@@ -522,7 +591,13 @@ if (isset($_GET['patient_id'])) {
             doctortotal = parseInt(doctortotal) + parseInt(isNaN(parseInt(total)) ? 0 : total);
         });
 
-        let in_total = bedtotal + doctortotal;
+        var admissionfee = 0;
+        $("#datatable3 tr").each(function() {
+            var total = $(this).find("input.outdoor_service_rate").val();
+            admissionfee = parseInt(admissionfee) + parseInt(isNaN(parseInt(total)) ? 0 : total);
+        });
+
+        let in_total = bedtotal + doctortotal + admissionfee;
         document.getElementById("indoor_treatment_total_bill").value = parseInt(in_total);
         var discount = document.getElementById("indoor_treatment_discount_pc").value;
         discount = isNaN(parseInt(discount)) ? 0 : parseInt(discount);

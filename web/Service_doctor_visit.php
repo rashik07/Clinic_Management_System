@@ -508,7 +508,7 @@ if (isset($_GET['patient_id'])) {
                     }
                 }
                 if (document.getElementById("outdoor_treatment_indoor_treatment_id").value) {
-                    document.getElementById("outdoor_treatment_total_paid").disabled = true;
+                    // document.getElementById("outdoor_treatment_total_paid").disabled = true;
                 }
 
             },

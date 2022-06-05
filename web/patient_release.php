@@ -26,30 +26,49 @@ require_once('check_if_outdoor_manager.php');
                         <div class="widget-area-2 proclinic-box-shadow">
                             <!-- <h3 class="widget-title">Patient Release</h3> -->
                             <!-- Widget Item -->
-                            <p>
+                            <!-- <p>
                                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="indoor_Allotment multiCollapseExample2">Close all</button>
-                            </p>
+                            </p> -->
+                            <?php
+                            require_once("../apis/Connection.php");
+                            $connection = new Connection();
+                            $conn = $connection->getConnection();
+                            $indoor_treatment_id = $_GET['indoor_treatment_id'];
+                            $get_content = "select * from indoor_treatment inner join patient on patient.patient_id = indoor_treatment.indoor_treatment_patient_id where indoor_treatment_id='$indoor_treatment_id'";
+                            $getJson = $conn->prepare($get_content);
+                            $getJson->execute();
+                            $indoor_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                            // print_r($indoor_patient);
+                            ?>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Patient Name : <?php echo $indoor_patient[0]['patient_name'] ?></p>
+                                    <p>Patient ID : <?php echo $indoor_patient[0]['patient_id'] ?></p>
+                                    <p>Patient Age : <?php echo $indoor_patient[0]['patient_age'] ?></p>
+                                    <p>Consultant Name : <?php echo $indoor_patient[0]['patient_id'] ?></p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>Admission Date : <?php echo $indoor_patient[0]['indoor_treatment_creation_time'] ?></p>
+                                    <p>Bill up to Date : <?php echo $indoor_patient[0]['indoor_treatment_creation_time'] ?></p>
+                                </div>
+                            </div>
                             <table class="Report_table" style="width: 100%;">
                                 <thead>
                                     <tr>
 
+                                        <td>Invoice</td>
                                         <td style="width: 40%;">Details</td>
-                                        <td>QTY</td>
-                                        <td>Per Unit</td>
                                         <td>Issue Date</td>
-                                        <td>Bill</td>
                                         <td>Discount</td>
+
                                         <td>Payment</td>
-                                        <td>Due</td>
-                                        <td>Total</td>
+
+                                        <td>Bill</td>
                                         <td>Action</td>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    require_once("../apis/Connection.php");
-                                    $connection = new Connection();
-                                    $conn = $connection->getConnection();
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                     $get_content = "select * from indoor_treatment where indoor_treatment_id='$indoor_treatment_id'";
                                     $getJson = $conn->prepare($get_content);
@@ -59,9 +78,47 @@ require_once('check_if_outdoor_manager.php');
                                     if (count($indoor_allotment) > 0) {
                                         foreach ($indoor_allotment as $indoor_invoice) {
                                             // $last_bed_name = $bed['indoor_bed_name'];
+                                            $treatment_id = $indoor_treatment_id;
+                                            $service_list = array();
+
+                                            $get_content = "select * from indoor_treatment_bed  
+                                    where indoor_treatment_bed_treatment_id = '$treatment_id'";
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $result_content_services = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                                            foreach ($result_content_services as $services) {
+                                                array_push($service_list, $services['indoor_treatment_bed_category_name']);
+                                            }
+
+                                            $get_content = "select * from indoor_treatment_admission inner join outdoor_service on  indoor_treatment_admission.outdoor_service_id = outdoor_service.outdoor_service_id
+                                    where indoor_treatment_id = '$treatment_id'";
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $result_content_services = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                                            foreach ($result_content_services as $services) {
+                                                array_push($service_list, $services['outdoor_service_name']);
+                                            }
+
+                                            $get_content = "select * from indoor_treatment_doctor inner join doctor on  indoor_treatment_doctor.indoor_treatment_doctor_doctor_id = doctor.doctor_id
+                                    where indoor_treatment_doctor_treatment_id = '$treatment_id'";
+                                            // echo $get_content;
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $result_content_services = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                                            foreach ($result_content_services as $services) {
+                                                array_push($service_list, $services['doctor_name']);
+                                            }
+
+                                            $services_names = implode(', ', $service_list);
+
                                             if ($indoor_invoice['indoor_treatment_discount_pc'] == "") {
                                                 $indoor_invoice['indoor_treatment_discount_pc'] = 0;
                                             }
+
+
                                             echo '
                                             <tr class="main_row">
                                                 <td> 
@@ -71,14 +128,16 @@ require_once('check_if_outdoor_manager.php');
                                                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                                                     </div>
                                                 </div>
-                                                <td>-</td>
-                                                <td>-</td>
+                                                </td>
+                                               
+                                                <td>' . $services_names . '</td>
                                                 <td>' . $indoor_invoice['indoor_treatment_creation_time'] . '</td>
-                                                <td>' . $indoor_invoice['indoor_treatment_total_bill'] . '</td>
-                                                <td>' . $indoor_invoice['indoor_treatment_discount_pc'] . '%</td>
+                                                
+                                                <td>' . $indoor_invoice['indoor_treatment_discount_pc'] . '</td>
+                                                
                                                 <td>' . $indoor_invoice['indoor_treatment_total_paid'] . '</td>
-                                                <td>' . $indoor_invoice['indoor_treatment_total_due'] . '</td>
                                                 <td>' . $indoor_invoice['indoor_treatment_total_bill_after_discount'] . '</td>
+                                                
                                                 <td><a href="edit_indoor_treatment.php?indoor_treatment_id=' . $indoor_treatment_id . '">Update</a></td>
                                             </tr>';
 
@@ -93,9 +152,7 @@ require_once('check_if_outdoor_manager.php');
 
 
                                     <?php
-                                    require_once("../apis/Connection.php");
-                                    $connection = new Connection();
-                                    $conn = $connection->getConnection();
+
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                     $get_content = "select * from outdoor_treatment where outdoor_treatment_indoor_treatment_id='$indoor_treatment_id'";
                                     $getJson = $conn->prepare($get_content);
@@ -105,114 +162,51 @@ require_once('check_if_outdoor_manager.php');
                                     if (count($Services) > 0) {
                                         foreach ($Services as $Service) {
                                             // $last_bed_name = $bed['indoor_bed_name'];
+                                            $treatment_id = $Service['outdoor_treatment_id'];
+
+                                            $get_content = "select * from outdoor_treatment_service 
+                                    left join outdoor_service os on os.outdoor_service_id = outdoor_treatment_service.outdoor_treatment_service_service_id 
+                                    where outdoor_treatment_service_treatment_id = '$treatment_id'";
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $result_content_services = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                            $service_list = array();
+
+                                            foreach ($result_content_services as $services) {
+                                                array_push($service_list, $services['outdoor_service_name']);
+                                            }
+                                            $services_names = implode(', ', $service_list);
+
+
+
                                             if ($Service['outdoor_treatment_discount_pc'] == "") {
                                                 $Service['outdoor_treatment_discount_pc'] = 0;
                                             }
                                             echo '
                                     <tr class="main_row">
                                         <td> 
-                                        <a class="" data-toggle="collapse" href="#Services" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Services</a>
+                                        <a class="" data-toggle="collapse" href="#Services" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> Invoice no. ' . $Service['outdoor_treatment_id'] . '</a>
                                         <div class="collapse multi-collapse" id="Services">
                                             <div class="card card-body">
                                                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                                             </div>
                                         </div>
-                                        <td>-</td>
-                                        <td>-</td>
+                                    
+                                        <td>' . $services_names . '</td>
                                         <td>' . $Service['outdoor_treatment_creation_time'] . '</td>
-                                        <td>' . $Service['outdoor_treatment_total_bill'] . '</td>
-                                        <td>' . $Service['outdoor_treatment_discount_pc'] . '%</td>
+                                        <td>' . $Service['outdoor_treatment_discount_pc'] . '</td>
                                         <td>' . $Service['outdoor_treatment_total_paid'] . '</td>
-                                        <td>' . $Service['outdoor_treatment_total_due'] . '</td>
                                         <td>' . $Service['outdoor_treatment_total_bill_after_discount'] . '</td>
+                                        
                                         <td><a href="edit_patient_treatment.php?outdoor_treatment_id=' . $Service['outdoor_treatment_id'] . '">Update</a></td>
                                     </tr>';
                                         }
                                     } ?>
 
-                                    <?php
-                                    require_once("../apis/Connection.php");
-                                    $connection = new Connection();
-                                    $conn = $connection->getConnection();
-                                    $indoor_treatment_id = $_GET['indoor_treatment_id'];
-                                    $get_content = "select * from ot_treatment where ot_treatment_indoor_treatment_id='$indoor_treatment_id'";
-                                    $getJson = $conn->prepare($get_content);
-                                    $getJson->execute();
-                                    $OT = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                    // print_r($Services);
-                                    if (count($OT) > 0) {
-                                        foreach ($OT as $operation) {
-                                            // $last_bed_name = $bed['indoor_bed_name'];
-                                            if ($operation['ot_treatment_discount_pc'] == "") {
-                                                $operation['ot_treatment_discount_pc'] = 0;
-                                            }
-                                            echo '
-                                    <tr class="main_row">
-                                        <td> 
-                                        <a class="" data-toggle="collapse" href="#OT" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">OT</a>
-                                        <div class="collapse multi-collapse" id="OT">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>' . $operation['ot_treatment_creation_time'] . '</td>
-                                        <td>' . $operation['ot_treatment_total_bill'] . '</td>
-                                        <td>' . $operation['ot_treatment_discount_pc'] . '%</td>
-                                        <td>' . $operation['ot_treatment_total_paid'] . '</td>
-                                        <td>' . $operation['ot_treatment_total_due'] . '</td>
-                                        <td>' . $operation['ot_treatment_total_bill_after_discount'] . '</td>
-                                        <td><a href="edit_ot_treatment.php?ot_treatment_id=' . $operation['ot_treatment_id'] . '">Update</a></td>
-                                    </tr>';
-                                        }
-                                    } ?>
+
 
                                     <?php
-                                    require_once("../apis/Connection.php");
-                                    $connection = new Connection();
-                                    $conn = $connection->getConnection();
-                                    $indoor_treatment_id = $_GET['indoor_treatment_id'];
-                                    $get_content = "select * from pathology_investigation LEFT JOIN pathology_investigation_test on pathology_investigation.pathology_investigation_id = pathology_investigation_test.pathology_investigation_test_investigation_id
-                                    LEFT JOIN pathology_test on pathology_investigation_test.pathology_investigation_test_pathology_test_id = pathology_test.pathology_test_id
-                                    where pathology_investigation_indoor_treatment_id='$indoor_treatment_id'";
-                                    // echo $get_content;
-                                    $getJson = $conn->prepare($get_content);
-                                    $getJson->execute();
-                                    $pathology_investigation = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                                    // print_r($pathology_investigation);
-                                    if (count($pathology_investigation) > 0) {
-                                        foreach ($pathology_investigation as $investigation) {
-                                            // $last_bed_name = $bed['indoor_bed_name'];
-                                            if ($investigation['pathology_investigation_discount_pc'] == "") {
-                                                $investigation['pathology_investigation_discount_pc'] = 0;
-                                            }
-                                            echo '
-                                    <tr class="main_row">
-                                        <td> 
-                                        <a class="" data-toggle="collapse" href="#OT" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">' . $investigation['pathology_test_name'] . '</a>
-                                        <div class="collapse multi-collapse" id="OT">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
-                                        <td>-</td>
-                                        <td>-</td>
-                                        <td>' . $investigation['pathology_investigation_creation_time'] . '</td>
-                                        <td>' . $investigation['pathology_investigation_total_bill'] . '</td>
-                                        <td>' . $investigation['pathology_investigation_discount_pc'] . '%</td>
-                                        <td>' . $investigation['pathology_investigation_total_paid'] . '</td>
-                                        <td>' . $investigation['pathology_investigation_total_due'] . '</td>
-                                        <td>' . $investigation['pathology_investigation_total_bill_after_discount'] . '</td>
-                                        <td><a href="edit_pathology_investigation.php?pathology_investigation_id=' . $investigation['pathology_investigation_id'] . '">Update</a></td>
-                                    </tr>';
-                                        }
-                                    } ?>
 
-                                    <?php
-                                    require_once("../apis/Connection.php");
-                                    $connection = new Connection();
-                                    $conn = $connection->getConnection();
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                     $get_content = "select * from pharmacy_sell where pharmacy_sell_indoor_treatment_id='$indoor_treatment_id'";
                                     $getJson = $conn->prepare($get_content);
@@ -237,11 +231,12 @@ require_once('check_if_outdoor_manager.php');
                                         <td>-</td>
                                         <td>-</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_creation_time'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '%</td>
+                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
+                                        <td>' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
+                                        
                                         <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
+                                        
                                         <td><a href="edit_medicine_sell.php?medicine_sell_id=' . $pharmacy_sell['pharmacy_sell_id'] . '">Update</a></td>
                                     </tr>';
                                         }

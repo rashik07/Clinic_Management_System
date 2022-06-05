@@ -92,6 +92,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="patient_treatment_list_indoor.php">Indoor Invoices</a>
                     </li>
+                    <li>
+                        <a href="indoor_bill_list.php">Indoor Biils</a>
+                    </li>
 
                 </ul>
             </li>
