@@ -54,7 +54,7 @@ body {
 .proclinic-bg {
     
    
-    background: linear-gradient(to left,#3CB371, #008761 );
+    background:  #008761 ;
 }
 h1, h2, h3, h4, h5, h6, span, #sidebar {
     font-family: 'Roboto', sans-serif;
@@ -352,6 +352,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 
 a.navbar-brand.arrow_style span {
-    background: #32ab6e!important;
+    background: #008761!important;
 }
 
