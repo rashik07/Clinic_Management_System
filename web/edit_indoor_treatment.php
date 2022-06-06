@@ -222,7 +222,7 @@ require_once('check_if_indoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                                        <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button>
+                                        <!-- <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button> -->
 
                                     </div>
                                 </div>
@@ -269,7 +269,7 @@ require_once('check_if_indoor_manager.php');
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("indoor_treatment_list.php", "_self");
+                        window.open("admission_invoice.php?indoor_treatment_id="+obj.indoor_treatment_id, "_self");
 
                     }
                 },
@@ -290,10 +290,10 @@ require_once('check_if_indoor_manager.php');
     function invoice() {
         form = document.getElementById('patient_allotment_form');
         form.target = '_blank';
-        form.action = 'invoice.php';
-        form.submit();
-        form.action = 'invoice.php';
-        form.target = '';
+        form.action = 'admission_invoice.php?indoor_treatment_id='+$indoor_treatment_id;
+        // form.submit();
+        // form.action = 'admission_invoice.php?indoor_treatment_id='+$indoor_treatment_id;
+        // form.target = '';
     }
 
     function loadPatient() {

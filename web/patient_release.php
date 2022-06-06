@@ -16,12 +16,10 @@ $total_exemption = 0;
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
             include 'top_navbar.php';
-
             ?>
             <div class="container-fluid">
 
@@ -149,7 +147,6 @@ $total_exemption = 0;
                                                 $indoor_invoice['indoor_treatment_discount_pc'] = 0;
                                             }
 
-
                                             echo '
                                             <tr class="main_row">
                                                 <td> 
@@ -159,8 +156,7 @@ $total_exemption = 0;
                                                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                                                     </div>
                                                 </div>
-                                                </td>
-                                               
+                                                </td>                             
                                                 <td>' . $services_names . '</td>
                                                 <td>' . $indoor_invoice['indoor_treatment_creation_time'] . '</td>
                                                 
@@ -184,8 +180,6 @@ $total_exemption = 0;
                                         }
                                     }
                                     ?>
-
-
 
                                     <?php
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
@@ -212,8 +206,6 @@ $total_exemption = 0;
                                             }
                                             $services_names = implode(', ', $service_list);
 
-
-
                                             if ($Service['outdoor_treatment_discount_pc'] == "") {
                                                 $Service['outdoor_treatment_discount_pc'] = 0;
                                             }
@@ -238,10 +230,7 @@ $total_exemption = 0;
                                         }
                                     } ?>
 
-
-
                                     <?php
-
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                     $get_content = "select * from pharmacy_sell where pharmacy_sell_indoor_treatment_id='$indoor_treatment_id'";
                                     $getJson = $conn->prepare($get_content);
@@ -372,7 +361,6 @@ $total_exemption = 0;
                 </div>
             </div>
             <div>
-
             </div>
             <?php include 'footer.php'
             ?>
