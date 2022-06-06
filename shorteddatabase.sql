@@ -234,11 +234,25 @@ CREATE TABLE `indoor_treatment`
   `indoor_treatment_payment_type` varchar(255) DEFAULT NULL,
   `indoor_treatment_payment_type_no` varchar(255) DEFAULT NULL,
   `indoor_treatment_note` varchar(255) DEFAULT NULL,
+   `indoor_treatment_released` BOOLEAN DEFAULT False,
     `indoor_treatment_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `indoor_treatment_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (indoor_treatment_id),
     FOREIGN KEY (indoor_treatment_user_added_id) REFERENCES user (user_id),
     FOREIGN KEY (indoor_treatment_patient_id) REFERENCES patient (patient_id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+CREATE TABLE `indoor_treatment_payment` (
+   `indoor_treatment_payment_id`  int(11) NOT NULL AUTO_INCREMENT,
+   `indoor_treatment_payment_user_added_id` int(11) NOT NULL,
+   `indoor_treatment_payment_treatment_id` int(11) NOT NULL,
+   `indoor_treatment_payment_details` varchar(2550) DEFAULT NULL,
+   `indoor_treatment_payment_amount` int(11) DEFAULT 0,
+   `indoor_treatment_payment_creation_time`     DATETIME     DEFAULT CURRENT_TIMESTAMP,
+    `indoor_treatment_payment_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (indoor_treatment_payment_id),
+    FOREIGN KEY (indoor_treatment_payment_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -508,6 +522,8 @@ INSERT INTO `outdoor_service` (`outdoor_service_id`, `outdoor_service_user_added
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
+
+
 
 
 CREATE TABLE `outdoor_treatment`

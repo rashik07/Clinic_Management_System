@@ -142,6 +142,9 @@ CREATE TABLE `indoor_treatment` (
   `indoor_treatment_modification_time` datetime DEFAULT NULL ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+
+
 -- --------------------------------------------------------
 
 --
