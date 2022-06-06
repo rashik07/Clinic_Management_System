@@ -2,7 +2,11 @@
 // need to enable on production
 require_once('check_if_outdoor_manager.php');
 ?>
-<?php include 'header.php'
+<?php include 'header.php';
+$totoal_bill = 0;
+$total_paid = 0;
+$total_discount = 0;
+$total_exemption = 0;
 ?>
 
 <body>
@@ -38,33 +42,60 @@ require_once('check_if_outdoor_manager.php');
                             $getJson = $conn->prepare($get_content);
                             $getJson->execute();
                             $indoor_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                            $indoor_treatment_id = $_GET['indoor_treatment_id'];
+                            $get_content = "select * from indoor_treatment_payment where indoor_treatment_payment_treatment_id='$indoor_treatment_id'";
+                            $getJson = $conn->prepare($get_content);
+                            $getJson->execute();
+                            $indoor_payments = $getJson->fetchAll(PDO::FETCH_ASSOC);
                             // print_r($indoor_patient);
+
+                            if (count($indoor_payments) > 0) {
+                                foreach ($indoor_payments as $payment) {
+                                    $total_paid += (int)$payment['indoor_treatment_payment_amount'];
+                                }
+                            }
+
                             ?>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <p>Patient Name : <?php echo $indoor_patient[0]['patient_name'] ?></p>
-                                    <p>Patient ID : <?php echo $indoor_patient[0]['patient_id'] ?></p>
-                                    <p>Patient Age : <?php echo $indoor_patient[0]['patient_age'] ?></p>
-                                    <p>Consultant Name : <?php echo $indoor_patient[0]['patient_id'] ?></p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p>Admission Date : <?php echo $indoor_patient[0]['indoor_treatment_creation_time'] ?></p>
-                                    <p>Bill up to Date : <?php echo $indoor_patient[0]['indoor_treatment_creation_time'] ?></p>
+                            <div class="row border-bottom">
+                                <div class="col-12  justify-content-center">
+                                    <div class="float-left">
+                                        <img class="center" src="../assets/images/logo.png" style="height: 60px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
+                                    </div>
+
+                                    <div class=" text-center text-600">
+                                        <p style="font-size: 18px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
+                                        <p style="font-size: 14px; margin:0px; padding:0px;">House #56, Road #03, Dhaka Real State, Kaderabad housing,Mohammadpur, Dhaka-1207</p>
+                                        <p style="font-size: 14px; margin:0px; padding:0px;">For Serial: +88 01844080671 , +88 028101496, +88 01844 080 675, +88 01844 080 676</p>
+                                    </div>
                                 </div>
                             </div>
-                            <table class="Report_table" style="width: 100%;">
+                            <div class="row  mt-2 mb-2">
+                                <div class="col-md-8">
+                                    <p class="mb-0">Patient Name : <?php echo $indoor_patient[0]['patient_name'] ?></p>
+                                    <p class="mb-0">Patient ID : <?php echo $indoor_patient[0]['patient_id'] ?></p>
+                                    <p class="mb-0">Patient Age : <?php echo $indoor_patient[0]['patient_age'] ?></p>
+                                    <!-- <p class="mb-0">Consultant Name : <?php echo $indoor_patient[0]['patient_id'] ?></p> -->
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    <p class="mb-0">Admission ID : <?php echo $indoor_patient[0]['indoor_treatment_admission_id'] ?></p>
+                                    <p class="mb-0">Admission Date : <?php echo $indoor_patient[0]['indoor_treatment_creation_time'] ?></p>
+                                    <p class="mb-0">Bill up to Date : <?php echo isset($indoor_patient[0]['indoor_treatment_modification_time']) ? $indoor_patient[0]['indoor_treatment_modification_time'] : $indoor_patient[0]['indoor_treatment_creation_time']  ?></p>
+                                </div>
+                            </div>
+                            <table class="Report_table border" style="width: 100%;">
                                 <thead>
                                     <tr>
 
                                         <td>Invoice</td>
                                         <td style="width: 40%;">Details</td>
                                         <td>Issue Date</td>
-                                        <td>Discount</td>
+                                        <td class="text-right">Discount</td>
 
-                                        <td>Payment</td>
+                                        <td class="text-right">Payment</td>
 
-                                        <td>Bill</td>
-                                        <td>Action</td>
+                                        <td class="text-right">Bill</td>
+                                        <!-- <td style="width: 5%;">Action</td> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -133,13 +164,18 @@ require_once('check_if_outdoor_manager.php');
                                                 <td>' . $services_names . '</td>
                                                 <td>' . $indoor_invoice['indoor_treatment_creation_time'] . '</td>
                                                 
-                                                <td>' . $indoor_invoice['indoor_treatment_discount_pc'] . '</td>
+                                                <td class="text-right">' . $indoor_invoice['indoor_treatment_discount_pc'] . '</td>
                                                 
-                                                <td>' . $indoor_invoice['indoor_treatment_total_paid'] . '</td>
-                                                <td>' . $indoor_invoice['indoor_treatment_total_bill_after_discount'] . '</td>
+                                                <td class="text-right">' . $indoor_invoice['indoor_treatment_total_paid'] . '</td>
+                                                <td class="text-right">' . $indoor_invoice['indoor_treatment_total_bill_after_discount'] . '</td>
                                                 
-                                                <td><a href="edit_indoor_treatment.php?indoor_treatment_id=' . $indoor_treatment_id . '">Update</a></td>
-                                            </tr>';
+                                                </tr>';
+
+                                            $totoal_bill += (int)$indoor_invoice['indoor_treatment_total_bill_after_discount'];
+                                            $total_paid += (int)$indoor_invoice['indoor_treatment_total_paid'];
+                                            $total_discount += (int)$indoor_invoice['indoor_treatment_discount_pc'];
+                                            // $total_exemption += (int)$indoor_invoice['indoor_treatment_discount_pc'];
+
 
                                             $get_content = "select * from indoor_treatment where indoor_treatment_id='$indoor_treatment_id'";
                                             $getJson = $conn->prepare($get_content);
@@ -152,7 +188,6 @@ require_once('check_if_outdoor_manager.php');
 
 
                                     <?php
-
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                     $get_content = "select * from outdoor_treatment where outdoor_treatment_indoor_treatment_id='$indoor_treatment_id'";
                                     $getJson = $conn->prepare($get_content);
@@ -185,21 +220,21 @@ require_once('check_if_outdoor_manager.php');
                                             echo '
                                     <tr class="main_row">
                                         <td> 
-                                        <a class="" data-toggle="collapse" href="#Services" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"> Invoice no. ' . $Service['outdoor_treatment_id'] . '</a>
-                                        <div class="collapse multi-collapse" id="Services">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
+                                        <a href="doctor_visit_invoice.php?outdoor_treatment_id=' . $Service['outdoor_treatment_id'] . '" target="blank"> Invoice no. ' . $Service['outdoor_treatment_id'] . '</a>
+                                        
                                     
                                         <td>' . $services_names . '</td>
                                         <td>' . $Service['outdoor_treatment_creation_time'] . '</td>
-                                        <td>' . $Service['outdoor_treatment_discount_pc'] . '</td>
-                                        <td>' . $Service['outdoor_treatment_total_paid'] . '</td>
-                                        <td>' . $Service['outdoor_treatment_total_bill_after_discount'] . '</td>
+                                        <td class="text-right">' . $Service['outdoor_treatment_discount_pc'] . '</td>
+                                        <td class="text-right">' . $Service['outdoor_treatment_total_paid'] . '</td>
+                                        <td class="text-right">' . $Service['outdoor_treatment_total_bill_after_discount'] . '</td>
                                         
-                                        <td><a href="edit_patient_treatment.php?outdoor_treatment_id=' . $Service['outdoor_treatment_id'] . '">Update</a></td>
-                                    </tr>';
+                                        </tr>';
+
+                                            $totoal_bill += (int)$Service['outdoor_treatment_total_bill_after_discount'];
+                                            $total_paid += (int)$Service['outdoor_treatment_total_paid'];
+                                            $total_discount += (int)$Service['outdoor_treatment_discount_pc'];
+                                            $total_exemption += (int)$Service['outdoor_treatment_exemption'];
                                         }
                                     } ?>
 
@@ -237,14 +272,101 @@ require_once('check_if_outdoor_manager.php');
                                         <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
                                         
-                                        <td><a href="edit_medicine_sell.php?medicine_sell_id=' . $pharmacy_sell['pharmacy_sell_id'] . '">Update</a></td>
+                                        
                                     </tr>';
                                         }
-                                    } ?>
+                                    }
+
+
+                                    ?>
+
+
                                 </tbody>
+                            </table>
+                            <table style="width: 100%;" class="border-top mb-3">
+                                <tr class="main_row">
+                                    <td style="width: 40%;"></td>
+                                    <td style="width: 20%;"></td>
+                                    <td class="text-center border " style="width: 25%;">Gross Amount</td>
+                                    <td class="text-right border p-1"><?php echo $totoal_bill ?></td>
+                                </tr>
+                                <tr class="main_row">
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center border">Discount</td>
+                                    <td class="text-right border p-1"><?php echo $total_discount ?></td>
+                                </tr>
+                                <tr class="main_row">
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center border">Advance</td>
+                                    <td class="text-right border p-1"><?php echo $total_paid ?></td>
+                                </tr>
+                                <tr class="main_row">
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center border">Exemption</td>
+                                    <td class="text-right border p-1"><?php echo $total_exemption ?></td>
+                                </tr>
+                                <tr class="main_row">
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center border">Net Payable Amount</td>
+                                    <td class="text-right border p-1"><?php echo $total_paid ?></td>
+                                </tr>
+                                <tr class="main_row">
+                                    <td></td>
+                                    <td></td>
+                                    <td class="text-center border">Net Due Amount</td>
+                                    <td class="text-right border p-1"><?php echo $total_paid ?></td>
+                                </tr>
                             </table>
 
 
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="widget-area-2 proclinic-box-shadow">
+
+                            <form class="form-horizontal form-material mb-0" id="indoor_treatment_payment" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                <input type="hidden" name="indoor_treatment_payment_treatment_id" value="<?php echo $_GET['indoor_treatment_id']; ?>">
+                                <input type="hidden" name="content" value="indoor_payment">
+                                <div class="form-group">
+                                    <label for="indoor_treatment_payment_details">Payment Details</label>
+                                    <textarea placeholder="Details" class="form-control" id="indoor_treatment_payment_details" name="indoor_treatment_payment_details" required></textarea>
+                                </div>
+                                <div class=" form-group ">
+                                    <label for=" indoor_treatment_payment_amount">Amount</label>
+                                    <input type="numbera" placeholder="Amount" class="form-control" id="indoor_treatment_payment_amount" name="indoor_treatment_payment_amount" required>
+                                </div>
+                                <div class="form-group  mb-3">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                </div>
+
+                            </form>
+                            <h5>Payment history</h5>
+                            <table class="Report_table border" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <td>Payment details</td>
+                                        <td>Date</td>
+                                        <td class="text-right">Amount</td>
+                                    </tr>
+                                </thead>
+                                <?php
+                                if (count($indoor_payments) > 0) {
+                                    foreach ($indoor_payments as $payment) {
+                                        echo '<tr class="main_row">
+                                    <td>' . $payment["indoor_treatment_payment_details"] . '</td>
+                                    <td>' . $payment["indoor_treatment_payment_creation_time"] . '</td>
+                                    <td class="text-right">' . $payment["indoor_treatment_payment_amount"] . '</td>
+                                </tr>';
+                                    }
+                                }
+                                ?>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -255,6 +377,50 @@ require_once('check_if_outdoor_manager.php');
             <?php include 'footer.php'
             ?>
 </body>
+
+<script>
+    $(document).ready(function() {
+        $('form#indoor_treatment_payment').on('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            var currentdate = new Date();
+            var datetime = currentdate.getDate().toString() +
+                (currentdate.getMonth() + 1).toString() +
+                currentdate.getFullYear().toString() +
+                currentdate.getHours().toString() +
+                currentdate.getMinutes().toString() +
+                currentdate.getSeconds().toString();
+            console.log(datetime);
+            formData.append('outdoor_treatment_invoice_id', datetime);
+
+            $.ajax({
+                url: '../apis/create_indoor_payment.php',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    // spinner.hide();
+                    var obj = JSON.parse(data);
+                    alert(obj.message);
+                    console.log(obj);
+                    if (obj.status) {
+                        location.reload();
+                        // window.open("doctor_visit_invoice.php?outdoor_treatment_id=" + obj.outdoor_treatment_id, "_self");
+
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("alert : " + errorThrown);
+                    spinner.hide();
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+
+        });
+    });
+</script>
 
 
 </html>
