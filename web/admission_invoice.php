@@ -62,7 +62,7 @@ if (!isset($_SESSION)) {
 
 
 
-                                        $get_content_user = "select * from indoor_treatment  left join patient p on p.patient_id = indoor_treatment.indoor_treatment_patient_id left join indoor_treatment_bed itb on itb.indoor_treatment_bed_treatment_id = indoor_treatment.indoor_treatment_id left join indoor_treatment_doctor itd on itd.indoor_treatment_doctor_treatment_id=indoor_treatment.indoor_treatment_id 
+                                        $get_content_user = "select * from indoor_treatment  left join patient p on p.patient_id = indoor_treatment.indoor_treatment_patient_id  left join indoor_treatment_doctor itd on itd.indoor_treatment_doctor_treatment_id=indoor_treatment.indoor_treatment_id 
                                         where indoor_treatment_id = '$treatment_id'";
                                         // echo $get_content;
                                         $getJson = $conn->prepare($get_content_user);
@@ -70,6 +70,14 @@ if (!isset($_SESSION)) {
                                         $result_content_outdoor_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                         // var_dump( $result_content_outdoor_treatment);
                                         $indoor_treatment_consultant = $result_content_outdoor_treatment[0]['indoor_treatment_doctor_doctor_id'];
+                                        // $indoor_patient_bed_bed_id = $result_content_outdoor_treatment[0]['indoor_treatment_bed_id'];
+
+                                        $get_content_user = "select * from indoor_treatment  left join patient p on p.patient_id = indoor_treatment.indoor_treatment_patient_id left join indoor_treatment_bed itb on itb.indoor_treatment_bed_treatment_id = indoor_treatment.indoor_treatment_id 
+                                        where indoor_treatment_id = '$treatment_id'";
+                                        // echo $get_content;
+                                        $getJson = $conn->prepare($get_content_user);
+                                        $getJson->execute();
+                                        $result_content_outdoor_treatment_bed = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                         
                                         $invoice_no = if_empty(
                                             $result_content_outdoor_treatment[0]['indoor_treatment_id']
@@ -176,9 +184,10 @@ if (!isset($_SESSION)) {
                                         <div class="mt-2">
                                             <div class="row text-600 text-white bgc-default-tp1 py-20">
                                                 <div class="d-none d-sm-block col-1">#</div>
-                                                <div class="col-9 col-sm-5">Particulars</div>
+                                                <div class="col-9 col-sm-3">Particulars</div>
                                                 <div class="d-none d-sm-block col-4 col-sm-2">Rate</div>
-                                                <div class="d-none d-sm-block col-sm-2">Quantity</div>
+                                                <div class="d-none d-sm-block col-sm-2">Entry time</div>
+                                                <div class="d-none d-sm-block col-sm-2">Discharge time</div>
                                                 <div class="col-2 text-right">Amount(TK)</div>
                                             </div>
                                             <div class="text-600 text-secondary-d3">
@@ -205,16 +214,53 @@ if (!isset($_SESSION)) {
 
                                                     echo '<div class="row mb-2 mb-sm-0 py-20">
                                                     <div class="d-none d-sm-block col-1">' . ( 1) . '</div>
-                                                    <div class="col-9 col-sm-5">' . $result_content_indoor_admission[0]['outdoor_service_name'] . '</div>
+                                                    <div class="col-9 col-sm-3">' . $result_content_indoor_admission[0]['outdoor_service_name'] . '</div>
                                                     <div class="d-none d-sm-block col-2">' . $result_content_indoor_admission[0]['outdoor_service_rate'] . ' Tk</div>
-                                                    <div class="d-none d-sm-block col-2 text-95">' . '1'. '</div>
+                                                    <div class="d-none d-sm-block col-2 text-95">' . ' '. '</div>
+                                                    <div class="d-none d-sm-block col-2 text-95">' . ' '. '</div>
+
                                                     <div class="col-2 text-secondary-d2 text-right">' . $result_content_indoor_admission[0]['outdoor_service_rate'] . ' </div>
                                                     </div>';
 
                                                 //     $count_service = $count_service + 1;
-                                                // }
+                                                // }  
+                                                
+                                               for($i = 0; $i < count($result_content_outdoor_treatment_bed); $i++){
+                                                echo '<div class="row mb-2 mb-sm-0 py-20">
+                                                <div class="d-none d-sm-block col-1">' . ($i+ 2) . '</div>
+                                                <div class="col-5 col-sm-3">' . $result_content_outdoor_treatment_bed[$i]['indoor_treatment_bed_category_name'] . '</div>
+                                                <div class="d-none d-sm-block col-2">' . $result_content_outdoor_treatment_bed[$i]['indoor_treatment_bed_price'] . ' Tk</div>
+                                               
+                                                <div class="col-2 text-secondary-d2 ">' .  date_format(date_create($result_content_outdoor_treatment_bed[$i]['indoor_treatment_bed_entry_time']) ,"d-m-Y"). ' </div>
+                                                <div class="col-2 text-secondary-d2 ">' . date_format(date_create($result_content_outdoor_treatment_bed[$i]['indoor_treatment_bed_discharge_time']) ,"d-m-Y") . ' </div>
+                                                <div class="col-2 text-secondary-d2 text-right">' . $result_content_outdoor_treatment_bed[$i]['indoor_treatment_bed_total_bill'] . ' </div>
+                                                </div>';
+                                               }
+                                               
+                                               for($i = 0; $i < count($result_content_outdoor_treatment); $i++){
+                                                $indoor_treatment_doctor=$result_content_outdoor_treatment[$i]['indoor_treatment_doctor_doctor_id'];
+                                                $get_content = "select * from doctor where doctor_id = '$indoor_treatment_doctor'";
+                                                $getJson = $conn->prepare($get_content);
+                                                $getJson->execute();
+                                                $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                                for($j = 0; $j < count($result_content); $j++){
+                                                    $doctor_name=$result_content[$j]['doctor_name'];
+                                                }
+                                              
+                                               
+                                                echo '<div class="row mb-2 mb-sm-0 py-20">
+                                                <div class="d-none d-sm-block col-1">' . ($i+$j+ 3) . '</div>
+                                                <div class="col-9 col-sm-3">' . $doctor_name  . '</div>
+                                                <div class="d-none d-sm-block col-2">' . $result_content_outdoor_treatment[$i]['indoor_treatment_doctor_visit_fee'].  ' Tk</div>
+                                                <div class="col-2 text-secondary-d2 ">' .  date_format(date_create($result_content_outdoor_treatment[$i]['indoor_treatment_doctor_entry_time']) ,"d-m-Y"). ' </div>
+                                                <div class="col-2 text-secondary-d2 ">' . date_format(date_create($result_content_outdoor_treatment[$i]['indoor_treatment_doctor_discharge_time']) ,"d-m-Y") . ' </div>
+                                                <div class="col-2 text-secondary-d2 text-right">' . $result_content_outdoor_treatment[$i]['indoor_treatment_doctor_total_bill'] . ' </div>
+                                                </div>';
+                                               }
+                                           
 
                                                 ?>
+                                                
                                             </div>
 
 

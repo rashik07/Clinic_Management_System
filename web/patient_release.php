@@ -12,12 +12,10 @@ require_once('check_if_outdoor_manager.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
             include 'top_navbar.php';
-
             ?>
             <div class="container-fluid">
 
@@ -118,7 +116,6 @@ require_once('check_if_outdoor_manager.php');
                                                 $indoor_invoice['indoor_treatment_discount_pc'] = 0;
                                             }
 
-
                                             echo '
                                             <tr class="main_row">
                                                 <td> 
@@ -128,19 +125,15 @@ require_once('check_if_outdoor_manager.php');
                                                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                                                     </div>
                                                 </div>
-                                                </td>
-                                               
+                                                </td>                             
                                                 <td>' . $services_names . '</td>
-                                                <td>' . $indoor_invoice['indoor_treatment_creation_time'] . '</td>
-                                                
-                                                <td>' . $indoor_invoice['indoor_treatment_discount_pc'] . '</td>
-                                                
+                                                <td>' . $indoor_invoice['indoor_treatment_creation_time'] . '</td>                                 
+                                                <td>' . $indoor_invoice['indoor_treatment_discount_pc'] . '</td>                                 
                                                 <td>' . $indoor_invoice['indoor_treatment_total_paid'] . '</td>
                                                 <td>' . $indoor_invoice['indoor_treatment_total_bill_after_discount'] . '</td>
-                                                
+                     
                                                 <td><a href="edit_indoor_treatment.php?indoor_treatment_id=' . $indoor_treatment_id . '">Update</a></td>
                                             </tr>';
-
                                             $get_content = "select * from indoor_treatment where indoor_treatment_id='$indoor_treatment_id'";
                                             $getJson = $conn->prepare($get_content);
                                             $getJson->execute();
@@ -149,10 +142,7 @@ require_once('check_if_outdoor_manager.php');
                                     }
                                     ?>
 
-
-
                                     <?php
-
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                     $get_content = "select * from outdoor_treatment where outdoor_treatment_indoor_treatment_id='$indoor_treatment_id'";
                                     $getJson = $conn->prepare($get_content);
@@ -177,8 +167,6 @@ require_once('check_if_outdoor_manager.php');
                                             }
                                             $services_names = implode(', ', $service_list);
 
-
-
                                             if ($Service['outdoor_treatment_discount_pc'] == "") {
                                                 $Service['outdoor_treatment_discount_pc'] = 0;
                                             }
@@ -190,23 +178,18 @@ require_once('check_if_outdoor_manager.php');
                                             <div class="card card-body">
                                                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
                                             </div>
-                                        </div>
-                                    
+                                        </div>                                 
                                         <td>' . $services_names . '</td>
                                         <td>' . $Service['outdoor_treatment_creation_time'] . '</td>
                                         <td>' . $Service['outdoor_treatment_discount_pc'] . '</td>
                                         <td>' . $Service['outdoor_treatment_total_paid'] . '</td>
-                                        <td>' . $Service['outdoor_treatment_total_bill_after_discount'] . '</td>
-                                        
+                                        <td>' . $Service['outdoor_treatment_total_bill_after_discount'] . '</td>                                      
                                         <td><a href="edit_patient_treatment.php?outdoor_treatment_id=' . $Service['outdoor_treatment_id'] . '">Update</a></td>
                                     </tr>';
                                         }
                                     } ?>
 
-
-
                                     <?php
-
                                     $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                     $get_content = "select * from pharmacy_sell where pharmacy_sell_indoor_treatment_id='$indoor_treatment_id'";
                                     $getJson = $conn->prepare($get_content);
@@ -243,18 +226,13 @@ require_once('check_if_outdoor_manager.php');
                                     } ?>
                                 </tbody>
                             </table>
-
-
                         </div>
                     </div>
                 </div>
             </div>
             <div>
-
             </div>
             <?php include 'footer.php'
             ?>
 </body>
-
-
 </html>
