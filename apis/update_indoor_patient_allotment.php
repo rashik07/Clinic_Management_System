@@ -38,6 +38,7 @@ class UpdateIndoorPatientAllotment
                 $indoor_treatment_payment_type   = if_empty($_POST['indoor_treatment_payment_type']);
                 $indoor_treatment_payment_type_no  = if_empty($_POST['indoor_treatment_payment_type_no']);
                 $indoor_treatment_note   = if_empty($_POST['indoor_treatment_note']);
+                $indoor_treatment_released = if_empty($_POST['indoor_treatment_released']);
 
                 $indoor_patient_bed_bed_id = if_empty($_POST['indoor_patient_bed_bed_id']);
                 $indoor_bed_category_name   = if_empty($_POST['indoor_bed_category_name']);
@@ -56,6 +57,8 @@ class UpdateIndoorPatientAllotment
                 $outdoor_service_id = $_POST['outdoor_service_id'];
                 $outdoor_service_rate = $_POST['outdoor_service_rate'];
 
+
+
                 $post_content = "UPDATE indoor_treatment SET 
                             indoor_treatment_total_bill='$indoor_treatment_total_bill',
                             indoor_treatment_total_bill_after_discount='$indoor_treatment_total_bill_after_discount',
@@ -64,7 +67,8 @@ class UpdateIndoorPatientAllotment
                             indoor_treatment_total_due='$indoor_treatment_total_due',
                             indoor_treatment_payment_type='$indoor_treatment_payment_type',
                             indoor_treatment_payment_type_no='$indoor_treatment_payment_type_no',
-                            indoor_treatment_note='$indoor_treatment_note'
+                            indoor_treatment_note='$indoor_treatment_note',
+                            indoor_treatment_released='$indoor_treatment_released'
                             where indoor_treatment_id='$indoor_treatment_id'";
                 //echo $post_content;
                 $result = $conn->exec($post_content);

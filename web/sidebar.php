@@ -21,7 +21,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patients" data-toggle="collapse" aria-expanded="false" class="collapsed">
-                <i class="fas fa-hospital-user"></i> Patients
+                    <i class="fas fa-hospital-user"></i> Patients
                 </a>
                 <ul class="list-unstyled collapse" id="nav-patients">
                     <li>
@@ -231,7 +231,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
             <ul class="collapse list-unstyled" id="nav-icons">
                 <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
                     <li>
-                        <a href="reports.php?t=1">Reports</a>
+                        <a href="reports.php">Outdoor Reports</a>
                     </li>
                 <?php } ?>
 

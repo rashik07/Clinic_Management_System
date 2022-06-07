@@ -35,9 +35,10 @@ require_once('check_if_indoor_manager.php');
                                             <th>Patient Name</th>
                                             <th>Doctor Name</th>
                                             <th>Last Bed</th>
-                                            <th>Total Bill</th>
+                                            <th></th>
+                                            <!-- <th>Total Bill</th>
                                             <th>Paid</th>
-                                            <th>Due</th>
+                                            <th>Due</th> -->
                                             <th>View</th>
                                         </tr>
                                     </thead>
@@ -88,9 +89,9 @@ require_once('check_if_indoor_manager.php');
                                             echo '<td>' . $data['patient_name'] . '</td>';
                                             echo '<td>' . $last_doctor_name . '</td>';
                                             echo '<td>' . $last_bed_name . '</td>';
-                                            echo '<td>' . $data['indoor_treatment_total_bill_after_discount'] . '</td>';
-                                            echo '<td>' . $data['indoor_treatment_total_paid'] . '</td>';
-                                            echo '<td>' . $data['indoor_treatment_total_due'] . '</td>';
+                                            echo '<td>' . ($data['indoor_treatment_released'] == 1 ? "Released" : "") . '</td>';
+                                            // echo '<td>' . $data['indoor_treatment_total_paid'] . '</td>';
+                                            // echo '<td>' . $data['indoor_treatment_total_due'] . '</td>';
                                             echo '<td><a href="edit_indoor_treatment.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                             $count = $count + 1;
                                         }
