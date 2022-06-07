@@ -248,7 +248,7 @@ $total_exemption = 0;
                                                 echo '
                                     <tr class="main_row">
                                         <td> 
-                                        <a class="" data-toggle="collapse" href="#pharmacy_sell" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Medicine Purchase</a></td>
+                                        <a  href="medicine_sell_invoice.php?medicine_sell_id=' . $pharmacy_sell['pharmacy_sell_id'] . '" target="blank" >Medicine Purchase</a></td>
                                         <td>-</td>
                                         
                                         <td>' . $pharmacy_sell['pharmacy_sell_creation_time'] . '</td>
