@@ -126,7 +126,7 @@ from medicine
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
-                                                <input type="text" placeholder="Indoor treatement id" class="form-control" id="outdoor_treatment_indoor_treatment_id" name="pharmacy_sell_indoor_treatment_id" required readonly>
+                                                <input type="text" placeholder="Indoor treatement id" class="form-control" id="pharmacy_sell_indoor_treatment_id" name="pharmacy_sell_indoor_treatment_id" required readonly>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="pharmacy_sell_date">Selling Date<i class="text-danger"> * </i></label>
@@ -583,9 +583,11 @@ from medicine
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
                             document.getElementById("pharmacy_sell_patient_id").value = datas[key].patient_id;
-                            document.getElementById("pharmacy_sell_patient_name").value = datas[key].patient_name;
-                            document.getElementById("pharmacy_sell_patient_phone").value = datas[key].patient_phone;
+                            document.getElementById("patient_name").value = datas[key].patient_name;
+                            document.getElementById("patient_phone").value = datas[key].patient_phone;
                             document.getElementById("pharmacy_sell_indoor_treatment_id").value = datas[key].indoor_treatment_id;
+                            document.getElementById("patient_age").value = datas[key].patient_age;
+                            document.getElementById("patient_gender").value = datas[key].patient_gender;
                         }
                     }
                 }
