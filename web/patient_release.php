@@ -248,24 +248,21 @@ $total_exemption = 0;
                                                 echo '
                                     <tr class="main_row">
                                         <td> 
-                                        <a class="" data-toggle="collapse" href="#pharmacy_sell" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Medicine</a>
-                                        <div class="collapse multi-collapse" id="pharmacy_sell">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
+                                        <a class="" data-toggle="collapse" href="#pharmacy_sell" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Medicine Purchase</a></td>
                                         <td>-</td>
-                                        <td>-</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_creation_time'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
                                         
-                                        <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
+                                        <td>' . $pharmacy_sell['pharmacy_sell_creation_time'] . '</td>
+                                        
+                                        <td class="text-right">' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
+                                        <td class="text-right">' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
                                         
                                         
                                     </tr>';
                                             }
+                                            $totoal_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
+                                            $total_paid += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
+                                            $total_discount += (int)$pharmacy_sell['pharmacy_sell_discount'];
+                                            $total_exemption += (int)$pharmacy_sell['pharmacy_selling_exemption'];
                                         }
 
 

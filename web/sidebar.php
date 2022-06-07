@@ -233,6 +233,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="reports.php">Outdoor Reports</a>
                     </li>
+                    <li>
+                        <a href="reports_indoor.php">Indoor Reports</a>
+                    </li>
                 <?php } ?>
 
             </ul>
