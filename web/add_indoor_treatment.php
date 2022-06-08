@@ -124,8 +124,8 @@ if (isset($_GET['patient_id'])) {
                                                 <th>Total Bill</th>
                                                 <th>Entry Time<i class="text-danger"> * </i></th>
                                                 <th>Discharge Time<i class="text-danger"> * </i></th>
-                                                <th>Allot New</th>
-                                                <th>Delete</th>
+                                                <!-- <th>Allot New</th>
+                                                <th>Delete</th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="datatable1_body">
@@ -159,12 +159,12 @@ if (isset($_GET['patient_id'])) {
                                                 <td>
                                                     <input type="datetime-local" class="form-control indoor_patient_bed_discharge_time" placeholder="Discharge time" id="indoor_patient_bed_discharge_time" name="indoor_patient_bed_discharge_time[]" onchange="changeDataBed(this);" required>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="AddRowBed();">Allot New</button>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="DeleteRowBed(this);">Delete Row</button>
-                                                </td>
+                                                </td> -->
                                             </tr>
 
 
@@ -180,8 +180,8 @@ if (isset($_GET['patient_id'])) {
                                                 <th>Total Bill</th>
                                                 <th>Entry Time<i class="text-danger"> * </i></th>
                                                 <th>Discharge Time<i class="text-danger"> * </i></th>
-                                                <th>Assign New</th>
-                                                <th>Delete</th>
+                                                <!-- <th>Assign New</th>
+                                                <th>Delete</th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="datatable2_body">
@@ -215,12 +215,12 @@ if (isset($_GET['patient_id'])) {
                                                 <td>
                                                     <input type="datetime-local" class="form-control indoor_patient_doctor_discharge_time" placeholder="Discharge time" id="indoor_patient_doctor_discharge_time" name="indoor_patient_doctor_discharge_time[]" onchange="changeDataDoctor(this);" required>
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="AddRowDoctor();">Assign New</button>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-success pull-right" onclick="DeleteRowDoctor(this);">Delete Row</button>
-                                                </td>
+                                                </td> -->
                                             </tr>
 
 
@@ -881,26 +881,7 @@ if (isset($_GET['patient_id'])) {
         }
     }
 </script>
-<script>
-    // $('#datatable1').dataTable({
-    //     dom: 'Bfrtip',
-    //     buttons: [
-    //         'copyHtml5',
-    //         'excelHtml5',
-    //         'csvHtml5',
-    //         'pdfHtml5'
-    //     ]
-    // }); //replace id with your first table's id
-    // $('#datatable2').dataTable({
-    //     dom: 'Bfrtip',
-    //     buttons: [
-    //         'copyHtml5',
-    //         'excelHtml5',
-    //         'csvHtml5',
-    //         'pdfHtml5'
-    //     ]
-    // }); //replace id with your first table's id
-</script>
+
 
 <script>
     $(document).ready(function() {

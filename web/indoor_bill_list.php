@@ -35,6 +35,7 @@ require_once('check_if_indoor_manager.php');
                                             <th>Patient Name</th>
                                             <th>Doctor Name</th>
                                             <th>Last Bed</th>
+                                            <th></th>
                                             <!-- <th>Total Bill</th>
                                             <th>Paid</th>
                                             <th>Due</th> -->
@@ -49,7 +50,7 @@ require_once('check_if_indoor_manager.php');
                                         $conn = $connection->getConnection();
 
                                         $get_content = "select * from indoor_treatment
-                                left join patient p on p.patient_id = indoor_treatment.indoor_treatment_patient_id";
+                                left join patient p on p.patient_id = indoor_treatment.indoor_treatment_patient_id ORDER BY indoor_treatment_id DESC";
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
 
@@ -65,7 +66,7 @@ require_once('check_if_indoor_manager.php');
 
                                             $get_content = "select * from indoor_treatment_doctor 
                                     left join doctor d on d.doctor_id = indoor_treatment_doctor.indoor_treatment_doctor_doctor_id
-                                    where indoor_treatment_doctor_treatment_id = '$treatment_id'";
+                                    where indoor_treatment_doctor_treatment_id = '$treatment_id' ORDER BY indoor_treatment_doctor_treatment_id ASC";
                                             $getJson = $conn->prepare($get_content);
                                             $getJson->execute();
                                             $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
@@ -76,7 +77,7 @@ require_once('check_if_indoor_manager.php');
 
                                             $get_content = "select * from indoor_treatment_bed
                                     left join indoor_bed ib on ib.indoor_bed_id = indoor_treatment_bed.indoor_treatment_bed_bed_id
-                                    where indoor_treatment_bed_treatment_id = '$treatment_id'";
+                                    where indoor_treatment_bed_treatment_id = '$treatment_id' ORDER BY indoor_treatment_bed_treatment_id ASC ";
                                             $getJson = $conn->prepare($get_content);
                                             $getJson->execute();
                                             $result_content_bed = $getJson->fetchAll(PDO::FETCH_ASSOC);
@@ -88,11 +89,12 @@ require_once('check_if_indoor_manager.php');
                                             echo '<td>' . $data['patient_name'] . '</td>';
                                             echo '<td>' . $last_doctor_name . '</td>';
                                             echo '<td>' . $last_bed_name . '</td>';
+                                            echo '<td>' . ($data['indoor_treatment_released'] == 1 ? "Released" : "") . '</td>';
                                             // echo '<td>' . $data['indoor_treatment_total_bill_after_discount'] . '</td>';
                                             // echo '<td>' . $data['indoor_treatment_total_paid'] . '</td>';
                                             // echo '<td>' . $data['indoor_treatment_total_due'] . '</td>';
                                             echo '<td>
-                                    <a href="patient_release.php?indoor_treatment_id=' . $treatment_id . '">Release</a></td>';
+                                    <a href="patient_release.php?indoor_treatment_id=' . $treatment_id . '">Invoice</a></td>';
                                             $count = $count + 1;
                                         }
                                         ?>

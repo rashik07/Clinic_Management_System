@@ -37,10 +37,12 @@ require_once('check_if_indoor_manager.php');
                     $getJson->execute();
                     $result_content_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+                    //     $get_content = "select * from indoor_bed 
+                    // left join indoor_bed_category ibc on ibc.indoor_bed_category_id = indoor_bed.indoor_bed_category_id
+                    // left join indoor_treatment_bed itb on indoor_bed.indoor_bed_id = itb.indoor_treatment_bed_bed_id
+                    // where indoor_bed.indoor_bed_status='available' OR indoor_treatment_bed_treatment_id='$indoor_treatment_id'";
                     $get_content = "select * from indoor_bed 
-                left join indoor_bed_category ibc on ibc.indoor_bed_category_id = indoor_bed.indoor_bed_category_id
-                left join indoor_treatment_bed itb on indoor_bed.indoor_bed_id = itb.indoor_treatment_bed_bed_id
-                where indoor_bed.indoor_bed_status='available' OR indoor_treatment_bed_treatment_id='$indoor_treatment_id'";
+                left join indoor_bed_category ibc on ibc.indoor_bed_category_id = indoor_bed.indoor_bed_category_id";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
@@ -69,14 +71,14 @@ require_once('check_if_indoor_manager.php');
                     $result_content_indoor_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
 
-                    $get_content = "select * from indoor_treatment_bed
+                    $get_content = "select * from indoor_treatment_bed inner join indoor_treatment on indoor_treatment.indoor_treatment_id = indoor_treatment_bed.indoor_treatment_bed_treatment_id
                 where indoor_treatment_bed_treatment_id='$indoor_treatment_id'";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_indoor_treatment_bed = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select * from indoor_treatment_doctor
+                    $get_content = "select * from indoor_treatment_doctor inner join indoor_treatment on indoor_treatment.indoor_treatment_id = indoor_treatment_doctor.indoor_treatment_doctor_treatment_id
                 where indoor_treatment_doctor_treatment_id='$indoor_treatment_id'";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
@@ -134,8 +136,13 @@ require_once('check_if_indoor_manager.php');
                                                 <th>Total Bill</th>
                                                 <th>Entry Time<i class="text-danger"> * </i></th>
                                                 <th>Discharge Time<i class="text-danger"> * </i></th>
-                                                <th>Allot New</th>
-                                                <th>Delete</th>
+                                                <?php
+                                                if ($result_content_indoor_treatment[0]['indoor_treatment_released'] == 0) {
+                                                ?>
+
+                                                    <th>Allot New</th>
+                                                    <th>Delete</th>
+                                                <?php } ?>
                                             </tr>
                                         </thead>
                                         <tbody id="datatable1_body">
@@ -152,8 +159,13 @@ require_once('check_if_indoor_manager.php');
                                                 <th>Total Bill</th>
                                                 <th>Entry Time<i class="text-danger"> * </i></th>
                                                 <th>Discharge Time<i class="text-danger"> * </i></th>
-                                                <th>Assign New</th>
-                                                <th>Delete</th>
+                                                <?php
+                                                if ($result_content_indoor_treatment[0]['indoor_treatment_released'] == 0) {
+                                                ?>
+
+                                                    <th>Allot New</th>
+                                                    <th>Delete</th>
+                                                <?php } ?>
                                             </tr>
                                         </thead>
                                         <tbody id="datatable2_body">
@@ -183,15 +195,15 @@ require_once('check_if_indoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="indoor_treatment_discount_pc">Discount %</label>
-                                        <input type="number" min="0" max="100" placeholder="Discount" class="form-control" id="indoor_treatment_discount_pc" name="indoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo $result_content_indoor_treatment[0]['indoor_treatment_discount_pc'] ?>" required>
+                                        <input type="number" min="0" max="100" placeholder="Discount" class="form-control" id="indoor_treatment_discount_pc" default=0 name="indoor_treatment_discount_pc" onchange="update_total_bill();" value="<?php echo ($result_content_indoor_treatment[0]['indoor_treatment_discount_pc'] > 0) ? $result_content_indoor_treatment[0]['indoor_treatment_discount_pc'] : 0 ?>" required>
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="indoor_treatment_total_bill_after_discount">In Total Bill</label>
-                                        <input type="number" placeholder="In Total Bill" class="form-control" id="indoor_treatment_total_bill_after_discount" name="indoor_treatment_total_bill_after_discount" value="<?php echo $result_content_indoor_treatment[0]['indoor_treatment_total_bill_after_discount'] ?>" readonly>
+                                        <input type="number" placeholder="In Total Bill" class="form-control" id="indoor_treatment_total_bill_after_discount" name="indoor_treatment_total_bill_after_discount" value="<?php echo ($result_content_indoor_treatment[0]['indoor_treatment_total_bill_after_discount'] > 0) ? $result_content_indoor_treatment[0]['indoor_treatment_total_bill_after_discount'] : 0  ?>" readonly>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="indoor_treatment_total_paid">Paid<i class="text-danger"> * </i></label>
-                                        <input type="number" placeholder="Total Paid" class="form-control" onchange="update_total_bill();" id="indoor_treatment_total_paid" name="indoor_treatment_total_paid" value="<?php echo $result_content_indoor_treatment[0]['indoor_treatment_total_paid'] ?>" required>
+                                        <input type="number" placeholder="Total Paid" class="form-control" onchange="update_total_bill();" id="indoor_treatment_total_paid" name="indoor_treatment_total_paid" value="<?php echo ($result_content_indoor_treatment[0]['indoor_treatment_total_paid'] > 0) ? $result_content_indoor_treatment[0]['indoor_treatment_total_paid'] : 0 ?>" required>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="indoor_treatment_total_due">Due</label>
@@ -269,7 +281,7 @@ require_once('check_if_indoor_manager.php');
                     //alert(obj.status);
                     if (obj.status) {
                         //location.reload();
-                        window.open("admission_invoice.php?indoor_treatment_id="+obj.indoor_treatment_id, "_self");
+                        window.open("admission_invoice.php?indoor_treatment_id=" + obj.indoor_treatment_id, "_self");
 
                     }
                 },
@@ -287,13 +299,51 @@ require_once('check_if_indoor_manager.php');
 
     });
 
+
+
     function invoice() {
         form = document.getElementById('patient_allotment_form');
         form.target = '_blank';
-        form.action = 'admission_invoice.php?indoor_treatment_id='+$indoor_treatment_id;
+        form.action = 'admission_invoice.php?indoor_treatment_id=' + $indoor_treatment_id;
         // form.submit();
         // form.action = 'admission_invoice.php?indoor_treatment_id='+$indoor_treatment_id;
         // form.target = '';
+    }
+
+    function change_last_bed_status(status) {
+        var token = <?php echo json_encode($_SESSION['token']); ?>;
+        var user_id = <?php echo json_encode($_SESSION['user_id']); ?>;
+        var indoor_treatment_id = <?php echo json_encode($indoor_treatment_id); ?>;
+        var formData = new FormData();
+        formData.append('token', token);
+        formData.append('request_user_id', user_id);
+        formData.append('content', 'bed_release');
+        formData.append('indoor_treatment_id', indoor_treatment_id);
+        formData.append('indoor_bed_status', status);
+
+        $.ajax({
+            url: '../apis/bed_release.php',
+            type: 'POST',
+            data: formData,
+            success: function(data) {
+                //alert(data);
+                console.log(data);
+                var obj = JSON.parse(data);
+                alert(obj.message);
+                if (obj.status) {
+                    //location.reload();
+                    alert("bed released");
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("alert : " + errorThrown);
+                spinner.hide();
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
     }
 
     function loadPatient() {
@@ -317,19 +367,19 @@ require_once('check_if_indoor_manager.php');
                 var datas = obj.patient;
                 if (datas === null) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    // document.getElementById("outdoor_patient_name").value = "";
 
                 }
-
+                // console.log(datas);
                 var count = Object.keys(datas).length;
                 if (count === 0) {
                     alert("No Patient Found");
-                    document.getElementById("outdoor_patient_name").value = "";
+                    // document.getElementById("outdoor_patient_name").value = "";
                 } else {
                     for (var key in datas) {
                         if (datas.hasOwnProperty(key)) {
                             document.getElementById("outdoor_patient_id").value = datas[key].patient_id;
-                            document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
+                            // document.getElementById("outdoor_patient_name").value = datas[key].patient_name;
                         }
                     }
                 }
@@ -564,8 +614,10 @@ require_once('check_if_indoor_manager.php');
             td4.appendChild(text4);
             td5.appendChild(text5);
             td6.appendChild(text6);
-            td7.appendChild(buttonAdd);
-            td8.appendChild(buttonRemove);
+            if (list[i]['indoor_treatment_released'] == '0' && (Object.keys(list).length - 1) == i) {
+                td7.appendChild(buttonAdd);
+                td8.appendChild(buttonRemove);
+            }
 
 
             tr.appendChild(td1);
@@ -574,8 +626,10 @@ require_once('check_if_indoor_manager.php');
             tr.appendChild(td4);
             tr.appendChild(td5);
             tr.appendChild(td6);
-            tr.appendChild(td7);
-            tr.appendChild(td8);
+            if (list[i]['indoor_treatment_released'] == '0') {
+                tr.appendChild(td7);
+                tr.appendChild(td8);
+            }
 
 
             table.appendChild(tr);
@@ -700,8 +754,10 @@ require_once('check_if_indoor_manager.php');
             td4.appendChild(text4);
             td5.appendChild(text5);
             td6.appendChild(text6);
-            td7.appendChild(buttonAdd);
-            td8.appendChild(buttonRemove);
+            if (list[i]['indoor_treatment_released'] == '0') {
+                td7.appendChild(buttonAdd);
+                td8.appendChild(buttonRemove);
+            }
 
             tr.appendChild(td1);
             tr.appendChild(td2);
@@ -709,8 +765,10 @@ require_once('check_if_indoor_manager.php');
             tr.appendChild(td4);
             tr.appendChild(td5);
             tr.appendChild(td6);
-            tr.appendChild(td7);
-            tr.appendChild(td8);
+            if (list[i]['indoor_treatment_released'] == '0') {
+                tr.appendChild(td7);
+                tr.appendChild(td8);
+            }
 
 
             table.appendChild(tr);
@@ -785,6 +843,7 @@ require_once('check_if_indoor_manager.php');
 
     function AddRowBed() {
         //alert("table q19");
+        change_last_bed_status("available");
         var table = document.getElementById('datatable1_body');
         var tr = document.createElement('tr');
 
@@ -809,10 +868,12 @@ require_once('check_if_indoor_manager.php');
         selectList.appendChild(option);
 
         for (var j = 0; j < Object.keys(all_bed).length; j++) {
-            var option = document.createElement("option");
-            option.setAttribute("value", all_bed[j]['indoor_bed_id']);
-            option.text = all_bed[j]['indoor_bed_name'];
-            selectList.appendChild(option);
+            if (all_bed[j]['indoor_bed_status'] == "available") {
+                var option = document.createElement("option");
+                option.setAttribute("value", all_bed[j]['indoor_bed_id']);
+                option.text = all_bed[j]['indoor_bed_name'];
+                selectList.appendChild(option);
+            }
         }
         selectList.onchange = function() {
             changeDataBed(this);
@@ -1026,6 +1087,7 @@ require_once('check_if_indoor_manager.php');
     }
 
     function DeleteRowBed(ctl) {
+        change_last_bed_status("booked");
         var table = document.getElementById('datatable1');
 
         //var tbodyRowCount = table.tBodies[0].rows.length; // 3
@@ -1069,26 +1131,9 @@ require_once('check_if_indoor_manager.php');
         return [year, month, day].join('-');
     }
 </script>
-<!-- <script>
-    $('#datatable1').dataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    }); //replace id with your first table's id
-    $('#datatable2').dataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copyHtml5',
-            'excelHtml5',
-            'csvHtml5',
-            'pdfHtml5'
-        ]
-    }); //replace id with your first table's id
-</script> -->
+
+
+
 
 <script>
     $(document).ready(function() {

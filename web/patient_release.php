@@ -234,7 +234,7 @@ $total_exemption = 0;
                                         <?php
                                         $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                         $get_content = "select * from pharmacy_sell where pharmacy_sell_indoor_treatment_id='$indoor_treatment_id'";
-                                        echo $get_content;
+                                        // echo $get_content;
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
                                         $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
@@ -248,24 +248,21 @@ $total_exemption = 0;
                                                 echo '
                                     <tr class="main_row">
                                         <td> 
-                                        <a class="" data-toggle="collapse" href="#pharmacy_sell" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Medicine</a>
-                                        <div class="collapse multi-collapse" id="pharmacy_sell">
-                                            <div class="card card-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-                                            </div>
-                                        </div>
+                                        <a  href="medicine_sell_invoice.php?medicine_sell_id=' . $pharmacy_sell['pharmacy_sell_id'] . '" target="blank" >Medicine Purchase</a></td>
                                         <td>-</td>
-                                        <td>-</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_creation_time'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
                                         
-                                        <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
+                                        <td>' . $pharmacy_sell['pharmacy_sell_creation_time'] . '</td>
+                                        
+                                        <td class="text-right">' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
+                                        <td class="text-right">' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
                                         
                                         
                                     </tr>';
                                             }
+                                            $totoal_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
+                                            $total_paid += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
+                                            $total_discount += (int)$pharmacy_sell['pharmacy_sell_discount'];
+                                            $total_exemption += (int)$pharmacy_sell['pharmacy_selling_exemption'];
                                         }
 
 
@@ -291,7 +288,7 @@ $total_exemption = 0;
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Advance</td>
-                                        <td class="text-right border p-1"><?php echo $total_paid ?></td>
+                                        <td class="text-right border p-1"><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? $total_paid : 0 ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
@@ -303,15 +300,34 @@ $total_exemption = 0;
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Net Payable Amount</td>
-                                        <td class="text-right border p-1"><?php echo $total_paid ?></td>
+                                        <td class="text-right border p-1"><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? 0 : $total_paid  ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Net Due Amount</td>
-                                        <td class="text-right border p-1"><?php echo $total_paid ?></td>
+                                        <td class="text-right border p-1"><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? 0 : ($totoal_bill - $total_paid)  ?></td>
                                     </tr>
                                 </table>
+                                <div>
+                                    <form class="form-horizontal form-material mb-0" id="patient_release" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                        <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                        <input type="hidden" name="indoor_treatment_id" value="<?php echo $_GET['indoor_treatment_id']; ?>">
+                                        <!-- <input type="hidden" name="indoor_treatment_released" value="0"> -->
+                                        <input type="hidden" name="content" value="indoor_allotment">
+                                        <?php if ($indoor_patient[0]['indoor_treatment_released'] == 0) {
+                                            echo '
+                                            <button type="submit" class="btn btn-success" style="margin-top: -60px;">
+                                        
+                                        Release Patient
+                                    </button>';
+                                        } else {
+                                            echo '<h1 style="margin-top: -60px;">Released</h1>';
+                                        }
+                                        ?>
+                                    </form>
+                                </div>
 
                             </div>
 
@@ -336,7 +352,7 @@ $total_exemption = 0;
                                     <input type="numbera" placeholder="Amount" class="form-control" id="indoor_treatment_payment_amount" name="indoor_treatment_payment_amount" required>
                                 </div>
                                 <div class="form-group  mb-3">
-                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                    <button type="submit" class="btn btn-success ">Submit</button>
                                 </div>
 
                             </form>
@@ -411,6 +427,7 @@ $total_exemption = 0;
 <script>
     $(document).ready(function() {
         $('form#indoor_treatment_payment').on('submit', function(event) {
+            // alert("payment");
             event.preventDefault();
             var formData = new FormData(this);
             var currentdate = new Date();
@@ -430,7 +447,7 @@ $total_exemption = 0;
                 success: function(data) {
                     // spinner.hide();
                     var obj = JSON.parse(data);
-                    alert(obj.message);
+                    // alert(obj.message);
                     console.log(obj);
                     if (obj.status) {
                         location.reload();
@@ -448,6 +465,41 @@ $total_exemption = 0;
             });
 
 
+        });
+
+
+        $('form#patient_release').on('submit', function(event) {
+
+            var formData = new FormData(this);
+            formData.append('indoor_treatment_released', 1);
+            // alert("release");
+            $.ajax({
+                url: '../apis/update_indoor_patient_allotment_release.php',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    // alert("success");
+                    //alert(data);
+                    // console.log(data);
+                    // alert(data);
+                    // spinner.hide();
+                    var obj = JSON.parse(data);
+                    // alert(obj.message);
+                    //alert(obj.status);
+                    if (obj.status) {
+                        location.reload();
+                        // window.open("admission_invoice.php?indoor_treatment_id=" + obj.indoor_treatment_id, "_self");
+
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("alert : " + errorThrown);
+                    // spinner.hide();
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
         });
     });
 </script>
@@ -497,6 +549,8 @@ $total_exemption = 0;
         return true;
     }
 </script>
+
+
 
 
 </html>
