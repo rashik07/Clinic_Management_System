@@ -18,6 +18,8 @@ if (!isset($_SESSION)) {
 
             <?php
             include 'top_navbar.php';
+            include 'top_section.php';
+            include 'purchase_chat.php';
             // if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) {
             //     include 'home.php';
             // }

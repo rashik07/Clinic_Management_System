@@ -234,6 +234,12 @@ h4.wiget-title {
 .color-red {
     color: #E57498;
 }
+.color-green {
+    color: #3CB371;
+}
+.color-yellow {
+    color:#FF7D00;
+}
 .inc-dec {
     font-size: 12px;
 }
