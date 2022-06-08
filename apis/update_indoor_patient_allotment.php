@@ -38,7 +38,7 @@ class UpdateIndoorPatientAllotment
                 $indoor_treatment_payment_type   = if_empty($_POST['indoor_treatment_payment_type']);
                 $indoor_treatment_payment_type_no  = if_empty($_POST['indoor_treatment_payment_type_no']);
                 $indoor_treatment_note   = if_empty($_POST['indoor_treatment_note']);
-                $indoor_treatment_released = if_empty($_POST['indoor_treatment_released']);
+                $indoor_treatment_released = if_empty(isset($_POST['indoor_treatment_released']));
 
                 $indoor_patient_bed_bed_id = if_empty($_POST['indoor_patient_bed_bed_id']);
                 $indoor_bed_category_name   = if_empty($_POST['indoor_bed_category_name']);
@@ -78,14 +78,14 @@ class UpdateIndoorPatientAllotment
                 $getJson = $conn->prepare($post_content);
                 $getJson->execute();
                 $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                foreach ($result_content as $data) {
-                    $bed_id = $data['indoor_treatment_bed_bed_id'];
-                    $post_content = "UPDATE indoor_bed SET
-                    indoor_bed_status = 'available'
-                    where indoor_bed_id='$bed_id'";
-                    //echo $post_content;
-                    $result = $conn->exec($post_content);
-                }
+                // foreach ($result_content as $data) {
+                //     $bed_id = $data['indoor_treatment_bed_bed_id'];
+                //     $post_content = "UPDATE indoor_bed SET
+                //     indoor_bed_status = 'available'
+                //     where indoor_bed_id='$bed_id'";
+                //     //echo $post_content;
+                //     $result = $conn->exec($post_content);
+                // }
                 $delete_content = "DELETE FROM indoor_treatment_bed WHERE indoor_treatment_bed_treatment_id='$indoor_treatment_id'";
                 $result = $conn->exec($delete_content);
                 $delete_content = "DELETE FROM indoor_treatment_doctor WHERE indoor_treatment_doctor_treatment_id='$indoor_treatment_id'";
@@ -94,7 +94,9 @@ class UpdateIndoorPatientAllotment
                 $result = $conn->exec($delete_content);
 
                 $count_service = 0;
+
                 foreach ($indoor_patient_bed_bed_id as $rowservice) {
+
 
                     $bed_id  = $indoor_patient_bed_bed_id[$count_service];
                     $cetegory_name  = $indoor_bed_category_name[$count_service];
@@ -102,12 +104,14 @@ class UpdateIndoorPatientAllotment
                     $bed_total_bill = $indoor_bed_total_bill[$count_service];
                     $bed_entry  = $indoor_patient_bed_entry_time[$count_service];
                     $bed_discharge  = $indoor_patient_bed_discharge_time[$count_service];
-
-                    $post_content = "UPDATE indoor_bed SET
+                    if (count($indoor_patient_bed_bed_id) - 1 == $count_service) {
+                        $post_content = "UPDATE indoor_bed SET
                     indoor_bed_status = 'booked'
                     where indoor_bed_id='$bed_id'";
-                    //echo $post_content;
-                    $result = $conn->exec($post_content);
+
+                        //echo $post_content;
+                        $result = $conn->exec($post_content);
+                    }
 
                     $post_content = "INSERT INTO indoor_treatment_bed (indoor_treatment_bed_user_added_id,
                                   indoor_treatment_bed_treatment_id, indoor_treatment_bed_bed_id,
@@ -119,6 +123,7 @@ class UpdateIndoorPatientAllotment
                     //echo $post_content;
                     $result = $conn->exec($post_content);
                     $last_id = $conn->lastInsertId();
+
                     $count_service = $count_service + 1;
                 }
 
