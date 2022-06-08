@@ -50,7 +50,7 @@ require_once('check_if_indoor_manager.php');
                                         $conn = $connection->getConnection();
 
                                         $get_content = "select * from indoor_treatment
-                                left join patient p on p.patient_id = indoor_treatment.indoor_treatment_patient_id ORDER BY indoor_treatment_id ASC";
+                                left join patient p on p.patient_id = indoor_treatment.indoor_treatment_patient_id ORDER BY indoor_treatment_id DESC";
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
 
