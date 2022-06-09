@@ -19,26 +19,22 @@ array_push($outdoor_bill_chart, $result_content[0]['total_bill_after_discount'],
 
 
 
-$get_content = "SELECT sum(pharmacy_sell_grand_total)as sell_grand_total, DAY(pharmacy_sell_date) as sell_monthName,sum(pharmacy_sell_due_amount) as sell_due_amount
-
-
-FROM pharmacy_sell GROUP BY DAY(pharmacy_sell_date)";
+$get_content = "SELECT sum(outdoor_treatment_total_bill_after_discount) as total_bill_after_discount,sum(outdoor_treatment_total_paid) as outdoor_treatment_total_paid ,sum(outdoor_treatment_total_due) as outdoor_treatment_total_due FROM `outdoor_treatment` WHERE outdoor_treatment_indoor_treatment_id is not null";
 $getJson = $conn->prepare($get_content);
 $getJson->execute();
 
 $result_content_sell = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-$sell_grand_total = array();
-$sell_monthName = array();
-$sell_due_amount = array();
-for ($i = 0; $i < count($result_content_sell); $i++) {
-    array_push($sell_grand_total, $result_content_sell[$i]['sell_grand_total']);
-    array_push($sell_monthName, $result_content_sell[$i]['sell_monthName']);
-    array_push($sell_due_amount, $result_content_sell[$i]['sell_due_amount']);
-    // print_r($grand_total);
+$get_content = "SELECT sum(indoor_treatment_total_bill_after_discount) as total_bill_after_discount,sum(indoor_treatment_total_paid) as indoor_treatment_total_paid ,sum(indoor_treatment_total_due) as indoor_treatment_total_due FROM `indoor_treatment` ";
+$getJson = $conn->prepare($get_content);
+$getJson->execute();
 
-}
+$result_content_indoor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+$indoor_bill_chart = array();
+
+
+array_push($indoor_bill_chart, $result_content_sell[0]['total_bill_after_discount'] + $result_content_indoor[0]['total_bill_after_discount'], $result_content_sell[0]['outdoor_treatment_total_paid'] + $result_content_indoor[0]['indoor_treatment_total_paid'], $result_content_sell[0]['outdoor_treatment_total_due'] + $result_content_indoor[0]['indoor_treatment_total_due']);
 
 
 ?>
@@ -47,15 +43,15 @@ for ($i = 0; $i < count($result_content_sell); $i++) {
     <div class="col-md-6">
         <div class="widget-area-2 proclinic-box-shadow">
             <h3 class="widget-title">Outdoor Billing Chart</h3>
-            <canvas id="myChart2"></canvas>
+            <canvas id="myChart2"  height="400"></canvas>
         </div>
 
     </div>
     <div class="col-md-6">
-        <!-- <div class="widget-area-2 proclinic-box-shadow">
-      <h3 class="widget-title">Medicine Sell by Day</h3>
-      <canvas id="myChart3"></canvas>
-    </div> -->
+        <div class="widget-area-2 proclinic-box-shadow">
+            <h3 class="widget-title">Indoor Billing Chart</h3>
+            <canvas id="myChart3"></canvas>
+        </div>
 
     </div>
 </div>
@@ -90,7 +86,13 @@ for ($i = 0; $i < count($result_content_sell); $i++) {
     const config2 = {
         type: 'doughnut',
         data: data2,
-        options: {}
+       
+        options: {
+            radius: "100%",
+            
+    
+        
+        }
     };
     const myChart2 = new Chart(
         document.getElementById('myChart2'),
@@ -98,36 +100,34 @@ for ($i = 0; $i < count($result_content_sell); $i++) {
     );
 
 
-    var sell_grand_total = <?php
-                            echo json_encode($sell_grand_total)
-                            ?>;
-    var sell_monthName = <?php
-                            echo json_encode($sell_monthName)
-                            ?>;
-    var sell_due_amount = <?php
-                            echo json_encode($sell_due_amount)
+    var indoor_bill_chart = <?php
+                            echo json_encode($indoor_bill_chart)
                             ?>;
 
+
     const data3 = {
-        labels: sell_monthName.slice(Math.max(sell_monthName.length - 20, 0)),
+        labels: ['Total Bill', 'Total Paid', 'Total Due'],
         datasets: [{
                 label: 'Grand Total',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: sell_grand_total,
+                backgroundColor: [
+                    'blue',
+                    '#3CB371',
+                    'rgb(255, 99, 132)'
+                ],
+                borderColor: [
+                    'blue',
+                    '#3CB371',
+                    'rgb(255, 99, 132)'
+                ],
+                data: indoor_bill_chart,
             },
-            {
-                label: 'Total Due',
-                backgroundColor: 'blue',
-                borderColor: 'blue',
-                data: sell_due_amount,
-            }
+
         ]
 
     };
 
     const config3 = {
-        type: 'line',
+        type: 'doughnut',
         data: data3,
         options: {}
     };
