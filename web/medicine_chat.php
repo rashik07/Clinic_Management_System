@@ -49,10 +49,18 @@ for ($i = 0; $i < count($result_content_sell); $i++) {
 
 <div class="row mt-5">
   <div class="col-md-6">
-    <canvas id="myChart"></canvas>
+    <div class="widget-area-2 proclinic-box-shadow">
+      <h3 class="widget-title">Medicine Purchase By Month</h3>
+      <canvas id="myChart"></canvas>
+    </div>
+
   </div>
   <div class="col-md-6">
-    <canvas id="myChart1"></canvas>
+    <div class="widget-area-2 proclinic-box-shadow">
+      <h3 class="widget-title">Medicine Sell by Day</h3>
+      <canvas id="myChart1"></canvas>
+    </div>
+
   </div>
 </div>
 
@@ -99,15 +107,14 @@ for ($i = 0; $i < count($result_content_sell); $i++) {
 
 
   var sell_grand_total = <?php
-                    echo json_encode($sell_grand_total)
-                    ?>;
+                          echo json_encode($sell_grand_total)
+                          ?>;
   var sell_monthName = <?php
-                  echo json_encode($sell_monthName)
-                  ?>;
+                        echo json_encode($sell_monthName)
+                        ?>;
   var sell_due_amount = <?php
-                    echo json_encode($sell_due_amount)
-                    ?>;
-
+                        echo json_encode($sell_due_amount)
+                        ?>;
 
   const data1 = {
     labels: sell_monthName.slice(Math.max(sell_monthName.length - 20, 0)),

@@ -46,7 +46,7 @@ foreach ($result_content_stock as $data) {
 ?>
 
 
-<div class="container-fluid home">
+
     <div class="row">
         <!-- Widget Item -->
         <div class="col-md-4">
@@ -103,5 +103,5 @@ foreach ($result_content_stock as $data) {
     </div>
 
 
-</div>
+
 
