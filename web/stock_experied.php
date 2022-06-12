@@ -43,7 +43,7 @@ if (!isset($_SESSION)) {
                                         $connection = new Connection();
                                         $today = strtotime(date("Y-m-d"));
 
-                                        $date = date("Y-m-d", strtotime("+1 month", $today));
+                                        $date = date("Y-m-d", strtotime("+7 days", $today));
                                         // $date = strtotime(date("Y-m-d"));
 
                                         $conn = $connection->getConnection();

@@ -71,7 +71,7 @@ if (isset($_POST["max"])) {
                                         <tr>
 
                                             <!-- <td style="width: 40%;">Details</td> -->
-
+                                            <td>Invoice No</td>
                                             <td>Issue Date</td>
                                             <td>Bill</td>
                                             <td>Discount</td>
@@ -111,7 +111,7 @@ if (isset($_POST["max"])) {
                                                     echo '
                                     <tr class="main_row">
                                         
-                                       
+                                        <td>' . (int)$pharmacy_sell['pharmacy_purchase_invoice_no'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_sub_total'] . '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_discount'] . '%</td>
@@ -127,6 +127,7 @@ if (isset($_POST["max"])) {
                                         </td>
                                         
                                         
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td>' . $total_payment . '</td>

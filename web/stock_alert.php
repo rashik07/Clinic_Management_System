@@ -62,7 +62,7 @@ if (!isset($_SESSION)) {
                                         $body = '';
                                         $count = 1;
                                         foreach ($result_content as $data) {
-                                            if ($data['total_quantity'] - $data['total_sell'] < 50) {
+                                            if ($data['total_quantity'] - $data['total_sell'] < 100) {
                                                 // $date=date_create($data['pharmacy_medicine_exp_date']);
                                                 $res_quantity=$data['total_quantity'] - $data['total_sell'];
                                                 echo '<tr>';
