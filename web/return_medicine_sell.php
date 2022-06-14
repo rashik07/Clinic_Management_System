@@ -90,11 +90,23 @@ from pharmacy_sell_medicine
                             <form class="form-horizontal form-material mb-0" id="medicine_purchase_update_form" method="post" enctype="multipart/form-data">
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
-                                        Invoice No: <?php echo $result_content_medicine_sell[0]['pharmacy_sell_invoice_id']; ?><br>
-                                        Patient Name: <?php echo $result_content_medicine_sell[0]['patient_name']; ?><br>
+                                        <div style="display: flex;">
+                                            Invoice No: <input style="width: 161px;" type="text" id="pharmacy_sell_invoice_id" class="text-right form-control ml-2" name="pharmacy_sell_invoice_id" placeholder="0.00" value=" <?php echo $result_content_medicine_sell[0]['pharmacy_sell_invoice_id']; ?>" readonly>
+
+                                        </div>
+
+                                        <br>
+                                        Patient Name:
+                                        <?php echo $result_content_medicine_sell[0]['patient_name']; ?><br>
                                         Gender: <?php echo $result_content_medicine_sell[0]['patient_gender']; ?><br>
                                         Age: <?php echo $result_content_medicine_sell[0]['patient_age']; ?><br>
                                         Phone: <?php echo $result_content_medicine_sell[0]['patient_phone']; ?><br>
+                                        <div class="form-group col-md-6">
+                                            <!-- <label for="patient_phone">Patient Phone</label> -->
+                                            <input type="hidden" placeholder="Patient ID" class="form-control" id="pharmacy_sell_patient_id" name="pharmacy_sell_patient_id" readonly value="<?php echo $result_content_medicine_sell[0]['patient_id']; ?>">
+                                        </div>
+                                        <label for="outdoor_treatment_indoor_treatment_id">Indoor treatement id</label>
+                                                <input type="text" placeholder="Indoor treatement id" class="form-control" id="pharmacy_sell_indoor_treatment_id" name="pharmacy_sell_indoor_treatment_id" required readonly>
 
 
 
@@ -102,11 +114,11 @@ from pharmacy_sell_medicine
                                     <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                     <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <input type="hidden" name="medicine_sell_id" value="<?php echo $medicine_sell_id; ?>">
-                                    <input type="hidden" name="content" value="pharmacy_medicine_sell">
+                                    <input type="hidden" name="content" value="pharmacy_medicine_sell_return">
 
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_sell_return_date">Return Date<i class="text-danger"> * </i></label>
-                                        <input type="date" placeholder="Return Date" class="form-control" id="pharmacy_sell_return_date" name="pharmacy_sell_return_date"  required>
+                                        <input type="date" placeholder="Return Date" class="form-control" id="pharmacy_sell_return_date" name="pharmacy_sell_return_date" required>
                                     </div>
                                     <datalist id="medicine_list"></datalist>
                                     <table id="datatable1" class="table table-bordered table-hover" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
@@ -130,13 +142,13 @@ from pharmacy_sell_medicine
                                             <tr>
                                                 <td class="text-right" colspan="6"><b>Net Return Amount:</b></td>
                                                 <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_sub_total" class="text-right form-control" name="pharmacy_selling_sub_total" placeholder="0.00"  readonly="">
+                                                    <input type="text" id="pharmacy_sell_return_net_price" class="text-right form-control" name="pharmacy_sell_return_net_price" placeholder="0.00" readonly="">
                                                 </td>
                                                 <!-- <td>
                                                     <button onclick="AddRowTable();" id="add_invoice_item" type="button" class="btn btn-info-soft" name="add-invoice-item"><i class="fa fa-plus"></i></button>
                                                 </td> -->
                                             </tr>
-                                     
+
 
                                         </tfoot>
 
@@ -174,7 +186,7 @@ from pharmacy_sell_medicine
             var formData = new FormData(this);
 
             $.ajax({
-                url: '../apis/update_pharmacy_medicine_sell.php',
+                url: '../apis/create_medicine_return.php',
                 type: 'POST',
                 data: formData,
                 success: function(data) {
@@ -185,8 +197,8 @@ from pharmacy_sell_medicine
                     alert(obj.message);
                     //alert(obj.status);
                     if (obj.status) {
-                        //location.reload();
-                        window.open("medicine_sell_list.php", "_self");
+                        // location.reload();
+                        // window.open("medicine_sell_list.php", "_self");
 
                     }
                 },
@@ -323,26 +335,9 @@ from pharmacy_sell_medicine
             sub_total = parseInt(sub_total) + parseInt(isNaN(parseInt(total)) ? 0 : total);
         });
         //alert(sub_total);
-        document.getElementById("pharmacy_selling_sub_total").value = sub_total;
-        let vat = document.getElementById("pharmacy_selling_vat").value;
-        let discount = document.getElementById("pharmacy_selling_discount").value;
-        let exemption = document.getElementById("pharmacy_selling_exemption").value;
-        let sub_total_with_vat = (sub_total + ((sub_total * vat) / 100))
-        if (discount != "") {
-            if (discount.search("%") > 0) {
-                var total_dc = (parseInt(discount) / 100) * parseInt(sub_total_with_vat);
-                sub_total_with_vat = parseInt(sub_total_with_vat) - total_dc;
-            } else {
-                sub_total_with_vat = parseInt(sub_total_with_vat) - parseInt(discount);
-            }
-        }
-        if (exemption > 0) {
-            sub_total_with_vat = parseInt(sub_total_with_vat) - parseInt(exemption);
-        }
-        document.getElementById("pharmacy_selling_grand_total").value = sub_total_with_vat;
-        let grand_total = document.getElementById("pharmacy_selling_grand_total").value;
-        let paid = document.getElementById("pharmacy_selling_paid_amount").value;
-        document.getElementById("pharmacy_selling_due_amount").value = grand_total - paid;
+        document.getElementById("pharmacy_sell_return_net_price").value = sub_total;
+      
+ 
 
     }
 
