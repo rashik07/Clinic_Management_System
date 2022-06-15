@@ -5,7 +5,7 @@ require_once __DIR__ . '/Connection.php';
 require_once __DIR__ . '/token.php';
 require_once __DIR__ . '/related_func.php';
 
-class CreateMedicineReturn
+class UpdateMedicineSellReturn
 {
 
     function post()
@@ -19,22 +19,26 @@ class CreateMedicineReturn
         $message = "message";
         $request_user_id   = $_POST['request_user_id'];
         $token  = $_POST['token'];
-        $medicine_sell_id= $_POST['medicine_sell_id'];
+        $pharmacy_sell_id   = $_POST['medicine_sell_id'];
+        // $pharmacy_sell_return_id   = $_POST['pharmacy_sell_return_id'];
+       
+        $pharmacy_sell_return_id   = $_POST['pharmacy_sell_return_id'];
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
-        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 6]);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 6]) || $token_generator->check_permission($request_user_id, $conn, [1, 2, 6]);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
         if ($check_token && $check_permission) {
             try {
-                $pharmacy_sell_patient_id  = if_empty_return_null($_POST['pharmacy_sell_patient_id']);
-
+                // $pharmacy_sell_patient_id  =if_empty($_POST['pharmacy_sell_patient_id']);
                 $pharmacy_sell_return_date = if_empty($_POST['pharmacy_sell_return_date']);
-                $pharmacy_sell_indoor_treatment_id = if_empty_return_null($_POST['pharmacy_sell_indoor_treatment_id']);
-                $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
 
-                $pharmacy_sell_return_net_price  = if_empty_return_zero($_POST['pharmacy_sell_return_net_price']);
-               
+                $pharmacy_sell_return_net_price = if_empty($_POST['pharmacy_sell_return_net_price']);
+
+
+
+                
+                // $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
                 $pharmacy_selling_medicine_medicine_id = $_POST['pharmacy_selling_medicine_medicine_id'];
                 $pharmacy_selling_medicine_batch_id  = $_POST['pharmacy_selling_medicine_batch_id'];
         
@@ -43,15 +47,14 @@ class CreateMedicineReturn
                 $pharmacy_medicine_return_quantity = $_POST['pharmacy_medicine_return_quantity'];
                 $pharmacy_purchase_medicine_total_selling_price = $_POST['pharmacy_purchase_medicine_total_selling_price'];
 
-                $post_content = "INSERT INTO pharmacy_sell_return (pharmacy_sell_medicine_sell_id,pharmacy_sell_return_invoice_id,pharmacy_sell_return_user_added_id,
-                           pharmacy_sell_return_patient_id, pharmacy_sell_return_indoor_treatment_id, pharmacy_sell_return_date, pharmacy_sell_return_net_price) 
-                    VALUES ('$medicine_sell_id','$pharmacy_sell_invoice_id','$request_user_id',$pharmacy_sell_patient_id,$pharmacy_sell_indoor_treatment_id,
-                            '$pharmacy_sell_return_date', '$pharmacy_sell_return_net_price'
-                            )";
-                // echo $post_content;
+                $post_content = "UPDATE pharmacy_sell_return SET pharmacy_sell_return_user_added_id = '$request_user_id',
+                pharmacy_sell_return_date= '$pharmacy_sell_return_date',pharmacy_sell_return_net_price= '$pharmacy_sell_return_net_price'          
+                where pharmacy_sell_return_id='$pharmacy_sell_return_id'";
+                //echo $post_content;
                 $result = $conn->exec($post_content);
-                $pharmacy_sell_id = $conn->lastInsertId();
 
+                $delete_content = "DELETE FROM pharmacy_sell_medicine_return WHERE pharmacy_sell_medicine_return_sell_id='$pharmacy_sell_return_id'";
+                $result = $conn->exec($delete_content);
 
                 $count_service = 0;
                 foreach ($pharmacy_selling_medicine_medicine_id as $rowservice) {
@@ -78,9 +81,9 @@ class CreateMedicineReturn
 
 
                 if ($result) {
-                    echo json_encode(array("pharmacy_medicine_sell" => "Successful", "pharmacy_sell_id" => $pharmacy_sell_id, $status => 1, $message => "Create Pharmacy Selling Successful"));
+                    echo json_encode(array("pharmacy_medicine_sell" => "Successful", "pharmacy_sell_id" => $pharmacy_sell_return_id, $status => 1, $message => "Update Pharmacy Sell Successful"));
                 } else {
-                    echo json_encode(array("pharmacy_medicine_sell" => "Error", $status => 0, $message => "Create Pharmacy Selling Failed"));
+                    echo json_encode(array("pharmacy_medicine_sell" => "Error", $status => 0, $message => "Update Pharmacy Sell Failed"));
                 }
                 die();
             } catch (Exception $e) {
@@ -94,7 +97,7 @@ class CreateMedicineReturn
     }
 }
 if (isset($_POST['content']) && ($_POST['content'] == "pharmacy_medicine_sell_return")) {
-    $authenticate = new CreateMedicineReturn();
+    $authenticate = new UpdateMedicineSellReturn();
     $authenticate->post();
 } else {
     echo json_encode(array("message" => "Bad Request"));

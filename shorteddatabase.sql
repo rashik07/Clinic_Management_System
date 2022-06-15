@@ -2789,6 +2789,7 @@ CREATE TABLE `pharmacy_sell_medicine` (
 
 CREATE TABLE `pharmacy_sell_return` (
   `pharmacy_sell_return_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pharmacy_sell_medicine_sell_id` int(11) NOT NULL,
   `pharmacy_sell_return_invoice_id` varchar(255) DEFAULT NULL,
   `pharmacy_sell_return_user_added_id` int(11) NOT NULL,
   `pharmacy_sell_return_patient_id` int(11) DEFAULT NULL,
@@ -2800,7 +2801,7 @@ CREATE TABLE `pharmacy_sell_return` (
   PRIMARY KEY (pharmacy_sell_return_id),
   FOREIGN KEY (pharmacy_sell_return_user_added_id) REFERENCES user (user_id),
   FOREIGN KEY (pharmacy_sell_return_patient_id) REFERENCES patient (patient_id),
-  FOREIGN KEY (pharmacy_sell_return_indoor_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id)
+  FOREIGN KEY (pharmacy_sell_return_indoor_treatment_id) REFERENCES indoor_treatment (indoor_treatment_id),FOREIGN KEY (pharmacy_sell_medicine_sell_id) REFERENCES pharmacy_sell (pharmacy_sell_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 CREATE TABLE `pharmacy_sell_medicine_return` (
