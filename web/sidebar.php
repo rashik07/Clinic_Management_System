@@ -212,6 +212,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="medicine_sell_list.php"> Sell List</a>
                     </li>
+                    <li>
+                        <a href="sell_return_list.php"> Return List</a>
+                    </li>
                     <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
                         <li>
                             <a href="report_pharmacy_sell.php"> Sell Report</a>
