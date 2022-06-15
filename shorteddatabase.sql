@@ -235,6 +235,8 @@ CREATE TABLE `indoor_treatment`
   `indoor_treatment_payment_type_no` varchar(255) DEFAULT NULL,
   `indoor_treatment_note` varchar(255) DEFAULT NULL,
    `indoor_treatment_released` BOOLEAN DEFAULT 0,
+   `indoor_treatment_discount` varchar(255) DEFAULT 0,
+   `indoor_treatment_exemption` varchar(255) DEFAULT 0,
     `indoor_treatment_creation_time`             DATETIME     DEFAULT CURRENT_TIMESTAMP,
     `indoor_treatment_modification_time`         DATETIME ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (indoor_treatment_id),

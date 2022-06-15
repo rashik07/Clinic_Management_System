@@ -78,6 +78,9 @@ $total_exemption = 0;
                             $indoor_payments_ots = $getJson->fetchAll(PDO::FETCH_ASSOC);
                             // print_r($indoor_patient);
 
+                            $total_discount += $indoor_patient[0]['indoor_treatment_discount'];
+                            $total_exemption += $indoor_patient[0]['indoor_treatment_exemption'];
+
                             if (count($indoor_payments_ots) > 0) {
                                 foreach ($indoor_payments_ots as $indoor_payments_ot) {
                                     $total_paid += (int)$indoor_payments_ot['outdoor_treatment_total_paid'];
@@ -89,8 +92,9 @@ $total_exemption = 0;
                                 <i class="mr-1 fa fa-print text-white-m1 text-120 w-2"></i>
                                 Print
                             </button>
+
                             <div id="print_invoice">
-                                <div class="row border-bottom">
+                                <div class="row ">
                                     <div class="col-12  justify-content-center">
                                         <div class="float-left">
                                             <img class="center" src="../assets/images/logo.png" style="height: 60px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
@@ -102,6 +106,9 @@ $total_exemption = 0;
                                             <p style="font-size: 14px; margin:0px; padding:0px;">For Serial: +88 01844080671 , +88 028101496, +88 01844 080 675, +88 01844 080 676</p>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="text-center" style="border: 1px solid black; padding-top: 5px;margin-top: 5px;">
+                                    <h4><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? "Draft Bill" : "Final Bill" ?></h4>
                                 </div>
                                 <div class="row  mt-2 mb-2">
                                     <div class="col-md-8">
@@ -116,6 +123,7 @@ $total_exemption = 0;
                                         <p class="mb-0">Bill up to Date : <?php echo isset($indoor_patient[0]['indoor_treatment_modification_time']) ? $indoor_patient[0]['indoor_treatment_modification_time'] : $indoor_patient[0]['indoor_treatment_creation_time']  ?></p>
                                     </div>
                                 </div>
+
                                 <table class="Report_table border" style="width: 100%;">
                                     <thead>
                                         <tr>
@@ -208,14 +216,15 @@ $total_exemption = 0;
 
                                                 $days_between = ceil(abs($end - $start) / 86400);
                                                 $qty += $days_between;
-                                            }
-                                            echo '
+                                                echo '
                                                 <tr class="main_row">
-                                                <td>Consultant Fee</td>
-                                                <td>' . $qty . ' </td>
+                                                <td>' . $indoor_treatment_doctor['doctor_name'] . ' (' . $indoor_treatment_doctor['doctor_specialization'] . ')</td>
+                                                <td>' . $days_between . ' </td>
                                                     <td> - </td>
-                                                    <td class="text-right">' . $bill . '</td>
+                                                    <td class="text-right">' . $indoor_treatment_doctor['indoor_treatment_doctor_total_bill'] . '</td>
                                                 </tr>';
+                                            }
+
                                             $totoal_bill += $bill;
                                         }
                                         ?>
@@ -377,6 +386,7 @@ $total_exemption = 0;
 
 
                                         <?php
+                                        $bill = 0;
                                         $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                         $get_content = "select * from pharmacy_sell where pharmacy_sell_indoor_treatment_id='$indoor_treatment_id'";
                                         // echo $get_content;
@@ -387,28 +397,27 @@ $total_exemption = 0;
                                         if (count($pharmacy_sells) > 0) {
                                             foreach ($pharmacy_sells as $pharmacy_sell) {
                                                 // $last_bed_name = $bed['indoor_bed_name'];
-
-                                                if ($pharmacy_sell['pharmacy_sell_discount'] == "") {
-                                                    $pharmacy_sell['pharmacy_sell_discount'] = 0;
+                                                if ($pharmacy_sell['pharmacy_sell_due_amount'] > 0) {
+                                                    $bill += (int)$pharmacy_sell['pharmacy_sell_due_amount'];
                                                 }
+                                            }
+                                            if ($bill > 0) {
                                                 echo '
                                     <tr class="main_row">
                                         <td> 
-                                        <a  href="medicine_sell_invoice.php?medicine_sell_id=' . $pharmacy_sell['pharmacy_sell_id'] . '" target="blank" >Medicine Purchase</a></td>
+                                        <a  href="medicine_sell_invoice.php?medicine_sell_id=' . $pharmacy_sell['pharmacy_sell_id'] . '" target="blank" >Medicine Bill</a></td>
                                         <td>-</td>
                                         
-                                        <td>' . $pharmacy_sell['pharmacy_sell_creation_time'] . '</td>
+                                        <td>-</td>
                                         
-                                        <td class="text-right">' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
-                                        <td class="text-right">' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
+                                        
+                                        <td class="text-right">' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
                                         
                                         
                                     </tr>';
                                             }
-                                            $totoal_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
-                                            $total_paid += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
-                                            $total_discount += (int)$pharmacy_sell['pharmacy_sell_discount'];
-                                            $total_exemption += (int)$pharmacy_sell['pharmacy_selling_exemption'];
+                                            $totoal_bill += (int)$pharmacy_sell['pharmacy_sell_due_amount'];
+                                            // $total_paid += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
                                         }
 
 
@@ -434,7 +443,7 @@ $total_exemption = 0;
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Advance</td>
-                                        <td class="text-right border p-1"><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? $total_paid : 0 ?></td>
+                                        <td class="text-right border p-1"><?php echo  $total_paid  ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
@@ -446,13 +455,17 @@ $total_exemption = 0;
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Net Payable Amount</td>
-                                        <td class="text-right border p-1"><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? 0 : $total_paid  ?></td>
+                                        <?php if ($indoor_patient[0]['indoor_treatment_released'] != 0) { ?>
+                                            <td class="text-right border p-1"><?php echo  isset($indoor_payments[count($indoor_payments) - 1]["indoor_treatment_payment_amount"]) ? $indoor_payments[count($indoor_payments) - 1]["indoor_treatment_payment_amount"] : 0  ?></td>
+                                        <?php } else { ?>
+                                            <td class="text-right border p-1">0</td>
+                                        <?php } ?>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Net Due Amount</td>
-                                        <td class="text-right border p-1"><?php echo ($totoal_bill - $total_paid)  ?></td>
+                                        <td class="text-right border p-1"><?php echo ($totoal_bill - $total_paid - $total_discount - $total_exemption)  ?></td>
                                     </tr>
                                 </table>
                                 <div>
@@ -480,9 +493,9 @@ $total_exemption = 0;
 
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="widget-area-2 proclinic-box-shadow">
-                            <h5>Add Naw Payment</h5>
+                    <div class="col-md-3">
+                        <div class="widget-area-2 proclinic-box-shadow" style="margin-right: 0px">
+                            <h5>Bill Payment</h5>
 
                             <form class="form-horizontal form-material mb-0" id="indoor_treatment_payment" method="post" enctype="multipart/form-data">
                                 <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
@@ -504,8 +517,32 @@ $total_exemption = 0;
                             </form>
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <div class="widget-area-2 proclinic-box-shadow" style="margin-left: 0px">
+                            <h5>Discount and Exemption</h5>
+
+                            <form class="form-horizontal form-material mb-0" id="indoor_treatment_discount" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                <input type="hidden" name="indoor_treatment_id" value="<?php echo $_GET['indoor_treatment_id']; ?>">
+                                <input type="hidden" name="content" value="indoor_allotment">
+                                <div class=" form-group ">
+                                    <label for=" indoor_treatment_discount">Discount</label>
+                                    <input type="numbera" placeholder="Amount" class="form-control" id="indoor_treatment_discount" name="indoor_treatment_discount" value="<?php echo $indoor_patient[0]['indoor_treatment_discount'] ?>">
+                                </div>
+                                <div class=" form-group ">
+                                    <label for=" indoor_treatment_exemption">Exemption</label>
+                                    <input type="numbera" placeholder="Amount" class="form-control" id="indoor_treatment_exemption" name="indoor_treatment_exemption" value="<?php echo $indoor_patient[0]['indoor_treatment_exemption'] ?>">
+                                </div>
+                                <div class="form-group  mb-3">
+                                    <button type="submit" class="btn btn-success ">Submit</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-md-6">
-                        <div class="widget-area-2 proclinic-box-shadow">
+                        <div class="widget-area-2 proclinic-box-shadow" style="margin-left: 0px">
                             <button class="btn btn-primary mx-1px text-95" onclick="print_history();">
                                 <i class="mr-1 fa fa-print text-white-m1 text-120 w-2"></i>
                                 Print
@@ -513,19 +550,6 @@ $total_exemption = 0;
                             <div id="print_history">
 
 
-                                <!-- <div class="row border-bottom">
-                                    <div class="col-12  justify-content-center">
-                                        <div class="float-left">
-                                            <img class="center" src="../assets/images/logo.png" style="height: 60px; display: block; margin-left: auto; margin-right: auto;" alt="logo" class="logo-default">
-                                        </div>
-
-                                        <div class=" text-center text-600">
-                                            <p style="font-size: 18px; margin:0px; padding:0px;">MOMTAJ TRAUMA CENTER</p>
-                                            <p style="font-size: 14px; margin:0px; padding:0px;">House #56, Road #03, Dhaka Real State, Kaderabad housing,Mohammadpur, Dhaka-1207</p>
-                                            <p style="font-size: 14px; margin:0px; padding:0px;">For Serial: +88 01844080671 , +88 028101496, +88 01844 080 675, +88 01844 080 676</p>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="row  mt-2 mb-4">
                                     <div class="col-md-5">
                                         <p class="mb-0">Patient Name : <?php echo $indoor_patient[0]['patient_name'] ?></p>
@@ -545,6 +569,7 @@ $total_exemption = 0;
                                             <td>Payment history</td>
                                             <td>Date</td>
                                             <td class="text-right">Amount</td>
+                                            <td class="text-right">Receipt</td>
                                         </tr>
                                     </thead>
                                     <?php
@@ -554,6 +579,8 @@ $total_exemption = 0;
                                     <td>' . $payment["indoor_treatment_payment_details"] . '</td>
                                     <td>' . $payment["indoor_treatment_payment_creation_time"] . '</td>
                                     <td class="text-right">' . $payment["indoor_treatment_payment_amount"] . '</td>
+                                    <td class="text-center"> <a href="money_receipt.php?indoor_treatment_payment_id=' . $payment["indoor_treatment_payment_id"] . '"><i class="ti ti-receipt" style="font-size:24px"></i>
+                                     </a></td>
                                 </tr>';
                                         }
                                     }
@@ -596,8 +623,8 @@ $total_exemption = 0;
                     // alert(obj.message);
                     console.log(obj);
                     if (obj.status) {
-                        location.reload();
-                        // window.open("doctor_visit_invoice.php?outdoor_treatment_id=" + obj.outdoor_treatment_id, "_self");
+                        // location.reload();
+                        window.open("money_receipt.php?indoor_treatment_payment_id=" + obj.outdoor_service_id, "_self");
 
                     }
                 },
@@ -641,6 +668,29 @@ $total_exemption = 0;
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert("alert : " + errorThrown);
                     // spinner.hide();
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        });
+
+
+        $('form#indoor_treatment_discount').on('submit', function(event) {
+
+            var formData = new FormData(this);
+            $.ajax({
+                url: '../apis/update_indoor_patient_allotment_discount.php',
+                type: 'POST',
+                data: formData,
+                success: function(data) {
+                    var obj = JSON.parse(data);
+                    if (obj.status) {
+                        location.reload();
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert("alert : " + errorThrown);
                 },
                 cache: false,
                 contentType: false,

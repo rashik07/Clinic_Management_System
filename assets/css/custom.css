@@ -10,3 +10,43 @@
     z-index: 10000;
 }
 
+.money-receipt-font{
+    font-size: 16px; margin:0px; padding:0px;
+    font-weight: 600;
+}
+.money_receipt-table td{
+    border: 1px solid black;
+    padding: 5px;
+}
+.money_receipt-table th{
+    /* background: #2fb992;
+    color: white; */
+    background: white;
+    color: black;
+    border: 1px solid black;
+    padding: 5px;
+}
+.admission-font{
+    font-size: 16px; margin:0px; padding:0px;
+    font-weight: 600;
+}
+.admission-table{
+    width: 100%;
+    font-size: 16px;
+}
+.admission-table tr{
+    
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.admission-table td{
+    padding: 5px;
+}
+.admission-table .highlight{
+    background: #2fb992;
+    color: white;
+}
+.admission-table .gray{
+    background: #f1f1f1;
+    color: black;
+}

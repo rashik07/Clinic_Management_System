@@ -35,11 +35,11 @@ require_once('check_if_indoor_manager.php');
                                             <th>Patient Name</th>
                                             <th>Doctor Name</th>
                                             <th>Last Bed</th>
-                                            <th></th>
+                                            <th>Status</th>
                                             <!-- <th>Total Bill</th>
                                             <th>Paid</th>
                                             <th>Due</th> -->
-                                            <th>View</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -89,11 +89,18 @@ require_once('check_if_indoor_manager.php');
                                             echo '<td>' . $data['patient_name'] . '</td>';
                                             echo '<td>' . $last_doctor_name . '</td>';
                                             echo '<td>' . $last_bed_name . '</td>';
-                                            echo '<td>' . ($data['indoor_treatment_released'] == 1 ? "Released" : "") . '</td>';
+                                            echo '<td>' . ($data['indoor_treatment_released'] == 1 ? "Released" : "Admitted") . '</td>';
                                             // echo '<td>' . $data['indoor_treatment_total_paid'] . '</td>';
                                             // echo '<td>' . $data['indoor_treatment_total_due'] . '</td>';
-                                            echo '<td><a href="edit_indoor_treatment.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                            echo '<td>
+                                            <a href="admission_form.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-receipt" style="font-size:24px"></i></a> | 
+                                            <a href="admission_invoice.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-printer" style="font-size:24px"></i></a> |
+                                            <a href="edit_indoor_treatment.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-eraser" style="font-size:24px"></i></a>
+                                            
+                                            </td>';
                                             $count = $count + 1;
+                                            // <a href="edit_indoor_treatment.php?indoor_treatment_id=' . $treatment_id . '"><i class="ti ti-settings" style="font-size:24px"></i>
+                                            // </a>
                                         }
                                         ?>
 
