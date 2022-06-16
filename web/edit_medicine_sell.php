@@ -36,18 +36,26 @@ require_once('check_if_pharmacy_manager.php');
                     $getJson->execute();
                     $result_content_medicine_manufacturer = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select *,
-       (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
-       (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
- LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
- WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
-from medicine
-           
-        
-     
-            left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
-            left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
-            left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
+                    $get_content = "select *,(SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
+                    (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
+              LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
+              WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell,
+
+(SELECT SUM(pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_piece) from pharmacy_medicine
+LEFT JOIN pharmacy_sell_medicine_return on pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id
+WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id and pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_batch_id=pharmacy_medicine.pharmacy_medicine_batch_id
+
+) as total_return
+
+             from medicine
+
+             
+
+                    
+                       
+                         left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
+                         left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
+                         left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id;";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
@@ -318,7 +326,7 @@ from pharmacy_sell_medicine
                     //alert("matched");
                     row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                     row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
+                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
                     //alert(all_medicine[i]['total_quantity']);
                     var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']) / (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box'])));
                     //alert(per_pc_price);
@@ -359,7 +367,7 @@ from pharmacy_sell_medicine
                 //alert("matched");
                 row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                 row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
+                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
                 //alert(all_medicine[i]['total_quantity']);
                 var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
                 // alert(per_pc_price);
@@ -458,7 +466,8 @@ from pharmacy_sell_medicine
 
     function initRowTable() {
         var list = <?php echo json_encode($result_content_pharmacy_medicine_sell); ?>;
-
+        var list1 = <?php echo json_encode($result_content_medicine); ?>;
+        
         //alert(list);
         var table = document.getElementById('datatable1_body');
         var main_table = document.getElementById('datatable1');
@@ -533,9 +542,9 @@ from pharmacy_sell_medicine
             text4.setAttribute("name", "pharmacy_selling_medicine_stock_qty[]");
             text4.setAttribute("id", "pharmacy_selling_medicine_stock_qty");
             text4.setAttribute("readonly", "readonly");
-            text4.setAttribute("value", parseInt(parseInt(list[i]['total_quantity']) - parseInt(list[i]['total_sell'])));
+            text4.setAttribute("value", parseInt(parseInt(list[i]['total_quantity']) - parseInt(list[i]['total_sell'])+parseInt(list1[i]['total_return'])));
             //alert(parseInt(list[i]['total_quantity']));
-            //alert(parseInt(list[i]['total_sell']));
+            // alert(parseInt(list[i]['total_sell']));
 
             var text5 = document.createElement("INPUT");
             text5.setAttribute("type", "text");
@@ -646,12 +655,8 @@ from pharmacy_sell_medicine
         hiddenText.setAttribute("type", "hidden");
         hiddenText.setAttribute("id", "pharmacy_selling_medicine_medicine_id");
         hiddenText.setAttribute("name", "pharmacy_selling_medicine_medicine_id[]");
-
         //var cell = row.insertCell();
         //cell.appendChild(selectList);
-
-
-
 
         var text2 = document.createElement("INPUT");
         text2.setAttribute("required", "required");

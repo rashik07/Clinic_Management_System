@@ -39,17 +39,26 @@ require_once('check_if_pharmacy_manager.php');
                     $getJson->execute();
                     $result_content_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-                    $get_content = "select *,
-       (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
-       (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
- LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
- WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
-from medicine
-       
-          
-            left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
-            left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
-            left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
+                    $get_content = "select *,(SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
+                    (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
+              LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
+              WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell,
+
+(SELECT SUM(pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_piece) from pharmacy_medicine
+LEFT JOIN pharmacy_sell_medicine_return on pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id
+WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id and pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_batch_id=pharmacy_medicine.pharmacy_medicine_batch_id
+
+) as total_return
+
+             from medicine
+
+             
+
+                    
+                       
+                         left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
+                         left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
+                         left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id;";
                     //echo $get_content;
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
@@ -360,7 +369,7 @@ from medicine
                     //alert("matched");
                     row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                     row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
+                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
                     //alert(all_medicine[i]['total_quantity']);
                     var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
                     // alert(per_pc_price);
@@ -401,7 +410,7 @@ from medicine
                 //alert("matched");
                 row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                 row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']);
+                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
                 var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
                 row.find(".pharmacy_selling_medicine_per_pc_price").val(per_pc_price);
 
