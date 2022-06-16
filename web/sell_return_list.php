@@ -65,7 +65,7 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<td>' . $data['patient_name'] . '</td>';
                                             echo '<td>' . $data['pharmacy_sell_return_date'] . '</td>';
                                             echo '<td>' . $data['pharmacy_sell_return_net_price'] . '</td>';
-                                            echo '<td><a href="edit_medicine_sell_return.php?medicine_sell_id=' . $data['pharmacy_sell_return_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                            echo '<td><a href="edit_medicine_sell_return.php?medicine_sell_id=' . $data['pharmacy_sell_medicine_sell_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                             echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_sell_return_id'] . ');">Delete</button></td>';
                                             echo '</tr>';
                                             $count = $count + 1;

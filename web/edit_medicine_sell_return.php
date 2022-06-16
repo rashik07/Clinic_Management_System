@@ -82,12 +82,13 @@ from pharmacy_sell_medicine
                     $result_content_medicine_leaf = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     $get_content = "select *, DATE(pharmacy_sell_return_date) as pharmacy_sell_return_date  from pharmacy_sell_return
-                    left join pharmacy_sell_medicine_return p on p.pharmacy_sell_medicine_return_sell_id = pharmacy_sell_return.pharmacy_sell_return_patient_id where pharmacy_sell_return.pharmacy_sell_medicine_sell_id='$medicine_sell_id'
+                    left join pharmacy_sell_medicine_return p on p.pharmacy_sell_medicine_return_sell_id = pharmacy_sell_return.pharmacy_sell_return_id where pharmacy_sell_return.pharmacy_sell_medicine_sell_id='$medicine_sell_id'
                     ";
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
 
                     $result_content_return = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                    // echo $result_content_return;
 
 
 
@@ -123,6 +124,7 @@ from pharmacy_sell_medicine
                                     <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <input type="hidden" name="medicine_sell_id" value="<?php echo $medicine_sell_id; ?>">
                                     <input type="hidden" name="pharmacy_sell_return_id" value="<?php echo $result_content_return[0]['pharmacy_sell_return_id']; ?>">
+                                    <!-- <input type="hidden" name="pharmacy_sell_medicine_return_medicine_id" value="<?php echo $result_content_return[0]['pharmacy_sell_medicine_return_medicine_id']; ?>"> -->
                                     <input type="hidden" name="content" value="pharmacy_medicine_sell_return">
 
                                     <div class="form-group col-md-6">
@@ -168,7 +170,7 @@ from pharmacy_sell_medicine
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
                                         <!-- <button class="btn btn-primary btn-lg" onclick="invoice();">invoice</button> -->
                                         <?php
-                                        echo '<a class="btn btn-primary btn-lg" href="medicine_sell_invoice.php?medicine_sell_id=' . $medicine_sell_id . '">invoice</a>'
+                                        echo '<a class="btn btn-primary btn-lg" href="medicine_return_invoice.php?medicine_sell_id=' . $medicine_sell_id . '">invoice</a>'
                                         ?>
                                     </div>
                             </form>
@@ -402,6 +404,7 @@ from pharmacy_sell_medicine
     function initRowTable() {
         var list = <?php echo json_encode($result_content_pharmacy_medicine_sell); ?>;
         var list1 = <?php echo json_encode($result_content_return); ?>;
+        console.log(list1);
        
         //alert(list);
         var table = document.getElementById('datatable1_body');
@@ -435,11 +438,11 @@ from pharmacy_sell_medicine
             }
             var hiddenText = document.createElement("INPUT");
             hiddenText.setAttribute("required", "required");
-            hiddenText.setAttribute("class", "form-control pharmacy_selling_medicine_medicine_id");
+            hiddenText.setAttribute("class", "form-control pharmacy_sell_medicine_return_medicine_id");
             hiddenText.setAttribute("type", "hidden");
-            hiddenText.setAttribute("id", "pharmacy_selling_medicine_medicine_id");
-            hiddenText.setAttribute("name", "pharmacy_selling_medicine_medicine_id[]");
-            hiddenText.setAttribute("value", list[i]['pharmacy_medicine_id']);
+            hiddenText.setAttribute("id", "pharmacy_sell_medicine_return_medicine_id");
+            hiddenText.setAttribute("name", "pharmacy_sell_medicine_return_medicine_id[]");
+            hiddenText.setAttribute("value", list1[i]['pharmacy_sell_medicine_return_medicine_id']);
 
 
             //var cell = row.insertCell();

@@ -39,9 +39,10 @@ class UpdateMedicineSellReturn
 
                 
                 // $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
-                $pharmacy_selling_medicine_medicine_id = $_POST['pharmacy_selling_medicine_medicine_id'];
+   
                 $pharmacy_selling_medicine_batch_id  = $_POST['pharmacy_selling_medicine_batch_id'];
-        
+                $pharmacy_sell_medicine_return_medicine_id = $_POST['pharmacy_sell_medicine_return_medicine_id'];
+                
   
                 $pharmacy_selling_medicine_per_pc_price = $_POST['pharmacy_selling_medicine_per_pc_price'];
                 $pharmacy_medicine_return_quantity = $_POST['pharmacy_medicine_return_quantity'];
@@ -57,9 +58,9 @@ class UpdateMedicineSellReturn
                 $result = $conn->exec($delete_content);
 
                 $count_service = 0;
-                foreach ($pharmacy_selling_medicine_medicine_id as $rowservice) {
+                foreach ( $pharmacy_sell_medicine_return_medicine_id  as $rowservice) {
 
-                    $pharmacy_medicine_id  = $pharmacy_selling_medicine_medicine_id[$count_service];
+                    $pharmacy_medicine_id  =  $pharmacy_sell_medicine_return_medicine_id [$count_service];
                     $batch_id  = $pharmacy_selling_medicine_batch_id[$count_service];
                     // $exp_date  = $pharmacy_selling_medicine_exp_date[$count_service];
                     $per_pc_price = $pharmacy_selling_medicine_per_pc_price[$count_service];
@@ -72,7 +73,7 @@ class UpdateMedicineSellReturn
                                     pharmacy_sell_medicine_return_medicine_batch_id,
                                     pharmacy_sell_medicine_return_per_piece_price, pharmacy_sell_medicine_return_piece,
                                     pharmacy_sell_medicine_return_total_selling_price) 
-                    VALUES ('$request_user_id','$pharmacy_medicine_id','$pharmacy_sell_id', '$batch_id','$per_pc_price', '$pharmacy_medicine_return_quantity','$total_price')";
+                    VALUES ('$request_user_id','$pharmacy_medicine_id',' $pharmacy_sell_return_id', '$batch_id','$per_pc_price', '$pharmacy_medicine_return_quantity','$total_price')";
                     // echo $post_content;
                     $result = $conn->exec($post_content);
                     $last_id = $conn->lastInsertId();
