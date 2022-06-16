@@ -404,8 +404,7 @@ $total_exemption = 0;
                                             if ($bill > 0) {
                                                 echo '
                                     <tr class="main_row">
-                                        <td> 
-                                        <a  href="medicine_sell_invoice.php?medicine_sell_id=' . $pharmacy_sell['pharmacy_sell_id'] . '" target="blank" >Medicine Bill</a></td>
+                                        <td>Medicine Bill</td>
                                         <td>-</td>
                                         
                                         <td>-</td>
@@ -468,27 +467,28 @@ $total_exemption = 0;
                                         <td class="text-right border p-1"><?php echo ($totoal_bill - $total_paid - $total_discount - $total_exemption)  ?></td>
                                     </tr>
                                 </table>
-                                <div>
-                                    <form class="form-horizontal form-material mb-0" id="patient_release" method="post" enctype="multipart/form-data">
-                                        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
-                                        <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                                        <input type="hidden" name="indoor_treatment_id" value="<?php echo $_GET['indoor_treatment_id']; ?>">
-                                        <!-- <input type="hidden" name="indoor_treatment_released" value="0"> -->
-                                        <input type="hidden" name="content" value="indoor_allotment">
-                                        <?php if ($indoor_patient[0]['indoor_treatment_released'] == 0) {
-                                            echo '
+                            </div>
+                            <div>
+                                <form class="form-horizontal form-material mb-0" id="patient_release" method="post" enctype="multipart/form-data">
+                                    <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                    <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                                    <input type="hidden" name="indoor_treatment_id" value="<?php echo $_GET['indoor_treatment_id']; ?>">
+                                    <!-- <input type="hidden" name="indoor_treatment_released" value="0"> -->
+                                    <input type="hidden" name="content" value="indoor_allotment">
+                                    <?php if ($indoor_patient[0]['indoor_treatment_released'] == 0) {
+                                        echo '
                                             <button type="submit" class="btn btn-success" style="margin-top: -60px;">
                                         
                                         Release Patient
                                     </button>';
-                                        } else {
-                                            echo '<h1 style="margin-top: -60px;">Released</h1>';
-                                        }
-                                        ?>
-                                    </form>
-                                </div>
-
+                                    } else {
+                                        echo '<h1 style="margin-top: -60px;">Released</h1>';
+                                    }
+                                    ?>
+                                </form>
                             </div>
+
+
 
 
                         </div>
@@ -580,7 +580,12 @@ $total_exemption = 0;
                                     <td>' . $payment["indoor_treatment_payment_creation_time"] . '</td>
                                     <td class="text-right">' . $payment["indoor_treatment_payment_amount"] . '</td>
                                     <td class="text-center"> <a href="money_receipt.php?indoor_treatment_payment_id=' . $payment["indoor_treatment_payment_id"] . '"><i class="ti ti-receipt" style="font-size:24px"></i>
-                                     </a></td>
+                                     </a>';
+                                            if ($_SESSION['user_type_access_level'] <= 2) {
+                                                echo '<a href="" onclick="delete_data(' . $payment["indoor_treatment_payment_id"] . ');"><i class="ti ti-close" style="font-size:20px; color: red;"></i></a>';
+                                            }
+
+                                            echo '</td>
                                 </tr>';
                                         }
                                     }
@@ -596,6 +601,49 @@ $total_exemption = 0;
             <?php include 'footer.php'
             ?>
 </body>
+
+<script>
+    var spinner = $('#loader');
+
+    function delete_data(indoor_treatment_payment_id) {
+
+
+        if (confirm('Are you sure you want to Delete This Payment?')) {
+            // yes
+            spinner.show();
+            $.ajax({
+                type: 'POST',
+                url: '../apis/delete_indoor_bill_payment.php',
+                cache: false,
+                //dataType: "json", // and this
+                data: {
+                    request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                    token: "<?php echo $_SESSION['token']; ?>",
+                    indoor_treatment_payment_id: indoor_treatment_payment_id,
+                    content: "indoor_treatment_payment"
+                },
+                success: function(response) {
+                    // alert(response);
+                    spinner.hide();
+                    var obj = JSON.parse(response);
+                    alert(obj.message);
+                    //alert(obj.status);
+                    if (obj.status) {
+                        location.reload();
+                        // window.open("patient_treatment_list.php", "_self");
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    spinner.hide();
+                    alert("alert : " + errorThrown);
+                }
+            });
+        } else {
+            // Do nothing!
+            console.log('Said No');
+        }
+    }
+</script>
 
 <script>
     $(document).ready(function() {

@@ -29,6 +29,9 @@ class CreatePatient
         $patient_blood_group   = if_empty($_POST['patient_blood_group']);
         $patient_phone   = if_empty($_POST['patient_phone']);
         $patient_address   = if_empty($_POST['patient_address']);
+        $patient_refered_by   = if_empty($_POST['patient_refered_by']);
+        $patient_guardian   = if_empty($_POST['patient_guardian']);
+        $patient_marital_status   = if_empty($_POST['patient_marital_status']);
         $patient_status   = if_empty($_POST['patient_status']);
         $patient_national_ID   = if_empty($_POST['patient_national_ID']);
 
@@ -46,10 +49,12 @@ class CreatePatient
             try {
                 $post_content = "INSERT INTO patient (patient_user_added_id, patient_name, patient_description,
                      patient_age, patient_email, patient_dob, patient_gender, patient_blood_group,
-                     patient_phone, patient_address, patient_status,patient_national_ID,patient_emergency_name,patient_emergency_relation,patient_emergency_address,patient_emergency_contact) 
+                     patient_phone, patient_address, patient_refered_by,patient_guardian,patient_marital_status, patient_status,patient_national_ID,patient_emergency_name,patient_emergency_relation,patient_emergency_address,patient_emergency_contact) 
                     VALUES ('$request_user_id','$patient_name','$patient_description', '$patient_age',
                             '$patient_email','$patient_dob','$patient_gender',
-                            '$patient_blood_group','$patient_phone','$patient_address','$patient_status','$patient_national_ID','$patient_emergency_name','$patient_emergency_relation','$patient_emergency_address','$patient_emergency_contact')";
+                            '$patient_blood_group','$patient_phone','$patient_address',
+                            '$patient_refered_by','$patient_guardian','$patient_marital_status',
+                            '$patient_status','$patient_national_ID','$patient_emergency_name','$patient_emergency_relation','$patient_emergency_address','$patient_emergency_contact')";
                 //echo $post_content;
                 $result = $conn->exec($post_content);
                 $last_id = $conn->lastInsertId();

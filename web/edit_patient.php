@@ -119,13 +119,38 @@ require_once('check_if_outdoor_manager.php');
 
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-12">
+                                                <div class="form-group col-md-6">
                                                     <label for="patient_national_ID">National ID</label>
                                                     <input type="text" placeholder="National ID" class="form-control" id="patient_national_ID" name="patient_national_ID" value="<?php echo $result_content_patient[0]['patient_national_ID']; ?>">
                                                 </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="patient_marital_status">Marital Status</label>
+                                                    <select class="form-control" id="patient_marital_status" name="patient_marital_status">
+                                                        <option value="">Select Marital Status</option>
+                                                        <option <?php if ($result_content_patient[0]['patient_marital_status'] == "Married") {
+                                                                    echo 'selected';
+                                                                } ?> value="Married">Married</option>
+                                                        <option <?php if ($result_content_patient[0]['patient_marital_status'] == "Unmarried") {
+                                                                    echo 'selected';
+                                                                } ?> value="Unmarried">Unmarried</option>
+                                                        <option <?php if ($result_content_patient[0]['patient_marital_status'] == "Others") {
+                                                                    echo 'selected';
+                                                                } ?> value="Others">Others</option>
+
+                                                    </select>
+                                                </div>
                                                 <div class="form-group col-md-12">
-                                                    <label for="exampleFormControlTextarea1">Description</label>
-                                                    <textarea placeholder="Description" class="form-control" id="patient_description" name="patient_description" rows="3"><?php echo $result_content_patient[0]['patient_description']; ?></textarea>
+                                                    <label for="patient_guardian">Father/Mother Name</label>
+                                                    <input type="text" placeholder="Father/Mother Name" class="form-control" id="patient_guardian" name="patient_guardian" value="<?php echo $result_content_patient[0]['patient_guardian']; ?>">
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                    <label for="patient_refered_by">Refered By</label>
+                                                    <input type="text" placeholder="National ID" class="form-control" id="patient_refered_by" name="patient_refered_by" value="<?php echo $result_content_patient[0]['patient_refered_by']; ?>">
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="exampleFormControlTextarea1">Symtomps </label>
+                                                    <textarea placeholder="Symtomps" class="form-control" id="patient_description" name="patient_description" rows="3"><?php echo $result_content_patient[0]['patient_description']; ?></textarea>
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label for="exampleFormControlTextarea1">Address</label>

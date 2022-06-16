@@ -131,6 +131,11 @@ if (!isset($_SESSION)) {
                                                     <span class="text-300 text-110  align-middle"><?php echo $doctor_experience ?></span>)
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td class="" style="width: 20%;">Refered By :</td>
+                                                <td class="gray"><?php echo $result_content_outdoor_treatment[0]["patient_refered_by"] ?>
+                                                </td>
+                                            </tr>
                                         </table>
 
 
@@ -151,7 +156,7 @@ if (!isset($_SESSION)) {
                                             </tr>
                                             <tr>
                                                 <td class="" style="width: 20%;">Father/Mother Name :</td>
-                                                <td class="" style="width: 65%;"><?php echo $result_content_outdoor_treatment[0]['patient_name'] ?>
+                                                <td class="" style="width: 65%;"><?php echo $result_content_outdoor_treatment[0]['patient_guardian'] ?>
                                                 </td>
                                                 <td class="" style="width: 8%;">Sex :</td>
                                                 <td class="" style="width: 7%;"><?php echo $result_content_outdoor_treatment[0]['patient_gender'] ?>
@@ -178,6 +183,12 @@ if (!isset($_SESSION)) {
                                             </tr>
                                         </table>
                                         <table class="admission-table admission-font mb-2">
+                                            <tr>
+                                                <td class="gray" style="width: 20%;">Marital Status :</td>
+                                                <td class="" style="width: 80%;"><?php echo $result_content_outdoor_treatment[0]['patient_marital_status'] ?>
+                                                </td>
+
+                                            </tr>
                                             <tr>
                                                 <td class="" style="width: 20%;">Symtomps :</td>
                                                 <td class="" style="width: 80%;"><?php echo $result_content_outdoor_treatment[0]['patient_description'] ?>

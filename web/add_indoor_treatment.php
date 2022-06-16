@@ -358,7 +358,7 @@ if (isset($_GET['patient_id'])) {
                     if (obj.status) {
                         //location.reload();
                         // window.open("indoor_treatment_list.php", "_self");
-                        window.open("admission_invoice.php?indoor_treatment_id=" + obj.indoor_treatment_id, "_self");
+                        window.open("admission_form.php?indoor_treatment_id=" + obj.indoor_treatment_id, "_self");
                         console.log(obj);
                     }
                 },

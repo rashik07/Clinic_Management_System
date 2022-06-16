@@ -18,6 +18,21 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 <span class="ti-home"></span> Dashboard
             </a>
         </li>
+        <?php if ($_SESSION['user_type_access_level'] <= 2) { ?>
+            <li>
+                <a href="#nav-users" data-toggle="collapse" aria-expanded="false" class="collapsed">
+                    <span class="ti-user"></span> Users
+                </a>
+                <ul class="list-unstyled collapse" id="nav-users">
+                    <li>
+                        <!-- <a href="add_user.php">Add user</a> -->
+                    </li>
+                    <li>
+                        <a href="users.php">All Users</a>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patients" data-toggle="collapse" aria-expanded="false" class="collapsed">
@@ -33,6 +48,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </ul>
             </li>
         <?php } ?>
+
         <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3) { ?>
             <li>
                 <a href="#nav-doctors" data-toggle="collapse" aria-expanded="false" class="collapsed">
