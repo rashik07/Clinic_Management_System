@@ -70,7 +70,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                         <input type="date" placeholder="Selling Date" class="form-control" id="max" name="max" value=<?php echo $end_date ?>>
                                     </div>
 
-                                    <div class="form-group col-md-3">
+                                    <!-- <div class="form-group col-md-3">
                                         <label for="outdoor_treatment_consultant">Consultant Name</label><i class="text-danger"> * </i>
                                         <select id="outdoor_treatment_consultant" class="form-control outdoor_treatment_consultant" name="outdoor_treatment_consultant" placeholder="Pick a Service...">
                                             <option value="">Select Doctor...</option>
@@ -81,7 +81,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             ?>
 
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="col-md-3 text-right mt-4">
                                         <div class="">
                                             <input class="btn btn-primary" type="button" value="Print" onclick="printDiv()">
@@ -197,17 +197,17 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php
+                                            <?php
 
-                                        if (count($pharmacy_sells) > 0) {
-                                            foreach ($pharmacy_sells as $pharmacy_sell) {
-                                                if ($pharmacy_sell['indoor_treatment_payment_released'] == "0") {
-                                                    $total_bill += (int)$pharmacy_sell['indoor_treatment_payment_amount'];
-                                                    // $total_discount += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
-                                                    // $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
-                                                    // $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
-                                                    $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['indoor_treatment_payment_creation_time']));
-                                                    echo '<tr class="main_row">
+                                            if (count($pharmacy_sells) > 0) {
+                                                foreach ($pharmacy_sells as $pharmacy_sell) {
+                                                    if ($pharmacy_sell['indoor_treatment_payment_released'] == "0") {
+                                                        $total_bill += (int)$pharmacy_sell['indoor_treatment_payment_amount'];
+                                                        // $total_discount += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
+                                                        // $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
+                                                        // $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
+                                                        $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['indoor_treatment_payment_creation_time']));
+                                                        echo '<tr class="main_row">
                                                             
                                                             <td>' . $pharmacy_sell['indoor_treatment_payment_details'] . ' from Admission id : ' . $pharmacy_sell['indoor_treatment_admission_id'] . '</td>
                                                             
@@ -216,9 +216,9 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['indoor_treatment_payment_amount'] . '</td>
 
                                                         </tr>';
+                                                    }
                                                 }
-                                            }
-                                            echo '
+                                                echo '
                                                 <tr class="footer_row">
                                                     <td> Total
                                                     </td>
@@ -227,29 +227,121 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td style="text-align: right;">' . $total_bill . '</td>
 
                                                 </tr>';
-                                            $final_bill += $total_bill;
-                                            $final_payment += $total_payment;
-                                            $final_due += $total_due;
-                                            $final_discount += $total_discount;
-                                            echo '</tbody>
+                                                $final_bill += $total_bill;
+                                                $final_payment += $total_payment;
+                                                $final_due += $total_due;
+                                                $final_discount += $total_discount;
+                                                echo '</tbody>
                                             </table>
                                             <!-- <div id="footer_doctor_visit"></div> -->
                                             <div style="min-height: 40px"></div>';
-                                        }
+                                            }
+
+
+                                            ?>
 
 
 
 
-                                        //Discount 
-                                        if ($outdoor_treatment_consultant > 0) {
-                                            $get_content = "SELECT * FROM indoor_treatment  WHERE (indoor_treatment_payment_creation_time BETWEEN '$start_date' AND '$end_date') AND (outdoor_treatment_consultant = '$outdoor_treatment_consultant')";
-                                        } else {
-                                            $get_content = "SELECT * FROM  indoor_treatment  WHERE (indoor_treatment_payment_creation_time BETWEEN '$start_date' AND '$end_date') ORDER BY indoor_treatment_payment_creation_time ASC";
-                                        }
-                                        // echo $get_content;
-                                        $getJson = $conn->prepare($get_content);
-                                        $getJson->execute();
-                                        $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+                                            <h5 style="text-align: center; margin-bottom: 20px;">Doctor Visit</h5>
+                                            <table class="Report_table" id="datatable_report_doctor_visit" style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+
+                                                        <td style="width: 40%;">Doctor Visit Details</td>
+                                                        <td>Name</td>
+                                                        <td>Age</td>
+                                                        <td>Issue Date</td>
+                                                        <td>Reference</td>
+                                                        <td style="text-align: right;">Bill</td>
+                                                        <td style="text-align: right;">Discount</td>
+                                                        <td style="text-align: right;">Payment</td>
+                                                        <td style="text-align: right;">Due</td>
+                                                        <td style="text-align: right;">Total</td>
+                                                        <!-- <td>Action</td> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+
+                                                    if ($start_date != "" && $end_date != "") {
+
+                                                        // $indoor_treatment_id = $_GET['indoor_treatment_id'];
+                                                        if ($outdoor_treatment_consultant > 0) {
+                                                            $get_content = "SELECT * FROM outdoor_treatment LEFT JOIN patient on outdoor_treatment.outdoor_treatment_patient_id=patient.patient_id WHERE (outdoor_treatment_creation_time BETWEEN '$start_date' AND '$end_date') AND (outdoor_treatment_consultant = '$outdoor_treatment_consultant') AND (`outdoor_treatment_indoor_treatment_id` IS NOT NULL) AND (outdoor_treatment_outdoor_service_Category = 'Doctor Visit')";
+                                                        } else {
+                                                            $get_content = "SELECT * FROM outdoor_treatment LEFT JOIN patient on outdoor_treatment.outdoor_treatment_patient_id=patient.patient_id WHERE (outdoor_treatment_creation_time BETWEEN '$start_date' AND '$end_date')  AND (`outdoor_treatment_indoor_treatment_id` IS NOT NULL) AND (outdoor_treatment_outdoor_service_Category = 'Doctor Visit')";
+                                                        }
+                                                        $getJson = $conn->prepare($get_content);
+                                                        $getJson->execute();
+                                                        $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                                        $total_bill = 0;
+                                                        $total_discount = 0;
+                                                        $total_payment = 0;
+                                                        $total_due = 0;
+
+                                                        if (count($pharmacy_sells) > 0) {
+                                                            foreach ($pharmacy_sells as $pharmacy_sell) {
+                                                                if ($pharmacy_sell['outdoor_treatment_discount_pc'] == "") {
+                                                                    $pharmacy_sell['outdoor_treatment_discount_pc'] = 0;
+                                                                }
+                                                                if (!isset($pharmacy_sell['patient_name'])) {
+                                                                    $pharmacy_sell['patient_name'] = "-";
+                                                                    $pharmacy_sell['patient_age'] = "-";
+                                                                }
+
+                                                                $total_bill += (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'];
+                                                                $total_discount += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
+                                                                $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
+                                                                $total_due += (int)$pharmacy_sell['outdoor_treatment_total_due'];
+                                                                $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_creation_time']));
+                                                                echo '<tr class="main_row">
+                                                            <td>Invoice no.' . $pharmacy_sell['outdoor_treatment_id'] . '
+                                                            </td>
+                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
+                                                            <td>' . $pharmacy_sell['patient_age'] . '</td>
+                                                            <td>' . $sell_Date . '</td>
+                                                            <td>' . $pharmacy_sell['outdoor_treatment_reference'] . '</td>
+                                                            <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_bill'] . '</td>
+                                                            <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_discount_pc'] . '</td>
+                                                            <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_paid'] . '</td>
+                                                            <td style="text-align: right;">' . $pharmacy_sell['outdoor_treatment_total_due'] . '</td>
+                                                            <td style="text-align: right;">' . (int)$pharmacy_sell['outdoor_treatment_total_bill_after_discount'] . '</td>
+
+                                                        </tr>';
+                                                            }
+                                                            echo '
+                                                <tr class="footer_row">
+                                                    <td> Total
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td style="text-align: right;">' . $total_discount . '</td>
+                                                    <td style="text-align: right;">' . $total_payment . '</td>
+                                                    <td style="text-align: right;">' . $total_due . '</td>
+                                                    <td style="text-align: right;">' . $total_bill . '</td>
+
+                                                </tr>';
+                                                            $final_bill += $total_bill;
+                                                            $final_payment += $total_payment;
+                                                            $final_due += $total_due;
+                                                            $final_discount += $total_discount;
+                                                        }
+                                                    }
+
+                                                    ?>
+
+
+                                                </tbody>
+                                            </table>
+                                            <!-- <div id="footer_doctor_visit"></div> -->
+                                            <div style="min-height: 40px"></div>
+
+                                        <?php
                                     }
                                         ?>
 
