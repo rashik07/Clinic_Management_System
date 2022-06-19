@@ -58,10 +58,10 @@ require_once('check_if_indoor_manager.php');
                     $count = 1;
                     foreach ($result_content as $data) {
                         if($data['indoor_bed_status']=="available"){
-                            echo '<tr style="background-color: green;color:white;">';
+                            echo '<tr style="background-color: darkgreen;color:white;">';
                         }
                         else{
-                            echo '<tr style="background-color: red;color:white;">';
+                            echo '<tr style="background-color: darkred;color:white;">';
                         }
                      
                         echo '<td>'.$count.'</td>';

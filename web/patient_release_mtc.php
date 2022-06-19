@@ -41,7 +41,6 @@ $total_exemption = 0;
                             $getJson->execute();
                             $indoor_patient = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
-
                             // Indoor payment from bill
                             $indoor_treatment_id = $_GET['indoor_treatment_id'];
                             $get_content = "select * from indoor_treatment_payment where indoor_treatment_payment_treatment_id='$indoor_treatment_id'";
@@ -77,9 +76,8 @@ $total_exemption = 0;
                             $getJson->execute();
                             $indoor_payments_ots = $getJson->fetchAll(PDO::FETCH_ASSOC);
                             // print_r($indoor_patient);
-
-                            $total_discount += $indoor_patient[0]['indoor_treatment_discount'];
-                            $total_exemption += $indoor_patient[0]['indoor_treatment_exemption'];
+                            $total_discount += (int)$indoor_patient[0]['indoor_treatment_discount'];
+                            $total_exemption += (int)$indoor_patient[0]['indoor_treatment_exemption'];
 
                             if (count($indoor_payments_ots) > 0) {
                                 foreach ($indoor_payments_ots as $indoor_payments_ot) {
@@ -626,7 +624,7 @@ $total_exemption = 0;
                     // alert(response);
                     spinner.hide();
                     var obj = JSON.parse(response);
-                    alert(obj.message);
+                    // alert(obj.message);
                     //alert(obj.status);
                     if (obj.status) {
                         location.reload();
@@ -649,47 +647,53 @@ $total_exemption = 0;
     $(document).ready(function() {
         $('form#indoor_treatment_payment').on('submit', function(event) {
             // alert("payment");
-            event.preventDefault();
-            var formData = new FormData(this);
-            var currentdate = new Date();
-            var datetime = currentdate.getDate().toString() +
-                (currentdate.getMonth() + 1).toString() +
-                currentdate.getFullYear().toString() +
-                currentdate.getHours().toString() +
-                currentdate.getMinutes().toString() +
-                currentdate.getSeconds().toString();
-            console.log(datetime);
-            formData.append('outdoor_treatment_invoice_id', datetime);
 
-            $.ajax({
-                url: '../apis/create_indoor_payment.php',
-                type: 'POST',
-                data: formData,
-                success: function(data) {
-                    // spinner.hide();
-                    var obj = JSON.parse(data);
-                    // alert(obj.message);
-                    console.log(obj);
-                    if (obj.status) {
-                        // location.reload();
-                        window.open("money_receipt.php?indoor_treatment_payment_id=" + obj.outdoor_service_id, "_self");
+            if (confirm('Are you sure you want to add  Payment?')) {
+                spinner.show();
+                event.preventDefault();
+                var formData = new FormData(this);
+                var currentdate = new Date();
+                var datetime = currentdate.getDate().toString() +
+                    (currentdate.getMonth() + 1).toString() +
+                    currentdate.getFullYear().toString() +
+                    currentdate.getHours().toString() +
+                    currentdate.getMinutes().toString() +
+                    currentdate.getSeconds().toString();
+                console.log(datetime);
+                formData.append('outdoor_treatment_invoice_id', datetime);
 
-                    }
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    alert("alert : " + errorThrown);
-                    spinner.hide();
-                },
-                cache: false,
-                contentType: false,
-                processData: false
-            });
+                $.ajax({
+                    url: '../apis/create_indoor_payment.php',
+                    type: 'POST',
+                    data: formData,
+                    success: function(data) {
+                        // spinner.hide();
+                        var obj = JSON.parse(data);
+                        // alert(obj.message);
+                        // console.log(obj);
+                        if (obj.status) {
+                            // location.reload();
+                            window.open("money_receipt.php?indoor_treatment_payment_id=" + obj.outdoor_service_id, "_self");
 
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("alert : " + errorThrown);
+                        spinner.hide();
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            }
 
         });
 
 
         $('form#patient_release').on('submit', function(event) {
+            if (confirm('Are you sure you want to release this patient?')) {
+                spinner.show();
+                event.preventDefault();
 
             var formData = new FormData(this);
             formData.append('indoor_treatment_released', 1);
@@ -705,7 +709,7 @@ $total_exemption = 0;
                     // alert(data);
                     // spinner.hide();
                     var obj = JSON.parse(data);
-                    // alert(obj.message);
+                    alert(obj.message);
                     //alert(obj.status);
                     if (obj.status) {
                         location.reload();
@@ -721,10 +725,14 @@ $total_exemption = 0;
                 contentType: false,
                 processData: false
             });
+        }
         });
 
 
         $('form#indoor_treatment_discount').on('submit', function(event) {
+            // if (confirm('Are you sure you want to save the discount?')) {
+                spinner.show();
+                // event.preventDefault();
 
             var formData = new FormData(this);
             $.ajax({
@@ -733,6 +741,7 @@ $total_exemption = 0;
                 data: formData,
                 success: function(data) {
                     var obj = JSON.parse(data);
+                    alert(obj.message);
                     if (obj.status) {
                         location.reload();
                     }
@@ -744,6 +753,7 @@ $total_exemption = 0;
                 contentType: false,
                 processData: false
             });
+        // }
         });
     });
 </script>

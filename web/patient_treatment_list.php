@@ -58,8 +58,8 @@ require_once('check_if_outdoor_manager.php');
 
                                         $conn = $connection->getConnection();
 
-                                        $get_content = "select * from patient 
-    join outdoor_treatment where outdoor_treatment_indoor_treatment_id IS  NULL ORDER BY outdoor_treatment_id DESC";
+                                        $get_content = "select * from  outdoor_treatment
+                                        inner join patient on outdoor_treatment.outdoor_treatment_patient_id = patient.patient_id where outdoor_treatment_indoor_treatment_id IS  NULL ORDER BY outdoor_treatment_id DESC";
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
 
