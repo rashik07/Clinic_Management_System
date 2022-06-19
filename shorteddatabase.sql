@@ -612,6 +612,7 @@ CREATE TABLE `indoor_treatment_payment` (
   `indoor_treatment_payment_treatment_id` int(11) NOT NULL,
   `indoor_treatment_payment_details` varchar(2550) DEFAULT NULL,
   `indoor_treatment_payment_amount` int(11) DEFAULT 0,
+  `indoor_treatment_payment_released` BOOLEAN DEFAULT 0,
   `indoor_treatment_payment_creation_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `indoor_treatment_payment_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (indoor_treatment_payment_id),

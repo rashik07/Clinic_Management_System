@@ -119,8 +119,8 @@ $total_exemption = 0;
                                     </div>
                                     <div class="col-md-4 text-right">
                                         <p class="mb-0">Admission ID : <?php echo $indoor_patient[0]['indoor_treatment_admission_id'] ?></p>
-                                        <p class="mb-0">Admission Date : <?php echo $indoor_patient[0]['indoor_treatment_creation_time'] ?></p>
-                                        <p class="mb-0">Bill up to Date : <?php echo isset($indoor_patient[0]['indoor_treatment_modification_time']) ? $indoor_patient[0]['indoor_treatment_modification_time'] : $indoor_patient[0]['indoor_treatment_creation_time']  ?></p>
+                                        <p class="mb-0">Admission Date : <?php echo date("m/d/Y", strtotime($indoor_patient[0]['indoor_treatment_creation_time'])) ?></p>
+                                        <p class="mb-0">Bill up to Date : <?php echo isset($indoor_patient[0]['indoor_treatment_modification_time']) ? date("m/d/Y", strtotime($indoor_patient[0]['indoor_treatment_modification_time'])) : date("m/d/Y", strtotime($indoor_patient[0]['indoor_treatment_creation_time']))  ?></p>
                                     </div>
                                 </div>
 
@@ -502,6 +502,7 @@ $total_exemption = 0;
                                 <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                 <input type="hidden" name="indoor_treatment_payment_treatment_id" value="<?php echo $_GET['indoor_treatment_id']; ?>">
                                 <input type="hidden" name="content" value="indoor_payment">
+                                <input type="hidden" name="indoor_treatment_payment_released" value="<?php echo $indoor_patient[0]['indoor_treatment_released']; ?>">
                                 <div class="form-group">
                                     <label for="indoor_treatment_payment_details">Payment Details</label>
                                     <textarea placeholder="Details" class="form-control" id="indoor_treatment_payment_details" name="indoor_treatment_payment_details" required></textarea>
@@ -559,8 +560,8 @@ $total_exemption = 0;
                                     </div>
                                     <div class="col-md-7 text-right">
                                         <p class="mb-0">Admission ID : <?php echo $indoor_patient[0]['indoor_treatment_admission_id'] ?></p>
-                                        <p class="mb-0">Admission Date : <?php echo $indoor_patient[0]['indoor_treatment_creation_time'] ?></p>
-                                        <p class="mb-0">Bill up to Date : <?php echo isset($indoor_patient[0]['indoor_treatment_modification_time']) ? $indoor_patient[0]['indoor_treatment_modification_time'] : $indoor_patient[0]['indoor_treatment_creation_time']  ?></p>
+                                        <p class="mb-0">Admission Date : <?php echo date("m/d/Y", strtotime($indoor_patient[0]['indoor_treatment_creation_time'])) ?></p>
+                                        <p class="mb-0">Bill up to Date : <?php echo isset($indoor_patient[0]['indoor_treatment_modification_time']) ? date("m/d/Y", strtotime($indoor_patient[0]['indoor_treatment_modification_time'])) : date("m/d/Y", strtotime($indoor_patient[0]['indoor_treatment_creation_time']))  ?></p>
                                     </div>
                                 </div>
                                 <table class="Report_table border mb-4 p-4" style="width: 100%;">
@@ -671,8 +672,8 @@ $total_exemption = 0;
                     // alert(obj.message);
                     console.log(obj);
                     if (obj.status) {
-                        // location.reload();
-                        window.open("money_receipt.php?indoor_treatment_payment_id=" + obj.outdoor_service_id, "_self");
+                        location.reload();
+                        // window.open("money_receipt.php?indoor_treatment_payment_id=" + obj.outdoor_service_id, "_self");
 
                     }
                 },

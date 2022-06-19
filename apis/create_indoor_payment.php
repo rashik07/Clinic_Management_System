@@ -23,6 +23,8 @@ class Indoor_payment
         $indoor_treatment_payment_treatment_id   = if_empty($_POST['indoor_treatment_payment_treatment_id']);
         $indoor_treatment_payment_details   = if_empty($_POST['indoor_treatment_payment_details']);
         $indoor_treatment_payment_amount   = if_empty($_POST['indoor_treatment_payment_amount']);
+        $indoor_treatment_payment_released   = if_empty($_POST['indoor_treatment_payment_released']);
+
 
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
         $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 3]);
@@ -30,8 +32,8 @@ class Indoor_payment
         if ($check_token && $check_permission) {
             try {
                 $post_content = "INSERT INTO indoor_treatment_payment (indoor_treatment_payment_user_added_id, indoor_treatment_payment_treatment_id,indoor_treatment_payment_details,
-                             indoor_treatment_payment_amount) 
-                    VALUES ('$request_user_id', '$indoor_treatment_payment_treatment_id','$indoor_treatment_payment_details','$indoor_treatment_payment_amount')";
+                             indoor_treatment_payment_amount,indoor_treatment_payment_released) 
+                    VALUES ('$request_user_id', '$indoor_treatment_payment_treatment_id','$indoor_treatment_payment_details','$indoor_treatment_payment_amount','$indoor_treatment_payment_released')";
                 //echo $post_content;
                 $result = $conn->exec($post_content);
                 $last_id = $conn->lastInsertId();
