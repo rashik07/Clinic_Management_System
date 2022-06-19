@@ -46,12 +46,12 @@ require_once('check_if_pharmacy_manager.php');
                                         </div>
                                     </div>
                                     <label for="manufacturer_mobile" class="col-md-2 text-right col-form-label">Mobile
-                                        No:</label>
+                                        No:<i class="text-danger"> * </i></label>
                                     <div class="col-md-4">
                                         <div class="">
                                             <input type="text" name="medicine_manufacturer_mobile"
                                                    class="form-control input-mask-trigger text-left valid_number"
-                                                   id="medicine_manufacturer_mobile" placeholder="Mobile No" >
+                                                   id="medicine_manufacturer_mobile" placeholder="Mobile No" required>
                                         </div>
                                     </div>
                                 </div>
@@ -65,11 +65,11 @@ require_once('check_if_pharmacy_manager.php');
                                                    placeholder="Email">
                                         </div>
                                     </div>
-                                    <label for="address1" class="col-md-2 text-right col-form-label">Address<i class="text-danger"> * </i>:</label>
+                                    <label for="address1" class="col-md-2 text-right col-form-label">Address:</label>
                                     <div class="col-md-4">
                                         <div class="">
                                             <textarea name="medicine_manufacturer_address" id="medicine_manufacturer_address" class="form-control"
-                                                      placeholder="Address " required></textarea>
+                                                      placeholder="Address " ></textarea>
                                         </div>
                                     </div>
 
@@ -77,11 +77,11 @@ require_once('check_if_pharmacy_manager.php');
 
                                 <div class="form-group row">
 
-                                    <label for="city" class="col-md-2 text-right col-form-label">City<i class="text-danger"> * </i>:</label>
+                                    <label for="city" class="col-md-2 text-right col-form-label">City:</label>
                                     <div class="col-md-4">
                                         <div class="">
                                             <input type="text" name="medicine_manufacturer_city" class="form-control" id="medicine_manufacturer_city"
-                                                   placeholder="City" required>
+                                                   placeholder="City" >
                                         </div>
                                     </div>
                                     <label for="state" class="col-md-2 text-right col-form-label">State:</label>
