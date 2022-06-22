@@ -36,8 +36,11 @@ require_once('check_if_pharmacy_manager.php');
                                             <th>Purchase Date</th>
                                             <th>Total</th>
                                             <th>Due</th>
-                                            <th>Action</th>
-                                            <th>Delete</th>
+                                           <?php if ($_SESSION['user_type_access_level'] <= 2) {
+                                            echo '<th>Action</th>';
+                                            echo '<th>Delete</th>';
+                                            }
+                                            ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,9 +75,10 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<td>' . $data['pharmacy_purchase_date'] . '</td>';
                                             echo '<td>' . $data['pharmacy_purchase_grand_total'] . '</td>';
                                             echo '<td>' . $data['pharmacy_purchase_due_amount'] . '</td>';
-
+                                            if ($_SESSION['user_type_access_level'] <= 2) {
                                             echo '<td><a href="edit_medicine_purchase.php?medicine_purchase_id=' . $data['pharmacy_purchase_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                             echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_purchase_id'].','.$data['pharmacy_purchase_medicine_medicine_id'].','.$data['pharmacy_purchase_medicine_batch_id'] . ');">Delete</button></td>';
+                                            }
                                          
                                             echo '</tr>';
                                             $count = $count + 1;

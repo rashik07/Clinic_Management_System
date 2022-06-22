@@ -36,10 +36,14 @@ require_once('check_if_pharmacy_manager.php');
                                             <th>Sell Date</th>
                                             <th>Total</th>
                                             <th>Due</th>
-                                            <th>Action</th>
-                                            <th>Collection</th>
+
+                                            <th>Due Collection</th>
                                             <th>Return</th>
-                                            <th>Delete</th>
+                                            <?php if ($_SESSION['user_type_access_level'] <= 2) {
+                                                echo    '<th>Action</th>';
+                                                echo    '<th>Delete</th>';
+                                            }
+                                            ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,10 +72,14 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<td>' . $data['pharmacy_sell_grand_total'] . '</td>';
                                             echo '<td>' . $data['pharmacy_sell_due_amount'] . '</td>';
 
-                                            echo '<td><a href="edit_medicine_sell.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-                                            echo '<td><a href="edit_medicine_sell_due_collection.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '">Collection</a></td>';
+
+                                            echo '<td><a href="edit_medicine_sell_due_collection.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '">Due_Collection</a></td>';
+
                                             echo '<td><a href="return_medicine_sell.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '">Return</a></td>';
-                                            echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_sell_id'] . ');">Delete</button></td>';
+                                            if ($_SESSION['user_type_access_level'] <= 2) {
+                                                echo '<td><a href="edit_medicine_sell.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                                echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_sell_id'] . ');">Delete</button></td>';
+                                            }
                                             echo '</tr>';
                                             $count = $count + 1;
                                         }
@@ -97,7 +105,7 @@ require_once('check_if_pharmacy_manager.php');
     var spinner = $('#loader');
 
     function delete_data(pharmacy_sell_id) {
-    
+
 
         if (confirm('Are you sure you want to Delete This Content?')) {
             // yes

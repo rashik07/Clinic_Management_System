@@ -32,7 +32,12 @@ require_once('check_if_pharmacy_manager.php');
                         <th>#</th>
                         <th>Medicine Unit Name</th>
                         <th>Description</th>
-                        <th>Action</th>
+                        
+                        <?php if ($_SESSION['user_type_access_level'] <= 2) {
+                                                echo "<th>Edit</th>";
+                                            }
+
+                                            ?>
                     </tr>
                     </thead>
                     <tbody>
@@ -54,7 +59,9 @@ require_once('check_if_pharmacy_manager.php');
                         echo '<td>'.$count.'</td>';
                         echo '<td>'.$data['medicine_unit_name'].'</td>';
                         echo '<td>'.$data['medicine_unit_description'].'</td>';
+                       if ($_SESSION['user_type_access_level'] <= 2) {
                         echo '<td><a href="edit_medicine_unit.php?medicine_unit_id='.$data['medicine_unit_id'].'"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                       }
                         echo '</tr>';
                         $count = $count+1;
                     }
