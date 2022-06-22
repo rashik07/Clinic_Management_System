@@ -164,7 +164,7 @@ require_once('check_if_outdoor_manager.php');
     }
 
     $('#datatable1').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',

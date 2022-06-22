@@ -90,7 +90,7 @@ require_once('check_if_outdoor_manager.php');
 </body>
 <script>
     $('#datatable_patient').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',
