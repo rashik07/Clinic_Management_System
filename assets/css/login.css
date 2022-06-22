@@ -298,3 +298,7 @@ input[type=password]:placeholder {
     border-radius: 10px;
     border: 1px solid hsla(0,0%,100%,.18);
 }
+
+/* table.dataTable.nowrap th, table.dataTable.nowrap td {
+    white-space: normal;
+} */

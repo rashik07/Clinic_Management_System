@@ -27,7 +27,7 @@ require_once('check_if_outdoor_manager.php');
                         <div class="widget-area-2 proclinic-box-shadow">
                             <h3 class="widget-title">Doctor List</h3>
                             <div class="table-responsive mb-3">
-                                <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table id="datatable1" class="table " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>#</th>
