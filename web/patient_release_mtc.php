@@ -105,10 +105,10 @@ $total_exemption = 0;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-center" style="border: 1px solid black; padding-top: 5px;margin-top: 5px;">
-                                    <h4><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? "Draft Bill" : "Final Bill" ?></h4>
+                                <div class="text-center" style="margin-top: 10px;">
+                                    <h4 style="display: inline;border: 1px solid black;padding: 5px 20px;margin-top: 15px;margin-left: 10px;"><?php echo $indoor_patient[0]['indoor_treatment_released'] == 0 ? "Draft Bill" : "Final Bill" ?></h4>
                                 </div>
-                                <div class="row  mt-2 mb-2">
+                                <div class="row  mt-4 mb-4">
                                     <div class="col-md-8">
                                         <p class="mb-0">Patient Name : <?php echo $indoor_patient[0]['patient_name'] ?></p>
                                         <p class="mb-0">Patient ID : <?php echo $indoor_patient[0]['patient_id'] ?></p>
@@ -423,46 +423,46 @@ $total_exemption = 0;
 
                                     </tbody>
                                 </table>
-                                <table style="width: 100%;" class="border-top mb-3">
+                                <table style="width: 100%;" class="border-top mb-3 Report_table">
                                     <tr class="main_row">
                                         <td style="width: 40%;"></td>
                                         <td style="width: 20%;"></td>
                                         <td class="text-center border " style="width: 25%;">Gross Amount</td>
-                                        <td class="text-right border p-1"><?php echo $totoal_bill ?></td>
+                                        <td class="text-right border "><?php echo $totoal_bill ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Discount</td>
-                                        <td class="text-right border p-1"><?php echo $total_discount ?></td>
+                                        <td class="text-right border "><?php echo $total_discount ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Advance</td>
-                                        <td class="text-right border p-1"><?php echo  $total_paid  ?></td>
+                                        <td class="text-right border "><?php echo  $total_paid  ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Exemption</td>
-                                        <td class="text-right border p-1"><?php echo $total_exemption ?></td>
+                                        <td class="text-right border "><?php echo $total_exemption ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Net Payable Amount</td>
                                         <?php if ($indoor_patient[0]['indoor_treatment_released'] != 0) { ?>
-                                            <td class="text-right border p-1"><?php echo  isset($indoor_payments[count($indoor_payments) - 1]["indoor_treatment_payment_amount"]) ? $indoor_payments[count($indoor_payments) - 1]["indoor_treatment_payment_amount"] : 0  ?></td>
+                                            <td class="text-right border "><?php echo  isset($indoor_payments[count($indoor_payments) - 1]["indoor_treatment_payment_amount"]) ? $indoor_payments[count($indoor_payments) - 1]["indoor_treatment_payment_amount"] : 0  ?></td>
                                         <?php } else { ?>
-                                            <td class="text-right border p-1">0</td>
+                                            <td class="text-right border ">0</td>
                                         <?php } ?>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Net Due Amount</td>
-                                        <td class="text-right border p-1"><?php echo ($totoal_bill - $total_paid - $total_discount - $total_exemption)  ?></td>
+                                        <td class="text-right border "><?php echo ($totoal_bill - $total_paid - $total_discount - $total_exemption)  ?></td>
                                     </tr>
                                 </table>
                             </div>
