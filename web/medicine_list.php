@@ -98,46 +98,46 @@ require_once('check_if_pharmacy_manager.php');
 <script>
     var spinner = $('#loader');
 
-function delete_data(medicine_id) {
-   
-  
-    if (confirm('Are you sure you want to Delete This Content?')) {
-        // yes
-        spinner.show();
-        $.ajax({
-            type: 'POST',
-            url: '../apis/delete_medicine.php',
-            cache: false,
-            //dataType: "json", // and this
-            data: {
-                request_user_id: "<?php echo $_SESSION['user_id']; ?>",
-                token: "<?php echo $_SESSION['token']; ?>",
-                medicine_id: medicine_id,
-                content: "medicine"
-            },
-            success: function(response) {
-                //alert(response);
-                spinner.hide();
-                var obj = JSON.parse(response);
-                alert(obj.message);
-                //alert(obj.status);
-                if (obj.status) {
-                    //location.reload();
-                    window.open("medicine_list.php", "_self");
+    function delete_data(medicine_id) {
+
+
+        if (confirm('Are you sure you want to Delete This Content?')) {
+            // yes
+            spinner.show();
+            $.ajax({
+                type: 'POST',
+                url: '../apis/delete_medicine.php',
+                cache: false,
+                //dataType: "json", // and this
+                data: {
+                    request_user_id: "<?php echo $_SESSION['user_id']; ?>",
+                    token: "<?php echo $_SESSION['token']; ?>",
+                    medicine_id: medicine_id,
+                    content: "medicine"
+                },
+                success: function(response) {
+                    //alert(response);
+                    spinner.hide();
+                    var obj = JSON.parse(response);
+                    alert(obj.message);
+                    //alert(obj.status);
+                    if (obj.status) {
+                        //location.reload();
+                        window.open("medicine_list.php", "_self");
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    spinner.hide();
+                    alert("alert : " + errorThrown);
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                spinner.hide();
-                alert("alert : " + errorThrown);
-            }
-        });
-    } else {
-        // Do nothing!
-        console.log('Said No');
+            });
+        } else {
+            // Do nothing!
+            console.log('Said No');
+        }
     }
-}
     $('#datatable_medicine').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',

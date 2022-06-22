@@ -349,8 +349,11 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     color: black;
     
 }
-.Report_table td{
-    padding: 5px 5px!important;
+table .main_row td{
+    padding: 10px;
+}
+.Report_table .main_row td{
+    padding: 10px 10px!important;
 }
 .Report_table .main_row{
     /* font-weight: 700; */
@@ -362,5 +365,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 a.navbar-brand.arrow_style span {
     background: #008761!important;
 }
+
+
+
 
 

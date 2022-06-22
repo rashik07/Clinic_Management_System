@@ -126,3 +126,17 @@ hr {
     background-blend-mode: multiply; 
 } */
 
+table .main_row td{
+    padding: 10px!important;
+}
+.Report_table .main_row td{
+    padding: 10px 10px!important;
+}
+.Report_table td{
+    padding: 10px 10px!important;
+}
+
+.Report_table .footer_row{
+    background-color: lightgray;
+}
+

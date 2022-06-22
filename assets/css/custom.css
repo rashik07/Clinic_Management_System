@@ -40,7 +40,7 @@
     border-radius: 10px;
 }
 .admission-table td{
-    padding: 5px;
+    padding: 10px;
 }
 .admission-table .highlight{
     background: #2fb992;
@@ -49,5 +49,20 @@
 .admission-table .gray{
     background: #f1f1f1;
     color: black;
+}
+
+
+table .main_row td{
+    padding: 10px!important;
+}
+.Report_table .main_row td{
+    padding: 10px 10px!important;
+}
+.Report_table td{
+    padding: 10px 10px!important;
+}
+
+.Report_table .footer_row{
+    background-color: lightgray;
 }
 

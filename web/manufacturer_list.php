@@ -36,9 +36,13 @@ require_once('check_if_pharmacy_manager.php');
                                             <th>Phone</th>
                                             <th>City</th>
                                             <th>State</th>
+<<<<<<< HEAD
                                             <?php if ($_SESSION['user_type_access_level'] <= 2) {
                                                 echo     '<th>Action</th>';
                                             } ?>
+=======
+                                            <th>Action</th>
+>>>>>>> 11d2a785f7a01439c2cf4ffecedb341f289437c3
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -91,7 +95,7 @@ require_once('check_if_pharmacy_manager.php');
 </body>
 <script>
     $('#datatable_medicine_manufacturer').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',

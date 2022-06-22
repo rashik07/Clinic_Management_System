@@ -119,7 +119,7 @@ require_once('check_if_indoor_manager.php');
 </body>
 <script>
     $('#datatable1').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',

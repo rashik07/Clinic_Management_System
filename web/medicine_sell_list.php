@@ -143,7 +143,7 @@ require_once('check_if_pharmacy_manager.php');
         }
     }
     $('#datatable_medicine').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',
