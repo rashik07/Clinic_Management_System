@@ -34,10 +34,10 @@ require_once('check_if_pharmacy_manager.php');
                                             <th>Patient</th>
                                             <th>Sell Date</th>
                                             <th>Net Return</th>
-                                         
+
                                             <th>Action</th>
-                                            
-                                          
+
+
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
@@ -87,7 +87,7 @@ require_once('check_if_pharmacy_manager.php');
     var spinner = $('#loader');
 
     function delete_data(pharmacy_sell_return_id) {
-    
+
         if (confirm('Are you sure you want to Delete This Content?')) {
             // yes
             spinner.show();
@@ -124,7 +124,7 @@ require_once('check_if_pharmacy_manager.php');
         }
     }
     $('#datatable_medicine').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',

@@ -63,9 +63,9 @@ require_once('check_if_pharmacy_manager.php');
                                         $body = '';
                                         $count = 1;
                                         foreach ($result_content as $data) {
-                                           
+
                                             echo '<tr>';
-                                          
+
                                             echo '<td>' . $count . '</td>';
                                             echo '<td>' . $data['pharmacy_purchase_invoice_no'] . '</td>';
                                             echo '<td>' . $data['medicine_manufacturer_name'] . '</td>';
@@ -74,8 +74,8 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<td>' . $data['pharmacy_purchase_due_amount'] . '</td>';
 
                                             echo '<td><a href="edit_medicine_purchase.php?medicine_purchase_id=' . $data['pharmacy_purchase_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
-                                            echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_purchase_id'].','.$data['pharmacy_purchase_medicine_medicine_id'].','.$data['pharmacy_purchase_medicine_batch_id'] . ');">Delete</button></td>';
-                                         
+                                            echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_purchase_id'] . ',' . $data['pharmacy_purchase_medicine_medicine_id'] . ',' . $data['pharmacy_purchase_medicine_batch_id'] . ');">Delete</button></td>';
+
                                             echo '</tr>';
                                             $count = $count + 1;
                                         }
@@ -100,7 +100,7 @@ require_once('check_if_pharmacy_manager.php');
 <script>
     var spinner = $('#loader');
 
-    function delete_data(pharmacy_purchase_id,pharmacy_purchase_medicine_medicine_id,pharmacy_purchase_medicine_batch_id) {
+    function delete_data(pharmacy_purchase_id, pharmacy_purchase_medicine_medicine_id, pharmacy_purchase_medicine_batch_id) {
         console.log(pharmacy_purchase_medicine_batch_id);
 
 
@@ -116,9 +116,9 @@ require_once('check_if_pharmacy_manager.php');
                     request_user_id: "<?php echo $_SESSION['user_id']; ?>",
                     token: "<?php echo $_SESSION['token']; ?>",
                     pharmacy_purchase_id: pharmacy_purchase_id,
-                    pharmacy_purchase_medicine_medicine_id:pharmacy_purchase_medicine_medicine_id,
-                    pharmacy_purchase_medicine_batch_id:pharmacy_purchase_medicine_batch_id,
-                    
+                    pharmacy_purchase_medicine_medicine_id: pharmacy_purchase_medicine_medicine_id,
+                    pharmacy_purchase_medicine_batch_id: pharmacy_purchase_medicine_batch_id,
+
                     content: "medicine_purchase_list"
                 },
                 success: function(response) {
@@ -143,7 +143,7 @@ require_once('check_if_pharmacy_manager.php');
         }
     }
     $('#datatable_medicine').dataTable({
-        dom: 'Bfrtip',
+        // dom: 'Bfrtip',
         buttons: [
             'copyHtml5',
             'excelHtml5',
