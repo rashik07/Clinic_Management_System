@@ -13,8 +13,6 @@ if (isset($_POST["max"])) {
 }
 ?>
 
-
-
 <body>
     <div class="wrapper">
 

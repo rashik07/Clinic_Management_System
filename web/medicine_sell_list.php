@@ -39,6 +39,8 @@ require_once('check_if_pharmacy_manager.php');
 
                                             <th>Due Collection</th>
                                             <th>Return</th>
+                                            <th>Invoice</th>
+
                                             <?php if ($_SESSION['user_type_access_level'] <= 2) {
                                                 echo    '<th>Action</th>';
                                                 echo    '<th>Delete</th>';
@@ -76,6 +78,7 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<td><a href="edit_medicine_sell_due_collection.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '">Due_Collection</a></td>';
 
                                             echo '<td><a href="return_medicine_sell.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '">Return</a></td>';
+                                            echo '<td><a href="medicine_sell_invoice.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '">Invoice</td>';
                                             if ($_SESSION['user_type_access_level'] <= 2) {
                                                 echo '<td><a href="edit_medicine_sell.php?medicine_sell_id=' . $data['pharmacy_sell_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                                 echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_sell_id'] . ');">Delete</button></td>';
