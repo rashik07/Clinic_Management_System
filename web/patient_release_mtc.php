@@ -25,7 +25,7 @@ $total_exemption = 0;
 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="widget-area-2 proclinic-box-shadow">
+                        <div class="widget-area-2 proclinic-box-shadow text-600">
                             <!-- <h3 class="widget-title">Patient Release</h3> -->
                             <!-- Widget Item -->
                             <!-- <p>
