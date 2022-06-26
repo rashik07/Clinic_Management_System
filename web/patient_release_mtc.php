@@ -709,14 +709,17 @@ $total_exemption = 0;
                         // console.log(data);
                         // alert(data);
                         // spinner.hide();
-                        var obj = JSON.parse(data);
-                        alert(obj.message);
-                        //alert(obj.status);
-                        if (obj.status) {
-                            location.reload();
-                            // window.open("admission_invoice.php?indoor_treatment_id=" + obj.indoor_treatment_id, "_self");
+                        alert("Patient released Successfully");
+                        location.reload();
+                        // var obj = JSON.parse(data);
+                        // alert(obj.message);
+                        // //alert(obj.status);
+                        // if (obj.status) {
+                        //     // alert("Patient released Successfully");
 
-                        }
+                        //     // window.open("admission_invoice.php?indoor_treatment_id=" + obj.indoor_treatment_id, "_self");
+
+                        // }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         alert("alert : " + errorThrown);
