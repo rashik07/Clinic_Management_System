@@ -57,7 +57,7 @@ require_once('check_if_pharmacy_manager.php');
                     left join pharmacy_medicine  on pharmacy_medicine.pharmacy_medicine_id = pharmacy_purchase_medicine.pharmacy_purchase_medicine_medicine_id
                    
                     
-                    order by pharmacy_purchase_creation_time";
+                    order by pharmacy_purchase_creation_time desc";
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
 

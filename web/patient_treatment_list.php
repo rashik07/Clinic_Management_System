@@ -30,7 +30,7 @@ require_once('check_if_outdoor_manager.php');
                                 <table id="datatable1" class="table  " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <!-- <th>#</th> -->
+                                            <th>#</th>
                                             <th>Invoice No</th>
                                             <th>Patient Name</th>
                                             <th>Services</th>
@@ -68,7 +68,7 @@ require_once('check_if_outdoor_manager.php');
                                         $count = 1;
                                         foreach ($result_content as $data) {
                                             echo '<tr>';
-                                            // echo '<td>' . $count . '</td>';
+                                            echo '<td>' . $count . '</td>';
                                             echo '<td>' . $data['outdoor_treatment_id'] . '</td>';
                                             echo '<td>' . $data['patient_name'] . '</td>';
 

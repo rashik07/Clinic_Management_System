@@ -31,6 +31,7 @@ require_once('check_if_outdoor_manager.php');
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Patient ID</th>
                                             <th>Patient Name</th>
                                             <th>Patient Age</th>
                                             <th>Phone</th>
@@ -56,7 +57,7 @@ require_once('check_if_outdoor_manager.php');
                                         $count = 1;
                                         foreach ($result_content as $data) {
                                             echo '<tr>';
-                                            //echo '<td>'.$count.'</td>';
+                                            echo '<td>'.$count.'</td>';
                                             echo '<td>' . $data['patient_id'] . '</td>';
                                             echo '<td>' . $data['patient_name'] . '</td>';
                                             echo '<td>' . $data['patient_age'] . '</td>';

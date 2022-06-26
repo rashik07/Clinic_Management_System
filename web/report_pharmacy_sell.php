@@ -217,6 +217,75 @@ if (isset($_POST["max"])) {
                                         } ?>
                                     </tbody>
                                 </table>
+                                <div style="min-height: 80px;"></div>
+
+                                <h3 style="text-align: center;margin-bottom: 20px;background: lightyellow;">RETURN REPORT</h3>
+                                <table class="Report_table" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+
+                                            <td style="width: 40%;">Details</td>
+                                            <td>Name</td>
+                                            <td>Issue Date</td>
+                                       
+                                            <td>Total</td>
+                                            <!-- <td>Action</td> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        if ($start_date != "" && $end_date != "") {
+                                            require_once("../apis/Connection.php");
+                                            $connection = new Connection();
+                                            $conn = $connection->getConnection();
+                                            // $indoor_treatment_id = $_GET['indoor_treatment_id'];
+                                            $get_content = "select *, DATE(pharmacy_sell_return_date) as pharmacy_sell_return_date  from pharmacy_sell_return
+                                            left join patient p on p.patient_id = pharmacy_sell_return.pharmacy_sell_return_patient_id WHERE (`pharmacy_sell_return_date` BETWEEN '$start_date' AND '$end_date')  ";
+                                            $getJson = $conn->prepare($get_content);
+                                            $getJson->execute();
+                                            $pharmacy_sells_return = $getJson->fetchAll(PDO::FETCH_ASSOC);
+                                            $total_bill = 0;
+                                            // $total_discount = 0;
+                                            $total_payment = 0;
+                                            $total_due = 0;
+
+                                            if (count($pharmacy_sells_return) > 0) {
+                                                foreach ($pharmacy_sells_return as $pharmacy_sells_return) {
+                                                    // $last_bed_name = $bed['indoor_bed_name'];
+                                               
+                                                    if (!isset($pharmacy_sells_return['patient_name'])) {
+                                                        $pharmacy_sells_return['patient_name'] = "-";
+                                                    }
+                                                    $total_bill += (int)$pharmacy_sells_return['pharmacy_sell_return_net_price'];
+                                                    // $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
+                                               
+                                                    $sell_Date = date("m/d/Y", strtotime($pharmacy_sells_return['pharmacy_sell_return_date']));
+                                                    $sell_Date = date("m/d/Y", strtotime($pharmacy_sells_return['pharmacy_sell_return_date']));
+                                                    echo '
+                                    <tr class="main_row">
+                                    <td> Invoice no. ' . $pharmacy_sells_return['pharmacy_sell_return_invoice_id'] . '</td>
+                                    <td>' . $pharmacy_sells_return['patient_name'] . '</td>
+                                        <td>' . $sell_Date . '</td>
+                               
+                                        <td>' . $pharmacy_sells_return['pharmacy_sell_return_net_price'] . '</td>
+                                        </tr>';
+                                                }
+                                            }
+                                            echo '
+                                    <tr class="footer_row">
+                                        <td> Total
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    
+                                
+                                  
+                                        <td>' . $total_bill . '</td>
+                                        
+                                    </tr>';
+                                        } ?>
+                                    </tbody>
+                                </table>
                             </div>
 
 
