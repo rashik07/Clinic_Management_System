@@ -23,11 +23,11 @@ class Indoor_payment
         $indoor_treatment_payment_treatment_id   = if_empty($_POST['indoor_treatment_payment_treatment_id']);
         $indoor_treatment_payment_details   = if_empty($_POST['indoor_treatment_payment_details']);
         $indoor_treatment_payment_amount   = if_empty($_POST['indoor_treatment_payment_amount']);
-        $indoor_treatment_payment_released   = if_empty($_POST['indoor_treatment_payment_released']);
+        $indoor_treatment_payment_released   = if_empty_return_zero($_POST['indoor_treatment_payment_released']);
 
 
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
-        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 3]);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 3,4]);
 
         if ($check_token && $check_permission) {
             try {
