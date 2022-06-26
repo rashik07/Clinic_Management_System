@@ -31,9 +31,11 @@
 <body>
 
     <div class="proclinic-bg  margin_auto" style="height: 100%; 
-    background-image: url('../assets/images/loginbackground.png');
-    /* background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12); */
-    background-size: cover;">
+    background: #67B26F;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    ">
         <div style="text-align: center; padding-top: 5%;">
             <img src="../assets/images/logo-dark.png" id="icon" alt="User Icon" width="20%" />
             <h1 style="color: white; font-size: 40px;margin-top: 30px; margin-bottom: 30px; font-weight: 500;">WELCOME TO MOMTAJ TRAUMA CENTER</h1>
