@@ -33,7 +33,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </ul>
             </li>
         <?php } ?>
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 1 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-patients" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <i class="fas fa-hospital-user"></i> Patients
@@ -63,6 +63,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     </li>
                 </ul>
             </li>
+        <?php } ?>
+
+        <?php if ($_SESSION['user_type_access_level'] <= 1 || $_SESSION['user_type_access_level'] == 3) { ?>
             <li>
                 <a href="#nav-services" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-server"></span> Services
@@ -83,7 +86,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
         <?php } ?>
 
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 1 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
             <li>
                 <a href="#nav-bills" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-money"></span> Billing
@@ -154,7 +157,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 
         <?php } ?>
 
-        <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
+        <?php if ($_SESSION['user_type_access_level'] <= 1 || $_SESSION['user_type_access_level'] == 6) { ?>
             <li><a href="#nav-Medicine" data-toggle="collapse" aria-expanded="false" class="collapsed">
                     <span class="ti-write"></span> Pharmacy Data Entry
                 </a>
@@ -231,34 +234,36 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="sell_return_list.php"> Return List</a>
                     </li>
-                    <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
-                        <li>
-                            <a href="report_pharmacy_sell.php"> Sell Report</a>
-                        </li>
-                        <li>
-                            <a href="report_pharmacy_purchase.php"> Purchase Report</a>
-                        </li>
-                    <?php } ?>
-                </ul>
-            </li>
-        <?php } ?>
-
-        <li>
-            <a href="#nav-icons" data-toggle="collapse" aria-expanded="false">
-                <span class="ti-bar-chart"></span> Reports
-            </a>
-            <ul class="collapse list-unstyled" id="nav-icons">
-                <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
+                <?php } ?>
+                <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
                     <li>
-                        <a href="reports.php">Outdoor Reports</a>
+                        <a href="report_pharmacy_sell.php"> Sell Report</a>
                     </li>
                     <li>
-                        <a href="reports_indoor.php">Indoor Reports</a>
+                        <a href="report_pharmacy_purchase.php"> Purchase Report</a>
                     </li>
                 <?php } ?>
+                </ul>
+            </li>
 
-            </ul>
-        </li>
+            <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
+                <li>
+                    <a href="#nav-icons" data-toggle="collapse" aria-expanded="false">
+                        <span class="ti-bar-chart"></span> Reports
+                    </a>
+                    <ul class="collapse list-unstyled" id="nav-icons">
+
+                        <li>
+                            <a href="reports.php">Outdoor Reports</a>
+                        </li>
+                        <li>
+                            <a href="reports_indoor.php">Indoor Reports</a>
+                        </li>
+
+
+                    </ul>
+                </li>
+            <?php } ?>
 
     </ul>
     <div class="nav-help animated fadeIn">

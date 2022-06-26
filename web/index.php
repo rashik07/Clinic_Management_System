@@ -20,9 +20,14 @@ if (!isset($_SESSION)) {
             include 'top_navbar.php';
             echo '<div class="container-fluid home">';
             include "top_section.php";
+            if ($_SESSION['user_type_access_level'] <= 2||$_SESSION['user_type_access_level'] == 6) {
             include 'medicine_chat.php';
+            }
+            if ($_SESSION['user_type_access_level'] <= 4) {
             include 'indoor_chart.php';
+            }
             echo '</div>';
+            
             // if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) {
             //     include 'home.php';
             // }

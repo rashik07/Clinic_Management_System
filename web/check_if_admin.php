@@ -4,7 +4,8 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-if (!isset($_SESSION['loggedIn']))   // Checking whether the session is already there or not if
+if (!isset($_SESSION['loggedIn']))   
+// Checking whether the session is already there or not if
 // true then header redirect it to the home page directly
 {
     echo '<script type="text/javascript"> alert("Session lost");</script>';

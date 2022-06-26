@@ -173,7 +173,7 @@ VALUES
     'active',
     NULL,
     NULL,
-    1
+    2
   ),
   (
     11,

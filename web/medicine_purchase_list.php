@@ -36,6 +36,7 @@ require_once('check_if_pharmacy_manager.php');
                                             <th>Purchase Date</th>
                                             <th>Total</th>
                                             <th>Due</th>
+                                            <th>Details</th>
                                            <?php if ($_SESSION['user_type_access_level'] <= 2) {
                                             echo '<th>Action</th>';
                                             echo '<th>Delete</th>';
@@ -56,7 +57,7 @@ require_once('check_if_pharmacy_manager.php');
                     left join pharmacy_medicine  on pharmacy_medicine.pharmacy_medicine_id = pharmacy_purchase_medicine.pharmacy_purchase_medicine_medicine_id
                    
                     
-                    order by pharmacy_purchase_creation_time";
+                    order by pharmacy_purchase_creation_time desc";
                                         $getJson = $conn->prepare($get_content);
                                         $getJson->execute();
 
@@ -75,6 +76,7 @@ require_once('check_if_pharmacy_manager.php');
                                             echo '<td>' . $data['pharmacy_purchase_date'] . '</td>';
                                             echo '<td>' . $data['pharmacy_purchase_grand_total'] . '</td>';
                                             echo '<td>' . $data['pharmacy_purchase_due_amount'] . '</td>';
+                                            echo '<td><a href="Medicine_purchase_details.php?medicine_purchase_id=' . $data['pharmacy_purchase_id'] . '">details</a></td>';
                                             if ($_SESSION['user_type_access_level'] <= 2) {
                                             echo '<td><a href="edit_medicine_purchase.php?medicine_purchase_id=' . $data['pharmacy_purchase_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                             echo '<td> <button type="button" class="btn btn-danger mb-3" onclick="delete_data(' . $data['pharmacy_purchase_id'].','.$data['pharmacy_purchase_medicine_medicine_id'].','.$data['pharmacy_purchase_medicine_batch_id'] . ');">Delete</button></td>';
