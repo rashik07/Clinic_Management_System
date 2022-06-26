@@ -67,8 +67,10 @@ function numberTowords($num)
         while (substr($i, 0, 1) == "0")
             $i = substr($i, 1, 5);
         if ($i < 20) {
-            /* echo "getting:".$i; */
-            $rettxt .= $ones[$i];
+            // echo "getting:" . $i;
+            if ($i != "") {
+                $rettxt .= $ones[$i];
+            }
         } elseif ($i < 100) {
             if (substr($i, 0, 1) != "0")  $rettxt .= $tens[substr($i, 0, 1)];
             if (substr($i, 1, 1) != "0") $rettxt .= " " . $ones[substr($i, 1, 1)];
