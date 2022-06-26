@@ -121,22 +121,30 @@ if (isset($_POST["max"])) {
                                         </tr>';
                                                 }
                                             }
-                                            echo '
-                                    <tr class="footer_row">
-                                        <td> Total
-                                        </td>
                                         
-                                        
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>' . $total_payment . '</td>
-                                        <td>' . $total_due . '</td>
-                                        <td>' . $total_bill . '</td>
-                                        
-                                    </tr>';
                                         } ?>
                                     </tbody>
+                                </table>
+                                <div style="min-height: 40px"></div>
+                                <h4 style="text-align: center; margin-bottom: 20px;">Indoor bill</h4>
+                                <table style="border: 1px solid gray; width: 100%;">
+                                    <tr>
+                                        <td>Total Bill</td>
+                                        <td style="text-align: right;"><?php echo $total_bill ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Payment</td>
+                                        <td style="text-align: right;"><?php echo $total_payment ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Due</td>
+                                        <td style="text-align: right;"><?php echo $total_due ?></td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td>Total Discount</td>
+                                        <td style="text-align: right;"><?php echo $final_discount ?></td>
+                                    </tr> -->
+                                  
                                 </table>
 
                             </div>

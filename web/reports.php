@@ -11,7 +11,7 @@ $final_bill = 0;
 $final_due = 0;
 $final_payment = 0;
 $final_discount = 0;
-$final_exemptio = 0;
+$final_exemption = 0;
 if (isset($_POST["min"])) {
     $start_date = $_POST["min"];
 }
