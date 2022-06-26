@@ -25,6 +25,20 @@ $getJson->execute();
 $result_content_released = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
 
+$get_content = "SELECT COUNT(pharmacy_sell_id) as pharmacy_sell
+FROM `pharmacy_sell` where pharmacy_sell_indoor_treatment_id is null;";
+$getJson = $conn->prepare($get_content);
+$getJson->execute();
+
+$result_content_outdoor_pharmecy_sell = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
+$get_content = "SELECT COUNT(pharmacy_sell_id) as pharmacy_sell
+FROM `pharmacy_sell` where pharmacy_sell_indoor_treatment_id is not null;";
+$getJson = $conn->prepare($get_content);
+$getJson->execute();
+
+$result_content_indoor_pharmecy_sell = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
 $get_content = "select *,
                                         (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
                                         (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
@@ -55,6 +69,41 @@ foreach ($result_content_stock as $data) {
 
 
     <div class="row">
+        <?php if ($_SESSION['user_type_access_level'] <= 2||$_SESSION['user_type_access_level'] == 6) {?>
+        <!-- Widget Item -->
+        <div class="col-md-4">
+            <a href="./patients_list.php">
+                <div class="widget-area proclinic-box-shadow ">
+                    <div class="widget-left">
+                        <span class="ti-user"></span>
+                    </div>
+                    <div class="widget-right">
+                        <h4 class="wiget-title">Total Indoor Sell</h4>
+                        <span class="numeric"><?php echo $result_content_indoor_pharmecy_sell[0]['pharmacy_sell']; ?></span>
+                        <!-- <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p> -->
+                    </div>
+                </div>
+            </a>
+
+        </div>
+        <!-- /Widget Item -->
+        <!-- Widget Item -->
+        <div class="col-md-4">
+            <a href="./doctors_list.php">
+                <div class="widget-area proclinic-box-shadow color-green">
+                    <div class="widget-left">
+                        <span class="ti-bar-chart"></span>
+                    </div>
+                    <div class="widget-right">
+                        <h4 class="wiget-title">Total Outdoor Sell</h4>
+                        <span class="numeric color-green"><?php echo $result_content_outdoor_pharmecy_sell[0]['pharmacy_sell']; ?></span>
+                        <!-- <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p> -->
+                    </div>
+                </div>
+            </a>
+        </div>
+        <?php } ?>
+        <!-- /Widget Item -->
         <?php if ($_SESSION['user_type_access_level'] <= 4) {?>
         <!-- Widget Item -->
         <div class="col-md-4">
@@ -89,7 +138,6 @@ foreach ($result_content_stock as $data) {
             </a>
         </div>
         <?php } ?>
-        <!-- /Widget Item -->
         <!-- Widget Item -->
        <?php if ($_SESSION['user_type_access_level'] <= 2||$_SESSION['user_type_access_level'] == 6) {?>
         <div class="col-md-4">
