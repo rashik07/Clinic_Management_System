@@ -94,7 +94,7 @@ require_once('check_if_indoor_manager.php');
                                             // echo '<td>' . $data['indoor_treatment_total_paid'] . '</td>';
                                             // echo '<td>' . $data['indoor_treatment_total_due'] . '</td>';
                                             echo '<td>
-                                    <a href="patient_release_mtc.php?indoor_treatment_id=' . $treatment_id . '">Invoice</a></td>';
+                                    <a class="btn btn-success" href="patient_release_mtc.php?indoor_treatment_id=' . $treatment_id . '">Invoice</a></td>';
                                             $count = $count + 1;
                                         }
                                         ?>

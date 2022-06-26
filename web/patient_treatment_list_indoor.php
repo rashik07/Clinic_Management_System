@@ -92,10 +92,10 @@ require_once('check_if_outdoor_manager.php');
                                             echo '<td>' . $data['outdoor_treatment_total_paid'] . '</td>';
                                             echo '<td>' . $data['outdoor_treatment_total_due'] . '</td>';
                                             if ($_SESSION['user_type_access_level'] <= 2) {
-                                                echo '<td><a href="edit_patient_treatment.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
+                                                echo '<td><a  href="edit_patient_treatment.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '"><i class="ti ti-settings" style="font-size:24px"></i></a></td>';
                                             }
                                             if ($data['outdoor_treatment_total_due'] > 0) {
-                                                echo '<td><a href="edit_patient_treatment_due.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '">Collection</a></td>';
+                                                echo '<td><a class="btn btn-success" href="edit_patient_treatment_due.php?outdoor_treatment_id=' . $data['outdoor_treatment_id'] . '">Collection</a></td>';
                                             } else {
                                                 echo '<td> - </td>';
                                             }
