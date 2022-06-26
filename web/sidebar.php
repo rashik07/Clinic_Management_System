@@ -246,6 +246,8 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                 </ul>
             </li>
 
+
+
             <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 3 || $_SESSION['user_type_access_level'] == 4) { ?>
                 <li>
                     <a href="#nav-icons" data-toggle="collapse" aria-expanded="false">
