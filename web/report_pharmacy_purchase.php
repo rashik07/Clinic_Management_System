@@ -11,6 +11,10 @@ if (isset($_POST["min"])) {
 if (isset($_POST["max"])) {
     $end_date = $_POST["max"];
 }
+$total_bill = 0;
+// $total_discount = 0;
+$total_payment = 0;
+$total_due = 0;
 ?>
 
 
@@ -83,6 +87,7 @@ if (isset($_POST["max"])) {
                                     </thead>
                                     <tbody>
                                         <?php
+
                                         if ($start_date != "" && $end_date != "") {
                                             require_once("../apis/Connection.php");
                                             $connection = new Connection();
@@ -121,7 +126,6 @@ if (isset($_POST["max"])) {
                                         </tr>';
                                                 }
                                             }
-                                        
                                         } ?>
                                     </tbody>
                                 </table>
@@ -144,7 +148,7 @@ if (isset($_POST["max"])) {
                                         <td>Total Discount</td>
                                         <td style="text-align: right;"><?php echo $final_discount ?></td>
                                     </tr> -->
-                                  
+
                                 </table>
 
                             </div>

@@ -30,8 +30,8 @@ class UpdateIndoorPatientAllotment
                 // $indoor_patient_id  = if_empty($_POST['outdoor_patient_id']);
                 // $indoor_patient_name = if_empty($_POST['outdoor_patient_name']);
 
-                $indoor_treatment_exemption = if_empty($_POST['indoor_treatment_exemption']);
-                $indoor_treatment_discount = if_empty($_POST['indoor_treatment_discount']);
+                $indoor_treatment_exemption = if_empty_return_zero($_POST['indoor_treatment_exemption']);
+                $indoor_treatment_discount = if_empty_return_zero($_POST['indoor_treatment_discount']);
 
                 $post_content = "UPDATE indoor_treatment SET 
                             indoor_treatment_exemption='$indoor_treatment_exemption',
@@ -41,22 +41,7 @@ class UpdateIndoorPatientAllotment
                 $result = $conn->exec($post_content);
 
 
-                //release the last bed
-                $post_content = "SELECT * FROM indoor_treatment_bed WHERE indoor_treatment_bed_treatment_id='$indoor_treatment_id' ORDER BY indoor_treatment_bed_id DESC LIMIT 1";
-                // echo $post_content;
-                $getJson = $conn->prepare($post_content);
-                $getJson->execute();
-                $result_admited = $getJson->fetchAll(PDO::FETCH_ASSOC);
-                // echo $result_content;
-                if (count($result_admited) > 0) {
-                    $last_bed = $result_admited[0]['indoor_treatment_bed_bed_id'];
 
-                    $post_content = "UPDATE indoor_bed SET 
-                            indoor_bed_status='available'
-                            where indoor_bed_id='$last_bed'";
-                    //echo $post_content;
-                    $result = $conn->exec($post_content);
-                }
 
 
 

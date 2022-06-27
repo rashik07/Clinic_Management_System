@@ -5,6 +5,7 @@ require_once('check_if_outdoor_manager.php');
 <?php include 'header.php';
 $totoal_bill = 0;
 $total_paid = 0;
+$total_advance = 0;
 $total_discount = 0;
 $total_exemption = 0;
 ?>
@@ -52,6 +53,9 @@ $total_exemption = 0;
                             if (count($indoor_payments) > 0) {
                                 foreach ($indoor_payments as $payment) {
                                     $total_paid += (int)$payment['indoor_treatment_payment_amount'];
+                                    if ($payment['indoor_treatment_payment_released'] == "0") {
+                                        $total_advance += (int)$payment['indoor_treatment_payment_amount'];
+                                    }
                                 }
                             }
 
@@ -66,6 +70,7 @@ $total_exemption = 0;
                             if (count($indoor_payments_treatments) > 0) {
                                 foreach ($indoor_payments_treatments as $indoor_payments_treatment) {
                                     $total_paid += (int)$indoor_payments_treatment['indoor_treatment_total_paid'];
+                                    $total_advance += (int)$indoor_payments_treatment['indoor_treatment_total_paid'];
                                 }
                             }
 
@@ -82,6 +87,7 @@ $total_exemption = 0;
                             if (count($indoor_payments_ots) > 0) {
                                 foreach ($indoor_payments_ots as $indoor_payments_ot) {
                                     $total_paid += (int)$indoor_payments_ot['outdoor_treatment_total_paid'];
+                                    $total_advance += (int)$indoor_payments_ot['outdoor_treatment_total_paid'];
                                 }
                             }
 
@@ -440,7 +446,8 @@ $total_exemption = 0;
                                         <td></td>
                                         <td></td>
                                         <td class="text-center border">Advance</td>
-                                        <td class="text-right border "><?php echo  $total_paid  ?></td>
+                                        <!-- <td class="text-right border "><?php echo  $total_paid  ?></td> -->
+                                        <td class="text-right border "><?php echo  $total_advance  ?></td>
                                     </tr>
                                     <tr class="main_row">
                                         <td></td>

@@ -11,6 +11,10 @@ if (isset($_POST["min"])) {
 if (isset($_POST["max"])) {
     $end_date = $_POST["max"];
 }
+$total_bill = 0;
+// $total_discount = 0;
+$total_payment = 0;
+$total_due = 0;
 ?>
 
 <body>
@@ -122,7 +126,6 @@ if (isset($_POST["max"])) {
                                         </tr>';
                                                 }
                                             }
-                               
                                         } ?>
                                     </tbody>
                                 </table>
@@ -145,7 +148,7 @@ if (isset($_POST["max"])) {
                                         <td>Total Discount</td>
                                         <td style="text-align: right;"><?php echo $final_discount ?></td>
                                     </tr> -->
-                                  
+
                                 </table>
                                 <div style="min-height: 80px;"></div>
 
@@ -210,7 +213,6 @@ if (isset($_POST["max"])) {
                                         </tr>';
                                                 }
                                             }
-                             
                                         } ?>
                                     </tbody>
                                 </table>
@@ -233,7 +235,7 @@ if (isset($_POST["max"])) {
                                         <td>Total Discount</td>
                                         <td style="text-align: right;"><?php echo $final_discount ?></td>
                                     </tr> -->
-                                  
+
                                 </table>
                                 <div style="min-height: 80px;"></div>
 
@@ -245,7 +247,7 @@ if (isset($_POST["max"])) {
                                             <td style="width: 40%;">Details</td>
                                             <td>Name</td>
                                             <td>Issue Date</td>
-                                       
+
                                             <td>Total</td>
                                             <!-- <td>Action</td> -->
                                         </tr>
@@ -270,13 +272,13 @@ if (isset($_POST["max"])) {
                                             if (count($pharmacy_sells_return) > 0) {
                                                 foreach ($pharmacy_sells_return as $pharmacy_sells_return) {
                                                     // $last_bed_name = $bed['indoor_bed_name'];
-                                               
+
                                                     if (!isset($pharmacy_sells_return['patient_name'])) {
                                                         $pharmacy_sells_return['patient_name'] = "-";
                                                     }
                                                     $total_bill += (int)$pharmacy_sells_return['pharmacy_sell_return_net_price'];
                                                     // $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
-                                               
+
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sells_return['pharmacy_sell_return_date']));
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sells_return['pharmacy_sell_return_date']));
                                                     echo '
@@ -289,7 +291,6 @@ if (isset($_POST["max"])) {
                                         </tr>';
                                                 }
                                             }
-                                  
                                         } ?>
                                     </tbody>
                                 </table>
@@ -300,8 +301,8 @@ if (isset($_POST["max"])) {
                                         <td>Total Bill</td>
                                         <td style="text-align: right;"><?php echo $total_bill ?></td>
                                     </tr>
-                                 
-                                  
+
+
                                 </table>
                             </div>
 
