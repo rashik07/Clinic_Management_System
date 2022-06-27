@@ -66,6 +66,7 @@ $total_due = 0;
 
                             </form>
                             <div id="printD">
+                             
                                 <h3 style="text-align: center; margin-bottom: 20px;background: lightyellow;">INDOOR REPORT</h3>
 
                                 <table class="Report_table" style="width: 100%;">
@@ -84,6 +85,7 @@ $total_due = 0;
                                         </tr>
                                     </thead>
                                     <tbody>
+
                                         <?php
                                         if ($start_date != "" && $end_date != "") {
                                             require_once("../apis/Connection.php");
@@ -113,9 +115,12 @@ $total_due = 0;
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
                                                     $total_due += (int)$pharmacy_sell['pharmacy_sell_due_amount'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
+
                                                     echo '
+                                                
                                     <tr class="main_row">
-                                        <td> Invoice no. ' . $pharmacy_sell['pharmacy_sell_invoice_id'] . '</td>
+                     
+                                        <td> <a href="medicine_sell_invoice.php?medicine_sell_id='.$pharmacy_sell['pharmacy_sell_id'].'" target="_blank">Invoice no. ' . $pharmacy_sell['pharmacy_sell_invoice_id'] . '</a></td>
                                         <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
@@ -123,10 +128,13 @@ $total_due = 0;
                                         <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
-                                        </tr>';
+                                        </tr> 
+                                       ';
                                                 }
                                             }
                                         } ?>
+
+
                                     </tbody>
                                 </table>
                                 <div style="min-height: 40px"></div>
@@ -202,7 +210,7 @@ $total_due = 0;
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
                                                     echo '
                                     <tr class="main_row">
-                                    <td> Invoice no. ' . $pharmacy_sell['pharmacy_sell_invoice_id'] . '</td>
+                                    <td> <a href="medicine_sell_invoice.php?medicine_sell_id='.$pharmacy_sell['pharmacy_sell_id'].'" target="_blank"> Invoice no. ' . $pharmacy_sell['pharmacy_sell_invoice_id'] . '</a></td>
                                     <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
@@ -283,7 +291,7 @@ $total_due = 0;
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sells_return['pharmacy_sell_return_date']));
                                                     echo '
                                     <tr class="main_row">
-                                    <td> Invoice no. ' . $pharmacy_sells_return['pharmacy_sell_return_invoice_id'] . '</td>
+                                    <td> <a href="medicine_return_invoice.php?medicine_sell_id='.$pharmacy_sells_return['pharmacy_sell_medicine_sell_id'].'"  target="_blank"> Invoice no. ' . $pharmacy_sells_return['pharmacy_sell_return_invoice_id'] . '</a></td>
                                     <td>' . $pharmacy_sells_return['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                
