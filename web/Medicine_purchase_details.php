@@ -121,7 +121,7 @@ from pharmacy_purchase_medicine
                                                 <th>Manufacture Price</th>
                                                 <th>Box Mrp</th>
                                                 <th>Total Purchase Price</th>
-                                                <th>Action</th>
+                                                <!-- <th>Action</th> -->
                                             </tr>
                                         </thead>
                                         <tbody id="datatable1_body">
@@ -181,9 +181,9 @@ from pharmacy_purchase_medicine
 
                                     </table>
 
-                                    <div class="form-group col-md-6 mb-3">
+                                    <!-- <div class="form-group col-md-6 mb-3">
                                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-                                    </div>
+                                    </div> -->
                             </form>
                             <div id="loader"></div>
                         </div>
@@ -560,15 +560,15 @@ from pharmacy_purchase_medicine
             text9.setAttribute("readonly", "readonly");
 
 
-            var buttonRemove = document.createElement('button');
-            buttonRemove.setAttribute("type", "button");
-            buttonRemove.setAttribute("class", "btn btn-danger-soft far fa-trash-alt");
+            // var buttonRemove = document.createElement('button');
+            // buttonRemove.setAttribute("type", "button");
+            // buttonRemove.setAttribute("class", "btn btn-danger-soft far fa-trash-alt");
 
-            buttonRemove.onclick = function() {
-                // ...
-                DeleteRow(this);
+            // buttonRemove.onclick = function() {
+            //     // ...
+            //     DeleteRow(this);
 
-            };
+            // };
 
 
             td1.appendChild(text1);
@@ -583,7 +583,7 @@ from pharmacy_purchase_medicine
             td7.appendChild(text7);
             td8.appendChild(text8);
             td9.appendChild(text9);
-            td10.appendChild(buttonRemove);
+            // td10.appendChild(buttonRemove);
 
 
             tr.appendChild(td1);
@@ -730,15 +730,15 @@ from pharmacy_purchase_medicine
         text9.setAttribute("readonly", "readonly");
 
 
-        var buttonRemove = document.createElement('button');
-        buttonRemove.setAttribute("type", "button");
-        buttonRemove.setAttribute("class", "btn btn-danger-soft far fa-trash-alt");
+        // var buttonRemove = document.createElement('button');
+        // buttonRemove.setAttribute("type", "button");
+        // buttonRemove.setAttribute("class", "btn btn-danger-soft far fa-trash-alt");
 
-        buttonRemove.onclick = function() {
-            // ...
-            DeleteRow(this);
+        // buttonRemove.onclick = function() {
+        //     // ...
+        //     DeleteRow(this);
 
-        };
+        // };
 
 
         td1.appendChild(text1);
@@ -753,7 +753,7 @@ from pharmacy_purchase_medicine
         td7.appendChild(text7);
         td8.appendChild(text8);
         td9.appendChild(text9);
-        td10.appendChild(buttonRemove);
+        // td10.appendChild(buttonRemove);
 
 
         tr.appendChild(td1);
@@ -765,7 +765,7 @@ from pharmacy_purchase_medicine
         tr.appendChild(td7);
         tr.appendChild(td8);
         tr.appendChild(td9);
-        tr.appendChild(td10);
+        // tr.appendChild(td10);
 
 
 

@@ -72,7 +72,7 @@ foreach ($result_content_stock as $data) {
         <?php if ($_SESSION['user_type_access_level'] <= 2||$_SESSION['user_type_access_level'] == 6) {?>
         <!-- Widget Item -->
         <div class="col-md-4">
-            <a href="./patients_list.php">
+            <!-- <a href="./patients_list.php"> -->
                 <div class="widget-area proclinic-box-shadow ">
                     <div class="widget-left">
                         <span class="ti-user"></span>
@@ -83,13 +83,13 @@ foreach ($result_content_stock as $data) {
                         <!-- <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p> -->
                     </div>
                 </div>
-            </a>
+            <!-- </a> -->
 
         </div>
         <!-- /Widget Item -->
         <!-- Widget Item -->
         <div class="col-md-4">
-            <a href="./doctors_list.php">
+            <!-- <a href="./doctors_list.php"> -->
                 <div class="widget-area proclinic-box-shadow color-green">
                     <div class="widget-left">
                         <span class="ti-bar-chart"></span>
@@ -100,14 +100,14 @@ foreach ($result_content_stock as $data) {
                         <!-- <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p> -->
                     </div>
                 </div>
-            </a>
+            <!-- </a> -->
         </div>
         <?php } ?>
         <!-- /Widget Item -->
         <?php if ($_SESSION['user_type_access_level'] <= 4) {?>
         <!-- Widget Item -->
         <div class="col-md-4">
-            <a href="./patients_list.php">
+            <!-- <a href="./patients_list.php"> -->
                 <div class="widget-area proclinic-box-shadow ">
                     <div class="widget-left">
                         <span class="ti-user"></span>
@@ -118,13 +118,13 @@ foreach ($result_content_stock as $data) {
                         <!-- <p class="inc-dec mb-0"><span class="ti-angle-up"></span> +20% Increased</p> -->
                     </div>
                 </div>
-            </a>
+            <!-- </a> -->
 
         </div>
         <!-- /Widget Item -->
         <!-- Widget Item -->
         <div class="col-md-4">
-            <a href="./doctors_list.php">
+            <!-- <a href="./doctors_list.php"> -->
                 <div class="widget-area proclinic-box-shadow color-green">
                     <div class="widget-left">
                         <span class="ti-bar-chart"></span>
@@ -135,13 +135,13 @@ foreach ($result_content_stock as $data) {
                         <!-- <p class="inc-dec mb-0"><span class="ti-angle-down"></span> -15% Decreased</p> -->
                     </div>
                 </div>
-            </a>
+            <!-- </a> -->
         </div>
         <?php } ?>
         <!-- Widget Item -->
        <?php if ($_SESSION['user_type_access_level'] <= 2||$_SESSION['user_type_access_level'] == 6) {?>
         <div class="col-md-4">
-            <a href="./stock_alert.php">
+            <!-- <a href="./stock_alert.php"> -->
                 <div class="widget-area proclinic-box-shadow color-red">
                     <div class="widget-left">
                         <span class="ti-alert"></span>
@@ -153,7 +153,7 @@ foreach ($result_content_stock as $data) {
                     </div>
                 </div>
 
-            </a>
+            <!-- </a> -->
 
         </div>
         <?php } ?>
@@ -161,7 +161,7 @@ foreach ($result_content_stock as $data) {
         <?php if ($_SESSION['user_type_access_level'] <=4) {?>
           <!-- Widget Item -->
           <div class="col-md-4">
-            <a href="./stock_alert.php">
+            <!-- <a href="./stock_alert.php"> -->
                 <div class="widget-area proclinic-box-shadow color-red">
                     <div class="widget-left">
                         <span class="ti-alert"></span>
@@ -173,7 +173,7 @@ foreach ($result_content_stock as $data) {
                     </div>
                 </div>
 
-            </a>
+            <!-- </a> -->
 
         </div>
         <?php } ?>
