@@ -97,14 +97,14 @@ if (!isset($_SESSION)) {
                                         <div class="row">
                                             <div class="col-sm-6">
                                                 <div>
-                                                    <span class="text-600 text-grey-m2 align-middle">Invoice No:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo  $treatment_id ?></span>
+                                                    <span class="text-600  align-middle">Invoice No:</span>
+                                                    <span class="text-600 align-middle"><?php echo  $treatment_id ?></span>
                                                 </div>
                                                 <div>
                                                     <?php
                                                     if ($result_content_outdoor_treatment[0]['outdoor_treatment_indoor_treatment_id'] > 0) {
-                                                        echo   '   <span class="text-600 text-grey-m2 align-middle">Admission Id:</span>
-                                                        <span class="text-600 text-110 text-blue align-middle">'
+                                                        echo   '   <span class="text-600  align-middle">Admission Id:</span>
+                                                        <span class="text-600  align-middle">'
 
                                                             . $result_content_outdoor_treatment[0]["indoor_treatment_admission_id"] . '
                                                             </span>';
@@ -114,28 +114,28 @@ if (!isset($_SESSION)) {
 
                                                 </div>
                                                 <div>
-                                                    <span class="text-600 text-grey-m2 align-middle">Patient Id:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle">
+                                                    <span class="text-600  align-middle">Patient Id:</span>
+                                                    <span class="text-600  align-middle">
                                                         <?php
                                                         echo $patient_id;
                                                         ?></span>
                                                 </div>
 
                                                 <div>
-                                                    <span class="text-600 text-grey-m2 align-middle">Patient Name:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle">
+                                                    <span class="text-600  align-middle">Patient Name:</span>
+                                                    <span class="text-600  align-middle">
                                                         <?php
                                                         echo $patient_name;
                                                         ?></span>
                                                 </div>
                                                 <div>
-                                                    <span class="text-600 text-grey-m2 align-middle">Gender:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo $result_content_outdoor_treatment[0]['patient_gender']; ?></span>
+                                                    <span class="text-600  align-middle">Gender:</span>
+                                                    <span class="text-600 text-110  align-middle"><?php echo ucfirst($result_content_outdoor_treatment[0]['patient_gender']); ?></span>
                                                 </div>
                                                 <div>
-                                                    <span class="text-600 text-grey-m2 align-middle">Consultant:</span>
-                                                    <span class="text-600 text-110 text-blue align-middle"><?php echo $doctor_name ?></span>(
-                                                    <span class="text-300 text-110  align-middle"><?php echo $doctor_experience ?></span>)
+                                                    <span class="text-600  align-middle">Consultant:</span>
+                                                    <span class="text-600 text-110  align-middle"><?php echo $doctor_name ?></span>(
+                                                    <span class="text-600   align-middle"><?php echo $doctor_experience ?></span>)
 
                                                 </div>
 
@@ -147,11 +147,11 @@ if (!isset($_SESSION)) {
 
                                             <div class="text-600 col-sm-6 align-self-start d-sm-flex justify-content-end">
                                                 <hr class="d-sm-none" />
-                                                <div class="text-grey-m2">
+                                                <div class="">
 
                                                     <div class="my-2">
                                                         <!-- <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> -->
-                                                        <span class="text-600 text-90">Issue Date:</span> <?php echo date("M j, Y"); ?>
+                                                        <span class="text-600 ">Issue Date:</span> <?php echo date("M j, Y"); ?>
                                                     </div>
                                                     <?php
                                                     if ($result_content_outdoor_treatment[0]['outdoor_treatment_report_delivery_date'] == "NULL") {
@@ -167,6 +167,10 @@ if (!isset($_SESSION)) {
                                                     <div class="my-2">
                                                         <!-- <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i>  -->
                                                         <span class="text-600 text-90">Age:</span> <?php echo  $result_content_outdoor_treatment[0]['patient_age']; ?>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <!-- <i class="fa fa-circle text-blue-m2 text-xs mr-1"></i>  -->
+                                                        <span class="text-600 text-90">Reference:</span> <?php echo  $result_content_outdoor_treatment[0]['outdoor_treatment_reference']; ?>
                                                     </div>
 
                                                     <?php
@@ -184,7 +188,7 @@ if (!isset($_SESSION)) {
                                         </div>
 
                                         <div class="mt-2">
-                                            <div class="row text-600 text-white bgc-default-tp1 py-20">
+                                            <div class="row text-600 text-dark bgc-default-tp1 py-20">
                                                 <div class="d-none d-sm-block col-1">#</div>
                                                 <div class="col-9 col-sm-5">Particulars</div>
                                                 <div class="d-none d-sm-block col-4 col-sm-2">Rate</div>
@@ -243,7 +247,7 @@ if (!isset($_SESSION)) {
                                                             SubTotal
                                                         </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill']; ?> </span>
+                                                            <span class="text-120 "><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill']; ?> </span>
                                                         </div>
                                                     </div>
                                                     <?php
@@ -255,7 +259,7 @@ if (!isset($_SESSION)) {
                                                                 Discount 
                                                             </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-110 text-secondary-d1 ">'
+                                                            <span class="text-110 ">'
                                                                 .
                                                                 $result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc']
                                                                 . '  </span>
@@ -267,7 +271,7 @@ if (!isset($_SESSION)) {
                                                                 Discount 
                                                             </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-110 text-secondary-d1 ">'
+                                                            <span class="text-110">'
                                                                 .
                                                                 $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill'] * trim($result_content_outdoor_treatment[0]['outdoor_treatment_discount_pc'], "%") / 100
                                                                 . '  </span>
@@ -286,7 +290,7 @@ if (!isset($_SESSION)) {
                                                             Examption
                                                         </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-120 text-secondary-d1 text-right"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_exemption'];  ?> </span>
+                                                            <span class="text-120  text-right"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_exemption'];  ?> </span>
                                                         </div>
                                                     </div>
                                                     <div class="row my-1 align-items-center bgc-primary-l3 ">
@@ -294,7 +298,7 @@ if (!isset($_SESSION)) {
                                                             Total Adjusted Amount
                                                         </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-120 text-secondary-d1 text-right"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill_after_discount'];  ?> </span>
+                                                            <span class="text-120 text-right"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_bill_after_discount'];  ?> </span>
                                                         </div>
                                                     </div>
                                                     <div class="row my-1 align-items-center bgc-primary-l3">
@@ -302,7 +306,7 @@ if (!isset($_SESSION)) {
                                                             Paid
                                                         </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-120 text-secondary-d1"><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_paid']; ?> </span>
+                                                            <span class="text-120 "><?php echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_paid']; ?> </span>
                                                         </div>
                                                     </div>
                                                     <div class="row my-1 align-items-center bgc-primary-l3 ">
@@ -310,7 +314,7 @@ if (!isset($_SESSION)) {
                                                             Due
                                                         </div>
                                                         <div class="col-5 text-right">
-                                                            <span class="text-120 text-secondary-d1">
+                                                            <span class="text-120 ">
                                                                 <?php
                                                                 if ($result_content_outdoor_treatment[0]['outdoor_treatment_total_due']) {
                                                                     echo $result_content_outdoor_treatment[0]['outdoor_treatment_total_due'];
@@ -328,10 +332,10 @@ if (!isset($_SESSION)) {
                                             <div class="row">
                                                 <div class="col-sm-4" style="float:left;">
                                                     <div>
-                                                        <span class="text-sm text-grey-m2 align-middle">-------------------------------------------</span>
+                                                        <span class="text-sm align-middle">-------------------------------------------</span>
                                                     </div>
                                                     <div>
-                                                        <span class="text-600 text-grey-m2 align-middle">Customer Signature</span>
+                                                        <span class="text-600 align-middle">Customer Signature</span>
                                                     </div>
 
                                                 </div>
@@ -339,10 +343,10 @@ if (!isset($_SESSION)) {
 
                                                 <div class="col-sm-4 " style="float:right;">
                                                     <div>
-                                                        <span class="text-sm text-grey-m2 align-middle" style="text-align:right;">-------------------------------------------</span>
+                                                        <span class="text-sm align-middle" style="text-align:right;">-------------------------------------------</span>
                                                     </div>
                                                     <div>
-                                                        <span class="text-600 text-grey-m2 align-middle">Authority Signature</span>
+                                                        <span class="text-600 align-middle">Authority Signature</span>
                                                     </div>
                                                     <!-- <div>
                                                         <span class="text-sm text-grey-m2 align-middle">Date:</span>
@@ -354,11 +358,11 @@ if (!isset($_SESSION)) {
 
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <span class="text-secondary-d1 text-600">Thank you for your business</span>
+                                                    <span class="text-600">Thank you for your business</span>
                                                 </div>
 
                                                 <div>
-                                                    <span class="text-600 text-black-m2 align-middle">Prepared By: <?php echo $result_content_user[0]['username']; ?></span>
+                                                    <span class="text-600 align-middle">Prepared By: <?php echo $result_content_user[0]['username']; ?></span>
 
                                                 </div>
                                             </div>

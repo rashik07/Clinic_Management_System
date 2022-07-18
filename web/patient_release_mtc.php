@@ -8,6 +8,7 @@ $total_paid = 0;
 $total_advance = 0;
 $total_discount = 0;
 $total_exemption = 0;
+$total_bed_bill = 0;
 ?>
 
 <body>
@@ -172,6 +173,7 @@ $total_exemption = 0;
 
                                         <!-- Indoor bed report -->
                                         <?php
+                                        
                                         $indoor_treatment_id = $_GET['indoor_treatment_id'];
                                         $get_content = "select * from indoor_treatment_bed inner join indoor_bed on indoor_bed.indoor_bed_id
                                         = indoor_treatment_bed.indoor_treatment_bed_bed_id where indoor_treatment_bed_treatment_id='$indoor_treatment_id'";
@@ -194,6 +196,7 @@ $total_exemption = 0;
                                                     <td>' . $indoor_treatment_bed['indoor_bed_price'] . '</td>
                                                     <td class="text-right">' . $indoor_treatment_bed['indoor_treatment_bed_total_bill'] . '</td>
                                                 </tr>';
+                                                $total_bed_bill += (int)$indoor_treatment_bed['indoor_treatment_bed_total_bill'];
                                             }
                                             $totoal_bill += (int)$indoor_treatment_bed['indoor_treatment_bed_total_bill'];
                                         }
@@ -424,8 +427,22 @@ $total_exemption = 0;
                                         }
 
 
-                                        ?>
+                                        
 
+                                    $total_service= $total_bed_bill*10/100;
+                                    echo '<tr class="main_row">
+                                        <td>Service Fee</td>
+                                        <td>-</td>
+                                        
+                                        <td>-</td>
+                                        
+                                        
+                                        <td class="text-right">' .  $total_service . '</td>
+                                        
+                                        
+                                    </tr>';
+                                    $totoal_bill += $total_service;
+                                    ?>
 
                                     </tbody>
                                 </table>

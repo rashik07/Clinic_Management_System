@@ -2,7 +2,7 @@
 body{
     /* margin-top:20px; */
     color: #484b51;
-    font-size: 14px;
+    font-size: 15px;
     /* font-weight: 800!important; */
 }
 .text-secondary-d1 {
@@ -56,13 +56,13 @@ hr {
 }
 
 .font-bolder, .text-600 {
-    font-size: 14px;
-    font-weight: 800!important;
+    font-size: 16px;
+    font-weight: 900!important;
 }
 
 .text-110 {
 
-    font-size: 14px!important;
+    font-size: 16px!important;
 }
 .text-blue {
     color: #478fcc!important;

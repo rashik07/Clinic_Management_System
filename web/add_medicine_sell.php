@@ -156,7 +156,7 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
                                             <th>Exp. Date</th>
                                             <th>Stock Qty</th>
                                             <th>Per Piece Price</th>
-                                            <th>selling Piece<i class="text-danger"> * </i></th>
+                                            <th>selling Quantity<i class="text-danger"> * </i></th>
                                             <th>Total Selling Price</th>
                                             <th>Action</th>
                                         </tr>
@@ -287,6 +287,7 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
             spinner.show();
             var formData = new FormData(this);
             var currentdate = new Date();
+            z
             var datetime = currentdate.getDate().toString() +
                 (currentdate.getMonth() + 1).toString() +
                 currentdate.getFullYear().toString() +
@@ -369,7 +370,7 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
                     //alert("matched");
                     row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                     row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
+                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell'] + all_medicine[i]['total_return']);
                     //alert(all_medicine[i]['total_quantity']);
                     var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
                     // alert(per_pc_price);
@@ -410,7 +411,7 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
                 //alert("matched");
                 row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                 row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
+                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell'] + all_medicine[i]['total_return']);
                 var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
                 row.find(".pharmacy_selling_medicine_per_pc_price").val(per_pc_price);
 
@@ -613,7 +614,10 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
 
     function load_medicine() {
         for (var i = 0; i < Object.keys(all_medicine).length; i++) {
-            $("#medicine_list").append('<option value="' + all_medicine[i]['pharmacy_medicine_id'] + '">' + all_medicine[i]['medicine_name'] + '~' + all_medicine[i]['pharmacy_medicine_batch_id'] + '~' + all_medicine[i]['medicine_id'] + '</option>');
+            if (all_medicine[i]['pharmacy_medicine_id']) {
+                $("#medicine_list").append('<option value="' + all_medicine[i]['medicine_name'] + '">' + all_medicine[i]['medicine_name'] + '~' + all_medicine[i]['pharmacy_medicine_batch_id'] + '</option>');
+            }
+
         }
 
     }

@@ -204,7 +204,7 @@ from pharmacy_sell_medicine
                                                     if ($result_content_medicine_sell[0]['pharmacy_sell_discount'] > 0) {
                                                         echo  '<div class="row my-1">
                                                         <div class="col-7 text-right">
-                                                        discount
+                                                        Discount
                                                     </div>
                                                         <div class="col-5 text-right">
                                                             <span class="text-120 text-secondary-d1">'

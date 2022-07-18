@@ -14,6 +14,7 @@ if (isset($_POST["max"])) {
 $total_bill = 0;
 // $total_discount = 0;
 $total_payment = 0;
+$total_exemption = 0;
 $total_due = 0;
 ?>
 
@@ -78,6 +79,7 @@ $total_due = 0;
                                             <td>Issue Date</td>
                                             <td>Bill</td>
                                             <td>Discount</td>
+                                            <td>Exemption</td>
                                             <td>Payment</td>
                                             <td>Due</td>
                                             <td>Total</td>
@@ -97,7 +99,8 @@ $total_due = 0;
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $total_bill = 0;
-                                            // $total_discount = 0;
+                                            $total_discount = 0;
+                                            $total_exemption= 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
@@ -111,8 +114,9 @@ $total_due = 0;
                                                         $pharmacy_sell['patient_name'] = "-";
                                                     }
                                                     $total_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
-                                                    // $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
+                                                    $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
+                                                    $total_exemption+= (int)$pharmacy_sell['pharmacy_selling_exemption'];
                                                     $total_due += (int)$pharmacy_sell['pharmacy_sell_due_amount'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
 
@@ -124,7 +128,8 @@ $total_due = 0;
                                         <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '%</td>
+                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
+                                        <td>' . $pharmacy_sell['pharmacy_selling_exemption'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
@@ -149,13 +154,17 @@ $total_due = 0;
                                         <td style="text-align: right;"><?php echo $total_payment ?></td>
                                     </tr>
                                     <tr>
+                                        <td>Total Exemption</td>
+                                        <td style="text-align: right;"><?php echo $total_exemption ?></td>
+                                    </tr>
+                                    <tr>
                                         <td>Total Due</td>
                                         <td style="text-align: right;"><?php echo $total_due ?></td>
                                     </tr>
-                                    <!-- <tr>
+                                    <tr>
                                         <td>Total Discount</td>
-                                        <td style="text-align: right;"><?php echo $final_discount ?></td>
-                                    </tr> -->
+                                        <td style="text-align: right;"><?php echo $total_discount ?></td>
+                                    </tr>
 
                                 </table>
                                 <div style="min-height: 80px;"></div>
@@ -171,6 +180,7 @@ $total_due = 0;
                                             <td>Issue Date</td>
                                             <td>Bill</td>
                                             <td>Discount</td>
+                                            <td>Exemption</td>
                                             <td>Payment</td>
                                             <td>Due</td>
                                             <td>Total</td>
@@ -189,7 +199,8 @@ $total_due = 0;
                                             $getJson->execute();
                                             $pharmacy_sells = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                             $total_bill = 0;
-                                            // $total_discount = 0;
+                                            $total_discount = 0;
+                                            $total_exemption= 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
@@ -203,8 +214,9 @@ $total_due = 0;
                                                         $pharmacy_sell['patient_name'] = "-";
                                                     }
                                                     $total_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
-                                                    // $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
+                                                    $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
+                                                    $total_exemption+= (int)$pharmacy_sell['pharmacy_selling_exemption'];
                                                     $total_due += (int)$pharmacy_sell['pharmacy_sell_due_amount'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
@@ -214,7 +226,8 @@ $total_due = 0;
                                     <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '%</td>
+                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
+                                        <td>' . $pharmacy_sell['pharmacy_selling_exemption'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_grand_total'] . '</td>
@@ -236,13 +249,17 @@ $total_due = 0;
                                         <td style="text-align: right;"><?php echo $total_payment ?></td>
                                     </tr>
                                     <tr>
+                                        <td>Total Exemption</td>
+                                        <td style="text-align: right;"><?php echo $total_exemption ?></td>
+                                    </tr>
+                                    <tr>
                                         <td>Total Due</td>
                                         <td style="text-align: right;"><?php echo $total_due ?></td>
                                     </tr>
-                                    <!-- <tr>
+                                    <tr>
                                         <td>Total Discount</td>
-                                        <td style="text-align: right;"><?php echo $final_discount ?></td>
-                                    </tr> -->
+                                        <td style="text-align: right;"><?php echo $total_discount ?></td>
+                                    </tr>
 
                                 </table>
                                 <div style="min-height: 80px;"></div>

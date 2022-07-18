@@ -38,7 +38,7 @@ class UpdateIndoorPatientAllotment
                 $indoor_treatment_payment_type   = if_empty($_POST['indoor_treatment_payment_type']);
                 $indoor_treatment_payment_type_no  = if_empty($_POST['indoor_treatment_payment_type_no']);
                 $indoor_treatment_note   = if_empty($_POST['indoor_treatment_note']);
-                $indoor_treatment_released = if_empty(isset($_POST['indoor_treatment_released']));
+                $indoor_treatment_released = if_empty_return_zero(isset($_POST['indoor_treatment_released']));
 
                 $indoor_patient_bed_bed_id = if_empty($_POST['indoor_patient_bed_bed_id']);
                 $indoor_bed_category_name   = if_empty($_POST['indoor_bed_category_name']);
