@@ -174,6 +174,14 @@ if (!isset($_SESSION)) {
                                                     </div>
 
                                                     <?php
+                                                    // if ($result_content_outdoor_treatment[0]['outdoor_treatment_reference']) {
+                                                    //     echo ' <div class="my-2">  <span class="text-600 text-90">Reference:</span>' . $result_content_outdoor_treatment[0]['outdoor_treatment_reference']. '</b></div>';
+                                                    // } else {
+                                                    //     echo "";
+                                                    // }
+
+                                                    ?>
+                                                    <?php
                                                     if ($result_content_outdoor_treatment[0]['patient_phone']) {
                                                         echo '<div class="my-1"><i class="fa fa-phone fa-flip-horizontal text-secondary"></i> <b class="text-600">' . $result_content_outdoor_treatment[0]['patient_phone'] . '</b></div>';
                                                     } else {
