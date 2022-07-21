@@ -42,17 +42,26 @@ class DeleteMedicine
                 $mtp_pharmacy_purchase_medicine_total_pieces = $result_sum_content[0]['medicine_total_pieces'];
 
 
-                if ($mtp_pharmacy_purchase_medicine_total_pieces) {
+                if ($mtp_pharmacy_purchase_medicine_total_pieces>0) {
                     $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '$mtp_pharmacy_purchase_medicine_total_pieces'
     where pharmacy_medicine_id='$pharmacy_purchase_medicine_medicine_id' and pharmacy_medicine_batch_id='$pharmacy_purchase_medicine_batch_id' 
       ";
 
                     //echo $post_content;
                     $result_content = $conn->exec($post_content);
-                } else {
-                    $delete_content = "DELETE FROM  pharmacy_medicine   WHERE pharmacy_medicine_id='$pharmacy_purchase_medicine_medicine_id' ";
-                    $result = $conn->exec($delete_content);
+                } 
+                else{
+                    $post_content = "UPDATE pharmacy_medicine SET pharmacy_medicine_quantity = '0'
+                    where pharmacy_medicine_id='$pharmacy_purchase_medicine_medicine_id' and pharmacy_medicine_batch_id='$pharmacy_purchase_medicine_batch_id' 
+                      ";
+                
+                                    //echo $post_content;
+                                    $result_content = $conn->exec($post_content);
                 }
+                // else {
+                //     $delete_content = "DELETE FROM  pharmacy_medicine   WHERE pharmacy_medicine_id='$pharmacy_purchase_medicine_medicine_id' ";
+                //     $result = $conn->exec($delete_content);
+                // }
 
 
 

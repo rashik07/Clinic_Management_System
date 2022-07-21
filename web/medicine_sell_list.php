@@ -129,15 +129,16 @@ require_once('check_if_pharmacy_manager.php');
                     spinner.hide();
                     var obj = JSON.parse(response);
                     alert(obj.message);
-                    //alert(obj.status);
+                    // alert(obj.status);
                     if (obj.status) {
                         //location.reload();
                         window.open("medicine_sell_list.php", "_self");
                     }
+                   
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     spinner.hide();
-                    alert("alert : " + errorThrown);
+                    alert("alert : " + textStatus);
                 }
             });
         } else {

@@ -12,7 +12,7 @@ if (isset($_POST["max"])) {
     $end_date = $_POST["max"];
 }
 $total_bill = 0;
-// $total_discount = 0;
+$total_discount = 0;
 $total_payment = 0;
 $total_exemption = 0;
 $total_due = 0;

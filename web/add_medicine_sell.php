@@ -41,21 +41,15 @@ require_once('check_if_pharmacy_manager.php');
 
                     $get_content = "select *,(SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
                     (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
-              LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
-              WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell,
+                    LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
+                    WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell,
 
-(SELECT SUM(pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_piece) from pharmacy_medicine
-LEFT JOIN pharmacy_sell_medicine_return on pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id
-WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id and pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_batch_id=pharmacy_medicine.pharmacy_medicine_batch_id
-
-) as total_return
-
-             from medicine
-
-             
-
-                    
-                       
+                    (SELECT SUM(pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_piece) from pharmacy_medicine
+                    LEFT JOIN pharmacy_sell_medicine_return on pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id
+                    WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pm.pharmacy_medicine_id and pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_batch_id=pm.pharmacy_medicine_batch_id
+                    ) as total_return 
+                    from medicine
+     
                          left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
                          left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
                          left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id;";
@@ -287,7 +281,7 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
             spinner.show();
             var formData = new FormData(this);
             var currentdate = new Date();
-            z
+            
             var datetime = currentdate.getDate().toString() +
                 (currentdate.getMonth() + 1).toString() +
                 currentdate.getFullYear().toString() +
@@ -384,6 +378,7 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
                 }
             }
             row_update(instance);
+
         } else {
             alert("Medicine Not Available"); // don't allow form submission
             // document.getElementById("is_new").value = "true";
@@ -614,8 +609,8 @@ WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=ph
 
     function load_medicine() {
         for (var i = 0; i < Object.keys(all_medicine).length; i++) {
-            if (all_medicine[i]['pharmacy_medicine_id']) {
-                $("#medicine_list").append('<option value="' + all_medicine[i]['medicine_name'] + '">' + all_medicine[i]['medicine_name'] + '~' + all_medicine[i]['pharmacy_medicine_batch_id'] + '</option>');
+            if (all_medicine[i]['pharmacy_medicine_id'] && (all_medicine[i]['total_quantity']-all_medicine[i]['total_sell']+all_medicine[i]['total_return']!=0)) {
+                $("#medicine_list").append('<option value="' + all_medicine[i]['pharmacy_medicine_id'] + '">' + all_medicine[i]['medicine_name'] + '~' + all_medicine[i]['pharmacy_medicine_batch_id'] + '</option>');
             }
 
         }

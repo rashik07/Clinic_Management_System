@@ -124,6 +124,10 @@ require_once('check_if_outdoor_manager.php');
                                                 <label for="outdoor_treatment_reference">Reference Name</label>
                                                 <input type="text" placeholder="Reference Name" class="form-control" id="outdoor_treatment_reference" name="outdoor_treatment_reference" value="<?php echo $result_content_treatment[0]['outdoor_treatment_reference']; ?>">
                                             </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="outdoor_treatment_report_delivery_date">Report Delivery Date</label>
+                                                <input type="date" placeholder="Report Delivery Date" class="form-control" id="outdoor_treatment_report_delivery_date" name="outdoor_treatment_report_delivery_date" value="<?php echo $result_content_treatment[0]['outdoor_treatment_report_delivery_date']; ?>">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

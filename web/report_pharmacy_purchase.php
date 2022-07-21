@@ -88,6 +88,7 @@ $total_due = 0;
                                     <tbody>
                                         <?php
 
+
                                         if ($start_date != "" && $end_date != "") {
                                             require_once("../apis/Connection.php");
                                             $connection = new Connection();
@@ -102,6 +103,7 @@ $total_due = 0;
                                             $total_payment = 0;
                                             $total_due = 0;
 
+
                                             if (count($pharmacy_sells) > 0) {
                                                 foreach ($pharmacy_sells as $pharmacy_sell) {
                                                     // $last_bed_name = $bed['indoor_bed_name'];
@@ -113,13 +115,27 @@ $total_due = 0;
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_purchase_paid_amount'];
                                                     $total_due += (int)$pharmacy_sell['pharmacy_purchase_due_amount'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_purchase_creation_time']));
+                                                    $pharmacy_discount =0;
+                                                    if(!$pharmacy_sell['pharmacy_purchase_discount']){
+                                                        $pharmacy_discount =0;
+                                                    }
+
+                                                    else if ($pharmacy_sell['pharmacy_purchase_discount'][strlen($pharmacy_sell['pharmacy_purchase_discount']) - 1] == "%") {
+                                                        $pharmacy_discount = ((int)$pharmacy_sell['pharmacy_purchase_sub_total'] * (int)$pharmacy_sell['pharmacy_purchase_discount'] / 100) . "(" . $pharmacy_sell['pharmacy_purchase_discount'] . ")";
+                                                    }
+                                                    else {
+                                                        $pharmacy_discount = $pharmacy_sell['pharmacy_purchase_discount'];
+                                                    }
                                                     echo '
                                     <tr class="main_row">
                                         
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_invoice_no'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_sub_total'] . '</td>
-                                        <td>' . (int)$pharmacy_sell['pharmacy_purchase_discount'] . '%</td>
+                        
+                                     
+                                      
+                                        <td>' .  $pharmacy_discount. '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_paid_amount'] . '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_due_amount'] . '</td>
                                         <td>' . (int)$pharmacy_sell['pharmacy_purchase_grand_total'] . '</td>

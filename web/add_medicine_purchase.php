@@ -41,8 +41,6 @@ require_once('check_if_pharmacy_manager.php');
  WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
 from medicine
             
-         
-            
             left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
             left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
             left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id";
@@ -397,10 +395,21 @@ from medicine
         let vat = document.getElementById("pharmacy_purchase_vat").value;
         let discount = document.getElementById("pharmacy_purchase_discount").value;
         let sub_total_with_vat = (sub_total + ((sub_total * vat) / 100))
-        document.getElementById("pharmacy_purchase_grand_total").value = (sub_total_with_vat - ((sub_total * discount) / 100));
-        let grand_total = document.getElementById("pharmacy_purchase_grand_total").value;
-        let paid = document.getElementById("pharmacy_purchase_paid_amount").value;
+        if (discount.search("%") > 0) {
+            console.log(discount)
+            document.getElementById("pharmacy_purchase_grand_total").value = (sub_total_with_vat - ((sub_total * discount.slice(0, -1)) / 100));
+            let grand_total = document.getElementById("pharmacy_purchase_grand_total").value;
+            let paid = document.getElementById("pharmacy_purchase_paid_amount").value;
         document.getElementById("pharmacy_purchase_due_amount").value = grand_total - paid;
+        }
+        else{
+            document.getElementById("pharmacy_purchase_grand_total").value = (sub_total_with_vat -  discount);
+            let grand_total = document.getElementById("pharmacy_purchase_grand_total").value;
+            let paid = document.getElementById("pharmacy_purchase_paid_amount").value;
+        document.getElementById("pharmacy_purchase_due_amount").value = grand_total - paid;
+        }
+
+     
 
     }
 
@@ -426,14 +435,14 @@ from medicine
                 var obj = JSON.parse(response);
                 var datas = obj.medicine;
                 // console.log(datas);
-                
+
                 $("#manufacturer_medicines").html('');
                 for (var key in datas) {
                     if (datas.hasOwnProperty(key)) {
                         $("#manufacturer_medicines").append('<option value="' + datas[key].medicine_id + '">' + datas[key].medicine_name + '</option>');
                     }
                 }
-            
+
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
