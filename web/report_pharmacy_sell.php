@@ -114,12 +114,24 @@ $total_due = 0;
                                                         $pharmacy_sell['patient_name'] = "-";
                                                     }
                                                     $total_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
-                                                    $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
+                                                    // $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
                                                     $total_exemption+= (int)$pharmacy_sell['pharmacy_selling_exemption'];
                                                     $total_due += (int)$pharmacy_sell['pharmacy_sell_due_amount'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
 
+                                                    $pharmacy_discount =0;
+                                                    if(!$pharmacy_sell['pharmacy_sell_discount']){
+                                                        $pharmacy_discount =0;
+                                                    }
+
+                                                    else if ($pharmacy_sell['pharmacy_sell_discount'][strlen($pharmacy_sell['pharmacy_sell_discount']) - 1] == "%") {
+                                                        $pharmacy_discount = ((int)$pharmacy_sell['pharmacy_sell_sub_total'] * (int)$pharmacy_sell['pharmacy_sell_discount'] / 100) . "(" . $pharmacy_sell['pharmacy_sell_discount'] . ")";
+                                                    }
+                                                    else {
+                                                        $pharmacy_discount = $pharmacy_sell['pharmacy_sell_discount'];
+                                                    }
+                                                    $total_discount +=  (int)$pharmacy_discount;
                                                     echo '
                                                 
                                     <tr class="main_row">
@@ -128,7 +140,7 @@ $total_due = 0;
                                         <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
+                                        <td>' . $pharmacy_discount . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_selling_exemption'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>
@@ -214,19 +226,31 @@ $total_due = 0;
                                                         $pharmacy_sell['patient_name'] = "-";
                                                     }
                                                     $total_bill += (int)$pharmacy_sell['pharmacy_sell_grand_total'];
-                                                    $total_discount += $pharmacy_sell['pharmacy_sell_discount'];
+                                                   
                                                     $total_payment += (int)$pharmacy_sell['pharmacy_sell_paid_amount'];
                                                     $total_exemption+= (int)$pharmacy_sell['pharmacy_selling_exemption'];
                                                     $total_due += (int)$pharmacy_sell['pharmacy_sell_due_amount'];
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
                                                     $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['pharmacy_sell_creation_time']));
+                                                    $pharmacy_discount =0;
+                                                    if(!$pharmacy_sell['pharmacy_sell_discount']){
+                                                        $pharmacy_discount =0;
+                                                    }
+
+                                                    else if ($pharmacy_sell['pharmacy_sell_discount'][strlen($pharmacy_sell['pharmacy_sell_discount']) - 1] == "%") {
+                                                        $pharmacy_discount = ((int)$pharmacy_sell['pharmacy_sell_sub_total'] * (int)$pharmacy_sell['pharmacy_sell_discount'] / 100) . "(" . $pharmacy_sell['pharmacy_sell_discount'] . ")";
+                                                    }
+                                                    else {
+                                                        $pharmacy_discount = $pharmacy_sell['pharmacy_sell_discount'];
+                                                    }
+                                                     $total_discount +=  (int)$pharmacy_discount;
                                                     echo '
                                     <tr class="main_row">
                                     <td> <a href="medicine_sell_invoice.php?medicine_sell_id='.$pharmacy_sell['pharmacy_sell_id'].'" target="_blank"> Invoice no. ' . $pharmacy_sell['pharmacy_sell_invoice_id'] . '</a></td>
                                     <td>' . $pharmacy_sell['patient_name'] . '</td>
                                         <td>' . $sell_Date . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_sub_total'] . '</td>
-                                        <td>' . $pharmacy_sell['pharmacy_sell_discount'] . '</td>
+                                        <td>' . $pharmacy_discount . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_selling_exemption'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_paid_amount'] . '</td>
                                         <td>' . $pharmacy_sell['pharmacy_sell_due_amount'] . '</td>

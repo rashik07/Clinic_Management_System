@@ -12,7 +12,6 @@ require_once('check_if_pharmacy_manager.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
@@ -365,10 +364,19 @@ from pharmacy_purchase_medicine
         let vat = document.getElementById("pharmacy_purchase_vat").value;
         let discount = document.getElementById("pharmacy_purchase_discount").value;
         let sub_total_with_vat = (sub_total + ((sub_total * vat) / 100))
-        document.getElementById("pharmacy_purchase_grand_total").value = (sub_total_with_vat - ((sub_total * discount) / 100));
-        let grand_total = document.getElementById("pharmacy_purchase_grand_total").value;
-        let paid = document.getElementById("pharmacy_purchase_paid_amount").value;
+        if (discount.search("%") > 0) {
+            console.log(discount)
+            document.getElementById("pharmacy_purchase_grand_total").value = (sub_total_with_vat - ((sub_total * discount.slice(0, -1)) / 100));
+            let grand_total = document.getElementById("pharmacy_purchase_grand_total").value;
+            let paid = document.getElementById("pharmacy_purchase_paid_amount").value;
         document.getElementById("pharmacy_purchase_due_amount").value = grand_total - paid;
+        }
+        else{
+            document.getElementById("pharmacy_purchase_grand_total").value = (sub_total_with_vat -  discount);
+            let grand_total = document.getElementById("pharmacy_purchase_grand_total").value;
+            let paid = document.getElementById("pharmacy_purchase_paid_amount").value;
+        document.getElementById("pharmacy_purchase_due_amount").value = grand_total - paid;
+        }
         // row_update(this);
     }
 
