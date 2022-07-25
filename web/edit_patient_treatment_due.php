@@ -12,7 +12,6 @@ require_once('check_if_outdoor_manager.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
@@ -45,8 +44,6 @@ require_once('check_if_outdoor_manager.php');
                     $getJson = $conn->prepare($get_content);
                     $getJson->execute();
                     $result_content_treatment = $getJson->fetchAll(PDO::FETCH_ASSOC);
-
-
 
 
                     $get_content = "select * from outdoor_service 
@@ -274,7 +271,6 @@ require_once('check_if_outdoor_manager.php');
     var total_bill = 0;
     initTableq19();
     $(document).ready(function() {
-
 
         $('form#patient_service_update_form').on('submit', function(event) {
             event.preventDefault();

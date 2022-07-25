@@ -25,10 +25,18 @@ class DeleteOutdoorService{
         if($check_token && $check_permission)
         {
             try{
-                $delete_content = "DELETE outdoor_treatment_service,outdoor_treatment FROM outdoor_treatment_service inner join outdoor_treatment on outdoor_treatment_service.outdoor_treatment_service_treatment_id=outdoor_treatment.outdoor_treatment_id  WHERE outdoor_treatment_service_treatment_id='$outdoor_service_id' 
+
+                $delete_content = "DELETE FROM outdoor_treatment_payment  WHERE outdoor_treatment_payment_treatment_id='$outdoor_service_id' 
+                ";
+                $result_payment = $conn->exec($delete_content);
+
+                $delete_content = "DELETE FROM outdoor_treatment_service   WHERE outdoor_treatment_service_treatment_id='$outdoor_service_id' 
                 ";
                 $result = $conn->exec($delete_content);
-                if ($result) {
+                $delete_content = "DELETE FROM outdoor_treatment  WHERE outdoor_treatment_id='$outdoor_service_id' 
+                ";
+                $result = $conn->exec($delete_content);
+                if ($result && $result_payment) {
                     echo json_encode(array("outdoor_treatment" => "Successful", $status => 1, $message => "Delete Outdoor Service Successful"));
                 } else {
                     echo json_encode(array("outdoor_treatment" => "Error", $status => 0, $message => "Delete Outdoor Service Failed"));

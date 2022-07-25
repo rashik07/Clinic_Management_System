@@ -21,7 +21,7 @@ class UpdatePatientOutdoorTreatment
         $token  = $_POST['token'];
 
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
-        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1,2,3,4]) || $token_generator->check_permission($request_user_id, $conn, [1,2,3,4]);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 3, 4]) || $token_generator->check_permission($request_user_id, $conn, [1, 2, 3, 4]);
 
         if ($check_token && $check_permission) {
             try {
@@ -34,6 +34,7 @@ class UpdatePatientOutdoorTreatment
                 $outdoor_treatment_discount_pc   = $_POST['outdoor_treatment_discount_pc'];
                 $outdoor_treatment_exemption = if_empty($_POST['outdoor_treatment_exemption']);
                 $outdoor_treatment_total_bill_after_discount  = if_empty($_POST['outdoor_treatment_total_bill_after_discount']);
+                $outdoor_treatment_due_collection  = if_empty($_POST['outdoor_treatment_due_collection']);
                 $outdoor_treatment_total_paid  = if_empty($_POST['outdoor_treatment_total_paid']);
                 $outdoor_treatment_total_due  = if_empty($_POST['outdoor_treatment_total_due']);
                 $outdoor_treatment_payment_type   = if_empty($_POST['outdoor_treatment_payment_type']);
@@ -68,6 +69,13 @@ class UpdatePatientOutdoorTreatment
                 //echo $outdoor_service_id;
                 $count_service = 0;
                 $result_treatment_service = true;
+
+                $post_content = "INSERT INTO outdoor_treatment_payment (outdoor_treatment_payment_user_added_id, outdoor_treatment_payment_treatment_id,outdoor_treatment_payment_details,
+                outdoor_treatment_payment_amount) 
+                VALUES ('$request_user_id', '$outdoor_treatment_id','$outdoor_treatment_payment_type','$outdoor_treatment_due_collection')";
+                //echo $post_content;
+                $result = $conn->exec($post_content);
+                $last_id = $conn->lastInsertId();
 
                 $get_content = "select * from outdoor_treatment_service 
                 where outdoor_treatment_service_treatment_id = '$outdoor_treatment_id'";

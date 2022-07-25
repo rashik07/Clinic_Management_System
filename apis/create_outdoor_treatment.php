@@ -23,7 +23,7 @@ class CreatePatientOutdoorTreatment
 
         // echo "testing";
         $check_token = $token_generator->check_token($request_user_id, $conn, $token);
-        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1,2,3,4]);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 3, 4]);
         //echo "Check Token: ".$check_token." Check Permission: ".$check_permission;
         if ($check_token && $check_permission) {
             try {
@@ -35,10 +35,9 @@ class CreatePatientOutdoorTreatment
                 $outdoor_treatment_consultant = if_empty($_POST['outdoor_treatment_consultant']);
                 if (isset($_POST['outdoor_treatment_report_delivery_date'])) {
                     $outdoor_treatment_report_delivery_date = if_empty_return_null($_POST['outdoor_treatment_report_delivery_date']);
-                  }
-             else{
-                $outdoor_treatment_report_delivery_date = 'NULL';
-             }
+                } else {
+                    $outdoor_treatment_report_delivery_date = 'NULL';
+                }
                 $outdoor_treatment_reference = if_empty($_POST['outdoor_treatment_reference']);
                 $outdoor_treatment_invoice_id = if_empty($_POST['outdoor_treatment_invoice_id']);
                 $outdoor_treatment_outdoor_service_Category = if_empty($_POST['outdoor_treatment_outdoor_service_Category']);
@@ -87,6 +86,17 @@ class CreatePatientOutdoorTreatment
                 // echo $post_content;
                 $result = $conn->exec($post_content);
                 $outdoor_treatment_id = $conn->lastInsertId();
+
+
+                $post_content = "INSERT INTO outdoor_treatment_payment (outdoor_treatment_payment_user_added_id, outdoor_treatment_payment_treatment_id,outdoor_treatment_payment_details,
+                outdoor_treatment_payment_amount) 
+                VALUES ('$request_user_id', '$outdoor_treatment_id','$outdoor_treatment_payment_type','$outdoor_treatment_total_paid')";
+                //echo $post_content;
+                $result = $conn->exec($post_content);
+                $last_id = $conn->lastInsertId();
+
+
+
                 $count_service = 0;
                 foreach ($outdoor_service_id as $rowservice) {
 
