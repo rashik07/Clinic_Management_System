@@ -12,7 +12,6 @@ require_once('check_if_admin.php');
         include 'sidebar.php';
         ?>
 
-
         <div id="content">
 
             <?php
@@ -90,8 +89,6 @@ require_once('check_if_admin.php');
                                         Age: <?php echo $result_content_treatment[0]['patient_age']; ?><br>
                                         Phone: <?php echo $result_content_treatment[0]['patient_phone']; ?><br>
 
-
-
                                     </div>
                                     <div class="form-group col-md-2">
                                     </div>
@@ -136,12 +133,9 @@ require_once('check_if_admin.php');
                                     </div>
                                 </div>
 
-
-
                                 <table id="datatable1" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-
                                             <th>Name<i class="text-danger"> * </i></th>
                                             <th>Quantity<i class="text-danger"> * </i></th>
                                             <th>Rate</th>
@@ -157,8 +151,6 @@ require_once('check_if_admin.php');
 
                                 </table>
 
-
-
                                 <div class="row">
                                     <div class="col-md-7"></div>
                                     <div class="col-md-5">
@@ -168,7 +160,6 @@ require_once('check_if_admin.php');
                                                 <div class="col-md-9"><input type="number" placeholder="Total Bill" class="form-control" id="outdoor_treatment_total_bill" name="outdoor_treatment_total_bill" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_bill']; ?>" readonly>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="form-group col-md-12">
                                             <div class="row">
@@ -198,6 +189,8 @@ require_once('check_if_admin.php');
                                                 </div>
                                             </div>
                                         </div>
+                                        <input type="number" placeholder="outdoor_treatment_total_paid_hidden" class="form-control"  id="outdoor_treatment_total_paid_hidden" name="outdoor_treatment_total_paid_hidden" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_paid']; ?>" >
+                                        <input type="number" placeholder="outdoor_treatment_due_collection" class="form-control"  id="outdoor_treatment_due_collection" name="outdoor_treatment_due_collection" >
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3"><label for="discharge-date">Due</label></div>
@@ -415,6 +408,9 @@ require_once('check_if_admin.php');
 
         var total_due = parseInt(total_bill) - parseInt(total_paid);
         document.getElementById("outdoor_treatment_total_due").value = total_due;
+
+        var outdoor_treatment_total_paid_hidden=document.getElementById("outdoor_treatment_total_paid_hidden").value
+        document.getElementById("outdoor_treatment_due_collection").value=parseInt(total_paid)-parseInt(outdoor_treatment_total_paid_hidden)
     }
 
     function update_total_bill() {
