@@ -75,9 +75,10 @@ require_once('check_if_outdoor_manager.php');
                                 <div class="form-row">
                                     <div class="form-group col-md-5">
                                         Invoice No: <?php echo $result_content_treatment[0]['outdoor_treatment_invoice_id']; ?><br>
-                                        <?php 
-                                        if($result_content_treatment[0]['outdoor_treatment_indoor_treatment_id']){
-                                            echo  'Admission id:'.   $result_content_treatment[0]["indoor_treatment_admission_id"] .'<br>';}?>
+                                        <?php
+                                        if ($result_content_treatment[0]['outdoor_treatment_indoor_treatment_id']) {
+                                            echo  'Admission id:' .   $result_content_treatment[0]["indoor_treatment_admission_id"] . '<br>';
+                                        } ?>
                                         Patient Name: <?php echo $result_content_treatment[0]['patient_name']; ?><br>
                                         Gender: <?php echo $result_content_treatment[0]['patient_gender']; ?><br>
                                         Age: <?php echo $result_content_treatment[0]['patient_age']; ?><br>
@@ -90,6 +91,7 @@ require_once('check_if_outdoor_manager.php');
                                     </div>
                                     <div class="form-group col-md-5">
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                        <input type="hidden" name="outdoor_treatment_indoor_treatment_id" value="<?php echo $result_content_treatment[0]['outdoor_treatment_indoor_treatment_id'] ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="outdoor_treatment_id" value="<?php echo $outdoor_treatment_id; ?>">

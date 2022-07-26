@@ -3,28 +3,30 @@
 // include db connect class
 require_once __DIR__ . '/Connection.php';
 require_once __DIR__ . '/token.php';
-class DeleteOutdoorService{
+class DeleteOutdoorService
+{
 
-    function delete(){
+    function delete()
+    {
         $connection = new Connection();
         $token_generator = new Token();
         $conn = $connection->getConnection();
         //array for json response
         $response = array();
-        $status="status";
+        $status = "status";
         $message = "message";
         $request_user_id   = $_POST['request_user_id'];
         $token   = $_POST['token'];
         $outdoor_service_id  = $_POST['treatment_id'];
-        $check_token = $token_generator->check_token($request_user_id,$conn,$token);
-        $check_permission = $token_generator->check_permission($request_user_id,$conn,[1,2,3]);
+        $check_token = $token_generator->check_token($request_user_id, $conn, $token);
+        $check_permission = $token_generator->check_permission($request_user_id, $conn, [1, 2, 3]);
+        $is_indoor = 0;
         // DELETE T1, T2
         // FROM T1
         // INNER JOIN T2 ON T1.key = T2.key
         // WHERE condition;
-        if($check_token && $check_permission)
-        {
-            try{
+        if ($check_token && $check_permission) {
+            try {
 
                 $delete_content = "DELETE FROM outdoor_treatment_payment  WHERE outdoor_treatment_payment_treatment_id='$outdoor_service_id' 
                 ";
@@ -42,28 +44,21 @@ class DeleteOutdoorService{
                     echo json_encode(array("outdoor_treatment" => "Error", $status => 0, $message => "Delete Outdoor Service Failed"));
                 }
                 die();
-            }
-            catch(Exception $e)
-            {
-                echo json_encode(array("outdoor_treatment"=>null,$status=>0, $message=>$e));
+            } catch (Exception $e) {
+                echo json_encode(array("outdoor_treatment" => null, $status => 0, $message => $e));
                 die();
             }
-        }
-        else{
-            echo json_encode(array("outdoor_treatment"=>null,$status=>0, $message=>"Authentication Error"));
+        } else {
+            echo json_encode(array("outdoor_treatment" => null, $status => 0, $message => "Authentication Error"));
             die();
         }
-
     }
 }
-if(isset($_POST['content']) && ($_POST['content'] == "outdoor_treatment"))   // it checks whether the user clicked login button or not
+if (isset($_POST['content']) && ($_POST['content'] == "outdoor_treatment"))   // it checks whether the user clicked login button or not
 {
     $authenticate = new DeleteOutdoorService();
     $authenticate->delete();
-}
-
-else
-{
-    echo json_encode(array("message"=>"Bad Request"));
+} else {
+    echo json_encode(array("message" => "Bad Request"));
     die();
 }

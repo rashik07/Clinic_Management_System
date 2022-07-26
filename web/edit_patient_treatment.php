@@ -94,6 +94,7 @@ require_once('check_if_admin.php');
                                     </div>
                                     <div class="form-group col-md-5">
                                         <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                                        <input type="hidden" name="outdoor_treatment_indoor_treatment_id" value="<?php echo $result_content_treatment[0]['outdoor_treatment_indoor_treatment_id'] ?>">
                                         <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                         <input type="hidden" name="content" value="patient_treatment">
                                         <input type="hidden" name="outdoor_treatment_id" value="<?php echo $outdoor_treatment_id; ?>">
@@ -189,8 +190,8 @@ require_once('check_if_admin.php');
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="number" placeholder="outdoor_treatment_total_paid_hidden" class="form-control"  id="outdoor_treatment_total_paid_hidden" name="outdoor_treatment_total_paid_hidden" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_paid']; ?>" >
-                                        <input type="number" placeholder="outdoor_treatment_due_collection" class="form-control"  id="outdoor_treatment_due_collection" name="outdoor_treatment_due_collection" >
+                                        <input type="number" placeholder="outdoor_treatment_total_paid_hidden" class="form-control" id="outdoor_treatment_total_paid_hidden" name="outdoor_treatment_total_paid_hidden" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_paid']; ?>">
+                                        <input type="number" placeholder="outdoor_treatment_due_collection" class="form-control" id="outdoor_treatment_due_collection" name="outdoor_treatment_due_collection">
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3"><label for="discharge-date">Due</label></div>
@@ -409,8 +410,8 @@ require_once('check_if_admin.php');
         var total_due = parseInt(total_bill) - parseInt(total_paid);
         document.getElementById("outdoor_treatment_total_due").value = total_due;
 
-        var outdoor_treatment_total_paid_hidden=document.getElementById("outdoor_treatment_total_paid_hidden").value
-        document.getElementById("outdoor_treatment_due_collection").value=parseInt(total_paid)-parseInt(outdoor_treatment_total_paid_hidden)
+        var outdoor_treatment_total_paid_hidden = document.getElementById("outdoor_treatment_total_paid_hidden").value
+        document.getElementById("outdoor_treatment_due_collection").value = parseInt(total_paid) - parseInt(outdoor_treatment_total_paid_hidden)
     }
 
     function update_total_bill() {

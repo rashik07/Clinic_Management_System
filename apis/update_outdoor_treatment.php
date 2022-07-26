@@ -43,12 +43,25 @@ class UpdatePatientOutdoorTreatment
                 $outdoor_treatment_reference = if_empty($_POST['outdoor_treatment_reference']);
                 $outdoor_treatment_report_delivery_date = if_empty_return_null($_POST['outdoor_treatment_report_delivery_date']);
 
+                $outdoor_treatment_indoor_treatment_id = if_empty_return_null($_POST['outdoor_treatment_indoor_treatment_id']);
                 $outdoor_service_id = $_POST['outdoor_service_id'];
                 $outdoor_service_quantity  = $_POST['outdoor_service_quantity'];
                 $outdoor_service_rate  = $_POST['outdoor_service_rate'];
                 $outdoor_service_total  = $_POST['outdoor_service_total'];
                 $outdoor_treatment_service_discount_pc = $_POST['outdoor_treatment_service_discount_pc'];
 
+
+                $is_indoor = 0;
+                $is_increase = 1;
+                $is_due = 0;
+                if ((int)$outdoor_treatment_indoor_treatment_id > 0) {
+                    $is_indoor = 1;
+                }
+                if ($outdoor_treatment_due_collection < 0) {
+                    $is_increase = 0;
+                } else {
+                    $is_due = 1;
+                }
 
                 $post_content = "UPDATE outdoor_treatment SET outdoor_treatment_patient_id = '$outdoor_treatment_patient_id', outdoor_treatment_report_delivery_date='$outdoor_treatment_report_delivery_date',
                 outdoor_treatment_consultant='$outdoor_treatment_consultant',
@@ -69,13 +82,26 @@ class UpdatePatientOutdoorTreatment
                 //echo $outdoor_service_id;
                 $count_service = 0;
                 $result_treatment_service = true;
+                if ((int)$outdoor_treatment_due_collection != 0) {
+                    $post_content = "INSERT INTO outdoor_treatment_payment (outdoor_treatment_payment_user_added_id, outdoor_treatment_payment_treatment_id,outdoor_treatment_payment_details,
+                outdoor_treatment_payment_amount,outdoor_treatment_payment_due,outdoor_treatment_payment_increase) 
+                VALUES ('$request_user_id', '$outdoor_treatment_id','$outdoor_treatment_payment_type','$outdoor_treatment_due_collection','$is_due','$is_increase')";
+                    //echo $post_content;
+                    $result = $conn->exec($post_content);
+                    $last_id = $conn->lastInsertId();
+                }
 
-                $post_content = "INSERT INTO outdoor_treatment_payment (outdoor_treatment_payment_user_added_id, outdoor_treatment_payment_treatment_id,outdoor_treatment_payment_details,
-                outdoor_treatment_payment_amount) 
-                VALUES ('$request_user_id', '$outdoor_treatment_id','$outdoor_treatment_payment_type','$outdoor_treatment_due_collection')";
-                //echo $post_content;
-                $result = $conn->exec($post_content);
-                $last_id = $conn->lastInsertId();
+                // if ($is_indoor == 0) {
+                //     // Outdoor payment
+                //     $post_content = "INSERT INTO outdoor_treatment_payment (outdoor_treatment_payment_user_added_id, outdoor_treatment_payment_treatment_id,outdoor_treatment_payment_details,
+                // outdoor_treatment_payment_amount,outdoor_treatment_payment_due,outdoor_treatment_payment_increase) 
+                // VALUES ('$request_user_id', '$outdoor_treatment_id','$outdoor_treatment_payment_type','$outdoor_treatment_due_collection','$is_due','$is_increase')";
+                //     //echo $post_content;
+                //     $result = $conn->exec($post_content);
+                //     $last_id = $conn->lastInsertId();
+                // } else {
+                //     // indoor payment
+                // }
 
                 $get_content = "select * from outdoor_treatment_service 
                 where outdoor_treatment_service_treatment_id = '$outdoor_treatment_id'";

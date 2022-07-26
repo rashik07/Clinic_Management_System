@@ -2621,6 +2621,8 @@ CREATE TABLE `outdoor_treatment_payment` (
   `outdoor_treatment_payment_treatment_id` int(11) NOT NULL,
   `outdoor_treatment_payment_details` varchar(2550) DEFAULT NULL,
   `outdoor_treatment_payment_amount` int(11) DEFAULT 0,
+  `outdoor_treatment_payment_due` int(11) DEFAULT 0,
+  `outdoor_treatment_payment_increase` int(11) DEFAULT 1,
   `outdoor_treatment_payment_creation_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `outdoor_treatment_payment_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (outdoor_treatment_payment_id),
