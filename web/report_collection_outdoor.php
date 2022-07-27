@@ -147,10 +147,8 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_payment_creation_time']));
                                                         echo '<tr class="main_row">
                                                             
-                                                            <td>
-                                                            
-                                                             Incoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</td>
-                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
+                                                        <td><a target="_blank" href="doctor_visit_invoice.php?outdoor_treatment_id=' . $pharmacy_sell['outdoor_treatment_id'] . '">Invoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</a></td>
+                                                        <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['outdoor_treatment_payment_amount'] . '</td>
@@ -212,8 +210,8 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_payment_creation_time']));
                                                         echo '<tr class="main_row">
                                                             
-                                                            <td> Invoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</td>
-                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
+                                                        <td><a target="_blank" href="doctor_visit_invoice.php?outdoor_treatment_id=' . $pharmacy_sell['outdoor_treatment_id'] . '">Invoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</a></td>
+                                                        <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['outdoor_treatment_payment_amount'] . '</td>

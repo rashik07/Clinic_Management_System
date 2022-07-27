@@ -147,7 +147,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['indoor_treatment_payment_creation_time']));
                                                         echo '<tr class="main_row">
                                                             
-                                                            <td>' . $pharmacy_sell['indoor_treatment_payment_details'] . ' from Admission id : ' . $pharmacy_sell['indoor_treatment_admission_id'] . '</td>
+                                                            <td><a target="_blank" href="patient_release_mtc.php?indoor_treatment_id=' . $pharmacy_sell['indoor_treatment_id'] . '">' . $pharmacy_sell['indoor_treatment_payment_details'] . ' from Admission id : ' . $pharmacy_sell['indoor_treatment_admission_id'] . '</a></td>
                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
@@ -210,8 +210,8 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['indoor_treatment_payment_creation_time']));
                                                         echo '<tr class="main_row">
                                                             
-                                                            <td>' . $pharmacy_sell['indoor_treatment_payment_details'] . ' from Admission id : ' . $pharmacy_sell['indoor_treatment_admission_id'] . '</td>
-                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
+                                                        <td><a target="_blank" href="patient_release_mtc.php?indoor_treatment_id=' . $pharmacy_sell['indoor_treatment_id'] . '">' . $pharmacy_sell['indoor_treatment_payment_details'] . ' from Admission id : ' . $pharmacy_sell['indoor_treatment_admission_id'] . '</a></td>
+                                                        <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['indoor_treatment_payment_amount'] . '</td>
