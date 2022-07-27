@@ -109,7 +109,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                     if ($outdoor_treatment_consultant > 0) {
                                         $get_content = "SELECT * FROM indoor_treatment_payment LEFT JOIN indoor_treatment on indoor_treatment.indoor_treatment_id=indoor_treatment_payment.indoor_treatment_payment_treatment_id WHERE (indoor_treatment_payment_creation_time BETWEEN '$start_date' AND '$end_date') AND (outdoor_treatment_consultant = '$outdoor_treatment_consultant')";
                                     } else {
-                                        $get_content = "SELECT * FROM indoor_treatment_payment LEFT JOIN indoor_treatment on indoor_treatment.indoor_treatment_id=indoor_treatment_payment.indoor_treatment_payment_treatment_id WHERE (indoor_treatment_payment_creation_time BETWEEN '$start_date' AND '$end_date') ORDER BY indoor_treatment_payment_creation_time ASC";
+                                        $get_content = "SELECT * FROM indoor_treatment_payment LEFT JOIN indoor_treatment on indoor_treatment.indoor_treatment_id=indoor_treatment_payment.indoor_treatment_payment_treatment_id inner join patient on patient.patient_id = indoor_treatment.indoor_treatment_patient_id WHERE (indoor_treatment_payment_creation_time BETWEEN '$start_date' AND '$end_date') ORDER BY indoor_treatment_payment_creation_time ASC";
                                     }
                                     // echo $get_content;
                                     $getJson = $conn->prepare($get_content);
@@ -126,7 +126,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                                                 <!-- <td style="width: 40%;">Doctor Visit Details</td> -->
                                                 <td>Payment Details</td>
-
+                                                <td>Patient Name</td>
                                                 <td>Issue Date</td>
 
 
@@ -148,7 +148,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         echo '<tr class="main_row">
                                                             
                                                             <td>' . $pharmacy_sell['indoor_treatment_payment_details'] . ' from Admission id : ' . $pharmacy_sell['indoor_treatment_admission_id'] . '</td>
-                                                            
+                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['indoor_treatment_payment_amount'] . '</td>
@@ -161,7 +161,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td> Total
                                                     </td>
                                                     <td></td>
-                                                   
+                                                    <td></td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
 
                                                 </tr>';
@@ -189,7 +189,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                                                 <!-- <td style="width: 40%;">Doctor Visit Details</td> -->
                                                 <td>Payment Details</td>
-
+                                                <td>Patient Name</td>
                                                 <td>Issue Date</td>
 
 
@@ -211,7 +211,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         echo '<tr class="main_row">
                                                             
                                                             <td>' . $pharmacy_sell['indoor_treatment_payment_details'] . ' from Admission id : ' . $pharmacy_sell['indoor_treatment_admission_id'] . '</td>
-                                                            
+                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['indoor_treatment_payment_amount'] . '</td>
@@ -224,7 +224,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td> Total
                                                     </td>
                                                     <td></td>
-                                                   
+                                                    <td></td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
 
                                                 </tr>';

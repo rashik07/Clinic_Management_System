@@ -126,7 +126,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                                                 <!-- <td style="width: 40%;">Doctor Visit Details</td> -->
                                                 <td>Payment Details</td>
-
+                                                <td>Patient Name</td>
                                                 <td>Issue Date</td>
 
 
@@ -150,7 +150,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                             <td>
                                                             
                                                              Incoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</td>
-                                                            
+                                                             <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['outdoor_treatment_payment_amount'] . '</td>
@@ -163,7 +163,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td> Total
                                                     </td>
                                                     <td></td>
-                                                   
+                                                    <td></td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
 
                                                 </tr>';
@@ -191,7 +191,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                                                 <!-- <td style="width: 40%;">Doctor Visit Details</td> -->
                                                 <td>Payment Details</td>
-
+                                                <td>Patient Name</td>
                                                 <td>Issue Date</td>
 
 
@@ -213,7 +213,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         echo '<tr class="main_row">
                                                             
                                                             <td> Invoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</td>
-                                                            
+                                                            <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
                                                             <td style="text-align: right;">' . (int)$pharmacy_sell['outdoor_treatment_payment_amount'] . '</td>
@@ -226,7 +226,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                     <td> Total
                                                     </td>
                                                     <td></td>
-                                                   
+                                                    <td></td>
                                                     <td style="text-align: right;">' . $total_bill . '</td>
 
                                                 </tr>';
