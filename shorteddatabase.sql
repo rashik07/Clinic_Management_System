@@ -2629,6 +2629,22 @@ CREATE TABLE `outdoor_treatment_payment` (
   FOREIGN KEY (outdoor_treatment_payment_treatment_id) REFERENCES outdoor_treatment (outdoor_treatment_id)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
+
+CREATE TABLE `pharmacy_payment` (
+  `pharmacy_payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pharmacy_payment_user_added_id` int(11) NOT NULL,
+  `pharmacy_payment_pharmacy_sell_id` int(11) NOT NULL,
+  `pharmacy_payment_details` varchar(2550) DEFAULT NULL,
+  `pharmacy_payment_amount` int(11) DEFAULT 0,
+  `pharmacy_payment_due` int(11) DEFAULT 0,
+  `pharmacy_payment_increase` int(11) DEFAULT 1,
+  `pharmacy_payment_creation_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `pharmacy_payment_modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (pharmacy_payment_id),
+  FOREIGN KEY (pharmacy_payment_pharmacy_sell_id) REFERENCES pharmacy_sell (pharmacy_sell_id)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+
 -- ex: medicine,syrap,liquid, tablet,ointment
 CREATE TABLE `medicine_category` (
   `medicine_category_id` int(11) NOT NULL AUTO_INCREMENT,

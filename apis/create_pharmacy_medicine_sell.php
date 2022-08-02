@@ -48,6 +48,15 @@ class CreatePharmacyMedicineSell
                 $pharmacy_selling_medicine_selling_pieces = $_POST['pharmacy_selling_medicine_selling_pieces'];
                 $pharmacy_purchase_medicine_total_selling_price = $_POST['pharmacy_purchase_medicine_total_selling_price'];
 
+                $is_indoor = 0;
+                $is_increase = 1;
+                $is_due = 0;
+                if ((int)$pharmacy_sell_indoor_treatment_id > 0) {
+                    $is_indoor = 1;
+                }
+
+
+
                 $post_content = "INSERT INTO pharmacy_sell (pharmacy_sell_invoice_id,pharmacy_sell_user_added_id,
                            pharmacy_sell_patient_id, pharmacy_sell_indoor_treatment_id, pharmacy_sell_date, pharmacy_sell_sub_total,
                            pharmacy_sell_vat, pharmacy_sell_discount,pharmacy_selling_exemption, pharmacy_sell_grand_total,
@@ -60,6 +69,20 @@ class CreatePharmacyMedicineSell
                 //echo $post_content;
                 $result = $conn->exec($post_content);
                 $pharmacy_sell_id = $conn->lastInsertId();
+
+
+                if ($is_indoor == 0) {
+                    // Outdoor payment
+                    $post_content = "INSERT INTO pharmacy_payment(pharmacy_payment_user_added_id, pharmacy_payment_pharmacy_sell_id,pharmacy_payment_details,
+                    pharmacy_payment_amount,pharmacy_payment_due,pharmacy_payment_increase) 
+                    VALUES ('$request_user_id', '$pharmacy_sell_id','$is_indoor','$pharmacy_selling_paid_amount','$is_due','$is_increase')";
+                    //echo $post_content;
+                    $result = $conn->exec($post_content);
+                    $last_id = $conn->lastInsertId();
+                } else {
+                    // Indoor 
+                 
+                }
 
 
                 $count_service = 0;
