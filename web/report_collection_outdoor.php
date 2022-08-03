@@ -139,7 +139,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                                             if (count($pharmacy_sells) > 0) {
                                                 foreach ($pharmacy_sells as $pharmacy_sell) {
-                                                    if ($pharmacy_sell['outdoor_treatment_payment_due'] != "0") {
+                                                    if ($pharmacy_sell['outdoor_treatment_payment_due'] != "1") {
                                                         $total_bill += (int)$pharmacy_sell['outdoor_treatment_payment_amount'];
                                                         // $total_discount += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
                                                         // $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
@@ -147,7 +147,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_payment_creation_time']));
                                                         echo '<tr class="main_row">
                                                             
-                                                        <td><a target="_blank" href="doctor_visit_invoice.php?outdoor_treatment_id=' . $pharmacy_sell['outdoor_treatment_id'] . '">Invoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</a></td>
+                                                        <td><a target="_blank" href="doctor_visit_invoice.php?outdoor_treatment_id=' . $pharmacy_sell['outdoor_treatment_id'] . '">Invoice : ' . $pharmacy_sell['outdoor_treatment_id'] . '</a></td>
                                                         <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             
@@ -202,7 +202,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                                             if (count($pharmacy_sells) > 0) {
                                                 foreach ($pharmacy_sells as $pharmacy_sell) {
-                                                    if ($pharmacy_sell['outdoor_treatment_payment_due'] == "0") {
+                                                    if ($pharmacy_sell['outdoor_treatment_payment_due'] == "1") {
                                                         $total_bill += (int)$pharmacy_sell['outdoor_treatment_payment_amount'];
                                                         // $total_discount += (int)$pharmacy_sell['outdoor_treatment_discount_pc'];
                                                         // $total_payment += (int)$pharmacy_sell['outdoor_treatment_total_paid'];
@@ -210,7 +210,7 @@ $result_content_doctor = $getJson->fetchAll(PDO::FETCH_ASSOC);
                                                         $sell_Date = date("m/d/Y", strtotime($pharmacy_sell['outdoor_treatment_payment_creation_time']));
                                                         echo '<tr class="main_row">
                                                             
-                                                        <td><a target="_blank" href="doctor_visit_invoice.php?outdoor_treatment_id=' . $pharmacy_sell['outdoor_treatment_id'] . '">Invoice : ' . $pharmacy_sell['outdoor_treatment_invoice_id'] . '</a></td>
+                                                        <td><a target="_blank" href="doctor_visit_invoice.php?outdoor_treatment_id=' . $pharmacy_sell['outdoor_treatment_id'] . '">Invoice : ' . $pharmacy_sell['outdoor_treatment_id'] . '</a></td>
                                                         <td>' . $pharmacy_sell['patient_name'] . '</td>
                                                             <td>' . $sell_Date . '</td>
                                                             

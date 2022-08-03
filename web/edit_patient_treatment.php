@@ -190,8 +190,8 @@ require_once('check_if_admin.php');
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="number" placeholder="outdoor_treatment_total_paid_hidden" class="form-control" id="outdoor_treatment_total_paid_hidden" name="outdoor_treatment_total_paid_hidden" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_paid']; ?>">
-                                        <input type="number" placeholder="outdoor_treatment_due_collection" class="form-control" id="outdoor_treatment_due_collection" name="outdoor_treatment_due_collection">
+                                        <input type="hidden" placeholder="outdoor_treatment_total_paid_hidden" class="form-control" id="outdoor_treatment_total_paid_hidden" name="outdoor_treatment_total_paid_hidden" value="<?php echo $result_content_treatment[0]['outdoor_treatment_total_paid']; ?>">
+                                        <input type="hidden" placeholder="outdoor_treatment_due_collection" class="form-control" id="outdoor_treatment_due_collection" name="outdoor_treatment_due_collection">
                                         <div class="form-group col-md-12">
                                             <div class="row">
                                                 <div class="col-md-3"><label for="discharge-date">Due</label></div>
