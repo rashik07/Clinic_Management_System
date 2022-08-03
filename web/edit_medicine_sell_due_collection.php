@@ -37,7 +37,7 @@ require_once('check_if_pharmacy_manager.php');
                     $result_content_medicine_manufacturer = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
                     $get_content = "select *,
-       (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
+                    (SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
        (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
  LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
  WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell
@@ -81,6 +81,32 @@ from pharmacy_sell_medicine
                     $getJson->execute();
                     $result_content_medicine_leaf = $getJson->fetchAll(PDO::FETCH_ASSOC);
 
+                    
+                    $get_content = "select *,(SELECT  SUM(pharmacy_medicine.pharmacy_medicine_quantity) from pharmacy_medicine WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_quantity,
+                    (SELECT  SUM(psm.pharmacy_sell_medicine_selling_piece) from pharmacy_medicine
+              LEFT JOIN pharmacy_sell_medicine psm ON psm.pharmacy_sell_medicine_medicine_id = pharmacy_medicine.pharmacy_medicine_id
+              WHERE pharmacy_medicine.pharmacy_medicine_medicine_id=pm.pharmacy_medicine_medicine_id and pharmacy_medicine.pharmacy_medicine_batch_id=pm.pharmacy_medicine_batch_id) as total_sell,
+
+(SELECT SUM(pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_piece) from pharmacy_medicine
+LEFT JOIN pharmacy_sell_medicine_return on pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id
+WHERE pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_id=pharmacy_medicine.pharmacy_medicine_id and pharmacy_sell_medicine_return.pharmacy_sell_medicine_return_medicine_batch_id=pharmacy_medicine.pharmacy_medicine_batch_id
+
+) as total_return
+
+             from medicine
+
+             
+
+                    
+                       
+                         left join medicine_unit mu on mu.medicine_unit_id = medicine.medicine_unit
+                         left join medicine_manufacturer mm on mm.medicine_manufacturer_id = medicine.medicine_manufacturer
+                         left join pharmacy_medicine pm on medicine.medicine_id = pm.pharmacy_medicine_medicine_id;";
+                    //echo $get_content;
+                    $getJson = $conn->prepare($get_content);
+                    $getJson->execute();
+                    $result_content_medicine = $getJson->fetchAll(PDO::FETCH_ASSOC);
+
 
 
                     ?>
@@ -102,6 +128,7 @@ from pharmacy_sell_medicine
                                     <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                                     <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <input type="hidden" name="medicine_sell_id" value="<?php echo $medicine_sell_id; ?>">
+                                    <input type="hidden" name="pharmacy_sell_indoor_treatment_id" value="<?php echo $pharmacy_sell_indoor_treatment_id; ?>">
                                     <input type="hidden" name="content" value="pharmacy_medicine_sell">
                                     <!-- <div class="form-group col-md-6">
                                         <label for="indoor_treatment_admission_id">Admission ID.</label>
@@ -493,7 +520,7 @@ from pharmacy_sell_medicine
 
     function initRowTable() {
         var list = <?php echo json_encode($result_content_pharmacy_medicine_sell); ?>;
-
+        var list1 = <?php echo json_encode($result_content_medicine); ?>;
         //alert(list);
         var table = document.getElementById('datatable1_body');
         var main_table = document.getElementById('datatable1');
@@ -560,7 +587,9 @@ from pharmacy_sell_medicine
             text3.setAttribute("id", "pharmacy_selling_medicine_exp_date");
             text3.setAttribute("value", formatDate(list[i]['pharmacy_sell_medicine_exp_date']));
 
-
+            if(list1[i]['total_return']==null){
+                list1[i]['total_return']=0;
+            }
             var text4 = document.createElement("INPUT");
             text4.setAttribute("type", "text");
             text4.setAttribute("required", "required");
@@ -569,7 +598,7 @@ from pharmacy_sell_medicine
             text4.setAttribute("name", "pharmacy_selling_medicine_stock_qty[]");
             text4.setAttribute("id", "pharmacy_selling_medicine_stock_qty");
             text4.setAttribute("readonly", "readonly");
-            text4.setAttribute("value", parseInt(parseInt(list[i]['total_quantity']) - parseInt(list[i]['total_sell'])));
+            text4.setAttribute("value", parseInt(parseInt(list[i]['total_quantity']) - parseInt(list[i]['total_sell'])+ parseInt(list1[i]['total_return'])));
             //alert(parseInt(list[i]['total_quantity']));
             //alert(parseInt(list[i]['total_sell']));
 

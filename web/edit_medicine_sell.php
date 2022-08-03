@@ -111,23 +111,7 @@ from pharmacy_sell_medicine
                                     <input type="hidden" name="request_user_id" value="<?php echo $_SESSION['user_id']; ?>">
                                     <input type="hidden" name="medicine_sell_id" value="<?php echo $medicine_sell_id; ?>">
                                     <input type="hidden" name="content" value="pharmacy_medicine_sell">
-                                    <!-- <div class="form-group col-md-6">
-                                        <label for="indoor_treatment_admission_id">Admission ID.</label>
-                                        <input type="text" placeholder="Admission ID" class="form-control" id="indoor_treatment_admission_id" name="indoor_treatment_admission_id" value="<?php echo $result_content_medicine_sell[0]['indoor_treatment_admission_id'] ?>" readonly>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_phone">Patient Phone</label>
-                                        <input type="text" placeholder="Patient Phone." class="form-control" id="pharmacy_sell_patient_phone" name="pharmacy_sell_patient_phone" value="<?php echo $result_content_medicine_sell[0]['patient_phone']; ?>"  onchange="loadPatient();">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_id">Patient ID</label>
-                                        <input type="text" placeholder="Patient ID." class="form-control" id="pharmacy_sell_patient_id" name="pharmacy_sell_patient_id" value="<?php echo $result_content_medicine_sell[0]['patient_id']; ?>" readonly >
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="pharmacy_sell_patient_name">Patient Name</label>
-                                        <input type="text" placeholder="Patient Name" class="form-control" id="pharmacy_sell_patient_name" name="pharmacy_sell_patient_name" value="<?php echo $result_content_medicine_sell[0]['patient_name']; ?>" required readonly>
-                                    </div> -->
-
+                                    <input type="hidden" name="pharmacy_sell_indoor_treatment_id" value="<?php echo $pharmacy_sell_indoor_treatment_id; ?>">
 
                                     <div class="form-group col-md-6">
                                         <label for="pharmacy_sell_date">Selling Date<i class="text-danger"> * </i></label>
@@ -191,23 +175,31 @@ from pharmacy_sell_medicine
                                                 </td>
                                                 <td>
                                                 </td>
+
+
+                                                <input type="hidden" placeholder="pharmacy_sell_paid_amount_hidden" class="form-control" id="pharmacy_sell_paid_amount_hidden" name="pharmacy_sell_paid_amount_hidden" value="<?php echo $result_content_medicine_sell[0]['pharmacy_sell_paid_amount']; ?>">
+                                            <input type="hidden" placeholder="due_collection_amount" class="form-control" id="due_collection_amount" name="due_collection_amount">
+
+
+                                            <div class="form-group col-md-12">
                                             </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Paid Amount<i class="text-danger"> * </i>:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_paid_amount" onchange="total_calculation_update();" class="text-right form-control" name="pharmacy_selling_paid_amount" placeholder="0.00" required value="<?php echo $result_content_medicine_sell[0]['pharmacy_sell_paid_amount']; ?>" tabindex="18">
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right" colspan="6"><b>Due Amount:</b></td>
-                                                <td class="text-right">
-                                                    <input type="text" id="pharmacy_selling_due_amount" class="text-right form-control" name="pharmacy_selling_due_amount" placeholder="0.00" value="<?php echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount']; ?>" readonly="readonly">
-                                                </td>
-                                                <td>
-                                                </td>
-                                            </tr>
+                                    
+                                                <tr>
+                                                    <td class="text-right" colspan="6"><b>Paid Amount<i class="text-danger"> * </i>:</b></td>
+                                                    <td class="text-right">
+                                                        <input type="text" id="pharmacy_selling_paid_amount" onchange="total_calculation_update();" class="text-right form-control" name="pharmacy_selling_paid_amount" placeholder="0.00" required value="<?php echo $result_content_medicine_sell[0]['pharmacy_sell_paid_amount']; ?>" tabindex="18">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-right" colspan="6"><b>Due Amount:</b></td>
+                                                    <td class="text-right">
+                                                        <input type="text" id="pharmacy_selling_due_amount" class="text-right form-control" name="pharmacy_selling_due_amount" placeholder="0.00" value="<?php echo $result_content_medicine_sell[0]['pharmacy_sell_due_amount']; ?>" readonly="readonly">
+                                                    </td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
 
                                         </tfoot>
 
@@ -326,7 +318,7 @@ from pharmacy_sell_medicine
                     //alert("matched");
                     row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                     row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
+                    row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell'] + all_medicine[i]['total_return']);
                     //alert(all_medicine[i]['total_quantity']);
                     var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']) / (parseInt(all_medicine[i]['medicine_leaf_name']) * parseInt(all_medicine[i]['medicine_leaf_total_per_box'])));
                     //alert(per_pc_price);
@@ -367,7 +359,7 @@ from pharmacy_sell_medicine
                 //alert("matched");
                 row.find(".pharmacy_selling_medicine_batch_id").val(all_medicine[i]['pharmacy_medicine_batch_id']);
                 row.find(".pharmacy_selling_medicine_exp_date").val(formatDate(all_medicine[i]['pharmacy_medicine_exp_date']));
-                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell']+all_medicine[i]['total_return']);
+                row.find(".pharmacy_selling_medicine_stock_qty").val(all_medicine[i]['total_quantity'] - all_medicine[i]['total_sell'] + all_medicine[i]['total_return']);
                 //alert(all_medicine[i]['total_quantity']);
                 var per_pc_price = (parseFloat(all_medicine[i]['medicine_selling_price']));
                 // alert(per_pc_price);
@@ -413,6 +405,9 @@ from pharmacy_sell_medicine
         let grand_total = document.getElementById("pharmacy_selling_grand_total").value;
         let paid = document.getElementById("pharmacy_selling_paid_amount").value;
         document.getElementById("pharmacy_selling_due_amount").value = grand_total - paid;
+
+        var pharmacy_sell_paid_amount_hidden = document.getElementById("pharmacy_sell_paid_amount_hidden").value
+        document.getElementById("due_collection_amount").value = parseInt(paid) - parseInt(pharmacy_sell_paid_amount_hidden)
 
     }
 
@@ -467,7 +462,7 @@ from pharmacy_sell_medicine
     function initRowTable() {
         var list = <?php echo json_encode($result_content_pharmacy_medicine_sell); ?>;
         var list1 = <?php echo json_encode($result_content_medicine); ?>;
-        
+console.log(list1)
         //alert(list);
         var table = document.getElementById('datatable1_body');
         var main_table = document.getElementById('datatable1');
@@ -533,7 +528,9 @@ from pharmacy_sell_medicine
             text3.setAttribute("id", "pharmacy_selling_medicine_exp_date");
             text3.setAttribute("value", formatDate(list[i]['pharmacy_sell_medicine_exp_date']));
 
-
+            if(list1[i]['total_return']==null){
+                list1[i]['total_return']=0;
+            }
             var text4 = document.createElement("INPUT");
             text4.setAttribute("type", "text");
             text4.setAttribute("required", "required");
@@ -542,7 +539,8 @@ from pharmacy_sell_medicine
             text4.setAttribute("name", "pharmacy_selling_medicine_stock_qty[]");
             text4.setAttribute("id", "pharmacy_selling_medicine_stock_qty");
             text4.setAttribute("readonly", "readonly");
-            text4.setAttribute("value", parseInt(parseInt(list[i]['total_quantity']) - parseInt(list[i]['total_sell'])+parseInt(list1[i]['total_return'])));
+            text4.setAttribute("value", parseInt(parseInt(list[i]['total_quantity']) - parseInt(list[i]['total_sell']) + parseInt(list1[i]['total_return'])));
+            // text4.setAttribute("value","1");
             //alert(parseInt(list[i]['total_quantity']));
             // alert(parseInt(list[i]['total_sell']));
 

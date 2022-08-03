@@ -81,7 +81,12 @@ class CreatePharmacyMedicineSell
                     $last_id = $conn->lastInsertId();
                 } else {
                     // Indoor 
-                 
+                    $post_content = "INSERT INTO pharmacy_payment(pharmacy_payment_user_added_id, pharmacy_payment_pharmacy_sell_id,pharmacy_payment_details,
+                    pharmacy_payment_amount,pharmacy_payment_due,pharmacy_payment_increase) 
+                    VALUES ('$request_user_id', '$pharmacy_sell_id','$is_indoor','$pharmacy_selling_paid_amount','$is_due','$is_increase')";
+                    //echo $post_content;
+                    $result = $conn->exec($post_content);
+                    $last_id = $conn->lastInsertId();
                 }
 
 

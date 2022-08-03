@@ -31,6 +31,9 @@ class DeleteMedicine
                 $result_content = $getJson->fetchAll(PDO::FETCH_ASSOC);
                 $result=0;
                 if(!$result_content){
+                    $delete_content = "DELETE  FROM pharmacy_payment   WHERE pharmacy_payment_pharmacy_sell_id='$pharmacy_sell_id' ";
+                    $result = $conn->exec($delete_content);
+
                     $delete_content = "DELETE pharmacy_sell_medicine,pharmacy_sell FROM pharmacy_sell_medicine inner join pharmacy_sell on pharmacy_sell_medicine.pharmacy_sell_medicine_sell_id=pharmacy_sell.pharmacy_sell_id  WHERE pharmacy_sell_medicine_sell_id='$pharmacy_sell_id' ";
                     $result = $conn->exec($delete_content);
 

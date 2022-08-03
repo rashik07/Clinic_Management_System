@@ -38,8 +38,9 @@ class UpdatePharamacyMedicineSell
                 $pharmacy_selling_grand_total  = if_empty($_POST['pharmacy_selling_grand_total']);
                 $pharmacy_selling_paid_amount = if_empty($_POST['pharmacy_selling_paid_amount']);
                 $pharmacy_selling_due_amount   = if_empty($_POST['pharmacy_selling_due_amount']);
+                $due_collection_amount   = if_empty($_POST['due_collection_amount']);
 
-                // $pharmacy_sell_invoice_id = if_empty($_POST['pharmacy_sell_invoice_id']);
+                $pharmacy_sell_indoor_treatment_id = if_empty($_POST['pharmacy_sell_indoor_treatment_id']);
                 $pharmacy_selling_medicine_medicine_id = $_POST['pharmacy_selling_medicine_medicine_id'];
                 $pharmacy_selling_medicine_batch_id  = $_POST['pharmacy_selling_medicine_batch_id'];
                 $pharmacy_selling_medicine_exp_date = $_POST['pharmacy_selling_medicine_exp_date'];
@@ -56,6 +57,38 @@ class UpdatePharamacyMedicineSell
 where pharmacy_sell_id='$pharmacy_sell_id'";
                 //echo $post_content;
                 $result = $conn->exec($post_content);
+
+
+                $is_indoor = 0;
+                $is_increase = 1;
+                $is_due = 0;
+                if ((int)$pharmacy_sell_indoor_treatment_id > 0) {
+                    $is_indoor = 1;
+                }
+                if ($due_collection_amount < 0) {
+                    $is_increase = 0;
+                } else {
+                    $is_due = 1;
+                }
+                if ((int)$due_collection_amount != 0) {
+                    if ($is_indoor == 0) {
+                        // Outdoor payment
+                        $post_content = "INSERT INTO pharmacy_payment(pharmacy_payment_user_added_id, pharmacy_payment_pharmacy_sell_id,pharmacy_payment_details,
+                    pharmacy_payment_amount,pharmacy_payment_due,pharmacy_payment_increase) 
+                    VALUES ('$request_user_id', '$pharmacy_sell_id','$is_indoor','$due_collection_amount','$is_due','$is_increase')";
+                        //echo $post_content;
+                        $result = $conn->exec($post_content);
+                        $last_id = $conn->lastInsertId();
+                    } else {
+                        // Indoor 
+                        $post_content = "INSERT INTO pharmacy_payment(pharmacy_payment_user_added_id, pharmacy_payment_pharmacy_sell_id,pharmacy_payment_details,
+                    pharmacy_payment_amount,pharmacy_payment_due,pharmacy_payment_increase) 
+                    VALUES ('$request_user_id', '$pharmacy_sell_id','$is_indoor','$due_collection_amount','$is_due','$is_increase')";
+                        //echo $post_content;
+                        $result = $conn->exec($post_content);
+                        $last_id = $conn->lastInsertId();
+                    }
+                }
 
                 $delete_content = "DELETE FROM pharmacy_sell_medicine WHERE pharmacy_sell_medicine_sell_id='$pharmacy_sell_id'";
                 $result = $conn->exec($delete_content);

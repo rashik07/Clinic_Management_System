@@ -168,18 +168,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <li>
                         <a href="medicine_unit_list.php">Unit List</a>
                     </li>
-                    <!-- <li>
-                        <a href="add_medicine_type.php">Type Entry</a>
-                    </li>
-                    <li>
-                        <a href="medicine_type_list.php">Type List</a>
-                    </li> -->
-                    <!-- <li>
-                        <a href="add_medicine_leaf.php">Leaf Entry</a>
-                    </li>
-                    <li>
-                        <a href="medicine_leaf_list.php">Leaf List</a>
-                    </li> -->
+              
                     <li>
                         <a href="add_manufacturer.php">Supplier Entry</a>
                     </li>
@@ -203,12 +192,7 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <i class="fas fa-capsules"></i>Pharmacy
                 </a>
                 <ul class="collapse list-unstyled" id="nav-maps">
-                    <!-- <li>
-                        <a href="add_medicine_category.php">Category Entry</a>
-                    </li>
-                    <li>
-                        <a href="medicine_category_list.php">Category List</a>
-                    </li> -->
+              
                     <li>
                         <a href="stock.php"> Stock</a>
                     </li>
@@ -238,6 +222,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
                     <?php if ($_SESSION['user_type_access_level'] <= 2 || $_SESSION['user_type_access_level'] == 6) { ?>
                         <li>
                             <a href="report_pharmacy_sell.php"> Sell Report</a>
+                        </li>
+                        <li>
+                            <a href="report_collection_pharmecy_sell.php"> Sell Collection Report</a>
                         </li>
                         <li>
                             <a href="report_pharmacy_purchase.php"> Purchase Report</a>

@@ -596,11 +596,11 @@ require_once('check_if_pharmacy_manager.php');
                         }
                     }
                 }
-                if (document.getElementById("pharmacy_sell_indoor_treatment_id").value) {
-                    document.getElementById("pharmacy_selling_paid_amount").value = 0;
-                    document.getElementById("pharmacy_selling_paid_amount").readOnly  = true;
+                // if (document.getElementById("pharmacy_sell_indoor_treatment_id").value) {
+                //     document.getElementById("pharmacy_selling_paid_amount").value = 0;
+                //     document.getElementById("pharmacy_selling_paid_amount").readOnly  = true;
                  
-                }
+                // }
 
             },
             error: function(jqXHR, textStatus, errorThrown) {

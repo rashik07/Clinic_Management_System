@@ -91,17 +91,7 @@ class UpdatePatientOutdoorTreatment
                     $last_id = $conn->lastInsertId();
                 }
 
-                // if ($is_indoor == 0) {
-                //     // Outdoor payment
-                //     $post_content = "INSERT INTO outdoor_treatment_payment (outdoor_treatment_payment_user_added_id, outdoor_treatment_payment_treatment_id,outdoor_treatment_payment_details,
-                // outdoor_treatment_payment_amount,outdoor_treatment_payment_due,outdoor_treatment_payment_increase) 
-                // VALUES ('$request_user_id', '$outdoor_treatment_id','$outdoor_treatment_payment_type','$outdoor_treatment_due_collection','$is_due','$is_increase')";
-                //     //echo $post_content;
-                //     $result = $conn->exec($post_content);
-                //     $last_id = $conn->lastInsertId();
-                // } else {
-                //     // indoor payment
-                // }
+           
 
                 $get_content = "select * from outdoor_treatment_service 
                 where outdoor_treatment_service_treatment_id = '$outdoor_treatment_id'";
